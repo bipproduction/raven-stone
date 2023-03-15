@@ -122,19 +122,20 @@ const LayoutMapControll = () => {
 
   const onEvent: Record<string, Function> = {
     click: (a: any, b: any, c: any) => {
-      setSelectedData(a.data);
-      const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
-      const hasil = [];
-      for (let i of Object.keys(dataFilter)) {
-        const data = {
-          name: i,
-          value: dataFilter[i],
-          isLock: true,
-        };
-        hasil.push(data);
-      }
-      setListSelectedEmotion(hasil);
-      setbukamodal.open();
+      console.log(JSON.stringify(a.data, null, 2))
+      // setSelectedData(a.data);
+      // const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
+      // const hasil = [];
+      // for (let i of Object.keys(dataFilter)) {
+      //   const data = {
+      //     name: i,
+      //     value: dataFilter[i],
+      //     isLock: true,
+      //   };
+      //   hasil.push(data);
+      // }
+      // setListSelectedEmotion(hasil);
+      // setbukamodal.open();
     },
   };
 
@@ -272,6 +273,7 @@ const LayoutMapControll = () => {
           onEvents={onEvent}
           style={{
             height: 700,
+            background: 'gray'
           }}
           option={option}
         />
