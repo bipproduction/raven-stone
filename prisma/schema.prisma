@@ -1,0 +1,326 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(cuid())
+  name     String?
+  email    String? @unique
+  password String?
+  phone    String? @unique
+}
+
+model DukcapilDesa {
+  objectid                      Int?
+  kode201701                    String
+  desa201701                    String?
+  kec201701                     String?
+  kab201701                     String?
+  prov201701                    String?
+  no_kode                       Int?
+  no_prop                       Int?
+  no_kab                        Int?
+  no_kec                        Int?
+  no_kel                        Int?
+  kode_desa_                    String?
+  nama_prop_                    String?
+  nama_kab_s                    String?
+  nama_kec_s                    String?
+  nama_kel_s                    String?
+  jumlah_pen                    Int?
+  jumlah_kk                     Int?
+  luas_wilay                    String?
+  kepadatan_                    String?
+  perpindaha                    Int?
+  jumlah_men                    Int?
+  perubahan_                    Int?
+  wajib_ktp                     Int?
+  field1                        String?
+  field2                        String?
+  islam                         Int?
+  kristen                       Int?
+  katholik                      Int?
+  hindu                         Int?
+  budha                         Int?
+  konghucu                      Int?
+  kepercayaa                    Int?
+  field3                        String?
+  field4                        String?
+  pria                          Int?
+  wanita                        Int?
+  field5                        String?
+  field6                        String?
+  belum_kawi                    Int?
+  kawin                         Int?
+  cerai_hidu                    Int?
+  cerai_mati                    Int?
+  field7                        String?
+  field8                        String?
+  u0                            Int?
+  u5                            Int?
+  u10                           Int?
+  u15                           Int?
+  u20                           Int?
+  u25                           Int?
+  u30                           Int?
+  u35                           Int?
+  u40                           Int?
+  u45                           Int?
+  u50                           Int?
+  u55                           Int?
+  u60                           Int?
+  u65                           Int?
+  u70                           Int?
+  u75                           Int?
+  field9                        String?
+  field10                       String?
+  lahir_thn1                    Int?
+  lahir_seb                     Int?
+  lahir_thn2                    Int?
+  lahir_seb2                    Int?
+  lahir_thn3                    Int?
+  lahir_seb3                    Int?
+  pertumbuha                    Int?
+  pertumbuh2                    Int?
+  pertumbuh3                    Int?
+  field11                       String?
+  field12                       String?
+  pendidikan                    Int?
+  pendidika2                    Int?
+  pendidika3                    Int?
+  pendidika4                    Int?
+  pendidika5                    Int?
+  pendidika6                    Int?
+  field13                       String?
+  field14                       String?
+  tidak_belu                    Int?
+  belum_tama                    Int?
+  tamat_sd                      Int?
+  sltp                          Int?
+  slta                          Int?
+  diploma_i_                    Int?
+  diploma_ii                    Int?
+  diploma_iv                    Int?
+  strata_ii                     Int?
+  strata_iii                    Int?
+  field15                       String?
+  field16                       String?
+  a                             Int?
+  b                             Int?
+  ab                            Int?
+  o                             Int?
+  a_                            Int?
+  a_2                           Int?
+  b_                            Int?
+  b_2                           Int?
+  ab_                           Int?
+  ab_2                          Int?
+  o_                            Int?
+  o_2                           Int?
+  tidak_di_k                    Int?
+  field17                       String?
+  field18                       String?
+  belum_tida                    Int?
+  aparatur_p                    Int?
+  tenaga_pen                    Int?
+  wiraswasta                    Int?
+  pertanian_                    Int?
+  nelayan                       Int?
+  agama_dan_                    Int?
+  pelajar_ma                    Int?
+  tenaga_kes                    Int?
+  pensiunan                     Int?
+  lainnya                       Int?
+  field19                       String?
+  field20                       String?
+  generated_                    String?
+  field21                       String?
+  field22                       String?
+  kode_kel                      String?
+  field23                       String?
+  field24                       String?
+  p01_belum_                    Int?
+  p02_mengur                    Int?
+  p03_pelaja                    Int?
+  p04_pensiu                    Int?
+  p05_pegawa                    Int?
+  p06_tentar                    Int?
+  p07_kepoli                    Int?
+  p08_perdag                    Int?
+  p09_petani                    Int?
+  p10_petern                    Int?
+  p11_nelaya                    Int?
+  p12_indust                    Int?
+  p13_konstr                    Int?
+  p14_transp                    Int?
+  p15_karyaw                    Int?
+  p16_karyaw                    Int?
+  p17_karyaw                    Int?
+  p18_karyaw                    Int?
+  p19_buruh_                    Int?
+  p20_buruh_                    Int?
+  p21_buruh_                    Int?
+  p22_buruh_                    Int?
+  p23_pemban                    Int?
+  p24_tukang                    Int?
+  p25_tukang                    Int?
+  p26_tukang                    Int?
+  p27_tukang                    Int?
+  p28_tukang                    Int?
+  p29_tukang                    Int?
+  p30_tukang                    Int?
+  p31_tukang                    Int?
+  p32_penata                    Int?
+  p33_penata                    Int?
+  p34_penata                    Int?
+  p35_mekani                    Int?
+  p36_senima                    Int?
+  p37_tabib                     Int?
+  p38_paraji                    Int?
+  p39_peranc                    Int?
+  p40_penter                    Int?
+  p41_imam_m                    Int?
+  p42_pendet                    Int?
+  p43_pastor                    Int?
+  p44_wartaw                    Int?
+  p45_ustadz                    Int?
+  p46_juru_m                    Int?
+  p47_promot                    Int?
+  p48_anggot                    Int?
+  p49_anggot                    Int?
+  p50_anggot                    Int?
+  p51_presid                    Int?
+  p52_wakil_                    Int?
+  p53_anggot                    Int?
+  p54_anggot                    Int?
+  p55_duta_b                    Int?
+  p56_gubern                    Int?
+  p57_wakil_                    Int?
+  p58_bupati                    Int?
+  p59_wakil_                    Int?
+  p60_waliko                    Int?
+  p61_wakil_                    Int?
+  p62_anggot                    Int?
+  p63_anggot                    Int?
+  p64_dosen                     Int?
+  p65_guru                      Int?
+  p66_pilot                     Int?
+  p67_pengac                    Int?
+  p68_notari                    Int?
+  p69_arsite                    Int?
+  p70_akunta                    Int?
+  p71_konsul                    Int?
+  p72_dokter                    Int?
+  p73_bidan                     Int?
+  p74_perawa                    Int?
+  p75_apotek                    Int?
+  p76_psikia                    Int?
+  p77_penyia                    Int?
+  p78_penyia                    Int?
+  p79_pelaut                    Int?
+  p80_peneli                    Int?
+  p81_sopir                     Int?
+  p82_pialan                    Int?
+  p83_parano                    Int?
+  p84_pedaga                    Int?
+  p85_perang                    Int?
+  p86_kepala                    Int?
+  p87_biaraw                    Int?
+  p88_wirasw                    Int?
+  p89_lainny                    Int?
+  test_luas_desa_oid            Int?
+  test_luas_desa_kode201701     String?
+  test_luas_desa_desa201701     String?
+  test_luas_desa_kec201701      String?
+  test_luas_desa_kab201701      String?
+  test_luas_desa_prov201701     String?
+  test_luas_desa_no_kode        Int?
+  test_luas_desa_luas           String?
+  data                          String?
+  f4_18_tahun_pendidikan_khusus String?
+  f5_6_tahun_paud               Int?
+  f7_12_tahun_sd                String?
+  f12_15_tahun_smp              Int?
+  f16_18_tahun_sma              Int?
+  lahir_thn4                    Int?
+  lahir_thn5                    Int?
+  lahir_thn6                    Int?
+  lahir_seb4                    Int?
+  lahir_seb5                    Int?
+  lahir_seb6                    Int?
+  pertumbuh4                    Int?
+  pertumbuh5                    Int?
+  jml_rek_wktp                  Int?
+
+  @@id([kode201701])
+}
+
+model Province {
+  id           Int            @id @default(autoincrement())
+  name         String?
+  City         City[]
+  DataEmotion  DataEmotion[]
+  DataByContent DataByContent[]
+}
+
+model City {
+  id           Int            @id @default(autoincrement())
+  name         String?
+  Province     Province?      @relation(fields: [provinceId], references: [id])
+  provinceId   Int?
+  DataEmotion  DataEmotion[]
+  DataByContent DataByContent[]
+}
+
+model Candidate {
+  id           Int            @id @default(autoincrement())
+  name         String?
+  DataEmotion  DataEmotion[]
+  DataByContent DataByContent[]
+}
+
+model Emotion {
+  id          Int           @id @default(autoincrement())
+  name        String?
+  DataEmotion DataEmotion[]
+}
+
+// depracated
+model DataEmotion {
+  id          Int        @id @default(autoincrement())
+  Candidate   Candidate? @relation(fields: [candidateId], references: [id])
+  candidateId Int?
+  Province    Province?  @relation(fields: [provinceId], references: [id])
+  provinceId  Int?
+  City        City?      @relation(fields: [cityId], references: [id])
+  cityId      Int?
+  Emotion     Emotion?   @relation(fields: [emotionId], references: [id])
+  emotionId   Int?
+  value       Int?
+}
+
+model DataByContent {
+  id           Int        @id @default(autoincrement())
+  Candidate    Candidate? @relation(fields: [candidateId], references: [id])
+  Province     Province?  @relation(fields: [provinceId], references: [id])
+  City         City?      @relation(fields: [cityId], references: [id])
+  candidateId  Int?
+  provinceId   Int?
+  cityId       Int?
+  trust        Int?
+  joy          Int?
+  surprise     Int?
+  anticipation Int?
+  sadness      Int?
+  fear         Int?
+  anger        Int?
+  disgust      Int?
+}
