@@ -342,7 +342,7 @@
     {
       "id": "69",
       "provinceId": "3",
-      "name": "Bukit Tinggi"
+      "name": "Bukittinggi"
     },
     {
       "id": "70",
@@ -352,7 +352,7 @@
     {
       "id": "71",
       "provinceId": "3",
-      "name": "Kota Padang Panjang"
+      "name": "Padang Panjang"
     },
     {
       "id": "72",
@@ -1517,12 +1517,12 @@
     {
       "id": "304",
       "provinceId": "19",
-      "name": "NgadaRote Ndao"
+      "name": "Ngada"
     },
     {
       "id": "305",
       "provinceId": "19",
-      "name": "Sabu Raijua"
+      "name": "Rote Ndao"
     },
     {
       "id": "306",
@@ -1622,12 +1622,12 @@
     {
       "id": "325",
       "provinceId": "20",
-      "name": "Kota Pontianak"
+      "name": "Pontianak"
     },
     {
       "id": "326",
       "provinceId": "20",
-      "name": "Kota Singkawang"
+      "name": "Singkawang"
     },
     {
       "id": "327",
@@ -1642,7 +1642,7 @@
     {
       "id": "329",
       "provinceId": "21",
-      "name": "Kotabaru"
+      "name": "Kota Baru"
     },
     {
       "id": "330",
@@ -1692,12 +1692,12 @@
     {
       "id": "339",
       "provinceId": "21",
-      "name": "Kota Banjarmasin"
+      "name": "Banjarmasin"
     },
     {
       "id": "340",
       "provinceId": "21",
-      "name": "Kota Banjarbaru"
+      "name": "Banjar Baru"
     },
     {
       "id": "341",
@@ -1767,7 +1767,7 @@
     {
       "id": "354",
       "provinceId": "22",
-      "name": "Kota Palangkaraya"
+      "name": "Palangka Raya"
     },
     {
       "id": "355",
@@ -1802,17 +1802,17 @@
     {
       "id": "361",
       "provinceId": "23",
-      "name": "Kota Balikpapan"
+      "name": "Balikpapan"
     },
     {
       "id": "362",
       "provinceId": "23",
-      "name": "Kota Samarinda"
+      "name": "Samarinda"
     },
     {
       "id": "363",
       "provinceId": "23",
-      "name": "Kota Bontang"
+      "name": "Bontang"
     },
     {
       "id": "364",
@@ -1842,7 +1842,7 @@
     {
       "id": "369",
       "provinceId": "24",
-      "name": "Kota Tarakan"
+      "name": "Tarakan"
     },
     {
       "id": "370",
@@ -1867,12 +1867,12 @@
     {
       "id": "374",
       "provinceId": "25",
-      "name": "Kepulauan Sangihe"
+      "name": "Kepulauan Sangihe Talaud"
     },
     {
       "id": "375",
-      "provinceId": "25",
-      "name": "Kepulauan Talaud"
+      "provinceId": "33",
+      "name": "Yapen Waropen"
     },
     {
       "id": "376",
@@ -1907,12 +1907,12 @@
     {
       "id": "382",
       "provinceId": "25",
-      "name": "Kota Manado"
+      "name": "Manado"
     },
     {
       "id": "383",
       "provinceId": "25",
-      "name": "Kota Bitung"
+      "name": "Bitung"
     },
     {
       "id": "384",
@@ -1977,7 +1977,7 @@
     {
       "id": "396",
       "provinceId": "27",
-      "name": "Tolotoli"
+      "name": "Toli-Toli"
     },
     {
       "id": "397",
@@ -2017,7 +2017,7 @@
     {
       "id": "404",
       "provinceId": "27",
-      "name": "Kota Palu"
+      "name": "Palu"
     },
     {
       "id": "405",
@@ -2042,7 +2042,7 @@
     {
       "id": "409",
       "provinceId": "28",
-      "name": "Polewali Mandar"
+      "name": "Polewali Mamasa"
     },
     {
       "id": "410",
@@ -2057,7 +2057,7 @@
     {
       "id": "412",
       "provinceId": "29",
-      "name": "Kepulauan Selayar"
+      "name": "Selayar"
     },
     {
       "id": "413",
@@ -2102,7 +2102,7 @@
     {
       "id": "421",
       "provinceId": "29",
-      "name": "Pangkajene dan Kepulauan"
+      "name": "Pangkajene Kepulauan"
     },
     {
       "id": "422",
@@ -2157,17 +2157,17 @@
     {
       "id": "432",
       "provinceId": "29",
-      "name": "Kota Makassar"
+      "name": "Makassar"
     },
     {
       "id": "433",
       "provinceId": "29",
-      "name": "Kota Pare Pare"
+      "name": "Pare-Pare"
     },
     {
       "id": "434",
       "provinceId": "29",
-      "name": "Kota Palopo"
+      "name": "Palopo"
     },
     {
       "id": "435",
@@ -2247,17 +2247,17 @@
     {
       "id": "450",
       "provinceId": "30",
-      "name": "Kota Kendari"
+      "name": "Kendari"
     },
     {
       "id": "451",
       "provinceId": "30",
-      "name": "Kota Bau Bau"
+      "name": "Baubau"
     },
     {
       "id": "452",
       "provinceId": "31",
-      "name": "Maluku Barat Daya"
+      "name": "Maluku Tenggara"
     },
     {
       "id": "453",
@@ -2272,7 +2272,7 @@
     {
       "id": "455",
       "provinceId": "31",
-      "name": "Maluku Tenggara"
+      "name": "Maluku Tenggara Barat"
     },
     {
       "id": "456",
@@ -2297,7 +2297,7 @@
     {
       "id": "460",
       "provinceId": "31",
-      "name": "Kota Ambon"
+      "name": "Ambon"
     },
     {
       "id": "461",
@@ -2352,7 +2352,7 @@
     {
       "id": "471",
       "provinceId": "32",
-      "name": "Kota Ternate"
+      "name": "Ternate"
     },
     {
       "id": "472",
@@ -2407,7 +2407,7 @@
     {
       "id": "482",
       "provinceId": "34",
-      "name": "Fakfak"
+      "name": "Fak-Fak"
     },
     {
       "id": "483",
