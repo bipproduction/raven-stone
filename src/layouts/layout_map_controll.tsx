@@ -1,11 +1,20 @@
-import { glistCandidate, gSelectedCandidate } from "@/lib/g_map_state";
+import {
+  glistCandidate,
+  gListKabupaten,
+  gSelectedCandidate,
+  gSelectedDate,
+} from "@/lib/g_map_state";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
+  Autocomplete,
+  Box,
   Button,
+  Divider,
   Flex,
   Grid,
   Group,
+  Menu,
   Modal,
   Select,
   Slider,
@@ -18,10 +27,19 @@ import { EChartsOption, registerMap } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
-import { FaLock, FaLockOpen, FaSearch } from "react-icons/fa";
+import {
+  FaDotCircle,
+  FaGripVertical,
+  FaLock,
+  FaLockOpen,
+  FaSearch,
+} from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 import toast from "react-simple-toasts";
+import { DatePicker, DatePickerInput } from "@mantine/dates";
+import moment from "moment";
 
-export interface ModelEmotion {
+interface ModelEmotion {
   anger?: number;
   disgust?: number;
   fear?: number;
@@ -32,20 +50,75 @@ export interface ModelEmotion {
   anticipation?: number;
 }
 
+const listEmotionColor = [
+  {
+    id: "1",
+    name: "Trust",
+    color: "#00A651",
+  },
+  {
+    id: "2",
+    name: "Joy",
+    color: "#EC008C",
+  },
+  {
+    id: "3",
+    name: "Surprise",
+    color: "#8B5E3C",
+  },
+  {
+    id: "4",
+    name: "Anticipation",
+    color: "#F7941D",
+  },
+  {
+    id: "5",
+    name: "Sadness",
+    color: "#00AEEF",
+  },
+  {
+    id: "6",
+    name: "Fear",
+    color: "#FFDE17",
+  },
+  {
+    id: "7",
+    name: "Anger",
+    color: "#ED1C24",
+  },
+  {
+    id: "8",
+    name: "Disgust",
+    color: "#414042",
+  },
+];
+
 const LayoutMapControll = () => {
   const [isMap, setIsmap] = useState(false);
-  const [listNamaKabupaten, setlistNamaKabupaten] = useState<any[]>([]);
+  //   const [listNamaKabupaten, setlistNamaKabupaten] = useState<any[]>([]);
   const [bukaModal, setbukamodal] = useDisclosure(false);
-  const [selectedData, setSelectedData] = useState<{ [key: string]: string }>(
-    {}
-  );
+  const [selectedData, setSelectedData] = useState<{ [key: string]: any }>({});
   const [listSelectedEmotion, setListSelectedEmotion] = useState<any[]>([]);
   const listCandidate = useHookstate(glistCandidate);
   const selectedCandidate = useHookstate(gSelectedCandidate);
+  const selectedDate = useHookstate(gSelectedDate);
+  const [search, setSearch] = useState<string>("");
+  const listKabupaten = useHookstate(gListKabupaten);
+  const [openCopyData, setCopyData] = useDisclosure(false);
+  const [selectedDateCopyData, setSelectedDateCopyData] = useState<string>("");
 
   useShallowEffect(() => {
     loadData();
   }, []);
+
+  const loadMapData = async () => {
+    const resNamaKabupaten = await fetch(
+      `/api/get-data-by-candidate?candidateId=${selectedCandidate.value}&date=${selectedDate.value}`
+    );
+    if (!resNamaKabupaten.ok) return console.log("error get nama kabupaten");
+    const dataNamaKabupaten = await resNamaKabupaten.json();
+    listKabupaten.set(dataNamaKabupaten);
+  };
 
   const loadData = async () => {
     const res = await fetch("/api/indonesia-map");
@@ -61,12 +134,7 @@ const LayoutMapControll = () => {
       // ini.push(apa.properties.NAME_1)
     }
     registerMap("indonesia", dataMap);
-    const resNamaKabupaten = await fetch(
-      `/api/get-data-by-candidate?candidateId=${selectedCandidate.value}`
-    );
-    if (!resNamaKabupaten.ok) return console.log("error get nama kabupaten");
-    const dataNamaKabupaten = await resNamaKabupaten.json();
-    setlistNamaKabupaten(dataNamaKabupaten);
+    await loadMapData();
     setIsmap(true);
   };
 
@@ -76,6 +144,15 @@ const LayoutMapControll = () => {
     },
     tooltip: {
       show: true,
+      formatter: (a: any, b) => {
+        if (!a.data) return "kosong";
+        const datanya = _.omit(a.data.data, "id", "City");
+        const ky = Object.keys(datanya);
+        return `
+        <h3>${a.data.data.City.name}</h3>
+        ${ky.map((v) => `${v}: ${datanya[v]}`).join("<br/>")}
+        `;
+      },
     },
     visualMap: {
       show: false,
@@ -92,6 +169,7 @@ const LayoutMapControll = () => {
           min: 1.2,
           max: 20,
         },
+        // zoom: 20,
         label: {
           show: false,
           fontWeight: "bold",
@@ -107,21 +185,33 @@ const LayoutMapControll = () => {
             textBorderWidth: 4,
           },
         },
-        data: listNamaKabupaten.map((v, i) => {
-          return {
-            name: v.City.name,
-            data: v,
-            itemStyle: {
-              color: "blue",
-            },
-          };
-        }),
+        data: listKabupaten.value
+          .filter((v) => _.lowerCase(v.City.name).includes(_.lowerCase(search)))
+          .map((v, i) => {
+            const dt = _.omit<{}>(v, ["id", "City"]);
+
+            const ky = Object.keys(dt);
+            const vl = Object.values(dt);
+
+            const emotion = ky[vl.indexOf(_.max(vl))];
+
+            return {
+              name: v.City.name,
+              data: v,
+              itemStyle: {
+                color: listEmotionColor.find(
+                  (v) => _.lowerCase(v.name) == emotion
+                )?.color,
+              },
+            };
+          }),
       },
     ],
   };
 
   const onEvent: Record<string, Function> = {
     click: (a: any, b: any, c: any) => {
+      if (!a.data) return toast("empty data");
       setSelectedData(a.data);
       const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
       const hasil = [];
@@ -136,9 +226,12 @@ const LayoutMapControll = () => {
       setListSelectedEmotion(hasil);
       setbukamodal.open();
     },
+    dataZoom: (a: any, b: any, c: any) => {
+      console.log("a");
+    },
   };
 
-  const onProccess = () => {
+  const onProccess = async () => {
     let listHasilnya = [];
     const dataLock = listSelectedEmotion.filter((v) => v.isLock);
     const dataUnlock = listSelectedEmotion.filter((v) => !v.isLock);
@@ -164,7 +257,32 @@ const LayoutMapControll = () => {
 
     listHasilnya = [...dataLock, ...dataUnlock];
 
+    let hasilData = {};
+    for (let itm of listHasilnya) {
+      const data = {
+        [itm.name]: itm.value,
+      };
+      hasilData = { ...hasilData, ...data };
+    }
+
+    const dataBody = {
+      id: selectedData.data.id,
+      ...hasilData,
+    };
+
+    const dataUpdate = await fetch("/api/update-content", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataBody),
+    });
+
+    if (dataUpdate.status != 201) return toast("error");
+    toast("sussess");
     setListSelectedEmotion(listHasilnya);
+    await loadMapData();
+    setbukamodal.close();
   };
 
   const onSlide = (e: any, v: any) => {
@@ -172,8 +290,7 @@ const LayoutMapControll = () => {
       listSelectedEmotion.filter((v) => !v.isLock).map((v) => v.value)
     );
     if (e > v.value) {
-      if (total + (e - v.value) > 100)
-        return toast("error: bisa melebihi ambang batas");
+      if (total + (e - v.value) > 100) return;
     }
 
     const newList = listSelectedEmotion.map((vv) => {
@@ -188,13 +305,31 @@ const LayoutMapControll = () => {
 
   return (
     <>
-      <Text>Map Controll</Text>
-      <Group p={"lg"}>
-        <Flex direction={"row"} gap={"lg"}>
+      <Flex
+        p={"md"}
+        bg={"gray.1"}
+        direction={"row"}
+        gap={"lg"}
+        justify={"space-between"}
+        align={"center"}
+      >
+        <Group>
+          <DatePickerInput
+            value={new Date(selectedDate.value)}
+            label={"select date"}
+            onChange={(val) => {
+              if (val) {
+                selectedDate.set(moment(val).format("YYYY-MM-DD"));
+                loadMapData();
+              }
+            }}
+            w={150}
+          />
           {!_.isEmpty(listCandidate.value) && (
             <Select
               key={"1"}
               label={"select candidate"}
+              value={selectedCandidate.value}
               placeholder={
                 listCandidate.value.find((v) => v.id == selectedCandidate.value)
                   .name
@@ -204,13 +339,83 @@ const LayoutMapControll = () => {
                 value: v.id,
               }))}
               onChange={(val) => {
-                console.log(val);
+                if (val) {
+                  selectedCandidate.set(val!);
+                  loadMapData();
+                }
               }}
             />
           )}
-          <TextInput icon={<FaSearch />} label={"search kabupaten"} />
+          <Autocomplete
+            data={listKabupaten.value.map((v) => ({
+              value: v.City.name,
+            }))}
+            icon={<FaSearch />}
+            value={search}
+            rightSection={
+              <ActionIcon onClick={() => setSearch("")}>
+                <MdClose />
+              </ActionIcon>
+            }
+            label={"search kabupaten"}
+            onChange={(val) => {
+              setSearch(val);
+            }}
+          />
+        </Group>
+        <Menu>
+          <Menu.Target>
+            <ActionIcon>
+              <FaGripVertical />
+            </ActionIcon>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item onClick={setCopyData.open}>Copy Data</Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      </Flex>
+
+      {/* modal copy data  */}
+      <Modal opened={openCopyData} onClose={setCopyData.close}>
+        <Flex direction={"row"} justify={"space-between"}>
+          <DatePicker
+            onChange={(val) => {
+              if (val) {
+                setSelectedDateCopyData(moment(val).format("YYYY-MM-DD"));
+              }
+            }}
+          />
+          <Stack spacing={0}>
+            <Text>From</Text>
+            <Text>{selectedDate.value}</Text>
+            <Text>To</Text>
+            <Text>
+              {!_.isEmpty(selectedDateCopyData) && selectedDateCopyData}
+            </Text>
+
+            {!_.isEmpty(selectedDateCopyData) &&
+              moment(selectedDateCopyData).diff(
+                moment(selectedDate.value),
+                "days"
+              ) > 0 && (
+                <Button
+                  onClick={async () => {
+                    const res = await fetch(
+                      `/api/copy-data?from=${selectedDate.value}&to=${selectedDateCopyData}`
+                    );
+
+                    if (res.status != 201) return toast("error");
+                    toast("success");
+                  }}
+                >
+                  Proccess
+                </Button>
+              )}
+          </Stack>
         </Flex>
-      </Group>
+      </Modal>
+
+      {/* modal data configuration */}
       <Modal opened={bukaModal} onClose={setbukamodal.close}>
         <Stack spacing={30}>
           <Flex justify={"space-between"}>

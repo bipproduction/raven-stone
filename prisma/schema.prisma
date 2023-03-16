@@ -264,26 +264,26 @@ model DukcapilDesa {
 }
 
 model Province {
-  id           Int            @id @default(autoincrement())
-  name         String?
-  City         City[]
-  DataEmotion  DataEmotion[]
+  id            Int             @id @default(autoincrement())
+  name          String?
+  City          City[]
+  DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
 }
 
 model City {
-  id           Int            @id @default(autoincrement())
-  name         String?
-  Province     Province?      @relation(fields: [provinceId], references: [id])
-  provinceId   Int?
-  DataEmotion  DataEmotion[]
+  id            Int             @id @default(autoincrement())
+  name          String?
+  Province      Province?       @relation(fields: [provinceId], references: [id])
+  provinceId    Int?
+  DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
 }
 
 model Candidate {
-  id           Int            @id @default(autoincrement())
-  name         String?
-  DataEmotion  DataEmotion[]
+  id            Int             @id @default(autoincrement())
+  name          String?
+  DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
 }
 
@@ -323,4 +323,7 @@ model DataByContent {
   fear         Int?
   anger        Int?
   disgust      Int?
+  date         DateTime   @db.Date
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }

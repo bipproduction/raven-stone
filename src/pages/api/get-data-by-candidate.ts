@@ -1,10 +1,15 @@
 import client from '@/lib/prisma_db';
 import { NextApiRequest, NextApiResponse } from 'next';
+import moment from 'moment';
+
+
 const getDataByCandidate = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { candidateId } = req.query
+    const { candidateId, date } = req.query
+    // console.log(date)
     const data = await client.dataByContent.findMany({
         where: {
-            candidateId: Number(candidateId)
+            candidateId: Number(candidateId),
+            date: new Date(date as any)
         },
         select: {
             id: true,
