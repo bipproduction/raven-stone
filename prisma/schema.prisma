@@ -323,7 +323,7 @@ model DataByContent {
   fear         Int?
   anger        Int?
   disgust      Int?
-  date         DateTime   @db.Date
+  date         DateTime?   @db.Date 
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 }
