@@ -18,6 +18,13 @@ const main = async () => {
     console.log("province success")
 
     const dataCity: any[] = city
+    await client.city.deleteMany({
+        where: {
+            id: {
+                gt: 0
+            }
+        }
+    })
     await client.city.createMany({
         data: dataCity.map((v) => ({
             id: Number(v.id),
@@ -64,13 +71,20 @@ const main = async () => {
     // console.log("data_emotion success")
 
     const dataEmotionV2 = data_emotion_v2
+    await client.dataByContent.deleteMany({
+        where: {
+            id: {
+                gt: 0
+            }
+        }
+    })
     await client.dataByContent.createMany({
         data: dataEmotionV2,
         skipDuplicates: true
     })
     console.log("data content success")
 
-    
+
 }
 
 main()
