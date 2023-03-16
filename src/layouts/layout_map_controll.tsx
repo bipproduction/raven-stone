@@ -1,4 +1,5 @@
 import {
+  gIstable,
   glistCandidate,
   gListKabupaten,
   gSelectedCandidate,
@@ -16,7 +17,9 @@ import {
   Group,
   Menu,
   Modal,
+  Paper,
   Select,
+  SimpleGrid,
   Slider,
   Stack,
   Text,
@@ -34,10 +37,11 @@ import {
   FaLockOpen,
   FaSearch,
 } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdMap, MdRemoveRedEye, MdTableView } from "react-icons/md";
 import toast from "react-simple-toasts";
 import { DatePicker, DatePickerInput } from "@mantine/dates";
 import moment from "moment";
+import Spreadsheet from "react-spreadsheet";
 
 interface ModelEmotion {
   anger?: number;
@@ -106,6 +110,7 @@ const LayoutMapControll = () => {
   const listKabupaten = useHookstate(gListKabupaten);
   const [openCopyData, setCopyData] = useDisclosure(false);
   const [selectedDateCopyData, setSelectedDateCopyData] = useState<string>("");
+  const adalahTable = useHookstate(gIstable);
 
   useShallowEffect(() => {
     loadData();
@@ -416,8 +421,8 @@ const LayoutMapControll = () => {
       </Modal>
 
       {/* modal data configuration */}
-      <Modal opened={bukaModal} onClose={setbukamodal.close}>
-        <Stack spacing={30}>
+      <Modal opened={bukaModal} onClose={setbukamodal.close} size={"70%"}>
+        <SimpleGrid cols={2}>
           <Flex justify={"space-between"}>
             <Text>{selectedData.name}</Text>
             <Button onClick={onProccess}>Procccess</Button>
@@ -470,17 +475,81 @@ const LayoutMapControll = () => {
               </Grid>
             </Stack>
           ))}
-        </Stack>
+        </SimpleGrid>
       </Modal>
       {isMap && (
-        <EChartsReact
-          onEvents={onEvent}
-          style={{
-            height: 700,
-          }}
-          option={option}
-        />
+        <Paper p={"md"}>
+          <Stack>
+            <Group position="right">
+              <ActionIcon onClick={() => adalahTable.set(!adalahTable.value)}>
+                {adalahTable.value ? (
+                  <MdMap size={42} />
+                ) : (
+                  <MdTableView size={42} />
+                )}
+              </ActionIcon>
+            </Group>
+            <Box hidden={adalahTable.value}>
+              <EChartsReact
+                onEvents={onEvent}
+                style={{
+                  height: 700,
+                }}
+                option={option}
+              />
+            </Box>
+            <Box hidden={!adalahTable.value}>
+              <TableView
+                key={listKabupaten.value.length}
+                dataKabupaten={listKabupaten.value}
+              />
+            </Box>
+          </Stack>
+        </Paper>
       )}
+    </>
+  );
+};
+
+const TableView = ({ dataKabupaten }: any) => {
+  const keyKab = useHookstate(gListKabupaten);
+  const [lsTable, setLsTable] = useState<any[]>([]);
+
+  useShallowEffect(() => {}, []);
+
+  const olahData = () => {
+    if (dataKabupaten && dataKabupaten[0]) {
+      const lsSource = dataKabupaten.map((v: any) => ({
+        ..._.omit(v, ["id", "City"]),
+        kabupaten: v.City.name,
+      }));
+
+      const lsData = lsSource.map((v: any) =>
+        Object.values(v).map((vv) => ({
+          value: vv,
+        }))
+      );
+
+      if (lsSource && lsSource[0]) {
+        lsData.unshift(
+          Object.keys(lsSource[0]).map((v) => ({
+            value: v,
+          }))
+        );
+      }
+
+      return lsData;
+    }
+
+    return [];
+  };
+
+  return (
+    <>
+      <Stack>
+        {/* {JSON.stringify(dataKabupaten)} */}
+        <Spreadsheet data={olahData()} />
+      </Stack>
     </>
   );
 };
