@@ -50,6 +50,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-simple-toasts": "^3.2.5",
+    "react-spreadsheet": "^0.7.8",
+    "scheduler": "^0.23.0",
     "simple-json-db": "^2.0.0",
     "store2": "^2.14.2",
     "tsv-json": "^2.0.0",
