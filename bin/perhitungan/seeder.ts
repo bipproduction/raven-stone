@@ -79,7 +79,10 @@ const main = async () => {
         }
     })
     await client.dataByContent.createMany({
-        data: dataEmotionV2,
+        data: {
+            ...dataEmotionV2,
+            date: new Date()
+        },
         skipDuplicates: true
     })
     console.log("data content success")
