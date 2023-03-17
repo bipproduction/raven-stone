@@ -37,11 +37,18 @@ import {
   FaLockOpen,
   FaSearch,
 } from "react-icons/fa";
-import { MdClose, MdMap, MdRemoveRedEye, MdTableView } from "react-icons/md";
+import {
+  MdClose,
+  MdDownload,
+  MdMap,
+  MdRemoveRedEye,
+  MdTableView,
+} from "react-icons/md";
 import toast from "react-simple-toasts";
 import { DatePicker, DatePickerInput } from "@mantine/dates";
 import moment from "moment";
 import Spreadsheet from "react-spreadsheet";
+import { CSVLink, CSVDownload } from "react-csv";
 
 interface ModelEmotion {
   anger?: number;
@@ -308,205 +315,264 @@ const LayoutMapControll = () => {
     setListSelectedEmotion(newList);
   };
 
+  const fileName = () => {
+    const nama = listCandidate.value.find(
+      (v) => v.id === Number(selectedCandidate.value)
+    );
+    return `${_.snakeCase(nama?nama.name: "error")}_data_kabupaten`;
+  };
+
   return (
     <>
-      <Flex
-        p={"md"}
-        bg={"gray.1"}
-        direction={"row"}
-        gap={"lg"}
-        justify={"space-between"}
-        align={"center"}
-      >
-        <Group>
-          <DatePickerInput
-            value={new Date(selectedDate.value)}
-            label={"select date"}
-            onChange={(val) => {
-              if (val) {
-                selectedDate.set(moment(val).format("YYYY-MM-DD"));
-                loadMapData();
-              }
-            }}
-            w={150}
-          />
-          {!_.isEmpty(listCandidate.value) && (
-            <Select
-              key={"1"}
-              label={"select candidate"}
-              value={selectedCandidate.value}
-              placeholder={
-                listCandidate.value.find((v) => v.id == selectedCandidate.value)
-                  .name
-              }
-              data={listCandidate.value.map((v) => ({
-                label: v.name,
-                value: v.id,
-              }))}
+      <Stack>
+        <Flex
+          w={"100%"}
+          p={"md"}
+          bg={"gray.1"}
+          direction={"row"}
+          gap={"lg"}
+          justify={"space-between"}
+          align={"center"}
+          h={100}
+          pos={"fixed"}
+          sx={{
+            zIndex: 100,
+          }}
+        >
+          <Group>
+            <DatePickerInput
+              value={new Date(selectedDate.value)}
+              label={"select date"}
               onChange={(val) => {
                 if (val) {
-                  selectedCandidate.set(val!);
+                  selectedDate.set(moment(val).format("YYYY-MM-DD"));
                   loadMapData();
                 }
               }}
+              w={150}
             />
-          )}
-          <Autocomplete
-            data={listKabupaten.value.map((v) => ({
-              value: v.City.name,
-            }))}
-            icon={<FaSearch />}
-            value={search}
-            rightSection={
-              <ActionIcon onClick={() => setSearch("")}>
-                <MdClose />
-              </ActionIcon>
-            }
-            label={"search kabupaten"}
-            onChange={(val) => {
-              setSearch(val);
-            }}
-          />
-        </Group>
-        <Menu>
-          <Menu.Target>
-            <ActionIcon>
-              <FaGripVertical />
-            </ActionIcon>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Item onClick={setCopyData.open}>Copy Data</Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
-      </Flex>
-
-      {/* modal copy data  */}
-      <Modal opened={openCopyData} onClose={setCopyData.close}>
-        <Flex direction={"row"} justify={"space-between"}>
-          <DatePicker
-            onChange={(val) => {
-              if (val) {
-                setSelectedDateCopyData(moment(val).format("YYYY-MM-DD"));
+            {!_.isEmpty(listCandidate.value) && (
+              <Select
+                key={"1"}
+                label={"select candidate"}
+                value={selectedCandidate.value}
+                placeholder={
+                  listCandidate.value.find(
+                    (v) => v.id == selectedCandidate.value
+                  ).name
+                }
+                data={listCandidate.value.map((v) => ({
+                  label: v.name,
+                  value: v.id,
+                }))}
+                onChange={(val) => {
+                  if (val) {
+                    selectedCandidate.set(val!);
+                    loadMapData();
+                  }
+                }}
+              />
+            )}
+            <Autocomplete
+              data={listKabupaten.value.map((v) => ({
+                value: v.City.name,
+              }))}
+              icon={<FaSearch />}
+              value={search}
+              rightSection={
+                <ActionIcon onClick={() => setSearch("")}>
+                  <MdClose />
+                </ActionIcon>
               }
-            }}
-          />
-          <Stack spacing={0}>
-            <Text>From</Text>
-            <Text>{selectedDate.value}</Text>
-            <Text>To</Text>
-            <Text>
-              {!_.isEmpty(selectedDateCopyData) && selectedDateCopyData}
-            </Text>
-
-            {!_.isEmpty(selectedDateCopyData) &&
-              moment(selectedDateCopyData).diff(
-                moment(selectedDate.value),
-                "days"
-              ) > 0 && (
-                <Button
-                  onClick={async () => {
-                    const res = await fetch(
-                      `/api/copy-data?from=${selectedDate.value}&to=${selectedDateCopyData}`
-                    );
-
-                    if (res.status != 201) return toast("error");
-                    toast("success");
-                  }}
-                >
-                  Proccess
-                </Button>
+              label={"search kabupaten"}
+              onChange={(val) => {
+                setSearch(val);
+              }}
+            />
+          </Group>
+          {/* <Text>{JSON.stringify(listCandidate.value)}</Text> */}
+          <Flex align={"end"} gap={"lg"}>
+            <Menu>
+              <Menu.Target>
+                <ActionIcon>
+                  <FaGripVertical />
+                </ActionIcon>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item onClick={setCopyData.open}>Copy Data</Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+            <ActionIcon onClick={() => adalahTable.set(!adalahTable.value)}>
+              {adalahTable.value ? (
+                <MdMap size={42} />
+              ) : (
+                <MdTableView size={42} />
               )}
-          </Stack>
-        </Flex>
-      </Modal>
-
-      {/* modal data configuration */}
-      <Modal opened={bukaModal} onClose={setbukamodal.close} size={"70%"}>
-        <SimpleGrid cols={2}>
-          <Flex justify={"space-between"}>
-            <Text>{selectedData.name}</Text>
-            <Button onClick={onProccess}>Procccess</Button>
+            </ActionIcon>
+            <CSVLink
+              style={{
+                height: 25,
+              }}
+              filename={fileName()}
+              data={
+                listKabupaten.value.map((v: any) => ({
+                  ..._.omit(v, ["City"]),
+                  kabupaten: v.City.name,
+                })) as any
+              }
+            >
+              <MdDownload size={24} color={"gray"} />
+            </CSVLink>
           </Flex>
-          {_.sortBy(listSelectedEmotion, (c) => c.name).map((v) => (
-            <Stack key={v.name}>
-              <Flex justify={"space-between"}>
-                <Text>{v.name}</Text>
-                <Text w={50} px={"lg"} bg={"yellow"}>
-                  {v.value}
-                </Text>
-              </Flex>
-              <Grid>
-                <Grid.Col span={8}>
-                  <Slider
-                    disabled={v.isLock}
-                    value={v.value}
-                    label={v.value}
-                    key={v.name}
-                    onChange={(e) => onSlide(e, v)}
-                  />
-                </Grid.Col>
-                <Grid.Col span={4}>
-                  <Group position={"right"} align={"center"}>
-                    <ActionIcon
-                      onClick={() => {
-                        if (v.isLock) {
-                          const total = _.sum(
-                            listSelectedEmotion
-                              .filter((v) => !v.isLock)
-                              .map((v) => v.value)
-                          );
-                          if (total + v.value > 100)
-                            return toast("nilai melebihi batas");
-                        }
+        </Flex>
 
-                        const newList = listSelectedEmotion.map((vv) => {
-                          if (vv.name === v.name) {
-                            vv.isLock = !vv.isLock;
-                          }
-                          return vv;
-                        });
-                        setListSelectedEmotion(newList);
+        {/* modal copy data  */}
+        <Modal opened={openCopyData} onClose={setCopyData.close}>
+          <Flex direction={"row"} justify={"space-between"}>
+            <DatePicker
+              onChange={(val) => {
+                if (val) {
+                  setSelectedDateCopyData(moment(val).format("YYYY-MM-DD"));
+                }
+              }}
+            />
+            <Stack spacing={0}>
+              <Text>From</Text>
+              <Text>{selectedDate.value}</Text>
+              <Text>To</Text>
+              <Text>
+                {!_.isEmpty(selectedDateCopyData) && selectedDateCopyData}
+              </Text>
+
+              {!_.isEmpty(selectedDateCopyData) &&
+                moment(selectedDateCopyData).diff(
+                  moment(selectedDate.value),
+                  "days"
+                ) > 0 && (
+                  <Button
+                    onClick={async () => {
+                      const res = await fetch(
+                        `/api/copy-data?from=${selectedDate.value}&to=${selectedDateCopyData}`
+                      );
+
+                      if (res.status != 201) return toast("error");
+                      toast("success");
+                    }}
+                  >
+                    Proccess
+                  </Button>
+                )}
+            </Stack>
+          </Flex>
+        </Modal>
+
+        {/* modal data configuration */}
+        <Modal opened={bukaModal} onClose={setbukamodal.close} size={"70%"}>
+          <Stack>
+            <Flex justify={"space-between"}>
+              <Text size={24} fw={"bold"}>
+                {_.upperCase(selectedData.name)}
+              </Text>
+              <Button onClick={onProccess}>Procccess</Button>
+            </Flex>
+            <Divider />
+            <SimpleGrid cols={2}>
+              {_.sortBy(listSelectedEmotion, (c) => c.name).map((v) => (
+                <Stack
+                  p={"xs"}
+                  key={v.name}
+                  bg={
+                    listEmotionColor.find(
+                      (v2) => _.lowerCase(v2.name) == _.lowerCase(v.name)
+                    )?.color
+                  }
+                >
+                  <Flex justify={"space-between"}>
+                    <Text color={"white"} fw={"bold"}>
+                      {_.upperCase(v.name)}
+                    </Text>
+                    <Text
+                      w={50}
+                      px={"lg"}
+                      bg={"white"}
+                      sx={{
+                        borderRadius: 4,
                       }}
                     >
-                      {v.isLock ? <FaLock /> : <FaLockOpen />}
-                    </ActionIcon>
-                  </Group>
-                </Grid.Col>
-              </Grid>
-            </Stack>
-          ))}
-        </SimpleGrid>
-      </Modal>
-      {isMap && (
-        <Paper p={"md"}>
-          <Stack>
-            <Group position="right">
-              <ActionIcon onClick={() => adalahTable.set(!adalahTable.value)}>
-                {adalahTable.value ? (
-                  <MdMap size={42} />
-                ) : (
-                  <MdTableView size={42} />
-                )}
-              </ActionIcon>
-            </Group>
-            <Box hidden={adalahTable.value}>
-              <EChartsReact
-                onEvents={onEvent}
-                style={{
-                  height: 700,
-                }}
-                option={option}
-              />
-            </Box>
-            <Box hidden={!adalahTable.value}>
-              <TableView
-                key={listKabupaten.value.length}
-                dataKabupaten={listKabupaten.value}
-              />
-            </Box>
+                      {v.value}
+                    </Text>
+                  </Flex>
+                  <Grid>
+                    <Grid.Col span={8}>
+                      <Slider
+                        disabled={v.isLock}
+                        value={v.value}
+                        label={v.value}
+                        key={v.name}
+                        onChange={(e) => onSlide(e, v)}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={4}>
+                      <Group position={"right"} align={"center"}>
+                        <ActionIcon
+                          onClick={() => {
+                            if (v.isLock) {
+                              const total = _.sum(
+                                listSelectedEmotion
+                                  .filter((v) => !v.isLock)
+                                  .map((v) => v.value)
+                              );
+                              if (total + v.value > 100)
+                                return toast("nilai melebihi batas");
+                            }
+
+                            const newList = listSelectedEmotion.map((vv) => {
+                              if (vv.name === v.name) {
+                                vv.isLock = !vv.isLock;
+                              }
+                              return vv;
+                            });
+                            setListSelectedEmotion(newList);
+                          }}
+                        >
+                          {v.isLock ? (
+                            <FaLock color="white" />
+                          ) : (
+                            <FaLockOpen color="white" />
+                          )}
+                        </ActionIcon>
+                      </Group>
+                    </Grid.Col>
+                  </Grid>
+                </Stack>
+              ))}
+            </SimpleGrid>
           </Stack>
-        </Paper>
-      )}
+        </Modal>
+        <Box top={100} pos={"relative"}>
+          {isMap && (
+            <Box>
+              <Stack>
+                <Box hidden={adalahTable.value}>
+                  <EChartsReact
+                    onEvents={onEvent}
+                    style={{
+                      height: 700,
+                    }}
+                    option={option}
+                  />
+                </Box>
+                <Box hidden={!adalahTable.value}>
+                  <TableView
+                    key={listKabupaten.value.length}
+                    dataKabupaten={listKabupaten.value}
+                  />
+                </Box>
+              </Stack>
+            </Box>
+          )}
+        </Box>
+      </Stack>
     </>
   );
 };
