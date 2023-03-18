@@ -49,6 +49,7 @@ import {
 import LoadNationWideChart from "@/load_data/load_nationWide_chart";
 import _ from "lodash";
 import LoadSourceOfmention from "@/load_data/load_source_of_mention";
+import LoadWordCloud from "@/load_data/load_word_cloud";
 
 const listView = [
   {
@@ -253,6 +254,7 @@ const LoadFirstData = () => {
       <LoadTop10District />
       <LoadNationWideChart />
       <LoadSourceOfmention />
+      <LoadWordCloud />
     </>
   );
 };
