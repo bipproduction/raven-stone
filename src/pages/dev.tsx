@@ -45,6 +45,8 @@ const Dev = () => {
   const seederProvince = async () =>
     await fetch(api.apiSeederCityValue).then(async (v) => v.ok);
 
+  const seederCandidate = async () =>
+    await fetch(api.apiSeederCandidate).then(async (v) => v.ok);
   return (
     <>
       <Text>Dev</Text>
@@ -63,12 +65,13 @@ const Dev = () => {
 
         <ButtonSync loadData={seederCityValue} name={"seeder city value"} />
 
-        <ButtonSync loadData={seederCity} name={"seeder city value"} />
+        <ButtonSync loadData={seederCity} name={"seeder city"} />
 
         <ButtonSync loadData={seederDataContent} name={"seeder data content"} />
 
         <ButtonSync loadData={seederEmotion} name={"seeder emotion"} />
         <ButtonSync loadData={seederProvince} name={"seeder province"} />
+        <ButtonSync loadData={seederCandidate} name={"seeder candidate"} />
       </Group>
     </>
   );

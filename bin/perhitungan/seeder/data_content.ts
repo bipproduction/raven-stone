@@ -13,7 +13,7 @@ export const seederDataContent = async () => {
     await client.dataByContent.createMany({
         data: dataEmotionV2.map((v) => ({
             ...v,
-            date: new Date()
+            date: new Date("2023-03-16")
         })),
         skipDuplicates: true
     })
