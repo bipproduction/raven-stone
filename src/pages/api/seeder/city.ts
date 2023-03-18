@@ -5,6 +5,4 @@ const city = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({ success })
 }
 
-
-
 export default city
