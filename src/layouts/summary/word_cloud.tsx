@@ -47,7 +47,7 @@ const WordCloud = () => {
       <Text>Word Cloud</Text>
       {/* {JSON.stringify(listData.value)} */}
       <Box pos={"static"}>
-        <Wc data={list as any} />
+        {/* <Wc data={list as any} /> */}
       </Box>
     </>
   );
