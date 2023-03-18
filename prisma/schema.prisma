@@ -278,6 +278,7 @@ model City {
   provinceId    Int?
   DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
+  CityValue     CityValue[]
 }
 
 model Candidate {
@@ -323,7 +324,39 @@ model DataByContent {
   fear         Int?
   anger        Int?
   disgust      Int?
-  date         DateTime?   @db.Date 
+  date         DateTime?  @db.Date
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
+}
+
+// =====================================
+// data dari google sheet
+model NationWideChart {
+  id       Int       @id @default(autoincrement())
+  date     DateTime? @db.Date
+  positive Int?
+  negative Int?
+  neutral  Int?
+}
+
+model SourceOfMention {
+  id        Int     @id @default(autoincrement())
+  media     String?
+  value     Int?
+  indicator Int?
+}
+
+model WordCloud {
+  id    Int     @id @default(autoincrement())
+  word  String?
+  value Int?
+}
+
+// ====================================
+// database
+model CityValue {
+  id     Int   @id @default(autoincrement())
+  City   City? @relation(fields: [cityId], references: [id])
+  cityId Int?
+  value  Int?
 }

@@ -1,11 +1,7 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
-import "primereact/resources/themes/saga-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
-// import 'primeflex/primeflex.css';
-// import './../styles/globals.css'
+import 'rsuite/dist/rsuite.min.css';
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;

@@ -4,7 +4,7 @@ import {
   gListKabupaten,
   gSelectedCandidate,
   gSelectedDate,
-} from "@/lib/g_map_state";
+} from "@/g_state/g_map_state";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,

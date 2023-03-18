@@ -1,5 +1,4 @@
-import { Dock } from "primereact/dock";
-import { MenuItem } from "primereact/menuitem";
+
 import {
   MdAllInbox,
   MdBarChart,
@@ -58,25 +57,7 @@ const MyMain = () => {
             {<v.widget />}
           </Box>
         ))}
-        <Dock
-          model={listmenu.map((v) => ({
-            template: (
-              <Stack
-                spacing={0}
-                justify={"center"}
-                align= {"center"}
-                onClick={() => {
-                  setSelectedMenu(v.id);
-                }}
-              >
-                <ActionIcon size={52} variant={"gradient"}>
-                  <v.icon size={52} color={"white"} />
-                </ActionIcon>
-                <Text align="center" size={9}>{v.label}</Text>
-              </Stack>
-            ),
-          }))}
-        />
+        
       </Stack>
     </>
   );
