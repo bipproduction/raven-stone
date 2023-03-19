@@ -360,3 +360,67 @@ model CityValue {
   cityId Int?
   value  Int?
 }
+
+// ====================================
+// b24
+model B24SosialMedia {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24PopularAuthor {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Statistic {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Chart {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Hastag {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Link {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24importantAuthor {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24ActiveAuthor {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24ActiveUrl {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24ImportantUrl {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24PopularWord {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+// ======================================
+// util store
+model Store {
+  name  String @id @default(cuid())
+  value Json?
+}

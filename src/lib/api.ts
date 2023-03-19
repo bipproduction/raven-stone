@@ -5,10 +5,8 @@ export const api = {
   "apiGetDataByCandidate": "/api/get-data-by-candidate",
   "apiGetCandidate": "/api/get-candidate",
   "apiCopyData": "/api/copy-data",
+  "apiUtilStore": "/api/util/store",
   "apiUtilGetCityValue": "/api/util/get-city-value",
-  "apiDevSyncWordCloud": "/api/dev/sync-word-cloud",
-  "apiDevSyncSourceOfMention": "/api/dev/sync-source-of-mention",
-  "apiDevSyncNationWideChart": "/api/dev/sync-nation-wide-chart",
   "apiSummaryGetWordCloud": "/api/summary/get-word-cloud",
   "apiSummaryGetTop10ProvinceByConversation": "/api/summary/get-top-10-province-by-conversation",
   "apiSummaryGetTop10DistrictByConversation": "/api/summary/get-top-10-district-by-conversation",
@@ -19,5 +17,9 @@ export const api = {
   "apiSeederDataContent": "/api/seeder/data-content",
   "apiSeederCity": "/api/seeder/city",
   "apiSeederCityValue": "/api/seeder/city-value",
-  "apiSeederCandidate": "/api/seeder/candidate"
+  "apiSeederCandidate": "/api/seeder/candidate",
+  "apiDevSyncWordCloud": "/api/dev/sync-word-cloud",
+  "apiDevSyncSourceOfMention": "/api/dev/sync-source-of-mention",
+  "apiDevSyncNationWideChart": "/api/dev/sync-nation-wide-chart",
+  "apiB24B24Api": "/api/b24/b24-api"
 }
