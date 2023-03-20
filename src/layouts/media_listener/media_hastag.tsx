@@ -1,9 +1,10 @@
+import MediaHastagData from "@/Luxxn/Mediahastag";
 import { Text } from "@mantine/core";
 
 const MediaHastag = () => {
   return (
     <>
-      <Text>Media Hastag</Text>
+      <MediaHastagData/>
     </>
   );
 };
