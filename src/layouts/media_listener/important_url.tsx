@@ -1,3 +1,4 @@
+import { gSelectedView } from "@/g_state/g_dasboard";
 import { ModelB24ImportantUrl } from "@/model/media_listener/important_url";
 import { Paper, Stack, Text, Title } from "@mantine/core"
 import { useShallowEffect } from "@mantine/hooks";
@@ -60,6 +61,8 @@ const ImportantUrl = () => {
         },
       ],
     };
+
+    if(gSelectedView.value != "Important Url") return <>{gSelectedView.value}</>
   
     return (
       <>
