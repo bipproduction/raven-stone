@@ -53,7 +53,7 @@ const Dev = () => {
     await fetch(api.apiSeederEmotion).then(async (v) => v.ok);
 
   const seederProvince = async () =>
-    await fetch(api.apiSeederCityValue).then(async (v) => v.ok);
+    await fetch(api.apiSeederProvince).then(async (v) => v.ok);
 
   const seederCandidate = async () =>
     await fetch(api.apiSeederCandidate).then(async (v) => v.ok);
