@@ -29,14 +29,14 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
             surprise: true,
             trust: true,
         },
-        take: 10
     })
 
-    const hasil = data.map((v) => ({
+    const hasil = data.map((v, i) => ({
         ..._.omit(v, ['City']),
         city: v.City?.name,
         value: v.City?.CityValue[0].value
-    })).map((v: any) => ({
+    })).map((v: any, ii) => ({
+        no: ii + 1,
         city: v.city,
         value: v.value,
         trust: Math.floor((v.trust / 100) * v.value),
@@ -48,6 +48,7 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
         sadness: Math.floor((v.sadness / 100) * v.value),
         surprise: Math.floor((v.surprise / 100) * v.value),
     }))
+
     res.status(200).json(hasil)
 }
 

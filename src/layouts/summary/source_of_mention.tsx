@@ -1,3 +1,4 @@
+import { gSelectedView } from "@/g_state/g_dasboard";
 import { gListSourceOfMention } from "@/g_state/g_source_of_mention";
 import { Box, Text } from "@mantine/core";
 import { EChartsOption } from "echarts";
@@ -52,6 +53,7 @@ const cssKotak = `
 `;
 
 const SourceOfmention = () => {
+  if (gSelectedView.value != "Source of Mention") return <>{gSelectedView.value}</>;
   const option: EChartsOption = {
     title: {
       text: "World Population",
@@ -103,7 +105,7 @@ const SourceOfmention = () => {
           align: "left",
           position: "outside",
           formatter: (a: any) => {
-            return "+ "+ a.data.indicator + "%";
+            return "+ " + a.data.indicator + "%";
           },
         },
       },
