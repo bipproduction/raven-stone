@@ -264,26 +264,27 @@ model DukcapilDesa {
 }
 
 model Province {
-  id           Int            @id @default(autoincrement())
-  name         String?
-  City         City[]
-  DataEmotion  DataEmotion[]
+  id            Int             @id @default(autoincrement())
+  name          String?
+  City          City[]
+  DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
 }
 
 model City {
-  id           Int            @id @default(autoincrement())
-  name         String?
-  Province     Province?      @relation(fields: [provinceId], references: [id])
-  provinceId   Int?
-  DataEmotion  DataEmotion[]
+  id            Int             @id @default(autoincrement())
+  name          String?
+  Province      Province?       @relation(fields: [provinceId], references: [id])
+  provinceId    Int?
+  DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
+  CityValue     CityValue[]
 }
 
 model Candidate {
-  id           Int            @id @default(autoincrement())
-  name         String?
-  DataEmotion  DataEmotion[]
+  id            Int             @id @default(autoincrement())
+  name          String?
+  DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
 }
 
@@ -323,4 +324,103 @@ model DataByContent {
   fear         Int?
   anger        Int?
   disgust      Int?
+  date         DateTime?  @db.Date
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+// =====================================
+// data dari google sheet
+model NationWideChart {
+  id       Int       @id @default(autoincrement())
+  date     DateTime? @db.Date
+  positive Int?
+  negative Int?
+  neutral  Int?
+}
+
+model SourceOfMention {
+  id        Int     @id @default(autoincrement())
+  media     String?
+  value     Int?
+  indicator Int?
+}
+
+model WordCloud {
+  id    Int     @id @default(autoincrement())
+  word  String?
+  value Int?
+}
+
+// ====================================
+// database
+model CityValue {
+  id     Int   @id @default(autoincrement())
+  City   City? @relation(fields: [cityId], references: [id])
+  cityId Int?
+  value  Int?
+}
+
+// ====================================
+// b24
+model B24SosialMedia {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24PopularAuthor {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Statistic {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Chart {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Hastag {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24Link {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24importantAuthor {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24ActiveAuthor {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24ActiveUrl {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24ImportantUrl {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+model B24PopularWord {
+  id   Int   @id @default(autoincrement())
+  data Json?
+}
+
+// ======================================
+// util store
+model Store {
+  name  String @id @default(cuid())
+  value Json?
 }
