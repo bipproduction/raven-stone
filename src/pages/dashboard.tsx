@@ -11,7 +11,7 @@ import Statistict from "@/layouts/media_listener/statistic";
 import ContextualContent from "@/layouts/prodictive_ai/contextual_content";
 import EmotionalViewViaProvince from "@/layouts/prodictive_ai/emotional_view_via_province";
 import EmotionalViewViaRegion from "@/layouts/prodictive_ai/emotional_view_via_region";
-import NationWideRating from "@/layouts/prodictive_ai/mention_wide_rating";
+import NationWideRating from "@/layouts/prodictive_ai/nation_wide_rating";
 import NationWideChart from "@/layouts/summary/nation_wide_chart";
 import SourceOfmention from "@/layouts/summary/source_of_mention";
 import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_conversation";
@@ -51,6 +51,8 @@ import _ from "lodash";
 import LoadSourceOfmention from "@/load_data/load_source_of_mention";
 import LoadWordCloud from "@/load_data/load_word_cloud";
 import LoadTop10Province from "@/load_data/load_top_10_province";
+import LoadNationWideRating from "@/load_data/load_nation_wide_rating";
+import LoadCandidate from "@/load_data/load_candidate";
 
 const listView = [
   {
@@ -257,6 +259,8 @@ const LoadFirstData = () => {
       <LoadSourceOfmention />
       <LoadWordCloud />
       <LoadTop10Province />
+      <LoadNationWideRating />
+      <LoadCandidate />
     </>
   );
 };

@@ -1,0 +1,49 @@
+sum each item using lodash and generate new list
+
+const list2 = [
+    {
+        trust: 558820,
+    anger: 100107,
+    anticipation: 333075,
+    disgust: 350205,
+    fear: 197773,
+    joy: 468114,
+    sadness: 158024,
+    surprise: 489839
+    },
+    {
+        trust: 558820,
+    anger: 100107,
+    anticipation: 333075,
+    disgust: 350205,
+    fear: 197773,
+    joy: 468114,
+    sadness: 158024,
+    surprise: 489839
+    }
+]
+
+const list2 = [
+    {
+        trust: 558820,
+    anger: 100107,
+    anticipation: 333075,
+    disgust: 350205,
+    fear: 197773,
+    joy: 468114,
+    sadness: 158024,
+    surprise: 489839
+    },
+    {
+        trust: 558820,
+    anger: 100107,
+    anticipation: 333075,
+    disgust: 350205,
+    fear: 197773,
+    joy: 468114,
+    sadness: 158024,
+    surprise: 489839
+    }
+]
+
+jumblahkan item pada list1 dan list2 lalu bentuk menjadi list3 

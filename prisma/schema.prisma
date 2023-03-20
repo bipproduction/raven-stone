@@ -284,6 +284,7 @@ model City {
 model Candidate {
   id            Int             @id @default(autoincrement())
   name          String?
+  img           String?
   DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
 }
