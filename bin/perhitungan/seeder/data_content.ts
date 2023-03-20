@@ -23,8 +23,14 @@ export const seederDataContent = async () => {
             where: {
                 id: Number(itm.id)
             },
-            update: itm,
-            create: itm
+            update: {
+                ...itm,
+                date: new Date('2023-03-16')
+            },
+            create: {
+                ...itm,
+                date: new Date('2023-03-16')
+            },
         })
     }
 

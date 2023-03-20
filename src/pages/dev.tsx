@@ -151,7 +151,7 @@ const Dev = () => {
                   </Text>
                 </Stack>
                 <ButtonSync
-                  bg="orange"
+                  bg="pink"
                   loadData={seederDataContent}
                   name={"seeder data content"}
                 />
