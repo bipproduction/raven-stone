@@ -1,9 +1,10 @@
+import ActiveAuthorData from "@/Luxxn/ActiveAuthor";
 import { Text } from "@mantine/core";
 
 const ActiveAuthor = () => {
   return (
     <>
-      <Text>Active Author</Text>
+      <ActiveAuthorData/>
     </>
   );
 };
