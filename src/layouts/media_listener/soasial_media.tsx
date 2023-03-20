@@ -1,8 +1,9 @@
+import SocialMediaData from "@/Luxxn/SocialMedia"
 import { Text } from "@mantine/core"
 
 const SosialMedia = () => {
     return <>
-    <Text>Sosial Media</Text>
+    <SocialMediaData/>
     </>
 }
 
