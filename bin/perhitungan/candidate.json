@@ -1,30 +1,37 @@
 [
     {
       "id": "1",
-      "name": "Prabowo Subianto"
+      "name": "Prabowo Subianto",
+      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/2.%20Prabowo%20Subianto.jpg?raw=true"
     },
     {
       "id": "2",
-      "name": "Ganjar Pranowo"
+      "name": "Ganjar Pranowo",
+      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/5.%20Ganjar%20Pranowo.jpg?raw=true"
     },
     {
       "id": "3",
-      "name": "Anies Baswedan"
+      "name": "Anies Baswedan",
+      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/8.%20Anies%20Baswedan.jpg?raw=true"
     },
     {
       "id": "4",
-      "name": "Agus Harimurti Yudoyono"
+      "name": "Agus Harimurti Yudoyono",
+      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/13.%20Agus%20Harimurti%20Yudhoyono.jpg?raw=true"
     },
     {
       "id": "5",
-      "name": "Muhaimin Iskandar"
+      "name": "Muhaimin Iskandar",
+      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/3.%20Muhaimin%20Iskandar.jpg?raw=true"
     },
     {
       "id": "6",
-      "name": "Khofifah"
+      "name": "Khofifah",
+      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/7.%20Khofifah.jpg?raw=true"
     },
     {
       "id": "7",
-      "name": "Erick Thohir"
+      "name": "Erick Thohir",
+      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/9.%20Eric%20Thohir.jpg?raw=true"
     }
   ]
