@@ -1,69 +1,51 @@
-import { sumBy, omit } from "lodash";
-
-type DataItem = {
-  no: number;
-  provinceId: number;
-  name: string;
-  candidate: string;
-  value: number;
-  trust: number;
-  anger: number;
-  anticipation: number;
-  disgust: number;
-  fear: number;
-  joy: number;
-  sadness: number;
-  surprise: number;
-};
-
-type SummedData = Omit<DataItem, "no" | "provinceId" | "name" | "candidate">;
-
-const dataA: DataItem[] = [
-  {
-    no: 1,
-    provinceId: 16,
-    name: "Jawa Timur",
-    candidate: "Prabowo Subianto",
-    value: 27427306,
-    trust: 6891372,
-    anger: 1224347,
-    anticipation: 2671986,
-    disgust: 3129915,
-    fear: 1797872,
-    joy: 5644267,
-    sadness: 2524025,
-    surprise: 3543370,
-  },
-  {
-    no: 2,
-    provinceId: 14,
-    name: "Jawa Tengah",
-    candidate: "Prabowo Subianto",
-    value: 21630342,
-    trust: 5023227,
-    anger: 1097897,
-    anticipation: 2337485,
-    disgust: 2784239,
-    fear: 1288577,
-    joy: 4306157,
-    sadness: 1423553,
-    surprise: 3369074,
-  },
-];
-
-const dataB: SummedData = {
-  value: sumBy(dataA, "value"),
-  trust: sumBy(dataA, "trust"),
-  anger: sumBy(dataA, "anger"),
-  anticipation: sumBy(dataA, "anticipation"),
-  disgust: sumBy(dataA, "disgust"),
-  fear: sumBy(dataA, "fear"),
-  joy: sumBy(dataA, "joy"),
-  sadness: sumBy(dataA, "sadness"),
-  surprise: sumBy(dataA, "surprise"),
-};
-
-console.log(dataB);
-
-
-export { }
+const kandidat_a: any = {
+    "trust": 151567863,
+    "anger": 28032220,
+    "anticipation": 64306245,
+    "disgust": 88202613,
+    "fear": 36485325,
+    "joy": 113108523,
+    "sadness": 47805349,
+    "surprise": 85178566
+  }
+  
+  const kandidat_b: any = {
+    "trust": 75035605,
+    "anger": 13718203,
+    "anticipation": 31493375,
+    "disgust": 49655958,
+    "fear": 17998034,
+    "joy": 55102129,
+    "sadness": 23111496,
+    "surprise": 41228577
+  }
+  
+  // Menghitung P(A U B)
+  const keys = Object.keys(kandidat_a);
+  const union: any = {};
+  let totalUnion = 0;
+  keys.forEach((key) => {
+    union[key] = kandidat_a[key] + kandidat_b[key];
+    totalUnion += union[key];
+  });
+  
+  // Menghitung P(A ∩ B)
+  const intersection:any = {};
+  let totalIntersection = 0;
+  keys.forEach((key) => {
+    intersection[key] = Math.min(kandidat_a[key], kandidat_b[key]);
+    totalIntersection += intersection[key];
+  });
+  
+  // Menghitung hasil prosentase kemenangan
+  const hasil_prosentase_penggabungan:any = {};
+  keys.forEach((key) => {
+    const pA = kandidat_a[key] / totalUnion;
+    const pB = kandidat_b[key] / totalUnion;
+    const pAB = intersection[key] / totalUnion;
+    const pAU = pA + pB - pAB;
+    hasil_prosentase_penggabungan[key] = Math.round((pA - pB) / pAU * 100);
+  });
+  
+  console.log(hasil_prosentase_penggabungan);
+  export {}

@@ -1,5 +1,5 @@
-import { gTop10Province } from "@/g_state/g_top_10_province";
-import { gTop10ProvinceTake } from "@/g_state/g_top_10_province_take";
+import { gTop10Province } from "@/g_state/top_10_province/g_top_10_province";
+import { gTop10ProvinceTake } from "@/g_state/top_10_province/g_top_10_province_take";
 import { api } from "@/lib/api";
 import { ModelTop10Province } from "@/model/top_10_province";
 import { Group, Pagination, Stack, Table, Text } from "@mantine/core";
