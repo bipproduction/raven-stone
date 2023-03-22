@@ -1,5 +1,5 @@
-import { gTop10District } from "@/g_state/g_top_10_district";
-import { gTop10DistrictCount } from "@/g_state/g_top_10_district_take";
+import { gTop10District } from "@/g_state/top_10_district/g_top_10_district";
+import { gTop10DistrictCount } from "@/g_state/top_10_district/g_top_10_district_take";
 import { Group, Pagination, Table, Text } from "@mantine/core";
 import _ from "lodash";
 import { useState } from "react";

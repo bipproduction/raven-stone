@@ -53,6 +53,8 @@ import LoadWordCloud from "@/load_data/load_word_cloud";
 import LoadTop10Province from "@/load_data/load_top_10_province";
 import LoadNationWideRating from "@/load_data/load_nation_wide_rating";
 import LoadCandidate from "@/load_data/load_candidate";
+import LoadProvince from "@/load_data/load_province";
+import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
 
 const listView = [
   {
@@ -178,6 +180,10 @@ const Dashboard = () => {
   const [opened, setOpened] = useState(false);
   const selectedView = useHookstate(gSelectedView);
 
+  useShallowEffect(() => {
+    funcLoadNationWideRating();
+  }, []);
+
   return (
     <AppShell
       styles={{
@@ -254,13 +260,14 @@ const Dashboard = () => {
 const LoadFirstData = () => {
   return (
     <>
-      <LoadTop10District />
-      <LoadNationWideChart />
-      <LoadSourceOfmention />
-      <LoadWordCloud />
-      <LoadTop10Province />
-      <LoadNationWideRating />
-      <LoadCandidate />
+      {/* <LoadTop10District /> */}
+      {/* <LoadNationWideChart /> */}
+      {/* <LoadSourceOfmention /> */}
+      {/* <LoadWordCloud /> */}
+      {/* <LoadTop10Province /> */}
+      {/* <LoadNationWideRating /> */}
+      {/* <LoadCandidate /> */}
+      {/* <LoadProvince /> */}
     </>
   );
 };

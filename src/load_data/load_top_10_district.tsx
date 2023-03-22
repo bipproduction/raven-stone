@@ -1,8 +1,8 @@
 import { api } from "@/lib/api";
-import { gTop10District } from "@/g_state/g_top_10_district";
+import { gTop10District } from "@/g_state/top_10_district/g_top_10_district";
 import { useHookstate } from "@hookstate/core";
 import { useShallowEffect } from "@mantine/hooks";
-import { gTop10DistrictCount } from "@/g_state/g_top_10_district_take";
+import { gTop10DistrictCount } from "@/g_state/top_10_district/g_top_10_district_take";
 import _ from "lodash";
 
 const LoadTop10District = () => {
