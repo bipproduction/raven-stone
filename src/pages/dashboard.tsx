@@ -42,9 +42,12 @@ import { useState } from "react";
 import {
   MdAccountCircle,
   MdAddChart,
+  MdAddCircle,
+  MdArrowForwardIos,
   MdBarChart,
   MdGridView,
   MdMessage,
+  MdPlayCircle,
 } from "react-icons/md";
 import LoadNationWideChart from "@/load_data/load_nationWide_chart";
 import _ from "lodash";
@@ -55,6 +58,7 @@ import LoadNationWideRating from "@/load_data/load_nation_wide_rating";
 import LoadCandidate from "@/load_data/load_candidate";
 import LoadProvince from "@/load_data/load_province";
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
+import EmotionalViewViaProvinceCouple from "@/layouts/prodictive_ai/emotional_view_via_province_couple";
 
 const listView = [
   {
@@ -167,6 +171,11 @@ const listView = [
         view: EmotionalViewViaProvince,
       },
       {
+        id: 3,
+        name: "Emotional View Via Province Couple",
+        view: EmotionalViewViaProvinceCouple,
+      },
+      {
         id: 4,
         name: "Contextual Content",
         view: ContextualContent,
@@ -204,12 +213,20 @@ const Dashboard = () => {
         >
           <Navbar.Section grow component={ScrollArea}>
             {listView.map((v) => (
-              <NavLink label={v.name} icon={<v.icon />} key={v.id.toString()}>
+              <NavLink
+                bg={"gray.2"}
+                label={v.name}
+                icon={<v.icon size={24} />}
+                key={v.id.toString()}
+                defaultOpened
+              >
                 {v.child.map((vv, i) => (
                   <NavLink
+                    c={selectedView.value == vv.name ? "teal" : "dark"}
+                    icon={<MdPlayCircle color="gray" />}
                     variant={"filled"}
                     fw={"bold"}
-                    bg={selectedView.value == vv.name ? "blue.1" : ""}
+                    // bg={selectedView.value == vv.name ? "blue.1" : ""}
                     label={_.upperCase(vv.name)}
                     key={`${v.id}${i}`}
                     onClick={() => {
