@@ -1,4 +1,4 @@
-import { gNationWideRating } from "@/g_state/g_nation_wide_rating";
+import { gNationWideRating } from "@/g_state/nation_wide_rating/g_nation_wide_rating";
 import { api } from "@/lib/api";
 import { useShallowEffect } from "@mantine/hooks";
 

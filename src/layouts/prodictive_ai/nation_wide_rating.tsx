@@ -1,8 +1,22 @@
+import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
 import { gCandidate } from "@/g_state/g_candidate";
 import { gSelectedView } from "@/g_state/g_dasboard";
-import { gNationWideRating } from "@/g_state/g_nation_wide_rating";
-import { ModelNationWideRating } from "@/model/nation_wide_rating";
-import { Box, Flex, Image, Select, Text } from "@mantine/core";
+import { gNationWideRating } from "@/g_state/nation_wide_rating/g_nation_wide_rating";
+import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
+import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
+import { ModelNationWideRating } from "@/model/predictive_ai/nation_wide_rating";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Select,
+  Space,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { useForceUpdate } from "@mantine/hooks";
+import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
@@ -15,16 +29,8 @@ const NationChartItem = ({
   data: ModelNationWideRating;
   height: number;
 }) => {
-  const dataNya = _.omit(data, [
-    "candidate1Id",
-    "candidate2Id",
-    "candidate1Name",
-    "candidate2Name",
-    "candidate1Img",
-    "candidate2Img",
-    "value",
-  ]);
-  const option = {
+  const dataNya = _.omit(data, ["candidate1", "candidate2"]);
+  const option:EChartsOption = {
     // title: {
     //   text: "World Population",
     // },
@@ -44,6 +50,7 @@ const NationChartItem = ({
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
+      max: 100
     },
     yAxis: {
       type: "category",
@@ -54,6 +61,7 @@ const NationChartItem = ({
         name: "2011",
         type: "bar",
         data: Object.values(dataNya),
+
       },
     ],
   };
@@ -71,51 +79,103 @@ const NationChartItem = ({
 };
 
 const NationWideRating = () => {
-  const [candidate1, setCandidate1] = useState<number>(1);
-  const [candidate2, setCandidate2] = useState<number>(2);
+  const update = useForceUpdate();
   if (gSelectedView.value != "Nation Wide Rating")
     return <>{gSelectedView.value}</>;
   return (
     <>
       <Text>Mention Wide rating</Text>
-      <Flex justify={"end"}>
+      <Flex justify={"end"} p={"md"} bg={"gray.2"}>
         <Select
           onChange={(val) => {
-            if (val && candidate2 == Number(val)) {
-              toast("tidak mungkin satu menjadi dua");
-              return;
+            if (val) {
+              gSelectedCandidate1.set(Number(val));
+              update();
             }
-            setCandidate1(Number(val ?? "2"));
           }}
-          placeholder={gCandidate.value.find((v) => v.id == candidate1)?.name}
+          placeholder={
+            gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+              ?.name
+          }
           data={
             gCandidate.value.map((v) => ({
               label: v.name,
               value: v.id,
+              disabled: v.id == gSelectedCandidate2.value,
             })) as []
           }
         />
         <Select
           onChange={(val) => {
-            if (val && candidate1 == Number(val)) {
-              toast("tidak dimungkinkan satu menjadi dua");
-              return;
+            if (val) {
+              gSelectedCandidate2.set(Number(val));
+              update();
             }
-            setCandidate2(Number(val ?? "2"));
           }}
-          placeholder={gCandidate.value.find((v) => v.id == candidate2)?.name}
+          placeholder={
+            gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+              ?.name
+          }
           data={
             gCandidate.value.map((v) => ({
               label: v.name,
               value: v.id,
+              disabled: v.id == gSelectedCandidate1.value,
             })) as []
           }
         />
+        <Button
+          onClick={async () => {
+            await funcLoadNationWideRating();
+            update();
+          }}
+        >
+          Proccess
+        </Button>
       </Flex>
-
-      {gNationWideRating.value
+      <Space h={70} />
+      <Flex direction={"column"}>
+        <Flex justify={"space-evenly"}>
+          <Stack>
+            <Image
+              width={200}
+              src={
+                gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
+                  ?.img
+              }
+              alt={gSelectedCandidate1.value.toString()}
+            />
+            <Text>
+              {
+                gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
+                  ?.name
+              }
+            </Text>
+          </Stack>
+          <Stack>
+            <Image
+              width={200}
+              src={
+                gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
+                  ?.img
+              }
+              alt={gSelectedCandidate2.value.toString()}
+            />
+            <Text>
+              {
+                gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
+                  ?.name
+              }
+            </Text>
+          </Stack>
+        </Flex>
+        <Box w={"100%"} h={500}>
+          <NationChartItem data={gNationWideRating.value as any} height={500} />
+        </Box>
+      </Flex>
+      {/* {gNationWideRating.value
         .filter(
-          (v) => v.candidate1Id == candidate1 && v.candidate2Id == candidate2
+          (v) => v.candidate1 == candidate1 && v.candidate2 == candidate2
         )
         .map((v, i) => (
           <Box key={i} w={"100%"}>
@@ -129,7 +189,7 @@ const NationWideRating = () => {
               </Box>
             </Flex>
           </Box>
-        ))}
+        ))} */}
     </>
   );
 };

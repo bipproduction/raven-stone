@@ -1,49 +1,153 @@
-sum each item using lodash and generate new list
 
-const list2 = [
-    {
-        trust: 558820,
-    anger: 100107,
-    anticipation: 333075,
-    disgust: 350205,
-    fear: 197773,
-    joy: 468114,
-    sadness: 158024,
-    surprise: 489839
-    },
-    {
-        trust: 558820,
-    anger: 100107,
-    anticipation: 333075,
-    disgust: 350205,
-    fear: 197773,
-    joy: 468114,
-    sadness: 158024,
-    surprise: 489839
-    }
-]
 
-const list2 = [
-    {
-        trust: 558820,
-    anger: 100107,
-    anticipation: 333075,
-    disgust: 350205,
-    fear: 197773,
-    joy: 468114,
-    sadness: 158024,
-    surprise: 489839
-    },
-    {
-        trust: 558820,
-    anger: 100107,
-    anticipation: 333075,
-    disgust: 350205,
-    fear: 197773,
-    joy: 468114,
-    sadness: 158024,
-    surprise: 489839
-    }
-]
+const kandidat_a = {
+    "trust": 151567863,
+    "anger": 28032220,
+    "anticipation": 64306245,
+    "disgust": 88202613,
+    "fear": 36485325,
+    "joy": 113108523,
+    "sadness": 47805349,
+    "surprise": 85178566
+  }
 
-jumblahkan item pada list1 dan list2 lalu bentuk menjadi list3 
+  const candidat_b = {
+    "trust": 75035605,
+    "anger": 13718203,
+    "anticipation": 31493375,
+    "disgust": 49655958,
+    "fear": 17998034,
+    "joy": 55102129,
+    "sadness": 23111496,
+    "surprise": 41228577
+  }
+
+hitung prosentase dua kandaidat tersebut jika disandingkan menggunakan formula 
+P (A U B) = P (A) + P (B) - P (A ∩ B)
+P (A ∩ B) = P (A) + P (B) - P (A U B)
+dan buatkan hasil baru menggunakan typescript untuk mengukur tingkat kemenangan berupa prosentase dibulatkan tanpa koma
+dan hasilnya menggunakan template seperti dibawah ini
+const hasil_prosentase_penggabungan = {}
+
+
+
+apa nama teori ilmiah yang cocok untuk mengukur kata berikut
+
+candidate
+trust
+anger
+anticipation
+disgust
+fear
+joy
+sadness
+surprise
+
+
+kandidat 1
+```tsv
+anger	disgust	fear	joy	sadness	surprise	trust	anticipation
+3	9	2	20	2	11	49	4
+```
+
+kandidat 2
+```tsv
+anger	disgust	fear	joy	sadness	surprise	trust	anticipation
+7	9	8	10	10	13	17	26
+```
+
+hitunglah prosentase tiap tiap emosi jika kedua kandidat digabungkan
+
+
+
+
+const kandidat_a = {
+  "trust": 151567863,
+  "anger": 28032220,
+  "anticipation": 64306245,
+  "disgust": 88202613,
+  "fear": 36485325,
+  "joy": 113108523,
+  "sadness": 47805349,
+  "surprise": 85178566
+};
+
+const candidat_b = {
+  "trust": 75035605,
+  "anger": 13718203,
+  "anticipation": 31493375,
+  "disgust": 49655958,
+  "fear": 17998034,
+  "joy": 55102129,
+  "sadness": 23111496,
+  "surprise": 41228577
+};
+
+// Find the intersection of emotions for each candidate
+const intersection = {};
+for (let emotion in kandidat_a) {
+  if (emotion !== "candidate") {
+    intersection[emotion] = Math.min(kandidat_a[emotion], candidat_b[emotion]);
+  }
+}
+
+// Find the union of emotions for each candidate
+const union = {};
+for (let emotion in kandidat_a) {
+  if (emotion !== "candidate") {
+    union[emotion] = kandidat_a[emotion] + candidat_b[emotion] - intersection[emotion];
+  }
+}
+
+// Calculate the percentages and store them in a new object
+const hasil_prosentase_penggabungan = {};
+for (let emotion in union) {
+  hasil_prosentase_penggabungan[emotion] = ((union[emotion] / 2) / union[emotion]) * 100;
+}
+
+console.log(hasil_prosentase_penggabungan);
+
+
+
+
+const hasilProsentasePenggabungan = {};
+
+// Menghitung persentase tiap emosi dari kedua kandidat
+Object.keys(kandidatA).forEach(key => {
+  if (key !== "candidate") {
+    const persentaseA = kandidatA[key] / Object.values(kandidatA).slice(1).reduce((a, b) => a + b) * 100;
+    const persentaseB = kandidatB[key] / Object.values(kandidatB).slice(1).reduce((a, b) => a + b) * 100;
+    const persentaseGabungan = persentaseA + persentaseB - (persentaseA * persentaseB / 100);
+    hasilProsentasePenggabungan[key] = Math.round(persentaseGabungan);
+  }
+});
+
+console.log(hasilProsentasePenggabungan);
+
+
+
+const hasilProsentasePenggabungan = {};
+
+// Menghitung persentase tiap emosi dari kedua kandidat
+Object.keys(kandidatA).forEach(key => {
+  if (key !== "candidate") {
+    const persentaseA = kandidatA[key] / Object.values(kandidatA).slice(1).reduce((a, b) => a + b) * 100;
+    const persentaseB = kandidatB[key] / Object.values(kandidatB).slice(1).reduce((a, b) => a + b) * 100;
+    const persentaseGabungan = persentaseA + persentaseB - (persentaseA * persentaseB / 100);
+    hasilProsentasePenggabungan[key] = Math.round(persentaseGabungan);
+  }
+});
+
+console.log(hasilProsentasePenggabungan);
+
+
+urutkan sesuai urutan yang benar dan klasifikasikan sesuai dengan negative, positive dan neutrall
+
+trust
+anger
+anticipation
+disgust
+fear
+joy
+sadness
+surprise
