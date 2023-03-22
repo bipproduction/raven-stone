@@ -1,0 +1,73 @@
+[
+    {
+        "title": "KEDEKATAN JOKOWI PRABOWO GANJAR",
+        "audiences": 82637090,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 66.3,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 26
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 33
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 16
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 1
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 13
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 25
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 62
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 15
+                            },
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 32
+                            },
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 53
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
