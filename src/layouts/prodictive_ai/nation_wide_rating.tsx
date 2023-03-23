@@ -14,6 +14,7 @@ import {
   Space,
   Stack,
   Text,
+  Title,
 } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
 import { EChartsOption } from "echarts";
@@ -30,7 +31,7 @@ const NationChartItem = ({
   height: number;
 }) => {
   const dataNya = _.omit(data, ["candidate1", "candidate2"]);
-  const option:EChartsOption = {
+  const option: EChartsOption = {
     // title: {
     //   text: "World Population",
     // },
@@ -50,7 +51,7 @@ const NationChartItem = ({
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
-      max: 100
+      max: 100,
     },
     yAxis: {
       type: "category",
@@ -61,7 +62,6 @@ const NationChartItem = ({
         name: "2011",
         type: "bar",
         data: Object.values(dataNya),
-
       },
     ],
   };
@@ -84,8 +84,17 @@ const NationWideRating = () => {
     return <>{gSelectedView.value}</>;
   return (
     <>
-      <Text>Mention Wide rating</Text>
-      <Flex justify={"end"} p={"md"} bg={"gray.2"}>
+      <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title>
+      <Flex
+        justify={"end"}
+        p={"md"}
+        bg={"gray.2"}
+        pos={"sticky"}
+        top={70}
+        sx={{
+          zIndex: 100,
+        }}
+      >
         <Select
           onChange={(val) => {
             if (val) {
