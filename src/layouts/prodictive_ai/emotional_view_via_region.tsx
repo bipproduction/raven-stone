@@ -4,7 +4,7 @@ import { gIndonesiaMap } from "@/g_state/g_indonesia_map";
 import { gListKabupaten } from "@/g_state/g_map_state";
 import { api } from "@/lib/api";
 import { useHookstate } from "@hookstate/core";
-import { Text } from "@mantine/core";
+import { Text, Title } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { registerMap } from "echarts";
 import EChartsReact, { EChartsOption } from "echarts-for-react";
@@ -104,7 +104,7 @@ const EmotionalViewViaRegion = () => {
     return <>{gSelectedView.value}</>;
   return (
     <>
-      <Text>Emotional View Via Region</Text>
+      <Title c={"cyan.9"}>{_.upperCase(gSelectedView.value)}</Title>
       {/* {JSON.stringify(dataIndonesiaMap.features.map((v: any) => v.properties))} */}
       {!_.isEmpty(dataIndonesiaMap.features) && (
         <EChartsReact

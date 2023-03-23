@@ -1,3 +1,4 @@
+import { gSelectedView } from "@/g_state/g_dasboard";
 import {
   Box,
   Divider,
@@ -70,16 +71,19 @@ const ContextualItemChart = ({ data }: { [key: string]: any }) => {
 const ContextualContent = () => {
   return (
     <>
-      <Text>Contextual Content</Text>
+      <Title c={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title>
+      <Divider mb={70} />
       {/* {JSON.stringify(list_contexttual_content)} */}
       <Stack>
         {list_contexttual_content.map((v) => (
           <Box key={v.title} pb={70}>
             <Stack>
-              <Title c={"dark"}>{v.title}</Title>
+              <Title c={"gray.6"}>{v.title}</Title>
               <Flex direction={"row"}>
-                <MdArrowCircleUp color="green" size={24}/>
-              <Title c={"teal.8"}>{Intl.NumberFormat("id-ID").format(v.audiences)}</Title>
+                <MdArrowCircleUp color="green" size={24} />
+                <Title c={"teal.8"}>
+                  {Intl.NumberFormat("id-ID").format(v.audiences)}
+                </Title>
               </Flex>
               <SimpleGrid cols={3}>
                 {v.emotion.map((v2) => (
@@ -91,13 +95,19 @@ const ContextualContent = () => {
                       }
                     >
                       <Group position="apart">
-                        <Title c={"white"} order={3}>{_.upperCase(v2.name)}</Title>
-                        <Title c={"white"} order={3}>{v2.value}</Title>
+                        <Title c={"white"} order={3}>
+                          {_.upperCase(v2.name)}
+                        </Title>
+                        <Title c={"white"} order={3}>
+                          {v2.value}
+                        </Title>
                       </Group>
                       <Stack>
                         {v2.cluster.map((v3) => (
                           <Box key={v3.name}>
-                            <Text c={"dark"} fw={"bold"}>{v3.name}</Text>
+                            <Text c={"dark"} fw={"bold"}>
+                              {v3.name}
+                            </Text>
                             <Divider />
                             <ContextualItemChart data={v3.data} />
                           </Box>
