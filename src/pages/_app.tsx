@@ -16,6 +16,9 @@ import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { funcLoadIndonesiaMap } from "@/fun_load/func_load_indonesia_map";
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
 import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
+import { gIsUser } from "@/g_state/g_user_id";
+import MyMain from "@/layouts/my_main";
+import { useHookstate } from "@hookstate/core";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -25,13 +28,13 @@ export default function App(props: AppProps) {
     funcLoadIndonesiaMap();
     funLoadMapData();
     funcLoadNationWideChart();
-    funcLoadNationWideRating()
+    funcLoadNationWideRating();
     funcLoadProvince();
     funcLoadSourceOfmention();
     funcLoadTop10Province();
     funcLoadTop10District();
     funcLoadWordCloud();
-    funcLoadEmotionalViwViaProvinceByDate()
+    funcLoadEmotionalViwViaProvinceByDate();
   }, []);
 
   return (
@@ -52,15 +55,33 @@ export default function App(props: AppProps) {
           colorScheme: "light",
         }}
       >
-        <LoadDataFirst>
+        <AuthProvider>
           <Component {...pageProps} />
-        </LoadDataFirst>
+        </AuthProvider>
       </MantineProvider>
     </>
   );
 }
 
-const LoadDataFirst = ({ children }: PropsWithChildren) => {
-  useShallowEffect(() => {}, []);
+const AuthProvider = ({ children }: PropsWithChildren) => {
+  const isUser = useHookstate(gIsUser);
+  useShallowEffect(() => {
+    const id = localStorage.getItem("user_id");
+    if (id) {
+      isUser.set(true);
+    } else {
+      isUser.set(false);
+    }
+  }, []);
+
+  if (isUser.value == undefined)
+    return <>{JSON.stringify(isUser.value)} </>;
+  if (!isUser.value)
+    return (
+      <>
+        <MyMain />
+      </>
+    );
+
   return <>{children}</>;
 };

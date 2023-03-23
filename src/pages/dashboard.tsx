@@ -27,6 +27,7 @@ import {
   Aside,
   Box,
   Burger,
+  Button,
   Flex,
   Footer,
   Header,
@@ -59,6 +60,7 @@ import LoadCandidate from "@/load_data/load_candidate";
 import LoadProvince from "@/load_data/load_province";
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
 import EmotionalViewViaProvinceCouple from "@/layouts/prodictive_ai/emotional_view_via_province_couple";
+import { gIsUser } from "@/g_state/g_user_id";
 
 const listView = [
   {
@@ -254,9 +256,18 @@ const Dashboard = () => {
                 mr="xl"
               />
             </MediaQuery>
-
-            <Flex>
+            <Flex direction={"row"} justify={"space-between"} w={"100%"}>
               <MdAccountCircle size={42} />
+              <Button
+                compact
+                variant={"subtle"}
+                onClick={() => {
+                  localStorage.removeItem("user_id");
+                  gIsUser.set(false);
+                }}
+              >
+                Logout
+              </Button>
             </Flex>
           </div>
         </Header>
