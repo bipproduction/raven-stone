@@ -80,7 +80,7 @@ const MyMain = () => {
   return (
     <>
       <Stack>
-        <BackgroundImage src="/imgMedia/bg-3.png">
+        <BackgroundImage src="/bg-3.png">
           <ScrollArea>
             <Center h={"100vh"}>
               <Stack justify={"center"}>
