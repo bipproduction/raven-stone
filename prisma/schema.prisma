@@ -287,6 +287,16 @@ model Candidate {
   img           String?
   DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
+
+  CandidateValue CandidateValue?
+}
+
+model CandidateValue {
+  id          Int        @id @default(autoincrement())
+  value1      Int?
+  value2      Int?
+  Candidate   Candidate? @relation(fields: [candidateId], references: [id])
+  candidateId Int        @unique
 }
 
 model Emotion {

@@ -58,6 +58,9 @@ const Dev = () => {
   const seederCandidate = async () =>
     await fetch(api.apiSeederCandidate).then(async (v) => v.ok);
 
+  const seederCandidateValue = async () =>
+    await fetch(api.apiSeederApiSeederCandidateValue).then(async (v) => v.ok);
+
   const seederUser = async () =>
     await fetch(api.apiSeederSeederUser).then(async (v) => v.ok);
 
@@ -144,6 +147,11 @@ const Dev = () => {
                   <ButtonSync
                     loadData={seederCandidate}
                     name={"seeder candidate"}
+                  />
+
+                  <ButtonSync
+                    loadData={seederCandidateValue}
+                    name={"seeder candidate value"}
                   />
                 </Group>
                 <Stack spacing={0}>
