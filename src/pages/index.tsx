@@ -2,13 +2,15 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import MyMain from "@/layouts/my_main";
-import { Box } from "@mantine/core";
+import { Box, Button, Stack, Text } from "@mantine/core";
 import { gradient } from "@/styles/gradient";
+import { Router, useRouter } from "next/router";
 // import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const router = useRouter()
   return (
     <>
       <Head>
@@ -17,8 +19,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box >
-        <MyMain />
+      <Box>
+        {/* <MyMain /> */}
+        <Stack align={"center"}>
+          <Text>Bip Production</Text>
+          <Button onClick={() => router.replace('/dashboard')}>Dashboard</Button>
+        </Stack>
       </Box>
     </>
   );
