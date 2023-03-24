@@ -55,9 +55,11 @@ export default function App(props: AppProps) {
           colorScheme: "light",
         }}
       >
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
+        <FirebaseProvider>
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </FirebaseProvider>
       </MantineProvider>
     </>
   );
@@ -74,8 +76,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   }, []);
 
-  if (isUser.value == undefined)
-    return <>{JSON.stringify(isUser.value)} </>;
+  if (isUser.value == undefined) return <>{JSON.stringify(isUser.value)} </>;
   if (!isUser.value)
     return (
       <>
@@ -83,5 +84,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       </>
     );
 
+  return <>{children}</>;
+};
+
+const FirebaseProvider = ({ children }: PropsWithChildren) => {
   return <>{children}</>;
 };
