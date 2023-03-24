@@ -33,5 +33,6 @@ export const api = {
   "apiDevSyncNationWideChart": "/api/dev/sync-nation-wide-chart",
   "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
+  "apiAuthLoginDev": "/api/auth/login-dev",
   "apiAuthGetUser": "/api/auth/get-user"
 }
