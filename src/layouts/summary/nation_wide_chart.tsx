@@ -6,6 +6,7 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import moment from "moment";
+import PageTitle from "../page_title";
 
 const NationWideChart = () => {
   const listNationWideNation = useHookstate(gListNationWideChahrt);
@@ -88,9 +89,10 @@ const NationWideChart = () => {
   };
   return (
     <>
-      <Title c={"cyan.8"} size={24}>
+      {/* <Title c={"cyan.8"} size={24}>
         {_.upperCase(gSelectedView.value)}
-      </Title>
+      </Title> */}
+      <PageTitle />
       <Space h={70} />
       <Paper p={"md"}>
         <EChartsReact

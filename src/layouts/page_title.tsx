@@ -8,7 +8,7 @@ const PageTitle = () => {
     <>
       <Flex>
         <MdCircle color="orange" size={42} />
-        <Title c={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title>
+        <Title c={"blue.8"}>{_.upperCase(gSelectedView.value)}</Title>
       </Flex>
       <Space h={70} />
     </>
