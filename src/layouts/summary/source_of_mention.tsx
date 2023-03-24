@@ -116,7 +116,7 @@ const SourceOfmention = () => {
   return (
     <>
       {/* <Text>Source of Mention</Text> */}
-      <PageTitle />
+      <PageTitle text="Prediksi sumber perbincangan terhadap konteks pilpres, pemilihan presiden, pemilu, pemilihan umum, capres, calon presiden, etc." />
       <Paper p={"md"}>
         <ReactEchart
           style={{
