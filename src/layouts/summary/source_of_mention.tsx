@@ -57,16 +57,16 @@ const SourceOfmention = () => {
   if (gSelectedView.value != "Source of Mention")
     return <>{gSelectedView.value}</>;
   const option: EChartsOption = {
-    title: {
-      text: "World Population",
-    },
+    // title: {
+    //   text: "World Population",
+    // },
     tooltip: {
       trigger: "axis",
       axisPointer: {
         type: "shadow",
       },
     },
-    legend: {},
+    // legend: {},
     // grid: {
     //   left: "3%",
     //   right: "4%",
