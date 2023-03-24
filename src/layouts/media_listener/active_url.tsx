@@ -37,7 +37,7 @@ const ActiveUrl = () => {
     <>
       <Stack>
         {/* <Title order={3}>Active Url</Title> */}
-        <PageTitle />
+        <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur." />
         <SimpleGrid cols={4}>
           {dataUrl &&
             dataUrl["most_active_urls"].map((v) => (

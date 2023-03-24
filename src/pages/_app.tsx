@@ -1,10 +1,10 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, Modal } from "@mantine/core";
 import "rsuite/dist/rsuite.min.css";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import LoadProvince from "@/load_data/load_province";
-import { useShallowEffect } from "@mantine/hooks";
+import { useDisclosure, useShallowEffect } from "@mantine/hooks";
 import { funcLoadProvince } from "@/fun_load/func_load_province";
 import { funLoadMapData } from "@/fun_load/func_load_map_data";
 import { funcLoadCandidate } from "@/fun_load/func_load_candidate";
@@ -19,6 +19,8 @@ import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emot
 import { gIsUser } from "@/g_state/g_user_id";
 import MyMain from "@/layouts/my_main";
 import { useHookstate } from "@hookstate/core";
+import { fDb } from "@/lib/fbs";
+import { getDatabase, onValue, ref } from "firebase/database";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -88,5 +90,20 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 };
 
 const FirebaseProvider = ({ children }: PropsWithChildren) => {
-  return <>{children}</>;
+  const [openModal, setOpenModal] = useDisclosure(false);
+  useShallowEffect(() => {
+    return onValue(ref(fDb, "eagle_2/update"), (val) => {
+      if(val.val()){
+        setOpenModal.open()
+      }else{
+        setOpenModal.close()
+      }
+    });
+  }, []);
+  return (
+    <>
+      {children}
+      <Modal opened={openModal} onClose={setOpenModal.close}></Modal>
+    </>
+  );
 };
