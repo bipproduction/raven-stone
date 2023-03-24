@@ -2,10 +2,11 @@ import { gTop10Province } from "@/g_state/top_10_province/g_top_10_province";
 import { gTop10ProvinceTake } from "@/g_state/top_10_province/g_top_10_province_take";
 import { api } from "@/lib/api";
 import { ModelTop10Province } from "@/model/top_10_province";
-import { Group, Pagination, Stack, Table, Text } from "@mantine/core";
+import { Group, Pagination, Paper, Stack, Table, Text } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
+import PageTitle from "../page_title";
 
 const Top10ProvinceByConversation = () => {
   const pageSize = 10;
@@ -14,43 +15,53 @@ const Top10ProvinceByConversation = () => {
   return (
     <>
       <Stack>
-        <Text>Top 10 Province by Conversation</Text>
+        <PageTitle />
         {/* {JSON.stringify(gTop10ProvinceTake.value)} */}
-        <Table>
-          <thead>
-            <tr>
-              {Object.keys(_.omit(gTop10ProvinceTake.value[0], "id")).map(
-                (v, i) => (
-                  <th key={i}>
-                    <Text fw={"bold"}>{_.upperCase(v)}</Text>
-                  </th>
-                )
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {gTop10ProvinceTake.value.map((v, i) => (
-              <tr key={i}>
-                {Object.values(_.omit(v, "id")).map((v2, ii) => (
-                  <td key={ii}>{v2}</td>
+        <Paper p={"md"}>
+          <Stack>
+            <Table striped withBorder> 
+              <thead>
+                <tr>
+                  {Object.keys(_.omit(gTop10ProvinceTake.value[0], "id")).map(
+                    (v, i) => (
+                      <th key={i}>
+                        <Text c={"cyan.8"} fw={"bold"}>
+                          {_.upperCase(v)}
+                        </Text>
+                      </th>
+                    )
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {gTop10ProvinceTake.value.map((v, i) => (
+                  <tr key={i}>
+                    {Object.values(_.omit(v, "id")).map((v2, ii) => (
+                      <td key={ii}>
+                        {_.isNaN(Number(v2))
+                          ? v2
+                          : Intl.NumberFormat("id-ID").format(Number(v2))}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Group position="right">
-          <Pagination
-            total={Math.ceil(gTop10Province.value.length / pageSize)}
-            value={page}
-            onChange={(val) => {
-              const start = (val - 1) * pageSize;
-              const end = start + pageSize;
-              const pageItem = _.slice(gTop10Province.value, start, end);
-              setPage(val);
-              gTop10ProvinceTake.set(pageItem);
-            }}
-          />
-        </Group>
+              </tbody>
+            </Table>
+            <Group position="right">
+              <Pagination
+                total={Math.ceil(gTop10Province.value.length / pageSize)}
+                value={page}
+                onChange={(val) => {
+                  const start = (val - 1) * pageSize;
+                  const end = start + pageSize;
+                  const pageItem = _.slice(gTop10Province.value, start, end);
+                  setPage(val);
+                  gTop10ProvinceTake.set(pageItem);
+                }}
+              />
+            </Group>
+          </Stack>
+        </Paper>
       </Stack>
     </>
   );
