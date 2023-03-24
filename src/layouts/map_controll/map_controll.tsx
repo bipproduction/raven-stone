@@ -1,3 +1,4 @@
+import { funLoadMapData } from "@/fun_load/func_load_map_data";
 import {
   gIstable,
   glistCandidate,
@@ -11,57 +12,39 @@ import {
   Autocomplete,
   Box,
   Button,
-  Checkbox,
   Divider,
   Flex,
   Grid,
   Group,
   Menu,
   Modal,
-  Paper,
-  Radio,
   Select,
   SimpleGrid,
   Slider,
   Stack,
   Text,
-  TextInput,
-  Tooltip,
 } from "@mantine/core";
+import { DatePicker, DatePickerInput } from "@mantine/dates";
 import { useDisclosure, useShallowEffect } from "@mantine/hooks";
 import { EChartsOption, registerMap } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
+import moment from "moment";
 import { useState } from "react";
+import { CSVLink } from "react-csv";
+import { FaCopy, FaLock, FaLockOpen, FaSearch } from "react-icons/fa";
 import {
-  FaCopy,
-  FaDotCircle,
-  FaGripVertical,
-  FaLock,
-  FaLockOpen,
-  FaSearch,
-} from "react-icons/fa";
-import {
+  MdAccountCircle,
   MdClose,
   MdDownload,
-  MdLock,
   MdMap,
-  MdRemoveRedEye,
   MdTableView,
-  MdWeb,
-  MdWebAsset,
 } from "react-icons/md";
 import toast from "react-simple-toasts";
-import { DatePicker, DatePickerInput } from "@mantine/dates";
-import moment from "moment";
 import Spreadsheet from "react-spreadsheet";
-import { CSVLink, CSVDownload } from "react-csv";
-import { gProvince } from "@/g_state/g_province";
-import { useForm } from "@mantine/form";
-import { api } from "@/lib/api";
 import ButtonAjustByProvince from "./dialog_ajust_by_province";
-import { funLoadMapData } from "@/fun_load/func_load_map_data";
-import { TooltipFloating } from "@mantine/core/lib/Tooltip/TooltipFloating/TooltipFloating";
+import Swal from "sweetalert2";
+import { gIsDev } from "@/g_state/g_is_dev";
 
 interface ModelEmotion {
   anger?: number;
@@ -326,19 +309,42 @@ const LayoutMapControll = () => {
     return `${_.snakeCase(nama ? nama.name : "error")}_data_kabupaten`;
   };
 
+  const onProfileLogout = async () => {
+    Swal.fire({
+      title: "info",
+      text: "logout ?",
+      confirmButtonText: "yes",
+    }).then((v) => {
+      if (v.isConfirmed) {
+        localStorage.removeItem("dev_id");
+        gIsDev.set(undefined);
+      }
+    });
+  };
+
   return (
     <>
-      <Stack >
+      <Stack>
+        <Flex p={"md"} justify={"end"}>
+          <Button
+            onClick={onProfileLogout}
+            compact
+            leftIcon={<MdAccountCircle />}
+          >
+            <Text>Dev</Text>
+          </Button>
+        </Flex>
+
         <Flex
           w={"100%"}
-          p={"md"}
+          p={"xs"}
           bg={"gray.1"}
           direction={"row"}
           gap={"lg"}
           justify={"space-between"}
           align={"center"}
-          h={100}
-          pos={"fixed"}
+          pos={"sticky"}
+          top={0}
           sx={{
             zIndex: 100,
           }}

@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { MdArrowBack, MdTableView } from "react-icons/md";
 import toast from "react-simple-toasts";
+import DevAuthProvider from "./dev_auth_provider";
 
 const Dev = () => {
   const syncNationWideChart = async () => {
@@ -66,114 +67,117 @@ const Dev = () => {
 
   return (
     <>
-      <Stack spacing={0} pos={"static"}>
-        <Flex
-          pos={"fixed"}
-          w={"100%"}
-          h={70}
-          p={"md"}
-          bg={"gray.2"}
-          gap={"md"}
-          direction={"row"}
-        >
-          <ActionIcon size={34} onClick={() => router.replace("/dashboard")}>
-            <MdArrowBack size={34} />
-          </ActionIcon>
-          <Text size={24}>Dev</Text>
-        </Flex>
-        <Container bg={"gray.3"} mt={70} pos={"static"}>
-          <Stack>
-            {/* <DevCityValue /> */}
+      <DevAuthProvider>
+        <Stack spacing={0} pos={"static"}>
+          <Flex
+            pos={"fixed"}
+            w={"100%"}
+            h={70}
+            p={"md"}
+            bg={"gray.2"}
+            gap={"md"}
+            direction={"row"}
+          >
+            <ActionIcon size={34} onClick={() => router.replace("/dashboard")}>
+              <MdArrowBack size={34} />
+            </ActionIcon>
+            <Text size={24}>Dev</Text>
+          </Flex>
+          <Container bg={"gray.3"} mt={70} pos={"static"}>
+            <Stack>
+              {/* <DevCityValue /> */}
 
-            <Card>
-              <Stack>
-                <Stack spacing={0}>
-                  <Text>From Google Sheet</Text>
-                  <Text size={16} color={"gray"}>
-                    sync data dari google sheet
-                  </Text>
+              <Card>
+                <Stack>
+                  <Stack spacing={0}>
+                    <Text>From Google Sheet</Text>
+                    <Text size={16} color={"gray"}>
+                      sync data dari google sheet
+                    </Text>
+                  </Stack>
+                  <Group>
+                    <ButtonSync
+                      loadData={syncNationWideChart}
+                      name={"Sync NationWide Chart"}
+                    />
+                    <ButtonSync
+                      loadData={syncSourceOfMention}
+                      name={"sync source of mention"}
+                    />
+                    <ButtonSync
+                      loadData={syncWordCloud}
+                      name={"sync word cloud"}
+                    />
+                  </Group>
                 </Stack>
-                <Group>
-                  <ButtonSync
-                    loadData={syncNationWideChart}
-                    name={"Sync NationWide Chart"}
-                  />
-                  <ButtonSync
-                    loadData={syncSourceOfMention}
-                    name={"sync source of mention"}
-                  />
-                  <ButtonSync
-                    loadData={syncWordCloud}
-                    name={"sync word cloud"}
-                  />
-                </Group>
-              </Stack>
-            </Card>
-            <Card>
-              <Stack>
-                <Stack spacing={0}>
-                  <Text>Generate Api</Text>
-                  <Text size={16} color={"gray"}>
-                    otomatis generate api dari folder api ;! hanya untuk
-                    developer
-                  </Text>
+              </Card>
+              <Card>
+                <Stack>
+                  <Stack spacing={0}>
+                    <Text>Generate Api</Text>
+                    <Text size={16} color={"gray"}>
+                      otomatis generate api dari folder api ;! hanya untuk
+                      developer
+                    </Text>
+                  </Stack>
+                  <ButtonSync loadData={generateApi} name={"generate api"} />
                 </Stack>
-                <ButtonSync loadData={generateApi} name={"generate api"} />
-              </Stack>
-            </Card>
-            <Card>
-              <Stack>
-                <Stack spacing={0}>
-                  <Text>Seeder</Text>
-                  <Text size={16} color={"gray"}>
-                    Seeder data dari json ke database jika ada penginstalan awal
-                  </Text>
-                </Stack>
-                <Group>
-                  <ButtonSync loadData={seederUser} name={"seeder user"} />
-                  <ButtonSync
-                    loadData={seederProvince}
-                    name={"seeder province"}
-                  />
-                  <ButtonSync loadData={seederCity} name={"seeder city"} />
-                  <ButtonSync
-                    loadData={seederCityValue}
-                    name={"seeder city value"}
-                  />
-                  <ButtonSync
-                    loadData={seederEmotion}
-                    name={"seeder emotion"}
-                  />
-                  <ButtonSync
-                    loadData={seederCandidate}
-                    name={"seeder candidate"}
-                  />
+              </Card>
+              <Card>
+                <Stack>
+                  <Stack spacing={0}>
+                    <Text>Seeder</Text>
+                    <Text size={16} color={"gray"}>
+                      Seeder data dari json ke database jika ada penginstalan
+                      awal
+                    </Text>
+                  </Stack>
+                  <Group>
+                    <ButtonSync loadData={seederUser} name={"seeder user"} />
+                    <ButtonSync
+                      loadData={seederProvince}
+                      name={"seeder province"}
+                    />
+                    <ButtonSync loadData={seederCity} name={"seeder city"} />
+                    <ButtonSync
+                      loadData={seederCityValue}
+                      name={"seeder city value"}
+                    />
+                    <ButtonSync
+                      loadData={seederEmotion}
+                      name={"seeder emotion"}
+                    />
+                    <ButtonSync
+                      loadData={seederCandidate}
+                      name={"seeder candidate"}
+                    />
 
+                    <ButtonSync
+                      loadData={seederCandidateValue}
+                      name={"seeder candidate value"}
+                    />
+                  </Group>
+                  <Stack spacing={0}>
+                    <Text color={"orange"} fw={"bold"}>
+                      Danger Zone
+                    </Text>
+                    <Text size={16} color={"gray"}>
+                      Hati hati karena akan menghapus dan mereplace ulang semua
+                      data yang ada di content data
+                    </Text>
+                  </Stack>
                   <ButtonSync
-                    loadData={seederCandidateValue}
-                    name={"seeder candidate value"}
+                    bg="pink"
+                    loadData={seederDataContent}
+                    name={"seeder data content"}
                   />
-                </Group>
-                <Stack spacing={0}>
-                  <Text color={"orange"} fw={"bold"}>
-                    Danger Zone
-                  </Text>
-                  <Text size={16} color={"gray"}>
-                    Hati hati karena akan menghapus dan mereplace ulang semua
-                    data yang ada di content data
-                  </Text>
                 </Stack>
-                <ButtonSync
-                  bg="pink"
-                  loadData={seederDataContent}
-                  name={"seeder data content"}
-                />
-              </Stack>
-            </Card>
-            <B24Dev />
-          </Stack>
-        </Container>
-      </Stack>
+              </Card>
+              <B24Dev />
+            </Stack>
+          </Container>
+        </Stack>
+      </DevAuthProvider>
     </>
   );
 };
