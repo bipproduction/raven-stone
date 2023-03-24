@@ -281,7 +281,7 @@ const Dashboard = () => {
                   <Menu>
                     <Menu.Target>
                       <NavLink
-                        icon={<MdAccountCircle size={42} color={"rooyalblue"} />}
+                        icon={<MdAccountCircle size={42} color={"#1870C2"} />}
                         label={userName?.name}
                       />
 
