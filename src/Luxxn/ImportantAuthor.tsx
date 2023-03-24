@@ -32,7 +32,7 @@ function ImportantAuthorData() {
   };
   return (
     <>
-      <PageTitle />
+      <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur." />
       <SimpleGrid cols={3}>
         {datanya &&
           datanya.map((v) => (

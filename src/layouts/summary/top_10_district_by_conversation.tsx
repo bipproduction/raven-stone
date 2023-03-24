@@ -14,7 +14,7 @@ const Top10DistrictbyConversation = () => {
   return (
     <>
       {/* <Text>Top 10 District By Conversation</Text> */}
-      <PageTitle />
+      <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
       <Paper p={"md"}>
         <Stack>
           <Table striped withBorder highlightOnHover>

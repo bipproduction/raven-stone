@@ -21,6 +21,6 @@ if (!getApps().length) {
     app = getApp()
 }
 
-export const authentication = getAuth(app)
-export const db = getDatabase(app)
-export const fbApp = app
+export const fAuth = getAuth(app)
+export const fDb = getDatabase(app)
+export const fApp = app

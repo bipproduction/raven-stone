@@ -1,16 +1,27 @@
 import { gSelectedView } from "@/g_state/g_dasboard";
-import { Flex, Space, Stack, Title } from "@mantine/core";
+import { Flex, Space, Stack, Text, Title } from "@mantine/core";
 import _ from "lodash";
-import { MdApps, MdBuildCircle, MdChangeCircle, MdCheckCircle, MdCircle, MdPersonPinCircle, MdTitle } from "react-icons/md";
+import {
+  MdApps,
+  MdBuildCircle,
+  MdChangeCircle,
+  MdCheckCircle,
+  MdCircle,
+  MdPersonPinCircle,
+  MdTitle,
+} from "react-icons/md";
 
-const PageTitle = () => {
+const PageTitle = ({ text }: { text?: string }) => {
   return (
     <>
       <Flex>
         <MdCircle color="orange" size={42} />
-        <Title c={"blue.8"}>{_.upperCase(gSelectedView.value)}</Title>
+        <Stack spacing={0}>
+          <Title c={"blue.8"}>{_.upperCase(gSelectedView.value)}</Title>
+          <Text c={"gray"}>{text}</Text>
+        </Stack>
       </Flex>
-      <Space h={70} />
+      <Space h={16} />
     </>
   );
 };
