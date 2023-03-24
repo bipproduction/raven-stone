@@ -9,7 +9,10 @@ const emotion_candidate_1 = {
     "trust": 1510
 }
 
-
+const score_candidate_1 = {
+    president: 90,
+    vice_president: 10
+}
 
 const emotion_candidate_2 = {
     "anger": 450,
@@ -22,13 +25,17 @@ const emotion_candidate_2 = {
     "trust": 1510
 }
 
+const score_candidate_2 = {
+    president: 30,
+    vice_president: 70
+}
 
 
-// buatkan perhitungan prosentase jika kedua kandidat digabungkan salah satunya menjadi presiden dan satunya lagi menjadi wakilnya begitu pula sebaliknya
-// dan hasilkan objek baru yang berisi kedua kandidat dan hasil perhitungannya
+// hasilkan prosentase object emotion baru jika candidate_1 menjadi presiden dan candidat_2 menjadi wakilnya , dan juga sebaliknya dan nilai dari masing masing emotion adalah prosentase tidak lebih adri 100%
+// menggunakan formula P (A U B) = P (A) + P (B) - P (A ∩ B)
+// menggunakan bahasa pemprograman typescript
 
-const jika_kandidate_1_menjadi_president = {}
-const jika_kandidate_2_menjadi_president = {}
+
 
 
 

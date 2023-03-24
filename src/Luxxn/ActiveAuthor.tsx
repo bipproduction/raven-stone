@@ -1,3 +1,4 @@
+import PageTitle from "@/layouts/page_title";
 import {
   Avatar,
   Box,
@@ -33,6 +34,7 @@ const ActiveAuthorData = () => {
   return (
     <>
       <Stack>
+        <PageTitle />
         <Paper p={"md"} radius={20}>
           <SimpleGrid cols={2}>
             {datanya &&

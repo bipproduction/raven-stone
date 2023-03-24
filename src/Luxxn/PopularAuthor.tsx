@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Avatar,
   Box,
@@ -15,7 +15,8 @@ import {
 import { useDisclosure, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
-import { ModelB24PopularAuthor } from './helper/b24PopularAuthor';
+import { ModelB24PopularAuthor } from "./helper/b24PopularAuthor";
+import PageTitle from "@/layouts/page_title";
 
 const PopularAuthorData = () => {
   const [datanya, setDatanya] = useState<ModelB24PopularAuthor>({});
@@ -33,9 +34,10 @@ const PopularAuthorData = () => {
     }
   };
 
-  return(
+  return (
     <>
-    <Stack>
+      <Stack>
+        <PageTitle />
         <SimpleGrid cols={6}>
           {datanya &&
             _.take(
@@ -92,6 +94,6 @@ const PopularAuthorData = () => {
         </SimpleGrid>
       </Stack>
     </>
-  )
-}
-export default PopularAuthorData
+  );
+};
+export default PopularAuthorData;

@@ -5,6 +5,7 @@ import { useShallowEffect } from "@mantine/hooks";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { useState } from "react";
+import PageTitle from "../page_title";
 
 const ImportantUrl = () => {
     const [datanya, setDatanya] = useState<ModelB24ImportantUrl>();
@@ -67,7 +68,8 @@ const ImportantUrl = () => {
     return (
       <>
         <Stack>
-          <Title order={3}>Important Url</Title>
+          {/* <Title order={3}>Important Url</Title> */}
+          <PageTitle/>
           <Paper p={"md"}>
             <EChartsReact option={option} />
           </Paper>

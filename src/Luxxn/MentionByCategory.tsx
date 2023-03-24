@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Avatar,
   Badge,
@@ -12,11 +12,12 @@ import {
   Title,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
-import { IconWorldWww } from '@tabler/icons-react';
+import { IconWorldWww } from "@tabler/icons-react";
 import EChartsReact from "echarts-for-react";
 
 import { useState } from "react";
 import { EChartsOption } from "echarts";
+import PageTitle from "@/layouts/page_title";
 
 const MentionByCategory = () => {
   const [datanya, setDatanya] = useState<any>();
@@ -41,7 +42,7 @@ const MentionByCategory = () => {
       top: "1%",
       left: "1%",
       // bottom: "1%",
-      orient: "vertical"
+      orient: "vertical",
     },
     series: [
       {
@@ -57,7 +58,6 @@ const MentionByCategory = () => {
         label: {
           show: false,
           position: "center",
-          
         },
         emphasis: {
           label: {
@@ -82,43 +82,44 @@ const MentionByCategory = () => {
 
   return (
     <>
-    <SimpleGrid cols={2}>
-          <Paper p={"md"}>
-            {datanya &&
-              Object.keys(datanya["tab_results_count"]).map((v) => (
-                <SimpleGrid key={v} cols={2} p={"xs"}>
-                  <Group>
-                    <Avatar radius={50} color={"cyan"}>
-                      <IconWorldWww />
-                    </Avatar>
-                    <Text>{v}</Text>
-                  </Group>
-                  <Grid>
-                    <Grid.Col span={"auto"}>
-                      <Slider
-                        thumbChildren={
-                          <Avatar radius={50}>
-                            {datanya["tab_results_count"][v].percent}
-                          </Avatar>
-                        }
-                        onChange={() => {}}
-                        value={Number(datanya["tab_results_count"][v].percent)}
-                      />
-                    </Grid.Col>
-                    <Grid.Col span={"content"}>
-                      <Text>%</Text>
-                    </Grid.Col>
-                  </Grid>
-                </SimpleGrid>
-              ))}
-          </Paper>
+      <PageTitle />
+      <SimpleGrid cols={2}>
+        <Paper p={"md"}>
+          {datanya &&
+            Object.keys(datanya["tab_results_count"]).map((v) => (
+              <SimpleGrid key={v} cols={2} p={"xs"}>
+                <Group>
+                  <Avatar radius={50} color={"cyan"}>
+                    <IconWorldWww />
+                  </Avatar>
+                  <Text>{v}</Text>
+                </Group>
+                <Grid>
+                  <Grid.Col span={"auto"}>
+                    <Slider
+                      thumbChildren={
+                        <Avatar radius={50}>
+                          {datanya["tab_results_count"][v].percent}
+                        </Avatar>
+                      }
+                      onChange={() => {}}
+                      value={Number(datanya["tab_results_count"][v].percent)}
+                    />
+                  </Grid.Col>
+                  <Grid.Col span={"content"}>
+                    <Text>%</Text>
+                  </Grid.Col>
+                </Grid>
+              </SimpleGrid>
+            ))}
+        </Paper>
 
-          <Paper p={"md"}>
-            <EChartsReact option={option} />
-          </Paper>
-        </SimpleGrid>
+        <Paper p={"md"}>
+          <EChartsReact option={option} />
+        </Paper>
+      </SimpleGrid>
     </>
   );
-}
+};
 
 export default MentionByCategory;
