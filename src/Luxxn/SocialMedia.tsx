@@ -41,7 +41,7 @@ const SocialMediaData = () => {
   return (
     <>
       <Stack>
-        <PageTitle />
+        <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur."/>
         <SimpleGrid spacing={"lg"} cols={2}>
           {datanya &&
             _.take(

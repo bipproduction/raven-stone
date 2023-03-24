@@ -15,11 +15,11 @@ const Top10ProvinceByConversation = () => {
   return (
     <>
       <Stack>
-        <PageTitle />
+        <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
         {/* {JSON.stringify(gTop10ProvinceTake.value)} */}
         <Paper p={"md"}>
           <Stack>
-            <Table striped withBorder> 
+            <Table striped withBorder>
               <thead>
                 <tr>
                   {Object.keys(_.omit(gTop10ProvinceTake.value[0], "id")).map(
