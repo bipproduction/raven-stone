@@ -1,3 +1,6 @@
+import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
+import { gSelectedView } from "@/g_state/g_dasboard";
+import { gIsUser } from "@/g_state/g_user_id";
 import ActiveAuthor from "@/layouts/media_listener/active_author";
 import ActiveUrl from "@/layouts/media_listener/active_url";
 import ImportantAuthor from "@/layouts/media_listener/important_author";
@@ -7,66 +10,42 @@ import MediaLink from "@/layouts/media_listener/media_link";
 import MentionbyCategory from "@/layouts/media_listener/mention_by_category";
 import PopularAuthor from "@/layouts/media_listener/popular_author";
 import SosialMedia from "@/layouts/media_listener/soasial_media";
-import Statistict from "@/layouts/media_listener/statistic";
 import ContextualContent from "@/layouts/prodictive_ai/contextual_content";
 import EmotionalViewViaProvince from "@/layouts/prodictive_ai/emotional_view_via_province";
+import EmotionalViewViaProvinceCouple from "@/layouts/prodictive_ai/emotional_view_via_province_couple";
 import EmotionalViewViaRegion from "@/layouts/prodictive_ai/emotional_view_via_region";
 import NationWideRating from "@/layouts/prodictive_ai/nation_wide_rating";
 import NationWideChart from "@/layouts/summary/nation_wide_chart";
 import SourceOfmention from "@/layouts/summary/source_of_mention";
 import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_conversation";
 import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_conversation";
-import WordCloud from "@/layouts/summary/word_cloud";
 import { api } from "@/lib/api";
-import { gSelectedView } from "@/g_state/g_dasboard";
-import { gListNationWideChahrt } from "@/g_state/g_nation_wide_chart";
-import LoadTop10District from "@/load_data/load_top_10_district";
 import { useHookstate } from "@hookstate/core";
 import {
-  ActionIcon,
-  AppShell,
-  Aside,
-  Box,
-  Burger,
-  Button,
-  Flex,
-  Footer,
-  Group,
-  Header,
-  Image,
-  MediaQuery,
-  Menu,
-  Navbar,
-  NavLink,
-  ScrollArea,
-  Stack,
-  Text,
-  useMantineTheme,
+    AppShell, Box,
+    Burger, Flex, Group,
+    Header,
+    Image,
+    MediaQuery,
+    Menu,
+    Navbar,
+    NavLink,
+    ScrollArea,
+    Stack,
+    Text,
+    useMantineTheme
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
+import _ from "lodash";
 import { useState } from "react";
 import {
-  MdAccountCircle,
-  MdAddChart,
-  MdAddCircle,
-  MdArrowForwardIos,
-  MdBarChart,
-  MdGridView,
-  MdMessage,
-  MdPlayCircle,
-  MdSettings,
+    MdAccountCircle, MdBarChart,
+    MdCircle,
+    MdGridView,
+    MdMessage,
+    MdPlayCircle,
+    MdSettings
 } from "react-icons/md";
-import LoadNationWideChart from "@/load_data/load_nationWide_chart";
-import _ from "lodash";
-import LoadSourceOfmention from "@/load_data/load_source_of_mention";
-import LoadWordCloud from "@/load_data/load_word_cloud";
-import LoadTop10Province from "@/load_data/load_top_10_province";
-import LoadNationWideRating from "@/load_data/load_nation_wide_rating";
-import LoadCandidate from "@/load_data/load_candidate";
-import LoadProvince from "@/load_data/load_province";
-import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
-import EmotionalViewViaProvinceCouple from "@/layouts/prodictive_ai/emotional_view_via_province_couple";
-import { gIsUser } from "@/g_state/g_user_id";
 
 const listView = [
   {
@@ -229,19 +208,20 @@ const Dashboard = () => {
           <Navbar.Section grow component={ScrollArea}>
             {listView.map((v) => (
               <NavLink
-                bg={"cyan.8"}
+                bg={"blue.8"}
                 label={v.name}
                 icon={<v.icon size={24} />}
                 key={v.id.toString()}
                 c={"gray.4"}
                 defaultOpened
               >
+
                 {v.child.map((vv, i) => (
                   <NavLink
-                    c={selectedView.value == vv.name ? "cyan.8" : "gray"}
-                    icon={<MdPlayCircle color="gray" />}
+                    c={selectedView.value == vv.name ? "blue.8" : "blue.4"}
+                    icon={<MdCircle color="navi" />}
                     variant={"filled"}
-                    fw={"bold"}
+                    fw={selectedView.value == vv.name ? "bold": "light"}
                     // bg={selectedView.value == vv.name ? "blue.1" : ""}
                     label={_.upperCase(vv.name)}
                     key={`${v.id}${i}`}
@@ -253,7 +233,7 @@ const Dashboard = () => {
                 ))}
               </NavLink>
             ))}
-            <NavLink bg={"gray"} c={"orange"} icon={<MdSettings />} label={"setting"} />
+            <NavLink bg={"gray"} c={"dark"} icon={<MdSettings />} label={"setting"} />
           </Navbar.Section>
           <Navbar.Section bg={"dark"}>
             <Stack spacing={0} p={"xs"}>
@@ -294,16 +274,17 @@ const Dashboard = () => {
                 <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
                   <Image width={100} src={"/logo-1.png"} alt={"logo"} />
                 </MediaQuery>
-                <Text size={24}>EAGLE EYE PROJECT</Text>
+                {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
               </Group>
               <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
                 <Group>
                   <Menu>
                     <Menu.Target>
                       <NavLink
-                        icon={<MdAccountCircle size={42} color={"green"} />}
+                        icon={<MdAccountCircle size={42} color={"rooyalblue"} />}
                         label={userName?.name}
                       />
+
                     </Menu.Target>
                     <Menu.Dropdown>
                       <Menu.Item
@@ -316,19 +297,7 @@ const Dashboard = () => {
                       </Menu.Item>
                     </Menu.Dropdown>
                   </Menu>
-                  {/* <Stack spacing={0} justify={"end"}>
-                    <Text>{userName?.name}</Text>
-                    <Button
-                      compact
-                      variant={"subtle"}
-                      onClick={() => {
-                        localStorage.removeItem("user_id");
-                        gIsUser.set(false);
-                      }}
-                    >
-                      Logout
-                    </Button>
-                  </Stack> */}
+                  
                 </Group>
               </MediaQuery>
             </Flex>
