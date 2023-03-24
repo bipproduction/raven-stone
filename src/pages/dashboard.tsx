@@ -23,6 +23,7 @@ import { gListNationWideChahrt } from "@/g_state/g_nation_wide_chart";
 import LoadTop10District from "@/load_data/load_top_10_district";
 import { useHookstate } from "@hookstate/core";
 import {
+  ActionIcon,
   AppShell,
   Aside,
   Box,
@@ -30,11 +31,15 @@ import {
   Button,
   Flex,
   Footer,
+  Group,
   Header,
+  Image,
   MediaQuery,
+  Menu,
   Navbar,
   NavLink,
   ScrollArea,
+  Stack,
   Text,
   useMantineTheme,
 } from "@mantine/core";
@@ -49,6 +54,7 @@ import {
   MdGridView,
   MdMessage,
   MdPlayCircle,
+  MdSettings,
 } from "react-icons/md";
 import LoadNationWideChart from "@/load_data/load_nationWide_chart";
 import _ from "lodash";
@@ -88,11 +94,11 @@ const listView = [
         name: "Source of Mention",
         view: SourceOfmention,
       },
-      {
-        id: 5,
-        name: "Word Cloud",
-        view: WordCloud,
-      },
+      //   {
+      //     id: 5,
+      //     name: "Word Cloud",
+      //     view: WordCloud,
+      //   },
     ],
   },
   {
@@ -100,11 +106,11 @@ const listView = [
     name: "Media listener",
     icon: MdMessage,
     child: [
-      {
-        id: 1,
-        name: "Statistic",
-        view: Statistict,
-      },
+      //   {
+      //     id: 1,
+      //     name: "Statistic",
+      //     view: Statistict,
+      //   },
       {
         id: 2,
         name: "Mention By Category",
@@ -190,9 +196,16 @@ const Dashboard = () => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const selectedView = useHookstate(gSelectedView);
+  const [userName, setUserName] = useState<{ [key: string]: any }>({});
 
   useShallowEffect(() => {
     funcLoadNationWideRating();
+    const userId = localStorage.getItem("user_id");
+    if (userId) {
+      fetch(api.apiAuthGetUser + `?id=${userId}`)
+        .then((v) => v.json())
+        .then(setUserName);
+    }
   }, []);
 
   return (
@@ -216,15 +229,16 @@ const Dashboard = () => {
           <Navbar.Section grow component={ScrollArea}>
             {listView.map((v) => (
               <NavLink
-                bg={"gray.2"}
+                bg={"cyan.8"}
                 label={v.name}
                 icon={<v.icon size={24} />}
                 key={v.id.toString()}
+                c={"gray.4"}
                 defaultOpened
               >
                 {v.child.map((vv, i) => (
                   <NavLink
-                    c={selectedView.value == vv.name ? "teal" : "dark"}
+                    c={selectedView.value == vv.name ? "cyan.8" : "gray"}
                     icon={<MdPlayCircle color="gray" />}
                     variant={"filled"}
                     fw={"bold"}
@@ -239,11 +253,25 @@ const Dashboard = () => {
                 ))}
               </NavLink>
             ))}
+            <NavLink bg={"gray"} c={"orange"} icon={<MdSettings />} label={"setting"} />
+          </Navbar.Section>
+          <Navbar.Section bg={"dark"}>
+            <Stack spacing={0} p={"xs"}>
+              <Text fz={9} c={"gray"}>
+                Bip Production @2023
+              </Text>
+              <Text fz={9} c={"gray"}>
+                Version: 2.0.1
+              </Text>
+              <Text fz={9} c={"gray"}>
+                build: 10453
+              </Text>
+            </Stack>
           </Navbar.Section>
         </Navbar>
       }
       header={
-        <Header height={{ base: 50, md: 70 }} p="md">
+        <Header height={{ base: 50, md: 70 }} p="md" bg={"gray.4"}>
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
@@ -256,18 +284,53 @@ const Dashboard = () => {
                 mr="xl"
               />
             </MediaQuery>
-            <Flex direction={"row"} justify={"space-between"} w={"100%"}>
-              <MdAccountCircle size={42} />
-              <Button
-                compact
-                variant={"subtle"}
-                onClick={() => {
-                  localStorage.removeItem("user_id");
-                  gIsUser.set(false);
-                }}
-              >
-                Logout
-              </Button>
+            <Flex
+              direction={"row"}
+              justify={"space-between"}
+              w={"100%"}
+              align={"center"}
+            >
+              <Group align={"center"}>
+                <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
+                  <Image width={100} src={"/logo-1.png"} alt={"logo"} />
+                </MediaQuery>
+                <Text size={24}>EAGLE EYE PROJECT</Text>
+              </Group>
+              <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
+                <Group>
+                  <Menu>
+                    <Menu.Target>
+                      <NavLink
+                        icon={<MdAccountCircle size={42} color={"green"} />}
+                        label={userName?.name}
+                      />
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item
+                        onClick={() => {
+                          localStorage.removeItem("user_id");
+                          gIsUser.set(false);
+                        }}
+                      >
+                        Logout
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+                  {/* <Stack spacing={0} justify={"end"}>
+                    <Text>{userName?.name}</Text>
+                    <Button
+                      compact
+                      variant={"subtle"}
+                      onClick={() => {
+                        localStorage.removeItem("user_id");
+                        gIsUser.set(false);
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </Stack> */}
+                </Group>
+              </MediaQuery>
             </Flex>
           </div>
         </Header>

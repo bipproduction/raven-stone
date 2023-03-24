@@ -16,6 +16,7 @@ import {
   import { Button, Card } from "antd";
   import _ from "lodash";
   import { useState } from "react";
+import PageTitle from '@/layouts/page_title';
 
 
 const MediaLinkData = () => {
@@ -36,6 +37,7 @@ const MediaLinkData = () => {
 
   return (
     <>
+    <PageTitle />
       <Paper p={"lg"} radius={"md"}>
         <Grid>
           {datanya && 

@@ -1,3 +1,4 @@
+import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
 import { gCandidate } from "@/g_state/g_candidate";
 import { gSelectedView } from "@/g_state/g_dasboard";
@@ -10,6 +11,7 @@ import {
   Button,
   Flex,
   Image,
+  Paper,
   Select,
   Space,
   Stack,
@@ -22,12 +24,13 @@ import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
 import toast from "react-simple-toasts";
+import PageTitle from "../page_title";
 
 const NationChartItem = ({
   data,
   height,
 }: {
-  data: ModelNationWideRating;
+  data: ModelNationWideRating | any;
   height: number;
 }) => {
   const dataNya = _.omit(data, ["candidate1", "candidate2"]);
@@ -59,9 +62,17 @@ const NationChartItem = ({
     },
     series: [
       {
-        name: "2011",
+        // name: "2011",
         type: "bar",
-        data: Object.values(dataNya),
+        data: Object.keys(dataNya).map((v) => ({
+          label: v,
+          value: dataNya[v],
+          itemStyle: {
+            color: listEmotionColor.find(
+              (c) => _.lowerCase(c.name) == _.lowerCase(v)
+            )?.color,
+          },
+        })) as any,
       },
     ],
   };
@@ -84,7 +95,8 @@ const NationWideRating = () => {
     return <>{gSelectedView.value}</>;
   return (
     <>
-      <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title>
+      {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
+      <PageTitle />
       <Flex
         justify={"end"}
         p={"md"}
@@ -145,8 +157,9 @@ const NationWideRating = () => {
       <Space h={70} />
       <Flex direction={"column"}>
         <Flex justify={"space-evenly"}>
-          <Stack>
+          <Stack justify={"center"}>
             <Image
+              radius={100}
               width={200}
               src={
                 gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
@@ -154,15 +167,16 @@ const NationWideRating = () => {
               }
               alt={gSelectedCandidate1.value.toString()}
             />
-            <Text>
-              {
+            <Text fw={"bold"} align="center">
+              {_.upperCase(
                 gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
                   ?.name
-              }
+              )}
             </Text>
           </Stack>
-          <Stack>
+          <Stack justify={"center"} align={"center"}>
             <Image
+              radius={100}
               width={200}
               src={
                 gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
@@ -170,17 +184,18 @@ const NationWideRating = () => {
               }
               alt={gSelectedCandidate2.value.toString()}
             />
-            <Text>
-              {
+            <Text align="center" fw={"bold"}>
+              {_.upperCase(
                 gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
                   ?.name
-              }
+              )}
             </Text>
           </Stack>
         </Flex>
-        <Box w={"100%"} h={500}>
+        <Space h={54} />
+        <Paper w={"100%"} p={"md"}>
           <NationChartItem data={gNationWideRating.value as any} height={500} />
-        </Box>
+        </Paper>
       </Flex>
       {/* {gNationWideRating.value
         .filter(

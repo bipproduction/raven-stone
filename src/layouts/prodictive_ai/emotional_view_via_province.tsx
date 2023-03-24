@@ -32,6 +32,7 @@ import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
+import PageTitle from "../page_title";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -86,10 +87,11 @@ const EmotionalViewViaProvince = () => {
   const [search, setSearch] = useState("");
   return (
     <>
-      <Text size={32} fw={"bold"} color={"cyan.8"}>
+      {/* <Text size={32} fw={"bold"} color={"cyan.8"}>
         {_.upperCase(gSelectedView.value)}
-      </Text>
+      </Text> */}
       {/* {JSON.stringify(gEmotionalViewViaProvince.value[0])} */}
+      <PageTitle />
       <Group
         position="right"
         pos={"sticky"}

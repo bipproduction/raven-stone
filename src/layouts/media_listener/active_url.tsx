@@ -13,6 +13,7 @@ import {
 import { useShallowEffect } from "@mantine/hooks";
 import { IconCellSignal5, IconChartBar } from "@tabler/icons-react";
 import { useState } from "react";
+import PageTitle from "../page_title";
 
 
 const ActiveUrl = () => {
@@ -35,7 +36,8 @@ const ActiveUrl = () => {
   return (
     <>
       <Stack>
-        <Title order={3}>Active Url</Title>
+        {/* <Title order={3}>Active Url</Title> */}
+        <PageTitle />
         <SimpleGrid cols={4}>
           {dataUrl &&
             dataUrl["most_active_urls"].map((v) => (

@@ -1,9 +1,10 @@
 import { gSelectedView } from "@/g_state/g_dasboard";
 import { gListSourceOfMention } from "@/g_state/g_source_of_mention";
-import { Box, Text } from "@mantine/core";
+import { Box, Paper, Text } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import ReactEchart from "echarts-for-react";
 import { IconBase } from "react-icons/lib";
+import PageTitle from "../page_title";
 
 const listColor = [
   "green",
@@ -53,7 +54,8 @@ const cssKotak = `
 `;
 
 const SourceOfmention = () => {
-  if (gSelectedView.value != "Source of Mention") return <>{gSelectedView.value}</>;
+  if (gSelectedView.value != "Source of Mention")
+    return <>{gSelectedView.value}</>;
   const option: EChartsOption = {
     title: {
       text: "World Population",
@@ -113,13 +115,16 @@ const SourceOfmention = () => {
   };
   return (
     <>
-      <Text>Source of Mention</Text>
-      <ReactEchart
-        style={{
-          height: 600,
-        }}
-        option={option}
-      />
+      {/* <Text>Source of Mention</Text> */}
+      <PageTitle />
+      <Paper p={"md"}>
+        <ReactEchart
+          style={{
+            height: 600,
+          }}
+          option={option}
+        />
+      </Paper>
     </>
   );
 };

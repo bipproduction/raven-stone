@@ -11,10 +11,6 @@ export const api = {
   "apiUtilGetDataByProvinceidCandidateidDate": "/api/util/get-data-by-provinceid-candidateid-date",
   "apiUtilGetCityValue": "/api/util/get-city-value",
   "apiUtilGetCandidate": "/api/util/get-candidate",
-  "apiPredictiveAiNationWideRating": "/api/predictive-ai/nation-wide-rating",
-  "apiPredictiveAiEmotionalViewViaProvinceCoupleByDateCandiate": "/api/predictive-ai/emotional-view-via-province-couple-by-date-candiate",
-  "apiPredictiveAiEmotionalViewViaProvinceByDateCandidate": "/api/predictive-ai/emotional-view-via-province-by-date-candidate",
-  "apiPredictiveAiEmotionalViewViaProvinceByDateCandidateProvince": "/api/predictive-ai/emotional-view-via-province-by-date-candidate-province",
   "apiSummaryGetWordCloud": "/api/summary/get-word-cloud",
   "apiSummaryGetTop10ProvinceByConversation": "/api/summary/get-top-10-province-by-conversation",
   "apiSummaryGetTop10DistrictByConversation": "/api/summary/get-top-10-district-by-conversation",
@@ -28,9 +24,14 @@ export const api = {
   "apiSeederCityValue": "/api/seeder/city-value",
   "apiSeederCandidate": "/api/seeder/candidate",
   "apiSeederApiSeederCandidateValue": "/api/seeder/api-seeder-candidate-value",
+  "apiPredictiveAiNationWideRating": "/api/predictive-ai/nation-wide-rating",
+  "apiPredictiveAiEmotionalViewViaProvinceCoupleByDateCandiate": "/api/predictive-ai/emotional-view-via-province-couple-by-date-candiate",
+  "apiPredictiveAiEmotionalViewViaProvinceByDateCandidate": "/api/predictive-ai/emotional-view-via-province-by-date-candidate",
+  "apiPredictiveAiEmotionalViewViaProvinceByDateCandidateProvince": "/api/predictive-ai/emotional-view-via-province-by-date-candidate-province",
   "apiDevSyncWordCloud": "/api/dev/sync-word-cloud",
   "apiDevSyncSourceOfMention": "/api/dev/sync-source-of-mention",
   "apiDevSyncNationWideChart": "/api/dev/sync-nation-wide-chart",
+  "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
-  "apiB24B24Api": "/api/b24/b24-api"
+  "apiAuthGetUser": "/api/auth/get-user"
 }

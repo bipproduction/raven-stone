@@ -13,6 +13,7 @@ import {
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { MdArrowCircleUp } from "react-icons/md";
+import PageTitle from "../page_title";
 import list_contexttual_content from "./../../assets/contextual_content.json";
 
 const listColorCentiment = [
@@ -71,7 +72,8 @@ const ContextualItemChart = ({ data }: { [key: string]: any }) => {
 const ContextualContent = () => {
   return (
     <>
-      <Title c={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title>
+      {/* <Title c={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
+      <PageTitle />
       <Divider mb={70} />
       {/* {JSON.stringify(list_contexttual_content)} */}
       <Stack>
