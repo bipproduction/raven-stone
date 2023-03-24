@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Avatar,
   Box,
@@ -18,11 +18,11 @@ import {
 import { useDisclosure, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
-import { IconMessage } from '@tabler/icons-react';
-import { IconShare } from '@tabler/icons-react';
-import { IconThumbUp } from '@tabler/icons-react';
-import { ModelB24SosialMedia } from './helper/b24SocialMedia';
-
+import { IconMessage } from "@tabler/icons-react";
+import { IconShare } from "@tabler/icons-react";
+import { IconThumbUp } from "@tabler/icons-react";
+import { ModelB24SosialMedia } from "./helper/b24SocialMedia";
+import PageTitle from "@/layouts/page_title";
 
 const SocialMediaData = () => {
   const [datanya, setDatanya] = useState<ModelB24SosialMedia>();
@@ -40,7 +40,8 @@ const SocialMediaData = () => {
   };
   return (
     <>
-    <Stack>
+      <Stack>
+        <PageTitle />
         <SimpleGrid spacing={"lg"} cols={2}>
           {datanya &&
             _.take(
@@ -54,7 +55,9 @@ const SocialMediaData = () => {
                 <Grid align={"start"}>
                   <Grid.Col w={150} span={"content"}>
                     <Stack align={"center"}>
-                      <Avatar color={"blue"} radius={50}  >{v.host?.substring(0, 1)}</Avatar>
+                      <Avatar color={"blue"} radius={50}>
+                        {v.host?.substring(0, 1)}
+                      </Avatar>
                       <Text size={12} lineClamp={1} sx={{ overflow: "clip" }}>
                         {v.host}
                       </Text>
@@ -63,7 +66,9 @@ const SocialMediaData = () => {
                   <Grid.Col span={"auto"}>
                     <Stack>
                       <Text>{v.title}</Text>
-                      <Text color={"gray"} fz={12}>{v.content}</Text>
+                      <Text color={"gray"} fz={12}>
+                        {v.content}
+                      </Text>
                     </Stack>
                   </Grid.Col>
                 </Grid>
@@ -90,9 +95,8 @@ const SocialMediaData = () => {
           </Button>
         </Group>
       </Stack>
-
     </>
   );
-}
+};
 
-export default SocialMediaData
+export default SocialMediaData;

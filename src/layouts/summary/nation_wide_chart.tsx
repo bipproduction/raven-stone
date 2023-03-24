@@ -1,8 +1,10 @@
+import { gSelectedView } from "@/g_state/g_dasboard";
 import { gListNationWideChahrt } from "@/g_state/g_nation_wide_chart";
 import { useHookstate } from "@hookstate/core";
-import { Text } from "@mantine/core";
+import { Paper, Space, Text, Title } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
+import _ from "lodash";
 import moment from "moment";
 
 const NationWideChart = () => {
@@ -86,13 +88,18 @@ const NationWideChart = () => {
   };
   return (
     <>
-      <Text size={24}>Nation Wide Chart</Text>
-      <EChartsReact
-        style={{
-          height: 500,
-        }}
-        option={option}
-      />
+      <Title c={"cyan.8"} size={24}>
+        {_.upperCase(gSelectedView.value)}
+      </Title>
+      <Space h={70} />
+      <Paper p={"md"}>
+        <EChartsReact
+          style={{
+            height: 500,
+          }}
+          option={option}
+        />
+      </Paper>
     </>
   );
 };

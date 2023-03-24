@@ -10,6 +10,7 @@ import { registerMap } from "echarts";
 import EChartsReact, { EChartsOption } from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
+import PageTitle from "../page_title";
 
 const EmotionalViewViaRegion = () => {
   const [search, setSearch] = useState<string>("");
@@ -104,8 +105,9 @@ const EmotionalViewViaRegion = () => {
     return <>{gSelectedView.value}</>;
   return (
     <>
-      <Title c={"cyan.9"}>{_.upperCase(gSelectedView.value)}</Title>
+      {/* <Title c={"cyan.9"}>{_.upperCase(gSelectedView.value)}</Title> */}
       {/* {JSON.stringify(dataIndonesiaMap.features.map((v: any) => v.properties))} */}
+      <PageTitle />
       {!_.isEmpty(dataIndonesiaMap.features) && (
         <EChartsReact
           style={{

@@ -13,6 +13,7 @@ import _ from "lodash";
 import { Tooltip } from "antd";
 import { IconWifi } from "@tabler/icons-react";
 import WARNA from "./WARNA/Warna";
+import PageTitle from "@/layouts/page_title";
 
 const Statistic = () => {
   const [datanya, setDatanya] = useState();
@@ -31,6 +32,7 @@ const Statistic = () => {
 
   return (
     <>
+      <PageTitle />
       <SimpleGrid cols={4}>
         {datanya &&
           Object.keys(datanya).map((v, i) => (

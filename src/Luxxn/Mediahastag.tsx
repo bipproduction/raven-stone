@@ -1,3 +1,4 @@
+import PageTitle from "@/layouts/page_title";
 import { Badge, Paper, Text } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { useState } from "react";
@@ -18,6 +19,7 @@ const MediaHastagData = () => {
   };
     return (
         <>
+        <PageTitle />
         <Paper p={"md"}>
           {datanya &&
             Object.keys(datanya).map((v) => (

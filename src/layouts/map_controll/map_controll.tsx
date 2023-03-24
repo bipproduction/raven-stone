@@ -34,6 +34,7 @@ import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
 import {
+  FaCopy,
   FaDotCircle,
   FaGripVertical,
   FaLock,
@@ -60,6 +61,7 @@ import { useForm } from "@mantine/form";
 import { api } from "@/lib/api";
 import ButtonAjustByProvince from "./dialog_ajust_by_province";
 import { funLoadMapData } from "@/fun_load/func_load_map_data";
+import { TooltipFloating } from "@mantine/core/lib/Tooltip/TooltipFloating/TooltipFloating";
 
 interface ModelEmotion {
   anger?: number;
@@ -132,7 +134,6 @@ const LayoutMapControll = () => {
 
   useShallowEffect(() => {
     loadData();
-
   }, []);
 
   const loadData = async () => {
@@ -327,7 +328,7 @@ const LayoutMapControll = () => {
 
   return (
     <>
-      <Stack>
+      <Stack >
         <Flex
           w={"100%"}
           p={"md"}
@@ -356,6 +357,7 @@ const LayoutMapControll = () => {
             />
             {!_.isEmpty(listCandidate.value) && (
               <Select
+                searchable
                 key={"1"}
                 label={"select candidate"}
                 value={selectedCandidate.value}
@@ -397,23 +399,30 @@ const LayoutMapControll = () => {
           <Flex align={"end"} gap={"lg"}>
             <Menu>
               <Menu.Target>
-                <ActionIcon>
-                  <FaGripVertical />
-                </ActionIcon>
+                <Button compact leftIcon={<FaCopy />}>
+                  copy data
+                </Button>
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Item onClick={setCopyData.open}>Copy Data</Menu.Item>
               </Menu.Dropdown>
             </Menu>
-            <ActionIcon onClick={() => adalahTable.set(!adalahTable.value)}>
+            <Button
+              leftIcon={adalahTable.value ? <MdMap /> : <MdTableView />}
+              compact
+              onClick={() => adalahTable.set(!adalahTable.value)}
+            >
               {adalahTable.value ? (
-                <MdMap size={42} />
+                <Text>Map View</Text>
               ) : (
-                <MdTableView size={42} />
+                <Text>Table View</Text>
               )}
-            </ActionIcon>
+            </Button>
+
+            <ButtonAjustByProvince />
             {listKabupaten.value && listKabupaten.value[0] && (
               <CSVLink
+                title="download"
                 style={{
                   height: 25,
                 }}
@@ -425,11 +434,9 @@ const LayoutMapControll = () => {
                   })) as any
                 }
               >
-                <MdDownload size={24} color={"gray"} />
+                <MdDownload size={24} color={"teal"} />
               </CSVLink>
             )}
-
-            <ButtonAjustByProvince />
           </Flex>
         </Flex>
 

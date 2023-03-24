@@ -85,12 +85,10 @@ const ButtonAjustByProvince = () => {
   return (
     <>
       <Stack>
-        {gSelectedDate.value.toString()}
-        <Tooltip label={"ajust by province"}>
-          <ActionIcon onClick={setOpren.open}>
-            <MdWeb size={42} />
-          </ActionIcon>
-        </Tooltip>
+        {/* {gSelectedDate.value.toString()} */}
+        <Button leftIcon={<MdWeb />} compact onClick={setOpren.open}>
+          Ajust By Province
+        </Button>
       </Stack>
       <Modal
         opened={open}
@@ -100,6 +98,7 @@ const ButtonAjustByProvince = () => {
       >
         <Stack>
           <Select
+            searchable
             label={"select province"}
             placeholder={
               selectedProvince &&
