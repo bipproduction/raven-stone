@@ -99,8 +99,8 @@ const NationWideRating = () => {
       <PageTitle />
       <Flex
         justify={"end"}
-        p={"md"}
-        bg={"gray.2"}
+        // p={"md"}
+        // bg={"gray.2"}
         pos={"sticky"}
         top={70}
         sx={{

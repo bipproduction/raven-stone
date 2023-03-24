@@ -19,15 +19,15 @@ import list_contexttual_content from "./../../assets/contextual_content.json";
 const listColorCentiment = [
   {
     name: "positive",
-    color: "green",
+    color: "green.1",
   },
   {
     name: "neutral",
-    color: "yellow",
+    color: "yellow.1",
   },
   {
     name: "negative",
-    color: "red",
+    color: "red.1",
   },
 ];
 
@@ -97,10 +97,10 @@ const ContextualContent = () => {
                       }
                     >
                       <Group position="apart">
-                        <Title c={"white"} order={3}>
+                        <Title c={"gray"} order={3}>
                           {_.upperCase(v2.name)}
                         </Title>
-                        <Title c={"white"} order={3}>
+                        <Title c={"gray"} order={3}>
                           {v2.value}
                         </Title>
                       </Group>
