@@ -79,7 +79,7 @@ const Dev = () => {
 
   const seederUserRole = async () =>
     await fetch(api.apiSeederSeederUserRole).then(
-      async (res) => res.status == 201
+      async (res) => res.status == 200
     );
 
   const onProfileLogout = async () => {
