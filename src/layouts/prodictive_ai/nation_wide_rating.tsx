@@ -58,7 +58,7 @@ const NationChartItem = ({
     },
     yAxis: {
       type: "category",
-      data: Object.keys(dataNya),
+      data: Object.keys(dataNya).reverse(),
     },
     series: [
       {
@@ -72,7 +72,7 @@ const NationChartItem = ({
               (c) => _.lowerCase(c.name) == _.lowerCase(v)
             )?.color,
           },
-        })) as any,
+        })).reverse() as any,
       },
     ],
   };

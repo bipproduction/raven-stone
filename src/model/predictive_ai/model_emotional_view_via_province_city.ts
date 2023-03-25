@@ -1,4 +1,5 @@
 export interface ModelEmotionalViewViaProvinceCity {
+    cityId: number,
     city: string
     provinceId: number
     provinceName: string
