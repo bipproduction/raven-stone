@@ -8,6 +8,7 @@ import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_can
 import { gEmotionalViewViaProvince } from "@/g_state/predictive_ai/g_emotional_view_via_province";
 import { gEmotionalViewViaProvinceCity } from "@/g_state/predictive_ai/g_emotional_view_via_province_city";
 import { api } from "@/lib/api";
+import { ModelDataKabupaten } from "@/model/model_data_kabupaten";
 import { ModelEmotionalViewViaProvinceCity } from "@/model/predictive_ai/model_emotional_view_via_province_city";
 import {
   Box,
@@ -244,7 +245,7 @@ const EmotionViewDetail = () => {
               <Text size={32} fw={"bold"} color={"gray"}>
                 {Intl.NumberFormat("id-ID").format(v.value)}
               </Text>
-              <EmotionDetai2 />
+              <EmotionDetai2 data={v} />
             </Stack>
           </Box>
         ))}
@@ -253,82 +254,121 @@ const EmotionViewDetail = () => {
   );
 };
 
-const EmotionDetai2 = () => {
+const EmotionDetai2 = ({
+  data,
+}: {
+  data: ModelEmotionalViewViaProvinceCity;
+}) => {
   const [openmodal, setOpenmodal] = useDisclosure(false);
+  const [dataKabupaten, setDataKabupaten] = useState<ModelDataKabupaten>();
 
-  const option1 = {
-    title: [
-      {
-        text: "Radial Polar Bar Label Position (middle)",
-      },
-    ],
-    polar: {
-      radius: [30, "80%"],
+  const lsData: any = data.emotion;
+  const option1: EChartsOption = {
+    title: {
+      text: data.city,
     },
-    radiusAxis: {
-      max: 4,
-    },
+    radiusAxis: {},
+    polar: {},
     angleAxis: {
       type: "category",
-      data: ["a", "b", "c", "d"],
+      data: Object.keys(lsData),
       startAngle: 75,
     },
-    tooltip: {},
-    series: {
-      type: "bar",
-      data: [2, 1.2, 2.4, 3.6],
-      coordinateSystem: "polar",
-      label: {
-        show: true,
-        position: "middle", // or 'start', 'insideStart', 'end', 'insideEnd'
-        formatter: "{b}: {c}",
-      },
-    },
-    animation: false,
-  };
-
-  const option2 = {
     tooltip: {
-      trigger: "item",
-    },
-    legend: {
-      top: "5%",
-      left: "center",
+      show: true,
+      formatter: (a: any, b) => {
+        return `${a.data.name}: ${a.value}`;
+      },
     },
     series: [
       {
-        name: "Access From",
-        type: "pie",
-        radius: ["40%", "70%"],
-        avoidLabelOverlap: false,
-        label: {
-          show: false,
-          position: "center",
+        type: "bar",
+        coordinateSystem: "polar",
+        data: Object.keys(lsData).map(
+          (v) =>
+            ({
+              name: v,
+              value: lsData[v],
+              itemStyle: {
+                color:
+                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
+              },
+            } as any)
+        ),
+        itemStyle: {
+          shadowBlur: 20,
+          shadowOffsetX: 0,
+          shadowColor: "rgba(0, 0, 0, 0.5)",
         },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 40,
-            fontWeight: "bold",
-          },
-        },
-        labelLine: {
-          show: false,
-        },
-        data: [
-          { value: 1048, name: "Search Engine" },
-          { value: 735, name: "Direct" },
-          { value: 580, name: "Email" },
-          { value: 484, name: "Union Ads" },
-          { value: 300, name: "Video Ads" },
-        ],
+        barWidth: 80,
       },
     ],
   };
 
-  const option3 = {
+  const dataContextDirection = {
+    pendidikan: dataKabupaten?.attributes.pendidikan,
+    infrastruktur: dataKabupaten?.attributes.aparatur_p,
+    layanan_kesehatan: dataKabupaten?.attributes.tenaga_kes,
+    keagamaan:
+      Number(dataKabupaten?.attributes.islam ?? "0") +
+      Number(dataKabupaten?.attributes.kristen ?? "0") +
+      Number(dataKabupaten?.attributes.katholik ?? "0") +
+      Number(dataKabupaten?.attributes.hindu ?? "0") +
+      Number(dataKabupaten?.attributes.budha ?? "0"),
+    kemiskinan: dataKabupaten?.attributes.belum_tida,
+    lapangan_pekerjaan: dataKabupaten?.attributes.belum_tama,
+    keadilan_sosial: dataKabupaten?.attributes.wiraswasta,
+  };
+
+  const dataChartGender = {
+    pria: dataKabupaten?.attributes.pria,
+    wanita: dataKabupaten?.attributes.wanita,
+  };
+
+  const dataChartUmur = {
+    u5: dataKabupaten?.attributes.u5,
+    u10: dataKabupaten?.attributes.u10,
+    u15: dataKabupaten?.attributes.u15,
+    u20: dataKabupaten?.attributes.u20,
+    u25: dataKabupaten?.attributes.u25,
+    u30: dataKabupaten?.attributes.u30,
+    u35: dataKabupaten?.attributes.u35,
+    u40: dataKabupaten?.attributes.u40,
+    u45: dataKabupaten?.attributes.u45,
+    u50: dataKabupaten?.attributes.u50,
+    u55: dataKabupaten?.attributes.u55,
+    u60: dataKabupaten?.attributes.u60,
+    u65: dataKabupaten?.attributes.u65,
+    u70: dataKabupaten?.attributes.u70,
+    u75: dataKabupaten?.attributes.u75,
+  };
+
+  const dataChartPendidikan = {
+    sltp: dataKabupaten?.attributes.sltp,
+    slta: dataKabupaten?.attributes.slta,
+    diploma1: dataKabupaten?.attributes.diploma_i_,
+    diploma2: dataKabupaten?.attributes.diploma_ii,
+    diploma4: dataKabupaten?.attributes.diploma_iv,
+    strata2: dataKabupaten?.attributes.strata_ii,
+    strata3: dataKabupaten?.attributes.strata_iii,
+  };
+
+  const dataChartEkonomi = {
+    aparatur: dataKabupaten?.attributes.aparatur_p,
+    pengajar: dataKabupaten?.attributes.tenaga_pen,
+    tenaga_kesehatan: dataKabupaten?.attributes.tenaga_kes,
+    wiraswasta: dataKabupaten?.attributes.wiraswasta,
+    nelayan: dataKabupaten?.attributes.nelayan,
+    petani: dataKabupaten?.attributes.pertanian_,
+    tenaga_agama: dataKabupaten?.attributes.agama_dan_,
+    pensiunan: dataKabupaten?.attributes.pensiunan,
+    lainnya: dataKabupaten?.attributes.lainnya,
+  };
+
+  const optionContextDirection = {
     title: {
-      text: "World Population",
+      text: "Context Direction",
     },
     tooltip: {
       trigger: "axis",
@@ -349,34 +389,95 @@ const EmotionDetai2 = () => {
     },
     yAxis: {
       type: "category",
-      data: ["Brazil", "Indonesia", "USA", "India", "China", "World"],
+      data: Object.keys(dataContextDirection),
     },
     series: [
       {
-        name: "2011",
+        // name: "2011",
         type: "bar",
-        data: [18203, 23489, 29034, 104970, 131744, 630230],
+        data: Object.values(dataContextDirection),
       },
     ],
   };
+
+  useShallowEffect(() => {
+    fetch(api.apiUtilGetDataKabupatenById + `?id=${data.cityId}`)
+      .then((v) => v.json())
+      .then(setDataKabupaten);
+  }, []);
+
   return (
     <>
       <Button onClick={setOpenmodal.open}>Detail</Button>
       <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen>
+        {/* {JSON.stringify(dataKabupaten)} */}
         <SimpleGrid cols={2}>
-          <EChartsReact option={option1} />
-          <EChartsReact option={option3} />
+          {/* {JSON.stringify(dataKabupaten)} */}
+          <Stack>
+            <EChartsReact option={option1} />
+            <Group position="center">
+              <Text fw={"bold"}>
+                {Intl.NumberFormat("id-ID").format(data.value)}
+              </Text>
+              <Text>Data Sampler</Text>
+            </Group>
+          </Stack>
+          <EChartsReact option={optionContextDirection} />
         </SimpleGrid>
         <Space h={70} />
         <SimpleGrid cols={4}>
-          <EChartsReact option={option2} />
-          <EChartsReact option={option2} />
-          <EChartsReact option={option2} />
-          <EChartsReact option={option2} />
+          <ChartPie data={dataChartGender} name={"Gender"} />
+          <ChartPie data={dataChartUmur} name={"Usia"} />
+          <ChartPie data={dataChartPendidikan} name={"Pendidikan"} />
+          <ChartPie data={dataChartEkonomi} name={"Ekonomi"} />
         </SimpleGrid>
       </Modal>
     </>
   );
 };
+
+const ChartPie = ({data, name}: {data: any, name: string}) => {
+  const option2:EChartsOption = {
+    title: {
+      text: name
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    // legend: {
+    //   top: "5%",
+    //   left: "center",
+    // },
+    series: [
+      {
+        name: "Access From",
+        type: "pie",
+        radius: ["40%", "80%"],
+        // avoidLabelOverlap: true,
+        label: {
+          show: true,
+          position: "inner",
+        },
+        // emphasis: {
+        //   label: {
+        //     show: true,
+        //     fontSize: 40,
+        //     fontWeight: "bold",
+        //   },
+        // },
+        // labelLine: {
+        //   show: false,
+        // },
+        data: Object.keys(data).map((v) => ({
+          name: v,
+          value: data[v]
+        })),
+      },
+    ],
+  };
+  return <>
+  <EChartsReact option={option2} />
+  </>
+}
 
 export default EmotionalViewViaProvince;

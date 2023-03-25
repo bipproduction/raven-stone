@@ -21,6 +21,7 @@ const emotionalViewViaProvinceByDateProvinceCandidate = async (req: NextApiReque
             },
             City: {
                 select: {
+                    id: true,
                     name: true,
                     CityValue: {
                         select: {
@@ -51,6 +52,7 @@ const emotionalViewViaProvinceByDateProvinceCandidate = async (req: NextApiReque
             "surprise",
             "trust",
         ]),
+        cityId: v.City?.id,
         city: v.City?.name,
         provinceId: v.Province?.id,
         provinceName: v.Province?.name,

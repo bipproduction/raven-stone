@@ -94,6 +94,15 @@ const getDataByCandidate = async (date: any, candidateId: any) => {
     return hasil2
 }
 
+// joy
+// trust
+// fear
+// surprise
+// sadness
+// disgust
+// anger
+// anticipation
+
 const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
     const { target1, target2 } = req.query
 
@@ -104,14 +113,14 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
             candidateId: Number(target1)
         },
         _sum: {
-            anger: true,
-            anticipation: true,
-            disgust: true,
-            fear: true,
             joy: true,
-            sadness: true,
+            trust: true,
+            fear: true,
             surprise: true,
-            trust: true
+            sadness: true,
+            disgust: true,
+            anger: true,
+            anticipation: true
         }
     })
 
@@ -121,14 +130,14 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
             candidateId: Number(target2)
         },
         _sum: {
-            anger: true,
-            anticipation: true,
-            disgust: true,
-            fear: true,
             joy: true,
-            sadness: true,
+            trust: true,
+            fear: true,
             surprise: true,
-            trust: true
+            sadness: true,
+            disgust: true,
+            anger: true,
+            anticipation: true
         }
     })
 
@@ -164,6 +173,16 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
     //     acc.surprise = acc.surprise + item.surprise
     //     return acc
     // })
+
+// urutkan berdasarkan urutan yang benar kata kata dibawah ini
+// anger
+// anticipation
+// disgust
+// fear
+// joy
+// sadness
+// surprise
+// trust
 
     const hasilProsentasePenggabungan: any = {};
 
