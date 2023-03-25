@@ -1,4 +1,5 @@
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
+import { gUser } from "@/g_state/auth/g_user";
 import { gSelectedView } from "@/g_state/g_dasboard";
 import { gIsUser } from "@/g_state/g_user_id";
 import ActiveAuthor from "@/layouts/media_listener/active_author";
@@ -22,29 +23,33 @@ import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_co
 import { api } from "@/lib/api";
 import { useHookstate } from "@hookstate/core";
 import {
-    AppShell, Box,
-    Burger, Flex, Group,
-    Header,
-    Image,
-    MediaQuery,
-    Menu,
-    Navbar,
-    NavLink,
-    ScrollArea,
-    Stack,
-    Text,
-    useMantineTheme
+  AppShell,
+  Box,
+  Burger,
+  Flex,
+  Group,
+  Header,
+  Image,
+  MediaQuery,
+  Menu,
+  Navbar,
+  NavLink,
+  ScrollArea,
+  Stack,
+  Text,
+  useMantineTheme,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
 import {
-    MdAccountCircle, MdBarChart,
-    MdCircle,
-    MdGridView,
-    MdMessage,
-    MdPlayCircle,
-    MdSettings
+  MdAccountCircle,
+  MdBarChart,
+  MdCircle,
+  MdGridView,
+  MdMessage,
+  MdPlayCircle,
+  MdSettings,
 } from "react-icons/md";
 
 const listView = [
@@ -181,7 +186,7 @@ const Dashboard = () => {
     funcLoadNationWideRating();
     const userId = localStorage.getItem("user_id");
     if (userId) {
-      fetch(api.apiAuthGetUser + `?id=${userId}`)
+      fetch(api.apiAuthGetUserById + `?id=${userId}`)
         .then((v) => v.json())
         .then(setUserName);
     }
@@ -215,13 +220,12 @@ const Dashboard = () => {
                 c={"gray.4"}
                 defaultOpened
               >
-
                 {v.child.map((vv, i) => (
                   <NavLink
                     c={selectedView.value == vv.name ? "blue.8" : "blue.4"}
                     icon={<MdCircle color="navi" />}
                     variant={"filled"}
-                    fw={selectedView.value == vv.name ? "bold": "light"}
+                    fw={selectedView.value == vv.name ? "bold" : "light"}
                     // bg={selectedView.value == vv.name ? "blue.1" : ""}
                     label={_.upperCase(vv.name)}
                     key={`${v.id}${i}`}
@@ -233,7 +237,12 @@ const Dashboard = () => {
                 ))}
               </NavLink>
             ))}
-            <NavLink bg={"gray"} c={"dark"} icon={<MdSettings />} label={"setting"} />
+            <NavLink
+              bg={"gray"}
+              c={"dark"}
+              icon={<MdSettings />}
+              label={"setting"}
+            />
           </Navbar.Section>
           <Navbar.Section bg={"dark"}>
             <Stack spacing={0} p={"xs"}>
@@ -284,20 +293,18 @@ const Dashboard = () => {
                         icon={<MdAccountCircle size={42} color={"#1870C2"} />}
                         label={userName?.name}
                       />
-
                     </Menu.Target>
                     <Menu.Dropdown>
                       <Menu.Item
                         onClick={() => {
                           localStorage.removeItem("user_id");
-                          gIsUser.set(false);
+                          gUser.set({});
                         }}
                       >
                         Logout
                       </Menu.Item>
                     </Menu.Dropdown>
                   </Menu>
-                  
                 </Group>
               </MediaQuery>
             </Flex>

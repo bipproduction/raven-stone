@@ -1,5 +1,9 @@
+import { gUser } from "@/g_state/auth/g_user";
+import { gIsDev } from "@/g_state/g_is_dev";
 import { api } from "@/lib/api";
+import { fDb } from "@/lib/fbs";
 import { ModelCityValue } from "@/model/city_value";
+import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
   Box,
@@ -9,6 +13,7 @@ import {
   Flex,
   Group,
   Loader,
+  Paper,
   ScrollArea,
   Stack,
   Table,
@@ -17,14 +22,17 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useDisclosure, useInputState, useShallowEffect } from "@mantine/hooks";
+import { onValue, ref, set } from "firebase/database";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { MdArrowBack, MdTableView } from "react-icons/md";
 import toast from "react-simple-toasts";
+import Swal from "sweetalert2";
 import DevAuthProvider from "./dev_auth_provider";
 
 const Dev = () => {
+  const user = useHookstate(gUser);
   const syncNationWideChart = async () => {
     const res = await fetch(api.apiDevSyncNationWideChart);
     return res.ok;
@@ -33,37 +41,60 @@ const Dev = () => {
   const router = useRouter();
 
   const syncSourceOfMention = async () =>
-    await fetch(api.apiDevSyncSourceOfMention).then(async (v) => v.ok);
+    await fetch(api.apiDevSyncSourceOfMention).then(
+      async (v) => v.status == 200
+    );
 
   const syncWordCloud = async () =>
-    await fetch(api.apiDevSyncWordCloud).then(async (v) => v.ok);
+    await fetch(api.apiDevSyncWordCloud).then(async (v) => v.status == 200);
 
   const generateApi = async () =>
-    await fetch("/api/generate/api").then(async (v) => v.ok);
+    await fetch("/api/generate/api").then(async (v) => v.status == 200);
 
   const seederCityValue = async () =>
-    await fetch(api.apiSeederCityValue).then(async (v) => v.ok);
+    await fetch(api.apiSeederCityValue).then(async (v) => v.status == 200);
 
   const seederCity = async () =>
-    await fetch(api.apiSeederCity).then(async (v) => v.ok);
+    await fetch(api.apiSeederCity).then(async (v) => v.status == 200);
 
   const seederDataContent = async () =>
-    await fetch(api.apiSeederDataContent).then(async (v) => v.ok);
+    await fetch(api.apiSeederDataContent).then(async (v) => v.status == 200);
 
   const seederEmotion = async () =>
-    await fetch(api.apiSeederEmotion).then(async (v) => v.ok);
+    await fetch(api.apiSeederEmotion).then(async (v) => v.status == 200);
 
   const seederProvince = async () =>
-    await fetch(api.apiSeederProvince).then(async (v) => v.ok);
+    await fetch(api.apiSeederProvince).then(async (v) => v.status == 200);
 
   const seederCandidate = async () =>
-    await fetch(api.apiSeederCandidate).then(async (v) => v.ok);
+    await fetch(api.apiSeederCandidate).then(async (v) => v.status == 200);
 
   const seederCandidateValue = async () =>
-    await fetch(api.apiSeederApiSeederCandidateValue).then(async (v) => v.ok);
+    await fetch(api.apiSeederApiSeederCandidateValue).then(
+      async (v) => v.status == 200
+    );
 
   const seederUser = async () =>
-    await fetch(api.apiSeederSeederUser).then(async (v) => v.ok);
+    await fetch(api.apiSeederSeederUser).then(async (v) => v.status == 200);
+
+  const seederUserRole = async () =>
+    await fetch(api.apiSeederSeederUserRole).then(
+      async (res) => res.status == 201
+    );
+
+  const onProfileLogout = async () => {
+    Swal.fire({
+      title: "info",
+      text: "logout ?",
+      confirmButtonText: "yes",
+    }).then((v) => {
+      if (v.isConfirmed) {
+        localStorage.removeItem("user_id");
+        user.set({});
+        // gIsDev.set(undefined);
+      }
+    });
+  };
 
   return (
     <>
@@ -86,7 +117,11 @@ const Dev = () => {
           <Container bg={"gray.3"} mt={70} pos={"static"}>
             <Stack>
               {/* <DevCityValue /> */}
-
+              <Group onClick={onProfileLogout} position="right">
+                <Text>{user.value?.name}</Text>
+                <Button compact>logout</Button>
+              </Group>
+              <UtilDev />
               <Card>
                 <Stack>
                   <Stack spacing={0}>
@@ -133,7 +168,12 @@ const Dev = () => {
                     </Text>
                   </Stack>
                   <Group>
+                    <ButtonSync
+                      loadData={seederUserRole}
+                      name={"seeder user role"}
+                    />
                     <ButtonSync loadData={seederUser} name={"seeder user"} />
+
                     <ButtonSync
                       loadData={seederProvince}
                       name={"seeder province"}
@@ -316,7 +356,7 @@ const ButtonSync = ({ loadData, name, disable, bg }: ModelLoadData) => {
     <>
       <Button
         bg={bg ?? ""}
-        disabled={disable}
+        disabled={isLoading}
         w={200}
         leftIcon={isLoading && <Loader color={"orange"} />}
         onClick={load}
@@ -327,57 +367,34 @@ const ButtonSync = ({ loadData, name, disable, bg }: ModelLoadData) => {
   );
 };
 
-// const DevCityValue = () => {
-//   const [listCityValue, setCityValue] = useState<any[]>([]);
-//   const [isTable, setistable] = useDisclosure(true);
-//   const [listJson, setlistJson] = useState<any[]>([]);
-//   useShallowEffect(() => {
-//     loadCityValue();
-//   }, []);
+const UtilDev = () => {
+  const [updateInfo, setUpdateInfo] = useState(false);
 
-//   const loadCityValue = async () => {
-//     fetch("/api/util/get-city-value")
-//       .then((v) => v.json())
-//       .then((v: ModelCityValue[]) => {
-//         setlistJson(v);
-//         const data = v.map((v) =>
-//           Object.values(v).map((vv) => ({
-//             value: vv,
-//           }))
-//         );
+  useShallowEffect(() => {
+    return onValue(ref(fDb, "/eagle_2/update"), (snap) => {
+      setUpdateInfo(snap.val());
+    });
+  }, []);
+  const infoUpdate = () => {
+    set(ref(fDb, "/eagle_2/update"), !updateInfo);
+  };
 
-//         data.unshift(
-//           Object.keys(v[0]).map((vv) => ({
-//             value: vv,
-//           }))
-//         );
-//         setCityValue(data);
-//       });
-//   };
-//   return (
-//     <>
-//       <Box
-//         p={"xs"}
-//         sx={{
-//           border: "1px solid gray",
-//         }}
-//       >
-//         <Group>
-//           <Text size={24}>City Value</Text>
-//           <ActionIcon onClick={setistable.toggle}>
-//             <MdTableView />
-//           </ActionIcon>
-//         </Group>
-//         <ScrollArea h={300}>
-//           {isTable ? (
-//             <Spreadsheet data={listCityValue} />
-//           ) : (
-//             <pre>{JSON.stringify(listJson, null, 2)}</pre>
-//           )}
-//         </ScrollArea>
-//       </Box>
-//     </>
-//   );
-// };
+  return (
+    <>
+      <Stack>
+        <Paper p={"md"}>
+          <Group>
+            <Stack>
+              <Text>Util</Text>
+              <Button onClick={infoUpdate}>
+                Info Update {updateInfo.toString()}
+              </Button>
+            </Stack>
+          </Group>
+        </Paper>
+      </Stack>
+    </>
+  );
+};
 
 export default Dev;

@@ -11,11 +11,19 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  name     String?
-  email    String? @unique
-  password String?
-  phone    String? @unique
+  id         String    @id @default(cuid())
+  name       String?
+  email      String?   @unique
+  password   String?
+  phone      String?   @unique
+  UserRole   UserRole? @relation(fields: [userRoleId], references: [id])
+  userRoleId Int      @default(1)
+}
+
+model UserRole {
+  id   Int     @id @default(autoincrement())
+  name String?
+  User User[]
 }
 
 model DukcapilDesa {
