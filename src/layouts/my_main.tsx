@@ -39,6 +39,8 @@ import Link from "next/link";
 import { useInputState } from "@mantine/hooks";
 import { api } from "@/lib/api";
 import { gIsUser } from "@/g_state/g_user_id";
+import { useHookstate } from "@hookstate/core";
+import { gUser } from "@/g_state/auth/g_user";
 
 const listmenu = [
   {
@@ -77,6 +79,7 @@ const MyMain = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>("1");
   const [email, setEmail] = useInputState("");
   const [password, setPassword] = useInputState("");
+  const user = useHookstate(gUser);
   return (
     <>
       <Stack>
@@ -121,7 +124,8 @@ const MyMain = () => {
                             const data = await res.json();
                             localStorage.setItem("user_id", data.userId);
                             toast("success");
-                            gIsUser.set(true);
+                            // gIsUser.set(true);
+                            user.set(data);
                           } else {
                             toast("wrong email or password");
                           }
