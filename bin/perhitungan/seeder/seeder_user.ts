@@ -22,6 +22,8 @@ export const seederUser = async () => {
             }
         })
     }
+    
+    console.log("seer user success")
 
     return true
 }

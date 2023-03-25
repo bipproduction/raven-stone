@@ -19,7 +19,7 @@ const seederUserRole = async (req: NextApiRequest, res: NextApiResponse) => {
         })
     }
 
-    res.status(201).json({ success: true })
+    res.status(200).json({ success: true })
 }
 
 export default seederUserRole
