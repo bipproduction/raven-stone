@@ -10,7 +10,10 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
             select: {
                 id: true,
                 email: true,
-                password: true
+                name: true,
+                password: true,
+                userRoleId: true
+
             }
         })
 
@@ -22,7 +25,9 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
         if (data?.password != body.password) return res.status(401).end()
 
         return res.status(200).json({
-            userId: data?.id
+            userId: data?.id,
+            name: data?.name,
+            userRoleId: data?.userRoleId
         })
     }
 

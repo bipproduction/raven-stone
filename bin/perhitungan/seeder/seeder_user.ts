@@ -11,12 +11,14 @@ export const seederUser = async () => {
                 id: itm.id.toString(),
                 name: itm.name,
                 email: itm.email,
-                password: itm.password
+                password: itm.password,
+                userRoleId: itm.userRoleId
             },
             update: {
                 name: itm.name,
                 email: itm.email,
-                password: itm.password
+                password: itm.password,
+                userRoleId: itm.userRoleId
             }
         })
     }

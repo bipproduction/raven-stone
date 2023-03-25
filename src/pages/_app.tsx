@@ -1,6 +1,6 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { MantineProvider, Modal } from "@mantine/core";
+import { MantineProvider, Modal, Stack, Title } from "@mantine/core";
 import "rsuite/dist/rsuite.min.css";
 import { PropsWithChildren, useState } from "react";
 import LoadProvince from "@/load_data/load_province";
@@ -21,6 +21,10 @@ import MyMain from "@/layouts/my_main";
 import { useHookstate } from "@hookstate/core";
 import { fDb } from "@/lib/fbs";
 import { getDatabase, onValue, ref } from "firebase/database";
+import { api } from "@/lib/api";
+import { gUser } from "@/g_state/auth/g_user";
+import _ from "lodash";
+import Lottie from "lottie-react";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -68,18 +72,17 @@ export default function App(props: AppProps) {
 }
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const isUser = useHookstate(gIsUser);
+  // const isUser = useHookstate(gIsUser);
+  const user = useHookstate(gUser);
   useShallowEffect(() => {
-    const id = localStorage.getItem("user_id");
-    if (id) {
-      isUser.set(true);
-    } else {
-      isUser.set(false);
-    }
+    const userId = localStorage.getItem("user_id");
+    fetch(api.apiAuthGetUserById + `?id=${userId}`)
+      .then((v) => v.json())
+      .then(user.set);
   }, []);
 
-  if (isUser.value == undefined) return <>{JSON.stringify(isUser.value)} </>;
-  if (!isUser.value)
+  if (user.value == undefined) return <>{JSON.stringify(user.value)} </>;
+  if (_.isEmpty(user.value))
     return (
       <>
         <MyMain />
@@ -90,20 +93,40 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 };
 
 const FirebaseProvider = ({ children }: PropsWithChildren) => {
-  const [openModal, setOpenModal] = useDisclosure(false);
+  const [openUpadte, setOpenUpdate] = useDisclosure(false);
+  const user = useHookstate(gUser);
   useShallowEffect(() => {
     return onValue(ref(fDb, "eagle_2/update"), (val) => {
-      if(val.val()){
-        setOpenModal.open()
-      }else{
-        setOpenModal.close()
+      if (val.val()) {
+        setOpenUpdate.open();
+      } else {
+        setOpenUpdate.close();
       }
     });
   }, []);
+
   return (
     <>
       {children}
-      <Modal opened={openModal} onClose={setOpenModal.close}></Modal>
+      <Modal
+        opened={openUpadte}
+        onClose={setOpenUpdate.close}
+        closeOnClickOutside={false}
+        withCloseButton={user.value && user.value.userRoleId == 2}
+      >
+        <Stack align={"center"} justify={"center"}>
+          <video
+            style={{
+              width: 200,
+            }}
+            autoPlay
+            muted
+            loop
+            src="/sync.mp4"
+          />
+          <Title>Update Please wait ...</Title>
+        </Stack>
+      </Modal>
     </>
   );
 };

@@ -316,7 +316,7 @@ const LayoutMapControll = () => {
       confirmButtonText: "yes",
     }).then((v) => {
       if (v.isConfirmed) {
-        localStorage.removeItem("dev_id");
+        localStorage.removeItem("user_id");
         gIsDev.set(undefined);
       }
     });
