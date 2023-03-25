@@ -24,6 +24,8 @@ export const seederCityValue = async () => {
                 value: Number(itm.value)
             }
         })
+
+        console.log("seed city value ", itm.name)
     }
 
     console.log("seeder city value success")
