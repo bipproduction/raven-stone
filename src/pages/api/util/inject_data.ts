@@ -7,16 +7,19 @@ const injectData = async (req: NextApiRequest, res: NextApiResponse) => {
 
         for (let itm of body) {
             const dataNya = {
-                id: Number(itm.id),
-                anger: Number(itm.anger),
-                disgust: Number(itm.disgust),
-                fear: Number(itm.fear),
-                joy: Number(itm.joy),
-                sadness: Number(itm.sadness),
-                surprise: Number(itm.surprise),
-                trust: Number(itm.trust),
-                anticipation: Number(itm.anticipation),
-                kabupaten: itm.kabupaten
+                "id": Number(itm.id),
+                "candidateId": Number(itm.candidateId),
+                "provinceId": Number(itm.provinceId),
+                "cityId": Number(itm.cityId),
+                "trust": Number(itm.trust),
+                "joy": Number(itm.joy),
+                "surprise": Number(itm.surprise),
+                "anticipation": Number(itm.anticipation),
+                "sadness": Number(itm.sadness),
+                "fear": Number(itm.fear),
+                "anger": Number(itm.anger),
+                "disgust": Number(itm.disgust),
+                "date": new Date(itm.date)
             }
             await client.dataByContent.upsert({
                 where: {
@@ -25,7 +28,10 @@ const injectData = async (req: NextApiRequest, res: NextApiResponse) => {
                 update: dataNya,
                 create: dataNya
             })
+
+            console.log(`update ${itm.id}`)
         }
+        console.log("update success")
         res.status(201).json(body)
     }
 }
