@@ -76,6 +76,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const user = useHookstate(gUser);
   useShallowEffect(() => {
     const userId = localStorage.getItem("user_id");
+
     fetch(api.apiAuthGetUserById + `?id=${userId}`)
       .then((v) => v.json())
       .then(user.set);
