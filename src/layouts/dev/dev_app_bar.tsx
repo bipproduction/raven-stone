@@ -43,10 +43,11 @@ const DevAppBar = () => {
           <Button.Group>
             {listNav.map((v) => (
               <Button
-                hidden={v.path == router.pathname}
+                variant={"subtle"}
+                disabled={v.path == router.pathname}
                 key={v.id}
                 rightIcon={<MdArrowForwardIos />}
-                bg={"gray"}
+                // bg={"gray"}
                 w={150}
                 compact
                 onClick={() => router.push(v.path)}
