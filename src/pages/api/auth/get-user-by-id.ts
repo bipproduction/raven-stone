@@ -13,7 +13,7 @@ const getUserById = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     })
 
-    res.status(200).json(data)
+    res.status(200).json(data??{})
 }
 
 export default getUserById
