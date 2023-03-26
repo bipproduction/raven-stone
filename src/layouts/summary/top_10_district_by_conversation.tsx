@@ -1,6 +1,15 @@
+import { gListEmotion } from "@/g_state/g_list_emotion";
 import { gTop10District } from "@/g_state/top_10_district/g_top_10_district";
 import { gTop10DistrictCount } from "@/g_state/top_10_district/g_top_10_district_take";
-import { Group, Pagination, Paper, Stack, Table, Text } from "@mantine/core";
+import {
+  Group,
+  Pagination,
+  Paper,
+  Select,
+  Stack,
+  Table,
+  Text,
+} from "@mantine/core";
 import _ from "lodash";
 import { useState } from "react";
 import PageTitle from "../page_title";
@@ -16,13 +25,16 @@ const Top10DistrictbyConversation = () => {
       {/* <Text>Top 10 District By Conversation</Text> */}
       <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
       <Paper p={"md"}>
+        <Select data={gListEmotion} />
         <Stack>
           <Table striped withBorder highlightOnHover>
             <thead>
               <tr>
                 {Object.keys(gTop10DistrictCount.value[0]).map((v) => (
                   <th key={v}>
-                    <Text c={"cyan.8"} fw={"bold"}>{_.upperCase(v)}</Text>
+                    <Text c={"cyan.8"} fw={"bold"}>
+                      {_.upperCase(v)}
+                    </Text>
                   </th>
                 ))}
               </tr>

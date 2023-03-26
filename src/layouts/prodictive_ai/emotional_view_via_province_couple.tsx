@@ -1,6 +1,6 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { gCandidate } from "@/g_state/g_candidate";
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { gSelectedDate } from "@/g_state/g_map_state";
 import { gProvince } from "@/g_state/g_province";
 import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
