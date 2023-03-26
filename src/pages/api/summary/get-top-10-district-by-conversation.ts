@@ -20,14 +20,14 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
                     }
                 }
             },
-            joy: true,
-            anger: true,
-            anticipation: true,
-            disgust: true,
-            fear: true,
-            sadness: true,
-            surprise: true,
             trust: true,
+            joy: true,
+            surprise: true,
+            anticipation: true,
+            sadness: true,
+            fear: true,
+            anger: true,
+            disgust: true,
         },
     })
 
@@ -41,12 +41,12 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
         value: v.value,
         trust: Math.floor((v.trust / 100) * v.value),
         joy: Math.floor((v.joy / 100) * v.value),
-        anger: Math.floor((v.anger / 100) * v.value),
+        surprise: Math.floor((v.anger / 100) * v.value),
         anticipation: Math.floor((v.anticipation / 100) * v.value),
-        disgust: Math.floor((v.disgust / 100) * v.value),
+        sadness: Math.floor((v.disgust / 100) * v.value),
         fear: Math.floor((v.fear / 100) * v.value),
-        sadness: Math.floor((v.sadness / 100) * v.value),
-        surprise: Math.floor((v.surprise / 100) * v.value),
+        anger: Math.floor((v.sadness / 100) * v.value),
+        disgust: Math.floor((v.surprise / 100) * v.value),
     }))
 
     res.status(200).json(hasil)

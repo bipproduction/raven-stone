@@ -16,6 +16,7 @@ import {
   Flex,
   Grid,
   Group,
+  JsonInput,
   Menu,
   Modal,
   Select,
@@ -25,7 +26,7 @@ import {
   Text,
 } from "@mantine/core";
 import { DatePicker, DatePickerInput } from "@mantine/dates";
-import { useDisclosure, useShallowEffect } from "@mantine/hooks";
+import { useDisclosure, useInputState, useShallowEffect } from "@mantine/hooks";
 import { EChartsOption, registerMap } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
@@ -46,6 +47,7 @@ import ButtonAjustByProvince from "./dialog_ajust_by_province";
 import Swal from "sweetalert2";
 import { gIsDev } from "@/g_state/g_is_dev";
 import DevAppBar from "../dev/dev_app_bar";
+import InjectData from "./inject_data";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -311,19 +313,6 @@ const LayoutMapControll = () => {
     return `${_.snakeCase(nama ? nama.name : "error")}_data_kabupaten`;
   };
 
-  const onProfileLogout = async () => {
-    Swal.fire({
-      title: "info",
-      text: "logout ?",
-      confirmButtonText: "yes",
-    }).then((v) => {
-      if (v.isConfirmed) {
-        localStorage.removeItem("user_id");
-        gIsDev.set(undefined);
-      }
-    });
-  };
-
   return (
     <>
       <Stack>
@@ -435,6 +424,7 @@ const LayoutMapControll = () => {
                 <MdDownload size={24} color={"teal"} />
               </CSVLink>
             )}
+            <InjectData />
           </Flex>
         </Flex>
 
@@ -517,7 +507,7 @@ const LayoutMapControll = () => {
                   <Grid>
                     <Grid.Col span={8}>
                       <Slider
-                        disabled={v.isLock}
+                        disabled={v.isLock ?? true}
                         value={v.value}
                         label={v.value}
                         key={v.name}
@@ -547,7 +537,7 @@ const LayoutMapControll = () => {
                             setListSelectedEmotion(newList);
                           }}
                         >
-                          {v.isLock ? (
+                          {v.isLock ?? true ? (
                             <FaLock color="white" />
                           ) : (
                             <FaLockOpen color="white" />
@@ -631,5 +621,7 @@ const TableView = ({ dataKabupaten }: any) => {
     </>
   );
 };
+
+
 
 export default LayoutMapControll;

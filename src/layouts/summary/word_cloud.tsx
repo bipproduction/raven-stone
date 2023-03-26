@@ -18,7 +18,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import randomcolor from "randomcolor";
 import { AnimationOnScroll } from "react-animation-on-scroll";
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 
 const words = [
   {

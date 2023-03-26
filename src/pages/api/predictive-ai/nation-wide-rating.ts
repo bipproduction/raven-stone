@@ -94,14 +94,14 @@ const getDataByCandidate = async (date: any, candidateId: any) => {
     return hasil2
 }
 
-// joy
 // trust
-// fear
+// joy
 // surprise
-// sadness
-// disgust
-// anger
 // anticipation
+// sadness
+// fear
+// anger
+// disgust
 
 const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
     const { target1, target2 } = req.query
@@ -113,14 +113,14 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
             candidateId: Number(target1)
         },
         _sum: {
-            joy: true,
             trust: true,
-            fear: true,
+            joy: true,
             surprise: true,
+            anticipation: true,
             sadness: true,
-            disgust: true,
+            fear: true,
             anger: true,
-            anticipation: true
+            disgust: true
         }
     })
 
@@ -130,14 +130,15 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
             candidateId: Number(target2)
         },
         _sum: {
-            joy: true,
             trust: true,
-            fear: true,
+            joy: true,
             surprise: true,
+            anticipation: true,
             sadness: true,
-            disgust: true,
+            fear: true,
             anger: true,
-            anticipation: true
+            disgust: true,
+            
         }
     })
 

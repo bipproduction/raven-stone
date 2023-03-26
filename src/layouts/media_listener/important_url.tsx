@@ -1,4 +1,4 @@
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { ModelB24ImportantUrl } from "@/model/media_listener/important_url";
 import { Paper, Stack, Text, Title } from "@mantine/core"
 import { useShallowEffect } from "@mantine/hooks";
