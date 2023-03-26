@@ -26,10 +26,10 @@ import { onValue, ref, set } from "firebase/database";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { MdArrowBack, MdTableView } from "react-icons/md";
+import { MdArrowBack, MdArrowForwardIos, MdTableView } from "react-icons/md";
 import toast from "react-simple-toasts";
 import Swal from "sweetalert2";
-import DevAuthProvider from "./dev_auth_provider";
+import DevAuthProvider, { ButtonLogout } from "../layouts/dev/dev_auth_provider";
 
 const Dev = () => {
   const user = useHookstate(gUser);
@@ -82,45 +82,15 @@ const Dev = () => {
       async (res) => res.status == 200
     );
 
-  const onProfileLogout = async () => {
-    Swal.fire({
-      title: "info",
-      text: "logout ?",
-      confirmButtonText: "yes",
-    }).then((v) => {
-      if (v.isConfirmed) {
-        localStorage.removeItem("user_id");
-        user.set({});
-        // gIsDev.set(undefined);
-      }
-    });
-  };
-
   return (
     <>
       <DevAuthProvider>
-        <Stack spacing={0} pos={"static"}>
-          <Flex
-            pos={"fixed"}
-            w={"100%"}
-            h={70}
-            p={"md"}
-            bg={"gray.2"}
-            gap={"md"}
-            direction={"row"}
-          >
-            <ActionIcon size={34} onClick={() => router.replace("/dashboard")}>
-              <MdArrowBack size={34} />
-            </ActionIcon>
-            <Text size={24}>Dev</Text>
-          </Flex>
+        <Stack spacing={0} pos={"static"} bg={"gray.3"}>
+          
           <Container bg={"gray.3"} mt={70} pos={"static"}>
             <Stack>
               {/* <DevCityValue /> */}
-              <Group onClick={onProfileLogout} position="right">
-                <Text>{user.value?.name}</Text>
-                <Button compact>logout</Button>
-              </Group>
+
               <UtilDev />
               <Card>
                 <Stack>
@@ -221,6 +191,8 @@ const Dev = () => {
     </>
   );
 };
+
+
 
 const B24Dev = () => {
   const [cookie, setCookie] = useInputState("");
