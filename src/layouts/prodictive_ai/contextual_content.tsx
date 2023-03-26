@@ -1,4 +1,4 @@
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import {
   Box,
   Divider,

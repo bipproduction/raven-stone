@@ -1,7 +1,7 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
 import { gCandidate } from "@/g_state/g_candidate";
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { gNationWideRating } from "@/g_state/nation_wide_rating/g_nation_wide_rating";
 import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
 import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";

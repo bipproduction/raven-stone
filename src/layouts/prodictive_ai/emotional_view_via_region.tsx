@@ -1,5 +1,5 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { gIndonesiaMap } from "@/g_state/g_indonesia_map";
 import { gListKabupaten } from "@/g_state/g_map_state";
 import { api } from "@/lib/api";
