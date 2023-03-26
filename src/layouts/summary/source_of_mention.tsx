@@ -1,4 +1,4 @@
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { gListSourceOfMention } from "@/g_state/g_source_of_mention";
 import { Box, Paper, Text } from "@mantine/core";
 import { EChartsOption } from "echarts";

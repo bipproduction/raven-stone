@@ -1,35 +1,24 @@
 import { gUser } from "@/g_state/auth/g_user";
-import { gIsDev } from "@/g_state/g_is_dev";
 import DevAuthProvider from "@/layouts/dev/dev_auth_provider";
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
-import { ModelCityValue } from "@/model/city_value";
 import { useHookstate } from "@hookstate/core";
 import {
-  ActionIcon,
-  Box,
-  Button,
-  Card,
-  Container,
-  Flex,
-  Group,
-  Loader,
-  Paper,
-  ScrollArea,
-  Stack,
-  Table,
-  Text,
-  Textarea,
-  TextInput,
+    Button,
+    Card,
+    Container, Group,
+    Loader,
+    Paper, Stack,
+    Table,
+    Text,
+    Textarea
 } from "@mantine/core";
-import { useDisclosure, useInputState, useShallowEffect } from "@mantine/hooks";
+import { useInputState, useShallowEffect } from "@mantine/hooks";
 import { onValue, ref, set } from "firebase/database";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { MdArrowBack, MdArrowForwardIos, MdTableView } from "react-icons/md";
 import toast from "react-simple-toasts";
-import Swal from "sweetalert2";
 
 const Dev = () => {
   const user = useHookstate(gUser);

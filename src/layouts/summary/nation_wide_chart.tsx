@@ -1,4 +1,4 @@
-import { gSelectedView } from "@/g_state/g_dasboard";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { gListNationWideChahrt } from "@/g_state/g_nation_wide_chart";
 import { useHookstate } from "@hookstate/core";
 import { Paper, Space, Text, Title } from "@mantine/core";

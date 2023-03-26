@@ -24,14 +24,14 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
                     }
                 }
             },
-            anger: true,
-            anticipation: true,
-            disgust: true,
-            fear: true,
-            joy: true,
-            sadness: true,
-            surprise: true,
             trust: true,
+            joy: true,
+            surprise: true,
+            anticipation: true,
+            sadness: true,
+            fear: true,
+            anger: true,
+            disgust: true,
         },
     })
 
@@ -40,14 +40,14 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
         provinceId: v.Province?.id,
         provinceName: v.Province?.name,
         value: v.City?.CityValue[0].value,
-        anger: Math.floor((v.anger! / 100) * v.City?.CityValue![0].value!),
-        anticipation: Math.floor((v.anticipation! / 100) * v.City?.CityValue![0].value!),
-        disgust: Math.floor((v.disgust! / 100) * v.City?.CityValue![0].value!),
-        fear: Math.floor((v.fear! / 100) * v.City?.CityValue![0].value!),
-        joy: Math.floor((v.joy! / 100) * v.City?.CityValue![0].value!),
-        sadness: Math.floor((v.sadness! / 100) * v.City?.CityValue![0].value!),
-        surprise: Math.floor((v.surprise! / 100) * v.City?.CityValue![0].value!),
-        trust: Math.floor((v.trust! / 100) * v.City?.CityValue![0].value!)
+        trust: Math.floor((v.anger! / 100) * v.City?.CityValue![0].value!),
+        joy: Math.floor((v.anticipation! / 100) * v.City?.CityValue![0].value!),
+        surprise: Math.floor((v.disgust! / 100) * v.City?.CityValue![0].value!),
+        anticipation: Math.floor((v.fear! / 100) * v.City?.CityValue![0].value!),
+        sadness: Math.floor((v.joy! / 100) * v.City?.CityValue![0].value!),
+        fear: Math.floor((v.sadness! / 100) * v.City?.CityValue![0].value!),
+        anger: Math.floor((v.surprise! / 100) * v.City?.CityValue![0].value!),
+        disgust: Math.floor((v.trust! / 100) * v.City?.CityValue![0].value!)
     }))
 
     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({
@@ -55,13 +55,13 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
         name: o[0].provinceName,
         value: _.sumBy(o, 'value'),
         trust: _.sumBy(o, "trust"),
-        anger: _.sumBy(o, "anger"),
-        anticipation: _.sumBy(o, "anticipation"),
-        disgust: _.sumBy(o, "disgust"),
-        fear: _.sumBy(o, "fear"),
-        joy: _.sumBy(o, "joy"),
-        sadness: _.sumBy(o, "sadness"),
-        surprise: _.sumBy(o, "surprise"),
+        joy: _.sumBy(o, "anger"),
+        surprise: _.sumBy(o, "anticipation"),
+        anticipation: _.sumBy(o, "disgust"),
+        sadness: _.sumBy(o, "fear"),
+        fear: _.sumBy(o, "joy"),
+        anger: _.sumBy(o, "sadness"),
+        disgust: _.sumBy(o, "surprise"),
 
     }))
 

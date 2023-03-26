@@ -25,6 +25,7 @@ import { api } from "@/lib/api";
 import { gUser } from "@/g_state/auth/g_user";
 import _ from "lodash";
 import Lottie from "lottie-react";
+import funcLoadEmotion from "@/fun_load/func_load_emotion";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -41,6 +42,8 @@ export default function App(props: AppProps) {
     funcLoadTop10District();
     funcLoadWordCloud();
     funcLoadEmotionalViwViaProvinceByDate();
+    funcLoadEmotion()
+    
   }, []);
 
   return (

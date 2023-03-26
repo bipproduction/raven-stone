@@ -7,7 +7,10 @@ export const api = {
   "apiCopyData": "/api/copy-data",
   "apiUtilUpdateDataByProvince": "/api/util/update-data-by-province",
   "apiUtilStore": "/api/util/store",
+  "apiUtilInjectData": "/api/util/inject_data",
   "apiUtilGetProvince": "/api/util/get-province",
+  "apiUtilGetInjetData": "/api/util/get-injet-data",
+  "apiUtilGetEmotion": "/api/util/get-emotion",
   "apiUtilGetDataKabupatenById": "/api/util/get-data-kabupaten-by-id",
   "apiUtilGetDataByProvinceidCandidateidDate": "/api/util/get-data-by-provinceid-candidateid-date",
   "apiUtilGetCityValue": "/api/util/get-city-value",
@@ -30,11 +33,11 @@ export const api = {
   "apiPredictiveAiEmotionalViewViaProvinceCoupleByDateCandiate": "/api/predictive-ai/emotional-view-via-province-couple-by-date-candiate",
   "apiPredictiveAiEmotionalViewViaProvinceByDateCandidate": "/api/predictive-ai/emotional-view-via-province-by-date-candidate",
   "apiPredictiveAiEmotionalViewViaProvinceByDateCandidateProvince": "/api/predictive-ai/emotional-view-via-province-by-date-candidate-province",
-  "apiDevSyncWordCloud": "/api/dev/sync-word-cloud",
-  "apiDevSyncSourceOfMention": "/api/dev/sync-source-of-mention",
-  "apiDevSyncNationWideChart": "/api/dev/sync-nation-wide-chart",
   "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",
-  "apiAuthGetUserById": "/api/auth/get-user-by-id"
+  "apiAuthGetUserById": "/api/auth/get-user-by-id",
+  "apiDevSyncWordCloud": "/api/dev/sync-word-cloud",
+  "apiDevSyncSourceOfMention": "/api/dev/sync-source-of-mention",
+  "apiDevSyncNationWideChart": "/api/dev/sync-nation-wide-chart"
 }
