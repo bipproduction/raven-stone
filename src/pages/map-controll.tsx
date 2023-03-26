@@ -18,7 +18,7 @@ import EChartsReact from "echarts-for-react";
 import { PropsWithChildren, useState } from "react";
 import { MdEmail, MdPassword } from "react-icons/md";
 import toast from "react-simple-toasts";
-import DevAuthProvider from "./dev_auth_provider";
+import DevAuthProvider from "../layouts/dev/dev_auth_provider";
 
 // import $ from "jquery";
 
