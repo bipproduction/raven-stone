@@ -45,6 +45,8 @@ import Spreadsheet from "react-spreadsheet";
 import ButtonAjustByProvince from "./dialog_ajust_by_province";
 import Swal from "sweetalert2";
 import { gIsDev } from "@/g_state/g_is_dev";
+import DevAppBar from "../dev/dev_app_bar";
+// import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
   anger?: number;
@@ -325,16 +327,6 @@ const LayoutMapControll = () => {
   return (
     <>
       <Stack>
-        <Flex p={"md"} justify={"end"}>
-          <Button
-            onClick={onProfileLogout}
-            compact
-            leftIcon={<MdAccountCircle />}
-          >
-            <Text>Dev</Text>
-          </Button>
-        </Flex>
-
         <Flex
           w={"100%"}
           p={"xs"}
