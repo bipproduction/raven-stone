@@ -116,7 +116,8 @@ const FirebaseProvider = ({ children }: PropsWithChildren) => {
         opened={openUpadte}
         onClose={setOpenUpdate.close}
         closeOnClickOutside={false}
-        withCloseButton={user.value && user.value.userRoleId == 2}
+        // withCloseButton={user.value && user.value.userRoleId == 2}
+        withCloseButton={false}
       >
         <Stack align={"center"} justify={"center"}>
           <video
