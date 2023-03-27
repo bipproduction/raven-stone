@@ -259,8 +259,9 @@ const Dashboard = () => {
           </Navbar.Section>
         </Navbar>
       }
+      
       header={
-        <Header height={{ base: 50, md: 100 }} p="md" bg={"blue.1"}>
+        <Header height={{ base: 50, md: 100 }} p="md" bg={"blue.1"} pos={"sticky"} zIndex={100} top={0}>
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >

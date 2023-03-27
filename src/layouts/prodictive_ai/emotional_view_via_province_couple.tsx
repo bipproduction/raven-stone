@@ -30,6 +30,7 @@ import _ from "lodash";
 import { useState } from "react";
 import { MdJoinInner, MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
+import SwipeButton from "./swipe_button";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -98,10 +99,12 @@ const EmotionalViewViaProvinceCouple = () => {
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
       <PageTitle />
       <Group
+        p={"xs"}
+        bg={"blue.1"}
         position="right"
         my={50}
         pos={"sticky"}
-        top={80}
+        top={100}
         sx={{
           zIndex: 100,
         }}
@@ -132,6 +135,7 @@ const EmotionalViewViaProvinceCouple = () => {
             }
           }}
         />
+        <SwipeButton update={update} />
         <Select
           placeholder={
             gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
@@ -158,7 +162,7 @@ const EmotionalViewViaProvinceCouple = () => {
         <Stack align={"center"}>
           <Image
             radius={100}
-            width={200}
+            width={100}
             src={
               gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
                 ?.img
@@ -178,7 +182,7 @@ const EmotionalViewViaProvinceCouple = () => {
         <Stack align={"center"}>
           <Image
             radius={100}
-            width={200}
+            width={100}
             src={
               gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
                 ?.img

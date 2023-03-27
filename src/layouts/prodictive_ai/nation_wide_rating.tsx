@@ -7,6 +7,7 @@ import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_can
 import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
 import { ModelNationWideRating } from "@/model/predictive_ai/nation_wide_rating";
 import {
+  ActionIcon,
   Box,
   Button,
   Flex,
@@ -23,8 +24,10 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
+import { MdSwapHoriz } from "react-icons/md";
 import toast from "react-simple-toasts";
 import PageTitle from "../page_title";
+import SwipeButton from "./swipe_button";
 
 const NationChartItem = ({
   data,
@@ -62,17 +65,24 @@ const NationChartItem = ({
     },
     series: [
       {
-        // name: "2011",
         type: "bar",
-        data: Object.keys(dataNya).map((v) => ({
-          label: v,
-          value: dataNya[v],
-          itemStyle: {
-            color: listEmotionColor.find(
-              (c) => _.lowerCase(c.name) == _.lowerCase(v)
-            )?.color,
-          },
-        })).reverse() as any,
+        itemStyle: {
+          borderRadius: 100,
+          // borderWidth: 1,
+          // borderType: 'solid',
+          // shadowBlur: 3
+        },
+        data: Object.keys(dataNya)
+          .map((v) => ({
+            label: v,
+            value: dataNya[v],
+            itemStyle: {
+              color: listEmotionColor.find(
+                (c) => _.lowerCase(c.name) == _.lowerCase(v)
+              )?.color,
+            },
+          }))
+          .reverse() as any,
       },
     ],
   };
@@ -100,9 +110,10 @@ const NationWideRating = () => {
       <Flex
         justify={"end"}
         // p={"md"}
-        // bg={"gray.2"}
+        bg={"blue.1"}
         pos={"sticky"}
-        top={70}
+        p={"xs"}
+        top={100}
         sx={{
           zIndex: 100,
         }}
@@ -126,6 +137,7 @@ const NationWideRating = () => {
             })) as []
           }
         />
+        <SwipeButton update={update} />
         <Select
           onChange={(val) => {
             if (val) {
@@ -145,6 +157,7 @@ const NationWideRating = () => {
             })) as []
           }
         />
+
         <Button
           onClick={async () => {
             await funcLoadNationWideRating();
@@ -160,7 +173,7 @@ const NationWideRating = () => {
           <Stack justify={"center"}>
             <Image
               radius={100}
-              width={200}
+              width={100}
               src={
                 gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
                   ?.img
@@ -177,7 +190,7 @@ const NationWideRating = () => {
           <Stack justify={"center"} align={"center"}>
             <Image
               radius={100}
-              width={200}
+              width={100}
               src={
                 gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
                   ?.img
