@@ -6,7 +6,9 @@ function pull() {
 
     execSync(`
     curl -X PATCH -d '{"update": true}'  ${url} &&
-    git pull origin dev --merge &&
+    git pull origin dev --autostash &&
+    yarn &&
+    yarn build &&
     pm2 restart 16 &&
     pm2 save &&
     curl -X PATCH -d '{"update": false}'  ${url}
