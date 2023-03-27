@@ -2,12 +2,14 @@ import client from '@/lib/prisma_db';
 import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
+    const { date, emotion } = req.query
     const data = await client.dataByContent.findMany({
         orderBy: {
-            trust: "desc"
+            [_.lowerCase(emotion as string)]: "desc"
         },
         where: {
-            date: new Date("2023-03-16")
+            date: new Date(date as any),
+            candidateId: 1
         },
         select: {
             City: {

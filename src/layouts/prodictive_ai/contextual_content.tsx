@@ -79,14 +79,17 @@ const ContextualContent = () => {
       <Stack>
         {list_contexttual_content.map((v) => (
           <Box key={v.title} pb={70}>
+            
             <Stack>
-              <Title c={"gray.6"}>{v.title}</Title>
-              <Flex direction={"row"}>
-                <MdArrowCircleUp color="green" size={24} />
-                <Title c={"teal.8"}>
-                  {Intl.NumberFormat("id-ID").format(v.audiences)}
-                </Title>
-              </Flex>
+              <Group>
+                <Title c={"gray.6"}>{v.title}</Title>
+                <Flex direction={"row"}>
+                  <MdArrowCircleUp color="green" size={24} />
+                  <Title c={"teal.8"}>
+                    {Intl.NumberFormat("id-ID").format(v.audiences)}
+                  </Title>
+                </Flex>
+              </Group>
               <SimpleGrid cols={3}>
                 {v.emotion.map((v2) => (
                   <Box key={v2.name}>

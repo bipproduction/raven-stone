@@ -36,6 +36,7 @@ import {
   ScrollArea,
   Stack,
   Text,
+  Title,
   useMantineTheme,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
@@ -49,6 +50,7 @@ import {
   MdMessage,
   MdSettings,
 } from "react-icons/md";
+
 
 const listView = [
   {
@@ -236,7 +238,7 @@ const Dashboard = () => {
               </NavLink>
             ))}
           </Navbar.Section>
-          <Navbar.Section >
+          <Navbar.Section>
             <NavLink
               bg={"gray"}
               c={"dark"}
@@ -279,10 +281,20 @@ const Dashboard = () => {
             >
               <Group align={"center"}>
                 <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
-                  <Image width={150} src={"/logo-2.png"} alt={"logo"} />
+                  <Group>
+
+                    <Box w={{ sm: 200, lg: 300 }}>
+                      <Image width={150} src={"/logo-2.png"} alt={"logo"} />
+                    </Box>
+                    <Stack>
+                      <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
+                      <Text c={"gray"}>Welcome to Prabowo Subianto for President 2024 - Digital Intelligence Winning Program.</Text>
+                    </Stack>
+                  </Group>
                 </MediaQuery>
                 {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
               </Group>
+
               <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
                 <Group>
                   <Menu>
@@ -296,7 +308,20 @@ const Dashboard = () => {
 
                     </Menu.Target> */}
 
-                    <Button bg={"blue.1"} variant={"filled"} leftIcon={<Image src={'/logo-3.png'}  width={32} height={32} alt={"logo"} />}><Text c={"dark"}>{userName?.name}</Text></Button>
+                    <Button
+                      bg={"blue.1"}
+                      variant={"filled"}
+                      leftIcon={
+                        <Image
+                          src={"/logo-3.png"}
+                          width={32}
+                          height={32}
+                          alt={"logo"}
+                        />
+                      }
+                    >
+                      <Text c={"dark"}>{userName?.name}</Text>
+                    </Button>
                     <Menu.Dropdown>
                       <Menu.Item
                         onClick={() => {

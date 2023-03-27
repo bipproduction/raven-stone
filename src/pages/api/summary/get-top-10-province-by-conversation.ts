@@ -2,11 +2,15 @@ import client from '@/lib/prisma_db';
 import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { date } = req.query
+    const { date, emotion } = req.query
+    console.log(emotion)
     const data = await client.dataByContent.findMany({
         where: {
-            date: new Date(date!.toString()),
+            date: new Date(date as string),
             candidateId: 1
+        },
+        orderBy: {
+            [_.lowerCase(emotion as string)]: "desc"
         },
         select: {
             Province: {
@@ -65,7 +69,7 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
 
     }))
 
-    const hasil3 = _.orderBy(hasil2, ["trust"], "desc")
+    const hasil3 = _.orderBy(hasil2, [_.lowerCase(emotion as string)], "desc")
     const hasil4 = hasil3.map((v, i) => ({
         no: i + 1,
         ...v,
