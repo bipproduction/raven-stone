@@ -116,6 +116,7 @@ const EmotionalViewViaProvinceCouple = () => {
           icon={<MdSearch />}
         />
         <Select
+          key={Math.random()}
           placeholder={
             gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
               ?.name
@@ -137,6 +138,7 @@ const EmotionalViewViaProvinceCouple = () => {
         />
         <SwipeButton update={update} />
         <Select
+          key={Math.random()}
           placeholder={
             gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
               ?.name
