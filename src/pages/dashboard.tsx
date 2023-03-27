@@ -321,7 +321,7 @@ const Dashboard = () => {
                         />
                       }
                     >
-                      <Text c={"dark"}>{userName?.name}</Text>
+                      {/* <Text c={"dark"}>{userName?.name}</Text> */}
                     </Button>
                     <Menu.Dropdown>
                       <Menu.Item
