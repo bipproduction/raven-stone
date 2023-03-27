@@ -106,7 +106,7 @@ const NationWideRating = () => {
   return (
     <>
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
-      <PageTitle />
+      <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <Flex
         justify={"end"}
         // p={"md"}
