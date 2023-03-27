@@ -92,7 +92,7 @@ const EmotionalViewViaProvince = () => {
         {_.upperCase(gSelectedView.value)}
       </Text> */}
       {/* {JSON.stringify(gEmotionalViewViaProvince.value[0])} */}
-      <PageTitle />
+      <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <Group
         position="right"
         pos={"sticky"}

@@ -107,7 +107,7 @@ const EmotionalViewViaRegion = () => {
     <>
       {/* <Title c={"cyan.9"}>{_.upperCase(gSelectedView.value)}</Title> */}
       {/* {JSON.stringify(dataIndonesiaMap.features.map((v: any) => v.properties))} */}
-      <PageTitle />
+      <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       {!_.isEmpty(dataIndonesiaMap.features) && (
         <EChartsReact
           style={{
