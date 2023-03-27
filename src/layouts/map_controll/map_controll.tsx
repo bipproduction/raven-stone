@@ -507,7 +507,7 @@ const LayoutMapControll = () => {
                   <Grid>
                     <Grid.Col span={8}>
                       <Slider
-                        disabled={v.isLock ?? true}
+                        disabled={v.isLock}
                         value={v.value}
                         label={v.value}
                         key={v.name}
@@ -537,7 +537,7 @@ const LayoutMapControll = () => {
                             setListSelectedEmotion(newList);
                           }}
                         >
-                          {v.isLock ?? true ? (
+                          {v.isLock ? (
                             <FaLock color="white" />
                           ) : (
                             <FaLockOpen color="white" />
