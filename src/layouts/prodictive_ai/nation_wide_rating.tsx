@@ -119,6 +119,7 @@ const NationWideRating = () => {
         }}
       >
         <Select
+          key={Math.random()}
           onChange={(val) => {
             if (val) {
               gSelectedCandidate1.set(Number(val));
@@ -139,6 +140,7 @@ const NationWideRating = () => {
         />
         <SwipeButton update={update} />
         <Select
+        key={Math.random()}
           onChange={(val) => {
             if (val) {
               gSelectedCandidate2.set(Number(val));
