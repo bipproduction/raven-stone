@@ -61,6 +61,8 @@ interface ModelEmotion {
   anticipation?: number;
 }
 
+
+
 const listEmotionColor = [
   {
     id: "1",
@@ -217,8 +219,11 @@ const LayoutMapControll = () => {
       if (!a.data) return toast("empty data");
       setSelectedData(a.data);
       const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
+
+      // eidt disini
+      console.log(dataFilter)
       const hasil = [];
-      for (let i of Object.keys(dataFilter)) {
+      for (let i of ["trust", "joy", "surprise", "anticipation", "sadness", "fear", "anger", "disgust"]) {
         const data = {
           name: i,
           value: dataFilter[i],
@@ -478,8 +483,9 @@ const LayoutMapControll = () => {
               <Button onClick={onProccess}>Procccess</Button>
             </Flex>
             <Divider />
+            {/* {JSON.stringify(listSelectedEmotion )} */}
             <SimpleGrid cols={2}>
-              {_.sortBy(listSelectedEmotion, (c) => c.name).map((v) => (
+              {listSelectedEmotion.map((v) => (
                 <Stack
                   p={"xs"}
                   key={v.name}
