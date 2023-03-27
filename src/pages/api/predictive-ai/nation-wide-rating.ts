@@ -104,13 +104,13 @@ const getDataByCandidate = async (date: any, candidateId: any) => {
 // disgust
 
 const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { target1, target2 } = req.query
+    const {date, candidate1, candidate2 } = req.query
 
 
     let k1 = await client.dataByContent.aggregate({
         where: {
-            date: new Date("2023-03-16"),
-            candidateId: Number(target1)
+            date: new Date(date as string),
+            candidateId: Number(candidate1)
         },
         _sum: {
             trust: true,
@@ -126,8 +126,8 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
 
     let k2 = await client.dataByContent.aggregate({
         where: {
-            date: new Date("2023-03-16"),
-            candidateId: Number(target2)
+            date: new Date(date as string),
+            candidateId: Number(candidate2)
         },
         _sum: {
             trust: true,
@@ -195,8 +195,8 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
         hasilProsentasePenggabungan[key] = Math.round(persentaseGabungan);
     });
 
-    hasilProsentasePenggabungan['candidate1'] = Number(target1);
-    hasilProsentasePenggabungan['candidate2'] = Number(target2);
+    hasilProsentasePenggabungan['candidate1'] = Number(candidate1);
+    hasilProsentasePenggabungan['candidate2'] = Number(candidate2);
 
     // console.log(hasilProsentasePenggabungan);
 

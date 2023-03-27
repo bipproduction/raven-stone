@@ -1,19 +1,37 @@
 import {
   Box,
   Button,
+  Card,
+  Flex,
   Group,
   MediaQuery,
   Navbar,
+  NumberInput,
+  Paper,
   Stack,
   Text,
+  TextInput,
+  Title,
 } from "@mantine/core";
 import { useState } from "react";
+import { useForm } from "@mantine/form";
+import dataContent from "./../assets/contextual_content.json";
+
+export const EditorContextualContent = () => {
+ 
+  return (
+    <Stack bg={"gray.1"}>
+      <Title>Contextual Controll</Title>
+      
+    </Stack>
+  );
+};
 
 const listmenuya = [
   {
     id: "1",
     name: "contexttual content",
-    content: () => EditorContextualContent,
+    content: EditorContextualContent,
   },
   {
     id: "2",
@@ -44,14 +62,14 @@ const ContentControll = () => {
             ))}
           </Button.Group>
         </Group>
-        <Stack></Stack>
+        <Stack>
+          {listmenuya.map(
+            (v) => v.id == selectedMenu && <v.content key={v.id} />
+          )}
+        </Stack>
       </Stack>
     </>
   );
-};
-
-export const EditorContextualContent = () => {
-  return <></>;
 };
 
 export default ContentControll;

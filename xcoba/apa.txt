@@ -151,3 +151,61 @@ fear
 joy
 sadness
 surprise
+
+
+sum masing masing item dibawah ini mendadi single objenct 
+const listData = [
+  {
+    anger: 66135,
+    anticipation: 245644,
+    disgust: 85030,
+    fear: 75583,
+    joy: 94478,
+    sadness: 94478,
+    surprise: 122822,
+    trust: 160613
+  },
+  {
+    anger: 20765,
+    anticipation: 62296,
+    disgust: 124592,
+    fear: 51914,
+    joy: 446456,
+    sadness: 103827,
+    surprise: 124592,
+    trust: 103827
+  },
+  {
+    anger: 18899,
+    anticipation: 18899,
+    disgust: 18899,
+    fear: 18899,
+    joy: 157488,
+    sadness: 18899,
+    surprise: 94493,
+    trust: 283478
+  },
+  {
+    anger: 69765,
+    anticipation: 39866,
+    disgust: 109631,
+    fear: 49832,
+    joy: 328892,
+    sadness: 119597,
+    surprise: 69765,
+    trust: 209295
+  },
+  {
+    anger: 7136,
+    anticipation: 28542,
+    disgust: 121305,
+    fear: 7136,
+    joy: 271152,
+    sadness: 85627,
+    surprise: 128440,
+    trust: 64220
+  }
+]
+
+hasilnya singgle object seperti dibawah ini
+const hasil = {}

@@ -74,8 +74,8 @@ const emotionalViewViaProvinceCoupleByDateCandidate = async (req: NextApiRequest
     score_candidate1.president = candidateValue1?.value1 as any
     score_candidate1.vice_president = candidateValue1?.value2 as any
 
-    score_candidate2.president = candidateValue1?.value1 as any
-    score_candidate2.vice_president = candidateValue1?.value2 as any
+    score_candidate2.president = candidateValue12?.value1 as any
+    score_candidate2.vice_president = candidateValue12?.value2 as any
 
 
     const data1 = await client.dataByContent.groupBy({
