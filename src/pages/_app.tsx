@@ -20,12 +20,15 @@ import { gIsUser } from "@/g_state/g_user_id";
 import MyMain from "@/layouts/my_main";
 import { useHookstate } from "@hookstate/core";
 import { fDb } from "@/lib/fbs";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onChildChanged, onValue, ref } from "firebase/database";
 import { api } from "@/lib/api";
 import { gUser } from "@/g_state/auth/g_user";
 import _ from "lodash";
 import Lottie from "lottie-react";
 import funcLoadEmotion from "@/fun_load/func_load_emotion";
+import { useRouter } from "next/router";
+import toast from "react-simple-toasts";
+import Swal from "sweetalert2";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -42,8 +45,7 @@ export default function App(props: AppProps) {
     funcLoadTop10District();
     funcLoadWordCloud();
     funcLoadEmotionalViwViaProvinceByDate();
-    funcLoadEmotion()
-    
+    funcLoadEmotion();
   }, []);
 
   return (
@@ -99,12 +101,26 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 const FirebaseProvider = ({ children }: PropsWithChildren) => {
   const [openUpadte, setOpenUpdate] = useDisclosure(false);
   const user = useHookstate(gUser);
+  const router = useRouter();
+
   useShallowEffect(() => {
     return onValue(ref(fDb, "eagle_2/update"), (val) => {
       if (val.val()) {
         setOpenUpdate.open();
       } else {
         setOpenUpdate.close();
+      }
+    });
+  }, []);
+
+  useShallowEffect(() => {
+    return onChildChanged(ref(fDb, "eagle_2/reload"), (snap) => {
+      if (snap.val()) {
+        Swal.fire("update finish, please reload").then((v) => {
+          if (v.value) {
+            router.reload();
+          }
+        });
       }
     });
   }, []);
