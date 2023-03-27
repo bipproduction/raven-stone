@@ -122,7 +122,7 @@ const NationWideRating = () => {
           onChange={(val) => {
             if (val) {
               gSelectedCandidate1.set(Number(val));
-              update();
+              // update();
             }
           }}
           placeholder={
@@ -142,7 +142,7 @@ const NationWideRating = () => {
           onChange={(val) => {
             if (val) {
               gSelectedCandidate2.set(Number(val));
-              update();
+              // update();
             }
           }}
           placeholder={
