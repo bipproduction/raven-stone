@@ -2,36 +2,36 @@
     {
       "id": "1",
       "name": "Prabowo Subianto",
-      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/2.%20Prabowo%20Subianto.jpg?raw=true"
+      "img": "/candidate/prabowo.png"
     },
     {
       "id": "2",
       "name": "Ganjar Pranowo",
-      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/5.%20Ganjar%20Pranowo.jpg?raw=true"
+      "img": "/candidate/ganjar.png"
     },
     {
       "id": "3",
       "name": "Anies Baswedan",
-      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/8.%20Anies%20Baswedan.jpg?raw=true"
+      "img": "/candidate/anies.png"
     },
     {
       "id": "4",
       "name": "Agus Harimurti Yudoyono",
-      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/13.%20Agus%20Harimurti%20Yudhoyono.jpg?raw=true"
+      "img": "/candidate/ahy.png"
     },
     {
       "id": "5",
       "name": "Muhaimin Iskandar",
-      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/3.%20Muhaimin%20Iskandar.jpg?raw=true"
+      "img": "/candidate/muhaimin.png"
     },
     {
       "id": "6",
       "name": "Khofifah",
-      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/7.%20Khofifah.jpg?raw=true"
+      "img": "/candidate/khofifah.png"
     },
     {
       "id": "7",
       "name": "Erick Thohir",
-      "img": "https://github.com/bipproduction/assets/blob/main/capres/capres/9.%20Eric%20Thohir.jpg?raw=true"
+      "img": "/candidate/eric.png"
     }
   ]
