@@ -1,9 +1,20 @@
+import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
+import { gListEmotion } from "@/g_state/g_list_emotion";
+import { gSelectedEmotion } from "@/g_state/g_selected_emotion";
 import { gTop10Province } from "@/g_state/top_10_province/g_top_10_province";
 import { gTop10ProvinceTake } from "@/g_state/top_10_province/g_top_10_province_take";
 import { api } from "@/lib/api";
 import { ModelTop10Province } from "@/model/top_10_province";
-import { Group, Pagination, Paper, Stack, Table, Text } from "@mantine/core";
-import { useShallowEffect } from "@mantine/hooks";
+import {
+  Group,
+  Pagination,
+  Paper,
+  Select,
+  Stack,
+  Table,
+  Text,
+} from "@mantine/core";
+import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
 import PageTitle from "../page_title";
@@ -11,6 +22,7 @@ import PageTitle from "../page_title";
 const Top10ProvinceByConversation = () => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
+  const update = useForceUpdate();
   if (_.isEmpty(gTop10Province.value)) return <>loading</>;
   return (
     <>
@@ -18,6 +30,25 @@ const Top10ProvinceByConversation = () => {
         <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
         {/* {JSON.stringify(gTop10ProvinceTake.value)} */}
         <Paper p={"md"}>
+          <Group position="right" py={"lg"}>
+            <Select
+              placeholder={gSelectedEmotion.value}
+              variant={"filled"}
+              searchable
+              label={"sort emotion"}
+              data={gListEmotion.value.map((v) => ({
+                label: v.name,
+                value: v.name,
+              }))}
+              onChange={async (val) => {
+                if (val) {
+                  gSelectedEmotion.set(val);
+                  await funcLoadTop10Province();
+                  update();
+                }
+              }}
+            />
+          </Group>
           <Stack>
             <Table striped withBorder>
               <thead>
