@@ -57,7 +57,7 @@ const NationChartItem = ({
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
-      max: 100,
+      // max: 100,
     },
     yAxis: {
       type: "category",
@@ -122,7 +122,7 @@ const NationWideRating = () => {
           onChange={(val) => {
             if (val) {
               gSelectedCandidate1.set(Number(val));
-              // update();
+              update();
             }
           }}
           placeholder={
@@ -142,7 +142,7 @@ const NationWideRating = () => {
           onChange={(val) => {
             if (val) {
               gSelectedCandidate2.set(Number(val));
-              // update();
+              update();
             }
           }}
           placeholder={
