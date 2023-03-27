@@ -73,13 +73,13 @@ const ContextualContent = () => {
   return (
     <>
       {/* <Title c={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
-      <PageTitle />
+      <PageTitle text="PREDICTIVE CONTEXTUAL CONVERSATION" />
       <Divider mb={70} />
       {/* {JSON.stringify(list_contexttual_content)} */}
       <Stack>
         {list_contexttual_content.map((v) => (
           <Box key={v.title} pb={70}>
-            
+
             <Stack>
               <Group>
                 <Title c={"gray.6"}>{v.title}</Title>

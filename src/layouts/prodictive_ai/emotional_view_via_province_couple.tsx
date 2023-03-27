@@ -97,7 +97,7 @@ const EmotionalViewViaProvinceCouple = () => {
   return (
     <>
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
-      <PageTitle />
+      <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <Group
         p={"xs"}
         bg={"blue.1"}
