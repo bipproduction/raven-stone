@@ -3,7 +3,7 @@ import { execSync } from 'child_process'
 function pull() {
 
     const url = "https://eagle-eye-c93d5-default-rtdb.asia-southeast1.firebasedatabase.app/eagle_2/.json"
-
+    const urlReload = "https://eagle-eye-c93d5-default-rtdb.asia-southeast1.firebasedatabase.app/eagle_2/reload.json"
     execSync(`
     curl -X PATCH -d '{"update": true}'  ${url} &&
     git pull origin dev --autostash &&
@@ -12,6 +12,8 @@ function pull() {
     pm2 restart 16 &&
     pm2 save &&
     curl -X PATCH -d '{"update": false}'  ${url}
+    curl -X PATCH -d '{"value": false}'  ${urlReload}
+    curl -X PATCH -d '{"value": true}'  ${urlReload}
     `, { stdio: "inherit" })
 }
 
