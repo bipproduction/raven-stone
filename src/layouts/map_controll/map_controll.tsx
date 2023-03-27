@@ -24,6 +24,7 @@ import {
   Slider,
   Stack,
   Text,
+  Tooltip,
 } from "@mantine/core";
 import { DatePicker, DatePickerInput } from "@mantine/dates";
 import { useDisclosure, useInputState, useShallowEffect } from "@mantine/hooks";
@@ -60,8 +61,6 @@ interface ModelEmotion {
   trust?: number;
   anticipation?: number;
 }
-
-
 
 const listEmotionColor = [
   {
@@ -200,13 +199,15 @@ const LayoutMapControll = () => {
 
             const emotion = ky[vl.indexOf(_.max(vl))];
 
+            const adaNol = _.max(vl) == 0;
             return {
               name: v.City.name,
               data: v,
               itemStyle: {
-                color: listEmotionColor.find(
-                  (v) => _.lowerCase(v.name) == emotion
-                )?.color,
+                color: adaNol
+                  ? "white"
+                  : listEmotionColor.find((v) => _.lowerCase(v.name) == emotion)
+                      ?.color,
               },
             };
           }),
@@ -221,9 +222,18 @@ const LayoutMapControll = () => {
       const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
 
       // eidt disini
-      console.log(dataFilter)
+      console.log(dataFilter);
       const hasil = [];
-      for (let i of ["trust", "joy", "surprise", "anticipation", "sadness", "fear", "anger", "disgust"]) {
+      for (let i of [
+        "trust",
+        "joy",
+        "surprise",
+        "anticipation",
+        "sadness",
+        "fear",
+        "anger",
+        "disgust",
+      ]) {
         const data = {
           name: i,
           value: dataFilter[i],
@@ -288,7 +298,7 @@ const LayoutMapControll = () => {
 
     if (dataUpdate.status != 201) return toast("error");
     toast("sussess");
-    setListSelectedEmotion(listHasilnya);
+    // setListSelectedEmotion(listHasilnya);
     await funLoadMapData();
     setbukamodal.close();
   };
@@ -316,6 +326,31 @@ const LayoutMapControll = () => {
       (v) => v.id === Number(selectedCandidate.value)
     );
     return `${_.snakeCase(nama ? nama.name : "error")}_data_kabupaten`;
+  };
+
+  const onClear = async () => {
+    let hasilData: { [key: string]: any } = {};
+    for (let itm of listSelectedEmotion) {
+      hasilData[itm.name] = 0;
+    }
+    const dataBody = {
+      id: selectedData.data.id,
+      ...hasilData,
+    };
+
+    const dataUpdate = await fetch("/api/update-content", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataBody),
+    });
+
+    if (dataUpdate.status != 201) return toast("error");
+    toast("sussess");
+    // setListSelectedEmotion(listHasilnya);
+    await funLoadMapData();
+    setbukamodal.close();
   };
 
   return (
@@ -473,15 +508,25 @@ const LayoutMapControll = () => {
           </Flex>
         </Modal>
 
-        {/* modal data configuration */}
+        {/* modal data configuration emotion */}
         <Modal opened={bukaModal} onClose={setbukamodal.close} size={"70%"}>
           <Stack>
             <Flex justify={"space-between"}>
               <Text size={24} fw={"bold"}>
                 {_.upperCase(selectedData.name)}
               </Text>
-              <Button onClick={onProccess}>Procccess</Button>
+              <Group>
+                <Button compact onClick={onProccess}>
+                  Procccess
+                </Button>
+                <Tooltip label={"buat nilainya menjadi 0"}>
+                  <Button compact bg={"pink"} onClick={onClear}>
+                    Clear
+                  </Button>
+                </Tooltip>
+              </Group>
             </Flex>
+
             <Divider />
             {/* {JSON.stringify(listSelectedEmotion )} */}
             <SimpleGrid cols={2}>
@@ -627,7 +672,5 @@ const TableView = ({ dataKabupaten }: any) => {
     </>
   );
 };
-
-
 
 export default LayoutMapControll;
