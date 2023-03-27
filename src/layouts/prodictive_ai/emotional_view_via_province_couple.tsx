@@ -171,7 +171,7 @@ const EmotionalViewViaProvinceCouple = () => {
           />
           <Text>
             {
-              gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
                 ?.name
             }
           </Text>
@@ -191,7 +191,7 @@ const EmotionalViewViaProvinceCouple = () => {
           />
           <Text>
             {
-              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+              gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
                 ?.name
             }
           </Text>
