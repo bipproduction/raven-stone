@@ -13,11 +13,25 @@ function pull() {
     `, { stdio: "inherit" })
 }
 
+function push() {
+    const branchName = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+    execSync(`
+    git add -A &&
+    git commit -m "auto commit" &&
+    git push origin ${branchName}
+    `, { stdio: "inherit" })
+}
+
 const listMenu = [
     {
         title: "pull",
         value: "pull",
         act: pull
+    },
+    {
+        title: "push",
+        value: "push",
+        act: push
     }
 ]
 
