@@ -44,7 +44,10 @@ const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
     tooltip: {
       show: true,
       formatter: (a: any, b) => {
-        return `${a.data.name}: ${a.value}`;
+        return `
+        <i>${_.upperCase(a.data.name)}</i>
+        <h1>${a.value} %</h1>
+        `;
       },
     },
     series: [

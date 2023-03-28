@@ -10,6 +10,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { MdArrowCircleUp } from "react-icons/md";
@@ -32,7 +33,7 @@ const listColorCentiment = [
 ];
 
 const ContextualItemChart = ({ data }: { [key: string]: any }) => {
-  const option = {
+  const option: EChartsOption = {
     // title: {
     //   text: "Referer of a Website",
     //   subtext: "Fake Data",
@@ -40,6 +41,12 @@ const ContextualItemChart = ({ data }: { [key: string]: any }) => {
     // },
     tooltip: {
       trigger: "item",
+      formatter: (a: any) => {
+        return `
+        <i>${_.upperCase(a.name)}</i>
+        <h1>${a.value} %</h1>
+        `;
+      },
     },
     // legend: {
     //   orient: "vertical",
@@ -79,7 +86,6 @@ const ContextualContent = () => {
       <Stack>
         {list_contexttual_content.map((v) => (
           <Box key={v.title} pb={70}>
-
             <Stack>
               <Group>
                 <Title c={"gray.6"}>{v.title}</Title>
@@ -104,7 +110,7 @@ const ContextualContent = () => {
                           {_.upperCase(v2.name)}
                         </Title>
                         <Title c={"gray"} order={3}>
-                          {v2.value}
+                          {v2.value + " %"}
                         </Title>
                       </Group>
                       <Stack>
