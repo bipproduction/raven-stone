@@ -37,6 +37,7 @@ import SelectCandidateView from "./select_candidate_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import { stylesGradientRed } from "@/styles/styles_gradient_red";
+import { stylesGradientYellow } from "@/styles/styles_gradient_yellow";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -114,7 +115,7 @@ const EmotionalViewViaProvinceCouple = () => {
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <SelectCandidateView onProccess={proccessData} onUpdate={update} />
       <Paper p={"md"} shadow={"md"} style={{
-        background: stylesGradientRed
+        background: stylesGradientYellow
         
       }}>
         <Flex direction={"row"} align={"center"} justify={"center"} p={"lg"}>

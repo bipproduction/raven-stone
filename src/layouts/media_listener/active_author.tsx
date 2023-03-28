@@ -1,10 +1,14 @@
 import ActiveAuthorData from "@/Luxxn/ActiveAuthor";
-import { Text } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
+import MediaListenerTitle from "./media_listener_title";
 
 const ActiveAuthor = () => {
   return (
     <>
-      <ActiveAuthorData/>
+      <Stack spacing={0}>
+        <MediaListenerTitle title="Active Author" />
+        <ActiveAuthorData />
+      </Stack>
     </>
   );
 };

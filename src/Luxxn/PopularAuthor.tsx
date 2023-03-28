@@ -17,6 +17,7 @@ import _ from "lodash";
 import { useState } from "react";
 import { ModelB24PopularAuthor } from "./helper/b24PopularAuthor";
 import PageTitle from "@/layouts/page_title";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 
 const PopularAuthorData = () => {
   const [datanya, setDatanya] = useState<ModelB24PopularAuthor>({});
@@ -37,7 +38,7 @@ const PopularAuthorData = () => {
   return (
     <>
       <Stack>
-        <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur." />
+        {/* <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur." /> */}
         <SimpleGrid cols={6}>
           {datanya &&
             _.take(
@@ -46,7 +47,7 @@ const PopularAuthorData = () => {
                 ? 20
                 : datanya.entries_from_most_popular_authors?.length! - 1
             )?.map((v) => (
-              <Paper key={v.id} p={"xs"}>
+              <Paper bg={stylesGradient1} key={v.id} p={"xs"}>
                 <Stack justify={"center"} align={"center"} spacing={2}>
                   <Avatar src={v.author_avatar_url} radius={50} />
                   <Text

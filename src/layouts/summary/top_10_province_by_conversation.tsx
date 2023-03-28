@@ -5,6 +5,7 @@ import { gTop10Province } from "@/g_state/top_10_province/g_top_10_province";
 import { gTop10ProvinceTake } from "@/g_state/top_10_province/g_top_10_province_take";
 import { api } from "@/lib/api";
 import { ModelTop10Province } from "@/model/top_10_province";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import {
   Group,
   Pagination,
@@ -29,7 +30,9 @@ const Top10ProvinceByConversation = () => {
       <Stack>
         <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
         {/* {JSON.stringify(gTop10ProvinceTake.value)} */}
-        <Paper p={"md"}>
+        <Paper shadow={"sm"} p={"md"} bg={stylesGradient1} sx={{
+              overflow: "scroll"
+            }}>
           <Group position="right" py={"lg"}>
             <Select
               placeholder={gSelectedEmotion.value}
@@ -50,7 +53,7 @@ const Top10ProvinceByConversation = () => {
             />
           </Group>
           <Stack>
-            <Table striped withBorder>
+            <Table withBorder >
               <thead>
                 <tr>
                   {Object.keys(_.omit(gTop10ProvinceTake.value[0], "id")).map(
