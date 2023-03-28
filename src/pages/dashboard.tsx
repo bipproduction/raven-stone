@@ -21,6 +21,7 @@ import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_co
 import { api } from "@/lib/api";
 import { useHookstate } from "@hookstate/core";
 import {
+  ActionIcon,
   AppShell,
   Box,
   Burger,
@@ -50,7 +51,6 @@ import {
   MdMessage,
   MdSettings,
 } from "react-icons/md";
-
 
 const listView = [
   {
@@ -259,9 +259,8 @@ const Dashboard = () => {
           </Navbar.Section>
         </Navbar>
       }
-
       header={
-        <Header height={{ base: 50, md: 100 }} p="md" bg={"blue.1"} >
+        <Header height={{ base: 50, md: 100 }} p="md" bg={"blue.1"}>
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
@@ -283,13 +282,15 @@ const Dashboard = () => {
               <Group align={"center"}>
                 <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
                   <Group>
-
                     <Box w={{ sm: 200, lg: 300 }}>
                       <Image width={150} src={"/logo-2.png"} alt={"logo"} />
                     </Box>
-                    <Stack>
+                    <Stack p={"xs"} spacing={0}>
                       <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
-                      <Text c={"gray"}>Welcome to Prabowo Subianto for President 2024 - Digital Intelligence Winning Program.</Text>
+                      <Text c={"gray"}>
+                        Welcome to Prabowo Subianto for President 2024 - Digital
+                        Intelligence Winning Program.
+                      </Text>
                     </Stack>
                   </Group>
                 </MediaQuery>
@@ -309,22 +310,15 @@ const Dashboard = () => {
 
                     </Menu.Target> */}
 
-                    <Button
-                      bg={"blue.1"}
-                      variant={"filled"}
-                      leftIcon={
-                        <Image
-                          src={"/logo-3.png"}
-                          width={32}
-                          height={32}
-                          alt={"logo"}
-                        />
-                      }
-                    >
-                      {/* <Text c={"dark"}>{userName?.name}</Text> */}
-                    </Button>
-                    <Menu.Dropdown>
+                    <Menu.Target>
+                      <ActionIcon size={42} bg={"blue.1"} variant={"filled"}>
+                        <MdAccountCircle size={42} color={"gray"} />
+                      </ActionIcon>
+                    </Menu.Target>
+                    <Menu.Dropdown bg={"blue"}>
                       <Menu.Item
+                        bg={"red"}
+                        c={"white"}
                         onClick={() => {
                           localStorage.removeItem("user_id");
                           gUser.set({});
