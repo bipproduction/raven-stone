@@ -17,7 +17,7 @@ model User {
   password   String?
   phone      String?   @unique
   UserRole   UserRole? @relation(fields: [userRoleId], references: [id])
-  userRoleId Int      @default(1)
+  userRoleId Int       @default(1)
 }
 
 model UserRole {
@@ -287,6 +287,15 @@ model City {
   DataEmotion   DataEmotion[]
   DataByContent DataByContent[]
   CityValue     CityValue[]
+  CityContext   CityContext[]
+}
+
+model CityContext {
+  id     Int     @id @default(autoincrement())
+  name   String?
+  value  Int?
+  City   City?   @relation(fields: [cityId], references: [id])
+  cityId Int?
 }
 
 model Candidate {

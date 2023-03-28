@@ -34,6 +34,8 @@ import _ from "lodash";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -88,6 +90,9 @@ const EmotionalViewViaProvince = () => {
   const [openDetain, setOpenDetail] = useDisclosure(false);
   const update = useForceUpdate();
   const [search, setSearch] = useState("");
+
+  if (gSelectedView.value != "Emotional View Via Province")
+    return <>${gSelectedView.value}</>;
   return (
     <>
       {/* <Text size={32} fw={"bold"} color={"cyan.8"}>
@@ -95,70 +100,96 @@ const EmotionalViewViaProvince = () => {
       </Text> */}
       {/* {JSON.stringify(gEmotionalViewViaProvince.value[0])} */}
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
-      <Group
-        position="right"
+      <Paper
+        bg={"blue.1"}
+        shadow={"md"}
         pos={"sticky"}
-        top={80}
+        p={"xs"}
         sx={{
           zIndex: 100,
         }}
+        top={100}
+        mb={70}
       >
-        <TextInput
-          placeholder="search"
-          onChange={(val) => setSearch(val.currentTarget.value)}
-          icon={<MdSearch />}
-        />
-        <Select
-          placeholder={
-            gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
-              ?.name
-          }
-          data={
-            gCandidate.value.map((v) => ({
-              label: v.name,
-              value: v.id,
-            })) as any
-          }
-          onChange={async (val) => {
-            gSelectedCandidate1.set(Number(val));
-            await funcLoadEmotionalViwViaProvinceByDate();
-            update();
-          }}
-        />
-      </Group>
+        <Group position="right">
+          <TextInput
+            placeholder="search"
+            onChange={(val) => setSearch(val.currentTarget.value)}
+            icon={<MdSearch />}
+          />
+          <Select
+            placeholder={
+              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+                ?.name
+            }
+            data={
+              gCandidate.value.map((v) => ({
+                label: v.name,
+                value: v.id,
+              })) as any
+            }
+            onChange={async (val) => {
+              gSelectedCandidate1.set(Number(val));
+              await funcLoadEmotionalViwViaProvinceByDate();
+              update();
+            }}
+          />
+        </Group>
+      </Paper>
       <Group position="center">
         {gEmotionalViewViaProvince.value
           .filter((v) => _.lowerCase(v.name).includes(_.lowerCase(search)))
           .map((v) => (
-            <Paper key={v.id} w={400} p={"xs"}>
-              <EmotionItemChart lsData={v.emotion} />
-              <Stack align={"center"}>
-                <Text fw={"bold"}>{_.upperCase(v.name)}</Text>
-                <Stack
-                  align={"center"}
-                  justify={"center"}
-                  p={"md"}
-                  // sx={{
-                  //   border: "1px solid gray",
-                  //   borderRadius: 4,
-                  // }}
-                >
-                  <Text color={"cyan.8"} size={32} fw={"bold"}>
-                    {Intl.NumberFormat("id-id").format(v.value)}
-                  </Text>
-                  <Text color={"gray"}>sampler</Text>
+            <AnimationOnScroll
+              key={v.id}
+              animateIn={"animate__backInUp"}
+              initiallyVisible={true}
+            >
+              <Paper
+                shadow={"xs"}
+                key={v.id}
+                w={400}
+                p={"xs"}
+                style={{
+                  background: stylesGradient1,
+                }}
+              >
+                <EmotionItemChart lsData={v.emotion} />
+                <Stack align={"center"}>
+                  <Stack
+                    align={"center"}
+                    justify={"center"}
+                    p={"md"}
+                    // sx={{
+                    //   border: "1px solid gray",
+                    //   borderRadius: 4,
+                    // }}
+                  >
+                    <Stack justify={"center"} spacing={0}>
+                      <Text color={"cyan.8"} size={32} fw={"bold"}>
+                        {Intl.NumberFormat("id-id").format(v.value)}
+                      </Text>
+                      <Text align={"center"} color={"gray"}>
+                        SAMPLE
+                      </Text>
+                    </Stack>
+                    <Text size={24} align={"center"}>
+                      {_.upperCase(v.name)}
+                    </Text>
+                  </Stack>
+                  <Button
+                    compact
+                    onClick={() => {
+                      gSelectedProvince.set(v.id);
+                      setOpenDetail.open();
+                    }}
+                    variant={"outline"}
+                  >
+                    DETAIL
+                  </Button>
                 </Stack>
-                <Button
-                  onClick={() => {
-                    gSelectedProvince.set(v.id);
-                    setOpenDetail.open();
-                  }}
-                  variant={"outline"}
-                >
-                  detail
-                </Button>
-              </Stack>
-            </Paper>
+              </Paper>
+            </AnimationOnScroll>
           ))}
       </Group>
       <Modal fullScreen opened={openDetain} onClose={setOpenDetail.close}>

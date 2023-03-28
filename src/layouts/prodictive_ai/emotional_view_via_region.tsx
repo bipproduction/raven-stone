@@ -1,16 +1,16 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
-import { gSelectedView } from "@/g_state/g_selected_view";
 import { gIndonesiaMap } from "@/g_state/g_indonesia_map";
 import { gListKabupaten } from "@/g_state/g_map_state";
-import { api } from "@/lib/api";
-import { useHookstate } from "@hookstate/core";
-import { Text, Title } from "@mantine/core";
-import { useShallowEffect } from "@mantine/hooks";
+import { gSelectedView } from "@/g_state/g_selected_view";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { Paper } from "@mantine/core";
+import { useForceUpdate } from "@mantine/hooks";
 import { registerMap } from "echarts";
 import EChartsReact, { EChartsOption } from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
 import PageTitle from "../page_title";
+import SelectCandidateView from "./select_candidate_view";
 
 const EmotionalViewViaRegion = () => {
   const [search, setSearch] = useState<string>("");
@@ -29,7 +29,7 @@ const EmotionalViewViaRegion = () => {
   //   });
 
   registerMap("indonesia", gIndonesiaMap.value as any);
-
+  const update = useForceUpdate();
   const option: EChartsOption = {
     toolbox: {
       show: true,
@@ -86,14 +86,15 @@ const EmotionalViewViaRegion = () => {
             const vl = Object.values(dt);
 
             const emotion = ky[vl.indexOf(_.max(vl))];
-
+            const adaNol = _.max(vl) == 0;
             return {
               name: v.City.name,
               data: v,
               itemStyle: {
-                color: listEmotionColor.find(
-                  (v) => _.lowerCase(v.name) == emotion
-                )?.color,
+                color: adaNol
+                  ? "white"
+                  : listEmotionColor.find((v) => _.lowerCase(v.name) == emotion)
+                      ?.color,
               },
             };
           }),
@@ -105,17 +106,18 @@ const EmotionalViewViaRegion = () => {
     return <>{gSelectedView.value}</>;
   return (
     <>
-      {/* <Title c={"cyan.9"}>{_.upperCase(gSelectedView.value)}</Title> */}
-      {/* {JSON.stringify(dataIndonesiaMap.features.map((v: any) => v.properties))} */}
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
-      {!_.isEmpty(dataIndonesiaMap.features) && (
-        <EChartsReact
-          style={{
-            height: 500,
-          }}
-          option={option}
-        />
-      )}
+      <SelectCandidateView onProccess={() => {}} onUpdate={update} />
+      <Paper h={550} bg={stylesGradient1}>
+        {!_.isEmpty(dataIndonesiaMap.features) && (
+          <EChartsReact
+            style={{
+              height: 500,
+            }}
+            option={option}
+          />
+        )}
+      </Paper>
     </>
   );
 };
