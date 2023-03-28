@@ -1,4 +1,5 @@
 import PageTitle from "@/layouts/page_title";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import {
   Avatar,
   Box,
@@ -34,8 +35,8 @@ const ActiveAuthorData = () => {
   return (
     <>
       <Stack>
-        <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur." />
-        <Paper p={"md"} radius={20}>
+        {/* <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur." /> */}
+        <Paper p={"md"} radius={20} bg={stylesGradient1}>
           <SimpleGrid cols={2}>
             {datanya &&
               datanya.most_active_authors?.map((v) => (

@@ -1,10 +1,14 @@
 import Statistic from "@/Luxxn/Statistic";
-import { Text } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
+import MediaListenerTitle from "./media_listener_title";
 
 const Statistict = () => {
   return (
     <>
-      <Statistic/>
+      <Stack spacing={0}>
+        <MediaListenerTitle title="Media Hastag" />
+        <Statistic />
+      </Stack>
     </>
   );
 };

@@ -1,10 +1,14 @@
 import MediaHastagData from "@/Luxxn/Mediahastag";
-import { Text } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
+import MediaListenerTitle from "./media_listener_title";
 
 const MediaHastag = () => {
   return (
     <>
-      <MediaHastagData/>
+      <Stack spacing={0}>
+        <MediaListenerTitle title="Media Hastag" />
+        <MediaHastagData />
+      </Stack>
     </>
   );
 };

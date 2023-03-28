@@ -3,6 +3,7 @@ import { gListEmotion } from "@/g_state/g_list_emotion";
 import { gSelectedEmotion } from "@/g_state/g_selected_emotion";
 import { gTop10District } from "@/g_state/top_10_district/g_top_10_district";
 import { gTop10DistrictCount } from "@/g_state/top_10_district/g_top_10_district_take";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import {
   Group,
   Pagination,
@@ -28,7 +29,9 @@ const Top10DistrictbyConversation = () => {
     <>
       {/* <Text>Top 10 District By Conversation</Text> */}
       <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
-      <Paper p={"md"}>
+      <Paper shadow={"sm"} p={"md"} bg={stylesGradient1} sx={{
+              overflow: "scroll"
+            }}>
         <Group position="right" py={"lg"}>
           <Select
             placeholder={gSelectedEmotion.value}
@@ -49,7 +52,7 @@ const Top10DistrictbyConversation = () => {
           />
         </Group>
         <Stack>
-          <Table striped withBorder highlightOnHover>
+          <Table withBorder highlightOnHover>
             <thead>
               <tr>
                 {Object.keys(gTop10DistrictCount.value[0]).map((v) => (

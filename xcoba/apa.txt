@@ -276,3 +276,10 @@ const kandidat2 = {
   disgust: 12.45
 }
 
+
+lanjutkan semua item sesuai dengan animasi pada https://animate.style
+const listAnimation = {
+  animate__bounce: "animate__bounce",
+  animate__flash: "animate__flash",
+  animate__pulse: "animate__pulse"
+}
