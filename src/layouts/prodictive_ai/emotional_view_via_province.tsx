@@ -47,7 +47,9 @@ const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
     tooltip: {
       show: true,
       formatter: (a: any, b) => {
-        return `${a.data.name}: ${a.value}`;
+        return `
+        <i>${_.upperCase(a.data.name)}</i>
+        <h1>${Intl.NumberFormat("id-ID").format(a.value)}</h1>`;
       },
     },
     series: [
@@ -436,10 +438,10 @@ const EmotionDetai2 = ({
   );
 };
 
-const ChartPie = ({data, name}: {data: any, name: string}) => {
-  const option2:EChartsOption = {
+const ChartPie = ({ data, name }: { data: any; name: string }) => {
+  const option2: EChartsOption = {
     title: {
-      text: name
+      text: name,
     },
     tooltip: {
       trigger: "item",
@@ -470,14 +472,16 @@ const ChartPie = ({data, name}: {data: any, name: string}) => {
         // },
         data: Object.keys(data).map((v) => ({
           name: v,
-          value: data[v]
+          value: data[v],
         })),
       },
     ],
   };
-  return <>
-  <EChartsReact option={option2} />
-  </>
-}
+  return (
+    <>
+      <EChartsReact option={option2} />
+    </>
+  );
+};
 
 export default EmotionalViewViaProvince;

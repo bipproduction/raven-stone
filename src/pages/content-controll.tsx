@@ -1,28 +1,12 @@
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Group,
-  MediaQuery,
-  Navbar,
-  NumberInput,
-  Paper,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Button, Group, Stack, Text, Title } from "@mantine/core";
 import { useState } from "react";
-import { useForm } from "@mantine/form";
-import dataContent from "./../assets/contextual_content.json";
+import { signal } from "@preact/signals-react";
+import { menuSelected } from "@/g_state/s_menu_selected";
 
 export const EditorContextualContent = () => {
- 
   return (
     <Stack bg={"gray.1"}>
       <Title>Contextual Controll</Title>
-      
     </Stack>
   );
 };
@@ -41,7 +25,8 @@ const listmenuya = [
 ];
 
 const ContentControll = () => {
-  const [selectedMenu, setSelectedMenu] = useState<string>("1");
+  // const [selectedMenu, setSelectedMenu] = useState<string>("1");
+  
   return (
     <>
       <Stack>
@@ -49,12 +34,12 @@ const ContentControll = () => {
           <Button.Group p={"xs"}>
             {listmenuya.map((v) => (
               <Button
-                variant={selectedMenu == v.id ? "filled" : "default"}
+                variant={menuSelected.value == v.id ? "filled" : "default"}
                 w={120}
                 compact
                 key={v.id}
                 onClick={() => {
-                  setSelectedMenu(v.id);
+                  menuSelected.value = v.id
                 }}
               >
                 {v.name}
@@ -64,7 +49,7 @@ const ContentControll = () => {
         </Group>
         <Stack>
           {listmenuya.map(
-            (v) => v.id == selectedMenu && <v.content key={v.id} />
+            (v) => v.id == menuSelected.value && <v.content key={v.id} />
           )}
         </Stack>
       </Stack>

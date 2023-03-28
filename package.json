@@ -25,6 +25,7 @@
     "@mantine/prism": "^6.0.1",
     "@mantine/spotlight": "^6.0.1",
     "@mantine/tiptap": "^6.0.1",
+    "@preact/signals-react": "^1.2.2",
     "@prisma/client": "^4.11.0",
     "@tabler/icons": "^2.10.0",
     "@tabler/icons-react": "^2.10.0",
