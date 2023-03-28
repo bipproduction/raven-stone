@@ -209,3 +209,70 @@ const listData = [
 
 hasilnya singgle object seperti dibawah ini
 const hasil = {}
+
+
+const kandidat1 = {
+  trust: 25.17,
+  joy: 19.18,
+  surprise: 14.22,
+  anticipation: 10.65,
+  sadness: 7.96,
+  fear: 5.99,
+  anger: 4.56,
+  disgust: 12.26,
+  candidate1: 1,
+  candidate2: 2
+}
+
+const kandidat2 = {
+  trust: 25.2,
+  joy: 18.87,
+  surprise: 14.34,
+  anticipation: 10.54,
+  sadness: 7.91,
+  fear: 6.02,
+  anger: 4.65,
+  disgust: 12.45,
+  candidate1: 1,
+  candidate2: 7
+}
+
+hitunglah penggabungan dan irisan kedua kandidat tersebut dan disesuaikan dengan teori Naive Bayes
+
+
+hitung juga jika dedua kandidat telah mempunyai tingkat popularitas jika menjadi calon presiden atau wakil presiden
+
+const popularitas_kandidat1 = {
+  calon_presiden: 70,
+  calon_wakil_presiden: 30
+}
+const popularitas_kandidat2 = {
+  calon_presiden: 10,
+  calon_wakil_presiden: 90
+}
+
+
+hitung ulang jika nilai emosinya berubah
+
+const kandidat1 = {
+  trust: 25.17,
+  joy: 19.18,
+  surprise: 14.22,
+  anticipation: 10.65,
+  sadness: 7.96,
+  fear: 5.99,
+  anger: 4.56,
+  disgust: 12.26
+}
+
+const kandidat2 = {
+  trust: 25.2,
+  joy: 18.87,
+  surprise: 14.34,
+  anticipation: 10.54,
+  sadness: 7.91,
+  fear: 6.02,
+  anger: 4.65,
+  disgust: 12.45
+}
+
