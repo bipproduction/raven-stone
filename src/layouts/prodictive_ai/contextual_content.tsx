@@ -13,6 +13,7 @@ import {
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 import { MdArrowCircleUp } from "react-icons/md";
 import PageTitle from "../page_title";
 import list_contexttual_content from "./../../assets/contextual_content.json";
@@ -77,6 +78,8 @@ const ContextualItemChart = ({ data }: { [key: string]: any }) => {
 };
 
 const ContextualContent = () => {
+  if (gSelectedView.value != "Contextual Content")
+    return <>${gSelectedView.value}</>;
   return (
     <>
       {/* <Title c={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
@@ -98,34 +101,46 @@ const ContextualContent = () => {
               </Group>
               <SimpleGrid cols={3}>
                 {v.emotion.map((v2) => (
-                  <Box key={v2.name}>
-                    <Paper
-                      p={"md"}
-                      bg={
-                        listColorCentiment.find((c) => c.name == v2.name)?.color
-                      }
-                    >
-                      <Group position="apart">
-                        <Title c={"gray"} order={3}>
-                          {_.upperCase(v2.name)}
-                        </Title>
-                        <Title c={"gray"} order={3}>
-                          {v2.value + " %"}
-                        </Title>
-                      </Group>
-                      <Stack>
-                        {v2.cluster.map((v3) => (
-                          <Box key={v3.name}>
-                            <Text c={"dark"} fw={"bold"}>
-                              {v3.name}
-                            </Text>
-                            <Divider />
-                            <ContextualItemChart data={v3.data} />
-                          </Box>
-                        ))}
-                      </Stack>
-                    </Paper>
-                  </Box>
+                  <AnimationOnScroll
+                    key={v2.name}
+                    initiallyVisible={true}
+                    animateIn={
+                      ["animate__slideInLeft", "animate__slideInRight"][
+                        _.random(0, 1)
+                      ]
+                    }
+                  >
+                    <Box key={v2.name}>
+                      <Paper
+                        shadow={"xs"}
+                        p={"md"}
+                        bg={
+                          listColorCentiment.find((c) => c.name == v2.name)
+                            ?.color
+                        }
+                      >
+                        <Group position="apart">
+                          <Title c={"gray"} order={3}>
+                            {_.upperCase(v2.name)}
+                          </Title>
+                          <Title c={"gray"} order={3}>
+                            {v2.value + " %"}
+                          </Title>
+                        </Group>
+                        <Stack>
+                          {v2.cluster.map((v3) => (
+                            <Box key={v3.name}>
+                              <Text c={"dark"} fw={"bold"}>
+                                {v3.name}
+                              </Text>
+                              <Divider />
+                              <ContextualItemChart data={v3.data} />
+                            </Box>
+                          ))}
+                        </Stack>
+                      </Paper>
+                    </Box>
+                  </AnimationOnScroll>
                 ))}
               </SimpleGrid>
             </Stack>

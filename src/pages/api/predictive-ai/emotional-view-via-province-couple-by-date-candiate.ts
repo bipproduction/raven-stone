@@ -1,3 +1,4 @@
+import { getProvinceValue } from './../../../lib/get_province_value';
 import client from '@/lib/prisma_db';
 import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -46,7 +47,7 @@ function calculateNewEmotionPercentage(
 const emotionalViewViaProvinceCoupleByDateCandidate = async (req: NextApiRequest, res: NextApiResponse) => {
     const { date, candidate1, candidate2 } = req.query
 
-    if (!date || !candidate1 || !candidate2) return res.status(201).json({date, candidate1, candidate2})
+    if (!date || !candidate1 || !candidate2) return res.status(201).json({ date, candidate1, candidate2 })
 
     const candidateValue1 = await client.candidateValue.findUnique({
         where: {
@@ -143,18 +144,22 @@ const emotionalViewViaProvinceCoupleByDateCandidate = async (req: NextApiRequest
     }))
 
     const province = await client.province.findMany()
+    const provinceValue = await getProvinceValue()
 
     const listHasil = []
     for (let i = 0; i < data1_a.length; i++) {
         const emotion = calculateNewEmotionPercentage(data1_a[i].emotion as any, score_candidate1, data2_a[i].emotion as any, score_candidate2)
         listHasil.push({
-            name: province.find((v2) => v2.id == data1_a[i].provinceId )?.name,
+            name: province.find((v2) => v2.id == data1_a[i].provinceId)?.name,
             provinceId: data1_a[i].provinceId,
             candidate1,
             candidate2,
-            emotion: emotion
+            emotion: emotion,
+            value: provinceValue.find((v) => v.id == data1_a[i].provinceId)?.value
         })
     }
+
+    // console.log(listHasil)
 
     res.status(200).json(listHasil)
 }

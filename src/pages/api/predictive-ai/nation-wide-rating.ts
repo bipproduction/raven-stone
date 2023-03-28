@@ -271,7 +271,7 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // console.log(hasilProsentasePenggabungan);
 
-    console.log(emotion)
+    // console.log(emotion)
     res.status(200).json(emotion)
 }
 
