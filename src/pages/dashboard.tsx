@@ -19,6 +19,9 @@ import SourceOfmention from "@/layouts/summary/source_of_mention";
 import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_conversation";
 import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_conversation";
 import { api } from "@/lib/api";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
+import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
@@ -97,49 +100,49 @@ const listView = [
       //   },
       {
         id: 2,
-        name: "Mention By Category",
+        name: "Media Summary",
         view: MentionbyCategory,
       },
-      {
-        id: 3,
-        name: "Media Hastag",
-        view: MediaHastag,
-      },
-      {
-        id: 4,
-        name: "Important Author",
-        view: ImportantAuthor,
-      },
-      {
-        id: 5,
-        name: "Active Author",
-        view: ActiveAuthor,
-      },
-      {
-        id: 6,
-        name: "Active url",
-        view: ActiveUrl,
-      },
-      {
-        id: 7,
-        name: "Important Url",
-        view: ImportantUrl,
-      },
-      {
-        id: 8,
-        name: "Media Link",
-        view: MediaLink,
-      },
-      {
-        id: 8,
-        name: "Sosial Media",
-        view: SosialMedia,
-      },
-      {
-        id: 10,
-        name: "Popular Author",
-        view: PopularAuthor,
-      },
+      // {
+      //   id: 3,
+      //   name: "Media Hastag",
+      //   view: MediaHastag,
+      // },
+      // {
+      //   id: 4,
+      //   name: "Important Author",
+      //   view: ImportantAuthor,
+      // },
+      // {
+      //   id: 5,
+      //   name: "Active Author",
+      //   view: ActiveAuthor,
+      // },
+      // {
+      //   id: 6,
+      //   name: "Active url",
+      //   view: ActiveUrl,
+      // },
+      // {
+      //   id: 7,
+      //   name: "Important Url",
+      //   view: ImportantUrl,
+      // },
+      // {
+      //   id: 8,
+      //   name: "Media Link",
+      //   view: MediaLink,
+      // },
+      // {
+      //   id: 8,
+      //   name: "Sosial Media",
+      //   view: SosialMedia,
+      // },
+      // {
+      //   id: 10,
+      //   name: "Popular Author",
+      //   view: PopularAuthor,
+      // },
     ],
   },
   {
@@ -206,6 +209,7 @@ const Dashboard = () => {
       asideOffsetBreakpoint="sm"
       navbar={
         <Navbar
+          bg={"blue.0"}
           hiddenBreakpoint="sm"
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
@@ -213,17 +217,20 @@ const Dashboard = () => {
           <Navbar.Section grow component={ScrollArea}>
             {listView.map((v) => (
               <NavLink
-                bg={"blue.0"}
+                bg={"blue.2"}
+                // sx={{
+                //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
+                // }}
                 label={v.name}
-                icon={<v.icon size={24} />}
+                icon={<v.icon size={24} color={"#BE2533"} />}
                 key={v.id.toString()}
-                c={"gray"}
+                c={"dark"}
                 // defaultOpened
               >
                 {v.child.map((vv, i) => (
                   <NavLink
                     c={selectedView.value == vv.name ? "blue.8" : "blue.4"}
-                    icon={<MdCircle color="navi" />}
+                    icon={<MdCircle color="orange" />}
                     variant={"filled"}
                     fw={selectedView.value == vv.name ? "bold" : "light"}
                     // bg={selectedView.value == vv.name ? "blue.1" : ""}
@@ -260,7 +267,9 @@ const Dashboard = () => {
         </Navbar>
       }
       header={
-        <Header height={{ base: 50, md: 100 }} p="md" bg={"blue.1"}>
+        <Header height={{ base: 50, md: 100 }} p="md" bg={styleGradientLinierBlue} sx={{
+          boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
+        }}>
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >

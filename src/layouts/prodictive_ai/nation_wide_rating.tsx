@@ -6,6 +6,9 @@ import { gNationWideRating } from "@/g_state/nation_wide_rating/g_nation_wide_ra
 import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
 import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
 import { ModelNationWideRating } from "@/model/predictive_ai/nation_wide_rating";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { stylesGradientRed } from "@/styles/styles_gradient_red";
+import { stylesGradientYellow } from "@/styles/styles_gradient_yellow";
 import {
   ActionIcon,
   Box,
@@ -46,13 +49,13 @@ const NationChartItem = ({
       axisPointer: {
         type: "shadow",
       },
-      formatter: (a:any, b) => {
+      formatter: (a: any, b) => {
         return `
         <i>${_.upperCase(a[0].name)}</i>
         <br/>
        <h1> ${a[0].value} %</h1>
-        `
-      }
+        `;
+      },
     },
     // legend: {},
     grid: {
@@ -67,10 +70,9 @@ const NationChartItem = ({
       max: 100,
       axisLabel: {
         formatter: (a: any) => {
-
-          return `${a} %`
-        }
-      }
+          return `${a} %`;
+        },
+      },
     },
     yAxis: {
       type: "category",
@@ -121,9 +123,7 @@ const NationWideRating = () => {
     <>
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
-      <Flex
-        justify={"end"}
-        // p={"md"}
+      <Paper
         bg={"blue.1"}
         pos={"sticky"}
         p={"xs"}
@@ -131,98 +131,107 @@ const NationWideRating = () => {
         sx={{
           zIndex: 100,
         }}
+        shadow={"md"}
       >
-        <Select
-          key={Math.random()}
-          onChange={(val) => {
-            if (val) {
-              gSelectedCandidate1.set(Number(val));
-              update();
+        <Flex justify={"end"} gap={"xs"}>
+          <Select
+            key={Math.random()}
+            onChange={(val) => {
+              if (val) {
+                gSelectedCandidate1.set(Number(val));
+                update();
+              }
+            }}
+            placeholder={
+              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+                ?.name
             }
-          }}
-          placeholder={
-            gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
-              ?.name
-          }
-          data={
-            gCandidate.value.map((v) => ({
-              label: v.name,
-              value: v.id,
-              disabled: v.id == gSelectedCandidate2.value,
-            })) as []
-          }
-        />
-        <SwipeButton update={update} />
-        <Select
-        key={Math.random()}
-          onChange={(val) => {
-            if (val) {
-              gSelectedCandidate2.set(Number(val));
-              update();
+            data={
+              gCandidate.value.map((v) => ({
+                label: v.name,
+                value: v.id,
+                disabled: v.id == gSelectedCandidate2.value,
+              })) as []
             }
-          }}
-          placeholder={
-            gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
-              ?.name
-          }
-          data={
-            gCandidate.value.map((v) => ({
-              label: v.name,
-              value: v.id,
-              disabled: v.id == gSelectedCandidate1.value,
-            })) as []
-          }
-        />
+          />
+          <SwipeButton update={update} />
+          <Select
+            key={Math.random()}
+            onChange={(val) => {
+              if (val) {
+                gSelectedCandidate2.set(Number(val));
+                update();
+              }
+            }}
+            placeholder={
+              gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+                ?.name
+            }
+            data={
+              gCandidate.value.map((v) => ({
+                label: v.name,
+                value: v.id,
+                disabled: v.id == gSelectedCandidate1.value,
+              })) as []
+            }
+          />
 
-        <Button
-          onClick={async () => {
-            await funcLoadNationWideRating();
-            update();
-          }}
-        >
-          Proccess
-        </Button>
-      </Flex>
+          <Button
+            onClick={async () => {
+              await funcLoadNationWideRating();
+              update();
+            }}
+          >
+            Proccess
+          </Button>
+        </Flex>
+      </Paper>
       <Space h={70} />
       <Flex direction={"column"}>
-        <Flex justify={"space-evenly"}>
-          <Stack justify={"center"}>
-            <Image
-              radius={100}
-              width={100}
-              src={
-                gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
-                  ?.img
-              }
-              alt={gSelectedCandidate1.value.toString()}
-            />
-            <Text fw={"bold"} align="center">
-              {_.upperCase(
-                gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
-                  ?.name
-              )}
-            </Text>
-          </Stack>
-          <Stack justify={"center"} align={"center"}>
-            <Image
-              radius={100}
-              width={100}
-              src={
-                gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
-                  ?.img
-              }
-              alt={gSelectedCandidate2.value.toString()}
-            />
-            <Text align="center" fw={"bold"}>
-              {_.upperCase(
-                gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
-                  ?.name
-              )}
-            </Text>
-          </Stack>
-        </Flex>
+        <Paper bg={stylesGradientYellow} shadow={"md"} p={"md"}>
+          <Flex justify={"space-evenly"}>
+            <Stack justify={"center"} align={"center"}>
+              <Image
+                radius={100}
+                width={100}
+                src={
+                  gCandidate.value.find(
+                    (v) => v.id === gSelectedCandidate1.value
+                  )?.img
+                }
+                alt={gSelectedCandidate1.value.toString()}
+              />
+              <Text fw={"bold"} align="center">
+                {_.upperCase(
+                  gCandidate.value.find(
+                    (v) => v.id === gSelectedCandidate1.value
+                  )?.name
+                )}
+              </Text>
+            </Stack>
+            <Stack justify={"center"} align={"center"}>
+              <Image
+                radius={100}
+                width={100}
+                src={
+                  gCandidate.value.find(
+                    (v) => v.id === gSelectedCandidate2.value
+                  )?.img
+                }
+                alt={gSelectedCandidate2.value.toString()}
+              />
+              <Text align="center" fw={"bold"}>
+                {_.upperCase(
+                  gCandidate.value.find(
+                    (v) => v.id === gSelectedCandidate2.value
+                  )?.name
+                )}
+              </Text>
+            </Stack>
+          </Flex>
+        </Paper>
         <Space h={54} />
-        <Paper w={"100%"} p={"md"}>
+        <Paper w={"100%"} p={"md"} bg={stylesGradient1}>
           <NationChartItem data={gNationWideRating.value as any} height={500} />
         </Paper>
       </Flex>

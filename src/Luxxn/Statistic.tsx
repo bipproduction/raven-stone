@@ -14,6 +14,7 @@ import { Tooltip } from "antd";
 import { IconWifi } from "@tabler/icons-react";
 import WARNA from "./WARNA/Warna";
 import PageTitle from "@/layouts/page_title";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 
 const Statistic = () => {
   const [datanya, setDatanya] = useState();
@@ -36,7 +37,7 @@ const Statistic = () => {
       <SimpleGrid cols={4}>
         {datanya &&
           Object.keys(datanya).map((v, i) => (
-            <Paper key={v} bg={WARNA.blue1} pos={"relative"} shadow={"xs"}>
+            <Paper bga={stylesGradient1} key={v} bg={WARNA.blue1} pos={"relative"} shadow={"xs"}>
               <Box
                 h={"100%"}
                 w={"100%"}

@@ -3,6 +3,7 @@ import { gIndonesiaMap } from "@/g_state/g_indonesia_map";
 import { gListKabupaten } from "@/g_state/g_map_state";
 import { gSelectedView } from "@/g_state/g_selected_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { stylesGradientRed } from "@/styles/styles_gradient_red";
 import { Paper } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
 import { registerMap } from "echarts";
@@ -41,8 +42,10 @@ const EmotionalViewViaRegion = () => {
         const datanya = _.omit(a.data.data, "id", "City");
         const ky = Object.keys(datanya);
         return `
+                  <div style="width: 300px; background: ${stylesGradientRed} ;padding:8px; color: gray">
                   <h3>${a.data.data.City.name}</h3>
                   ${ky.map((v) => `${v}: ${datanya[v]}`).join("<br/>")}
+                  </div>
                   `;
       },
     },

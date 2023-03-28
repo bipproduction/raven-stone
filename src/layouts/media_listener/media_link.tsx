@@ -1,10 +1,16 @@
-import MediaLinkData from "@/Luxxn/MediaLink"
-import { Text } from "@mantine/core"
+import MediaLinkData from "@/Luxxn/MediaLink";
+import { Stack, Text } from "@mantine/core";
+import MediaListenerTitle from "./media_listener_title";
 
 const MediaLink = () => {
-    return <>
-    <MediaLinkData/>
+  return (
+    <>
+      <Stack spacing={0}>
+      <MediaListenerTitle title="Media Link" />
+        <MediaLinkData />
+      </Stack>
     </>
-}
+  );
+};
 
-export default MediaLink
+export default MediaLink;

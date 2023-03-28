@@ -23,6 +23,7 @@ import { IconShare } from "@tabler/icons-react";
 import { IconThumbUp } from "@tabler/icons-react";
 import { ModelB24SosialMedia } from "./helper/b24SocialMedia";
 import PageTitle from "@/layouts/page_title";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 
 const SocialMediaData = () => {
   const [datanya, setDatanya] = useState<ModelB24SosialMedia>();
@@ -41,7 +42,7 @@ const SocialMediaData = () => {
   return (
     <>
       <Stack>
-        <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur."/>
+        {/* <PageTitle text="Sering juga disebut Social Media Monitor, adalah proses mengidentifikasi dan menilai apa yang dibicarakan tentang perusahaan, individu, produk, atau merek di internet secara publik. Percakapan di internet menghasilkan sejumlah data yang besar dan tidak terstruktur."/> */}
         <SimpleGrid spacing={"lg"} cols={2}>
           {datanya &&
             _.take(
@@ -51,7 +52,7 @@ const SocialMediaData = () => {
                 : datanya.most_interactive_entries_from_social_media?.length! -
                     1
             )?.map((v) => (
-              <Paper radius={10} p={"xs"} key={v.id}>
+              <Paper bg={stylesGradient1} radius={10} p={"xs"} key={v.id}>
                 <Grid align={"start"}>
                   <Grid.Col w={150} span={"content"}>
                     <Stack align={"center"}>
