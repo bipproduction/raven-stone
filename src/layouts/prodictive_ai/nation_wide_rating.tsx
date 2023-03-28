@@ -57,7 +57,7 @@ const NationChartItem = ({
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
-      // max: 100,
+      max: 100,
     },
     yAxis: {
       type: "category",
