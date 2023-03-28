@@ -31,6 +31,12 @@ import { useState } from "react";
 import { MdJoinInner, MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
 import SwipeButton from "./swipe_button";
+import { gListDataPredictiveAiCouple } from "@/g_state/g_list_data_predictive_ai_couple";
+import { gPredictiveAiSearch } from "@/g_state/g_predictive_ai_search";
+import SelectCandidateView from "./select_candidate_view";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { AnimationOnScroll } from "react-animation-on-scroll";
+import { stylesGradientRed } from "@/styles/styles_gradient_red";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -84,145 +90,129 @@ const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
 
 const EmotionalViewViaProvinceCouple = () => {
   const update = useForceUpdate();
-  const [listData, setListData] = useState([]);
-  const [search, setSearch] = useInputState("");
-  useShallowEffect(() => {
-    proccessData();
-  }, []);
   const proccessData = async () => {
     fetch(
       api.apiPredictiveAiEmotionalViewViaProvinceCoupleByDateCandiate +
         `?date=${gSelectedDate.value}&candidate1=${gSelectedCandidate1.value}&candidate2=${gSelectedCandidate2.value}`
     )
       .then((res) => res.json())
-      .then(setListData);
+      .then((val) => {
+        gListDataPredictiveAiCouple.set(val);
+        update();
+      });
   };
+
+  useShallowEffect(() => {
+    proccessData();
+  }, []);
+
+  if (gSelectedView.value != "Emotional View Via Province Couple")
+    return <>${gSelectedView.value}</>;
   return (
     <>
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
-      <Group
-        p={"xs"}
-        bg={"blue.1"}
-        position="right"
-        my={50}
-        pos={"sticky"}
-        top={100}
-        sx={{
-          zIndex: 100,
-        }}
-      >
-        <TextInput
-          value={search}
-          onChange={setSearch}
-          placeholder={"search"}
-          icon={<MdSearch />}
-        />
-        <Select
-          key={Math.random()}
-          placeholder={
-            gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
-              ?.name
-          }
-          searchable
-          data={
-            gCandidate.value.map((v) => ({
-              label: v.name,
-              value: v.id,
-              disabled: v.id == gSelectedCandidate2.value,
-            })) as any
-          }
-          onChange={(val) => {
-            if (val) {
-              gSelectedCandidate1.set(Number(val));
-              update();
-            }
-          }}
-        />
-        <SwipeButton update={update} />
-        <Select
-          key={Math.random()}
-          placeholder={
-            gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
-              ?.name
-          }
-          searchable
-          data={
-            gCandidate.value.map((v) => ({
-              label: v.name,
-              value: v.id,
-              disabled: v.id == gSelectedCandidate1.value,
-            })) as any
-          }
-          onChange={(val) => {
-            if (val) {
-              gSelectedCandidate2.set(Number(val));
-              update();
-            }
-          }}
-        />
-        <Button onClick={proccessData}>PROCCESS</Button>
-      </Group>
-      <Flex direction={"row"} align={"center"} justify={"center"} p={"lg"}>
-        <Stack align={"center"}>
-          <Image
-            radius={100}
-            width={100}
-            src={
-              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
-                ?.img
-            }
-            alt={"gambar_1"}
-          />
-          <Text>
-            {
-              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
-                ?.name
-            }
-          </Text>
-        </Stack>
-        <Box p={"lg"}>
-          <MdJoinInner color="orange" size={53} />
-        </Box>
-        <Stack align={"center"}>
-          <Image
-            radius={100}
-            width={100}
-            src={
-              gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
-                ?.img
-            }
-            alt={"gambar_1"}
-          />
-          <Text>
-            {
-              gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
-                ?.name
-            }
-          </Text>
-        </Stack>
-      </Flex>
+      <SelectCandidateView onProccess={proccessData} onUpdate={update} />
+      <Paper p={"md"} shadow={"md"} style={{
+        background: stylesGradientRed
+        
+      }}>
+        <Flex direction={"row"} align={"center"} justify={"center"} p={"lg"}>
+          <Stack align={"center"}>
+            <Image
+              radius={100}
+              width={100}
+              src={
+                gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+                  ?.img
+              }
+              alt={"gambar_1"}
+            />
+            <Text>
+              {
+                gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+                  ?.name
+              }
+            </Text>
+          </Stack>
+          <Box p={"lg"}>
+            <MdJoinInner color="orange" size={53} />
+          </Box>
+          <Stack align={"center"}>
+            <Image
+              radius={100}
+              width={100}
+              src={
+                gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+                  ?.img
+              }
+              alt={"gambar_1"}
+            />
+            <Text>
+              {
+                gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+                  ?.name
+              }
+            </Text>
+          </Stack>
+        </Flex>
+      </Paper>
       {/* {JSON.stringify(listData)} */}
       <Flex direction={"row"} wrap={"wrap"} justify={"center"} align={"center"}>
-        {listData
-          .filter((v: any) => _.lowerCase(v.name).includes(_.lowerCase(search)))
+        {gListDataPredictiveAiCouple.value
+          .filter((v: any) =>
+            _.lowerCase(v.name).includes(_.lowerCase(gPredictiveAiSearch.value))
+          )
           .map((v: any) => (
-            <Paper key={v.provinceId} p={"xs"} m={"md"}>
-              <Stack
+            <AnimationOnScroll
+              key={v.provinceId}
+              initiallyVisible={true}
+              animateIn={"animate__backInUp"}
+            >
+              <Paper
+                shadow={"xs"}
                 key={v.provinceId}
-                w={400}
-                align={"center"}
-                justify={"center"}
-                spacing={"lg"}
+                p={"xs"}
+                m={"md"}
+                style={{
+                  backgroundImage: stylesGradient1,
+                }}
               >
-                <EmotionItemChart lsData={v.emotion} />
-                <Text size={32}>
-                  {gProvince.value.find((p) => p.id == v.provinceId).name}
-                </Text>
-              </Stack>
-            </Paper>
+                <Stack
+                  key={v.provinceId}
+                  w={400}
+                  align={"center"}
+                  justify={"center"}
+                  spacing={"lg"}
+                >
+                  <EmotionItemChart lsData={v.emotion} />
+                  <Stack spacing={0} justify={"center"}>
+                    <Title c={"blue.8"}>
+                      {Intl.NumberFormat("id-ID").format(v.value)}
+                    </Title>
+                    <Text align="center" c={"gray"}>
+                      SAMPLE
+                    </Text>
+                  </Stack>
+                  <Text size={24}>
+                    {gProvince.value.find((p) => p.id == v.provinceId).name}
+                  </Text>
+                  <EmotionalViewDetailButton />
+                </Stack>
+              </Paper>
+            </AnimationOnScroll>
           ))}
       </Flex>
+    </>
+  );
+};
+
+const EmotionalViewDetailButton = () => {
+  return (
+    <>
+      <Button compact variant={"outline"}>
+        DETAIL
+      </Button>
     </>
   );
 };

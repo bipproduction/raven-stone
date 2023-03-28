@@ -1,34 +1,32 @@
-import { AppProps } from "next/app";
-import Head from "next/head";
-import { MantineProvider, Modal, Stack, Title } from "@mantine/core";
-import "rsuite/dist/rsuite.min.css";
-import { PropsWithChildren, useState } from "react";
-import LoadProvince from "@/load_data/load_province";
-import { useDisclosure, useShallowEffect } from "@mantine/hooks";
-import { funcLoadProvince } from "@/fun_load/func_load_province";
-import { funLoadMapData } from "@/fun_load/func_load_map_data";
+import { funcLoadCity } from "@/fun_load/func_load_city";
 import { funcLoadCandidate } from "@/fun_load/func_load_candidate";
+import funcLoadEmotion from "@/fun_load/func_load_emotion";
+import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
+import { funcLoadIndonesiaMap } from "@/fun_load/func_load_indonesia_map";
+import { funLoadMapData } from "@/fun_load/func_load_map_data";
+import { funcLoadNationWideChart } from "@/fun_load/func_load_nation_wide_chart";
+import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
+import { funcLoadProvince } from "@/fun_load/func_load_province";
+import { funcLoadSourceOfmention } from "@/fun_load/func_load_source_of_mention";
+import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
 import { funcLoadWordCloud } from "@/fun_load/func_load_word_cloud";
-import { funcLoadSourceOfmention } from "@/fun_load/func_load_source_of_mention";
-import { funcLoadNationWideChart } from "@/fun_load/func_load_nation_wide_chart";
-import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
-import { funcLoadIndonesiaMap } from "@/fun_load/func_load_indonesia_map";
-import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
-import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
-import { gIsUser } from "@/g_state/g_user_id";
-import MyMain from "@/layouts/my_main";
-import { useHookstate } from "@hookstate/core";
-import { fDb } from "@/lib/fbs";
-import { getDatabase, onChildChanged, onValue, ref } from "firebase/database";
-import { api } from "@/lib/api";
 import { gUser } from "@/g_state/auth/g_user";
+import MyMain from "@/layouts/my_main";
+import { api } from "@/lib/api";
+import { fDb } from "@/lib/fbs";
+import { useHookstate } from "@hookstate/core";
+import { MantineProvider, Modal, Stack, Title } from "@mantine/core";
+import { useDisclosure, useShallowEffect } from "@mantine/hooks";
+import { onChildChanged, onValue, ref } from "firebase/database";
 import _ from "lodash";
-import Lottie from "lottie-react";
-import funcLoadEmotion from "@/fun_load/func_load_emotion";
+import { AppProps } from "next/app";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import toast from "react-simple-toasts";
+import { PropsWithChildren } from "react";
+import "rsuite/dist/rsuite.min.css";
 import Swal from "sweetalert2";
+import "animate.css/animate.min.css";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -46,6 +44,7 @@ export default function App(props: AppProps) {
     funcLoadWordCloud();
     funcLoadEmotionalViwViaProvinceByDate();
     funcLoadEmotion();
+    funcLoadCity();
   }, []);
 
   return (

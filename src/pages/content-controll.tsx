@@ -1,41 +1,81 @@
+import { sListCity } from "@/g_state/s_list_city";
+import { menuSelected } from "@/g_state/s_menu_selected";
 import {
-  ActionIcon,
   Box,
   Button,
-  Divider,
   Flex,
   Group,
   Modal,
   NumberInput,
   Select,
   Stack,
+  Table,
   Text,
   TextInput,
   Title,
 } from "@mantine/core";
-import { useState } from "react";
-import { signal } from "@preact/signals-react";
-import { menuSelected } from "@/g_state/s_menu_selected";
-import list_contextual_content from "./../assets/contextual_content.json";
-import { MdAdd, MdArrowForwardIos } from "react-icons/md";
-import { sOpenEdit } from "@/g_state/s_open_edit";
-import { useDisclosure } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
+import { signal } from "@preact/signals-react";
 import _ from "lodash";
+import { MdSearch } from "react-icons/md";
+import list_contextual_content from "./../assets/contextual_content.json";
+
+const selectedKabupaten = signal("");
 
 export const EditorContextualContent = () => {
-  const selectedItem = signal(list_contextual_content[0].title);
   return (
     <Stack bg={"gray.1"} p={"md"}>
       <Title>Contextual Controll</Title>
-      <Stack>
+      {/* {JSON.stringify(sListCity.value)} */}
+      <Flex justify={"space-between"} align={"end"} gap={20}>
+        <Select
+          icon={<MdSearch />}
+          placeholder={"select kabupaten"}
+          searchable
+          label={"Select Kabupaten"}
+          data={sListCity.value.map((v) => ({
+            label: v.name,
+            value: v.id,
+          }))}
+          onChange={(val) => (selectedKabupaten.value = val as string)}
+        />
+        <Button>Create New</Button>
+      </Flex>
+
+      <Table>
+        <thead>
+          <tr>
+            <th>No </th>
+            <th>Content </th>
+            <th>Action </th>
+          </tr>
+        </thead>
+        <tbody>
+          {list_contextual_content.map((v, i) => (
+            <tr key={v.title}>
+              <td>{i + 1}</td>
+              <td>{v.title}</td>
+              <td>
+                <Button.Group>
+                  <EditItemButton title={v.title} />
+                  <Button compact bg={"gray.1"} c={"pink"}>
+                    Delete
+                  </Button>
+                </Button.Group>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      {/* <Stack>
         {list_contextual_content.map((v) => (
           <Box key={v.title}>
             <EditItem title={v.title} />
           </Box>
         ))}
-      </Stack>
-      <Group position="right"></Group>
+      </Stack> */}
+      {/* <Group position="right"></Group> */}
     </Stack>
   );
 };
@@ -53,7 +93,7 @@ const listmenuya = [
   },
 ];
 
-const EditItem = ({ title }: { title: string }) => {
+const EditItemButton = ({ title }: { title: string }) => {
   const data = useForm({
     initialValues: list_contextual_content.find((v) => v.title == title),
   });
@@ -66,8 +106,8 @@ const EditItem = ({ title }: { title: string }) => {
     <>
       <Flex>
         {/* {JSON.stringify(sOpenEdit.value)} */}
-        <Button variant={"default"} onClick={setbuka.open}>
-          {title}
+        <Button compact c={"orange"} bg={"gray.1"} onClick={setbuka.open}>
+          edit
         </Button>
       </Flex>
       <Modal size={"70%"} opened={buka} onClose={setbuka.close}>
@@ -160,5 +200,8 @@ const ContentControll = () => {
     </>
   );
 };
+
+
+
 
 export default ContentControll;
