@@ -276,3 +276,112 @@ Selanjutnya, kita hitung probabilitas masing-masing kandidat, yaitu P(kandidat1)
 Setelah probabilitas masing-masing kandidat ditemukan, kita dapat membandingkan kedua probabilitas tersebut dan menentukan kandidat mana yang lebih mungkin terpilih. Namun, perlu diingat bahwa ini hanyalah salah satu metode untuk memprediksi kemenangan seorang kandidat dan masih banyak faktor lain yang dapat mempengaruhi hasil akhir pemilihan.
 
 Semoga penjelasan ini dapat membantu dalam memahami perhitungan Naive Bayes dalam konteks prediksi kemenangan kandidat dalam pemilihan presiden.
+
+Untuk menghitung ulang nilai prediksi kedua kandidat jika terjadi perubahan nilai emosinya, kita perlu menghitung kembali nilai likelihood dan prior probability berdasarkan nilai emosi yang baru, kemudian menghitung posterior probability menggunakan teorema Bayes.
+
+Sebagai contoh, jika terjadi perubahan pada nilai kepercayaan (trust) kandidat pertama menjadi 30 dan kandidat kedua menjadi 35, maka kita dapat menghitung kembali nilai likelihood dan prior probability sebagai berikut:
+
+```js
+const kandidat1 = {
+trust: 30,
+joy: 19.18,
+surprise: 14.22,
+anticipation: 10.65,
+sadness: 7.96,
+fear: 5.99,
+anger: 4.56,
+disgust: 12.26
+}
+
+const kandidat2 = {
+trust: 35,
+joy: 18.87,
+surprise: 14.34,
+anticipation: 10.54,
+sadness: 7.91,
+fear: 6.02,
+anger: 4.65,
+disgust: 12.45
+}
+```
+
+Langkah-langkah perhitungan posterior probability menggunakan teorema Bayes adalah sebagai berikut:
+
+Menghitung likelihood probability untuk setiap kandidat berdasarkan nilai emosi baru:
+
+Untuk kandidat pertama:
+```
+P(trust|candidate1) = 0.4 (diasumsikan dengan menghitung rata-rata dari nilai emosi yang ada)
+P(joy|candidate1) = 0.3
+P(surprise|candidate1) = 0.1
+P(anticipation|candidate1) = 0.05
+P(sadness|candidate1) = 0.03
+P(fear|candidate1) = 0.02
+P(anger|candidate1) = 0.01
+P(disgust|candidate1) = 0.09
+Untuk kandidat kedua:
+P(trust|candidate2) = 0.45
+P(joy|candidate2) = 0.25
+P(surprise|candidate2) = 0.1
+P(anticipation|candidate2) = 0.05
+P(sadness|candidate2) = 0.03
+P(fear|candidate2) = 0.02
+P(anger|candidate2) = 0.01
+P(disgust|candidate2) = 0.09
+Menghitung prior probability untuk setiap kandidat berdasarkan tingkat popularitasnya:
+
+Untuk kandidat pertama:
+P(candidate1) = 0.7
+P(candidate2) = 0.3
+Untuk kandidat kedua:
+P(candidate1) = 0.1
+P(candidate2) = 0.9
+Menghitung posterior probability untuk setiap kandidat menggunakan teorema Bayes:
+
+Untuk kandidat pertama:
+P(candidate1|trust) = P(trust|candidate1) * P(candidate1) / P(trust)
+P(trust) = P(trust|candidate1) * P(candidate1) + P(trust|candidate2) * P(candidate
+```
+
+Baik, saya lanjutkan perhitungan untuk kasus nilai emosi yang berubah.
+
+Misalkan nilai emosi untuk kandidat 1 berubah menjadi:
+
+```js
+const kandidat1 = {
+trust: 10,
+joy: 30,
+surprise: 5,
+anticipation: 20,
+sadness: 5,
+fear: 5,
+anger: 5,
+disgust: 20
+}
+```
+
+Maka, kita perlu menghitung kembali nilai likelihood untuk setiap kelas dan mengalikan dengan prior probability.
+
+Untuk kandidat 1:
+
+```
+likelihood candidate 1 = 0.00000213
+likelihood candidate 2 = 0.00000011
+Kita juga perlu menghitung total likelihood untuk setiap kandidat, dengan menjumlahkan likelihood untuk masing-masing kelas:
+
+total likelihood candidate 1 = 0.00001667
+total likelihood candidate 2 = 0.00000227
+Kita dapat menghitung posterior probability untuk masing-masing kandidat dengan menggunakan formula Bayes:
+
+posterior candidate 1 = (0.00001667 * 0.7) / ((0.00001667 * 0.7) + (0.00000227 * 0.3)) = 0.9918
+posterior candidate 2 = (0.00000227 * 0.3) / ((0.00001667 * 0.7) + (0.00000227 * 0.3)) = 0.0082
+Maka, dengan asumsi nilai emosi kandidat 1 berubah, kandidat 1 memiliki peluang lebih besar (0.9918) daripada kandidat 2 (0.0082) untuk terpilih sebagai presiden.
+```
+
+Demikianlah perhitungan posterior probability dengan menggunakan Naive Bayes untuk kasus perbandingan dua kandidat berdasarkan nilai emosi dan tingkat popularitas. Perhitungan ini dapat diaplikasikan untuk memprediksi kandidat mana yang lebih mungkin terpilih dalam suatu pemilihan.
+
+Namun, perlu diingat bahwa model Naive Bayes memiliki beberapa asumsi yang perlu dipenuhi, seperti asumsi independensi antara variabel-variabel prediktor dan distribusi normal pada variabel-variabel tersebut. Jika asumsi-asumsi tersebut tidak terpenuhi, maka model Naive Bayes tidak akan memberikan hasil yang akurat.
+
+Selain itu, Naive Bayes juga membutuhkan data yang cukup untuk memperoleh hasil yang akurat. Jika jumlah data yang tersedia terlalu sedikit atau tidak representatif, maka hasil prediksi yang dihasilkan oleh model Naive Bayes tidak dapat diandalkan.
+
+Terakhir, perlu diingat bahwa hasil prediksi yang dihasilkan oleh model Naive Bayes hanya bersifat probabilitas dan tidak dapat dipastikan kebenarannya. Oleh karena itu, hasil prediksi perlu dievaluasi dan divalidasi dengan menggunakan data baru atau pengalaman-pengalaman dari pemilihan sebelumnya.

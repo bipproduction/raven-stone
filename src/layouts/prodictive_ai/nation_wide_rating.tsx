@@ -46,6 +46,13 @@ const NationChartItem = ({
       axisPointer: {
         type: "shadow",
       },
+      formatter: (a:any, b) => {
+        return `
+        <i>${_.upperCase(a[0].name)}</i>
+        <br/>
+       <h1> ${a[0].value} %</h1>
+        `
+      }
     },
     // legend: {},
     grid: {
@@ -58,6 +65,12 @@ const NationChartItem = ({
       type: "value",
       boundaryGap: [0, 0.01],
       max: 100,
+      axisLabel: {
+        formatter: (a: any) => {
+
+          return `${a} %`
+        }
+      }
     },
     yAxis: {
       type: "category",
@@ -76,6 +89,7 @@ const NationChartItem = ({
           .map((v) => ({
             label: v,
             value: dataNya[v],
+            data: v,
             itemStyle: {
               color: listEmotionColor.find(
                 (c) => _.lowerCase(c.name) == _.lowerCase(v)
