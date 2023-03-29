@@ -438,7 +438,7 @@ const EmotionDetai2 = ({
         return `
         <div style="background:${stylesGradient1}; width: 300px; padding: 16px">
         <i>${_.upperCase(a[0].name)}</i>
-        <h1>${a[0].value} </h1>
+        <h1>${Intl.NumberFormat("id-ID").format(a[0].value)} </h1>
         </div>
         `;
       },
