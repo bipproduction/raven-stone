@@ -38,6 +38,7 @@ import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import { onChildChanged, onValue, ref } from "firebase/database";
 import _ from "lodash";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import {
   MdAccountCircle,
@@ -49,7 +50,8 @@ import {
   MdSettings,
 } from "react-icons/md";
 import useSound from "use-sound";
-// import notifMp3 from "./../../public/notif.mp3";
+// import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
+// const notifMp3 = require("./../assets/notif.mp3")
 
 const listView = [
   {
@@ -366,12 +368,12 @@ const ada = signal(false);
 const bukaDrawer = signal(false);
 
 const MyNotivication = () => {
-  // const [play] = useSound(notifMp3);
+  const [play] = useSound("./notif.mp3");
   useShallowEffect(() => {
     return onChildChanged(ref(fDb, "eagle_2/notif/"), (snap) => {
       console.log(snap.val());
       ada.value = true;
-      // play();
+      play();
     });
   }, []);
 
@@ -401,6 +403,9 @@ const MyNotivication = () => {
           <Title>Notification</Title>
         </Stack>
       </Drawer>
+      <audio autoPlay src="./notif.mp3">
+
+      </audio>
     </>
   );
 };
