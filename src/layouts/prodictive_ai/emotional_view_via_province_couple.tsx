@@ -192,7 +192,7 @@ const EmotionalViewViaProvinceCouple = () => {
                       {Intl.NumberFormat("id-ID").format(v.value)}
                     </Title>
                     <Text align="center" c={"gray"}>
-                      SAMPLE
+                      DATA VOLUME
                     </Text>
                   </Stack>
                   <Text size={24}>
