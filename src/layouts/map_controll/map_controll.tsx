@@ -57,7 +57,8 @@ import { stylesGradient1 } from "@/styles/styles_gradient_1";
 // import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
 import { api } from "@/lib/api";
 import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
-import { gCityContextDirection } from "@/g_state/g_city_context_direction";
+// import { gCityContextDirection } from "@/g_state/g_city_context_direction";
+import { sCityContextDirection } from "@/s_state/s_city_ontext_irection";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -701,7 +702,7 @@ const EditorCityContextDirection = ({ dataKab }: { dataKab: any }) => {
   const hasilEdit = signal<any[]>([]);
   const cityId = dataKab.data.City.id;
   const listDataContextDirection: { [key: string]: any } =
-  gCityContextDirection.value.find((v) => v.cityId == cityId) ?? {};
+  sCityContextDirection.value.find((v) => v.cityId == cityId) ?? {};
 
   const onSave = () => {
     const body = {
@@ -736,6 +737,7 @@ const EditorCityContextDirection = ({ dataKab }: { dataKab: any }) => {
               placeholder={v.value.toString()}
               onChange={(val) => {
                 if (val) {
+                  // disini
                   listDataContextDirection.content[i].value = val;
                   hasilEdit.value = listDataContextDirection.content;
                 }
