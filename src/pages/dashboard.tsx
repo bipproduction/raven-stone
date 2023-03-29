@@ -16,7 +16,8 @@ import {
   ActionIcon,
   AppShell,
   Box,
-  Burger, Flex,
+  Burger,
+  Flex,
   Group,
   Header,
   Image,
@@ -28,7 +29,7 @@ import {
   Stack,
   Text,
   Title,
-  useMantineTheme
+  useMantineTheme,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
@@ -39,7 +40,7 @@ import {
   MdCircle,
   MdGridView,
   MdMessage,
-  MdSettings
+  MdSettings,
 } from "react-icons/md";
 
 const listView = [
@@ -254,9 +255,14 @@ const Dashboard = () => {
         </Navbar>
       }
       header={
-        <Header height={{ base: 50, md: 100 }} p="md" bg={styleGradientLinierBlue} sx={{
-          boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
-        }}>
+        <Header
+          height={{ base: 50, md: 100 }}
+          p="md"
+          bg={styleGradientLinierBlue}
+          sx={{
+            boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
+          }}
+        >
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
@@ -281,13 +287,17 @@ const Dashboard = () => {
                     <Box w={{ sm: 200, lg: 300 }}>
                       <Image width={150} src={"/logo-2.png"} alt={"logo"} />
                     </Box>
-                    <Stack p={"xs"} spacing={0}>
-                      <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
-                      <Text c={"gray"}>
-                        Welcome to Prabowo Subianto for President 2024 - Digital
-                        Intelligence Winning Program.
-                      </Text>
-                    </Stack>
+                    {/* <Text>{gSelectedView.value}</Text> */}
+                    {(gSelectedView.value == "Top 10 Province By Emotions" ||
+                      gSelectedView.value == "Top 10 District by Emotions") && (
+                      <Stack p={"xs"} spacing={0}>
+                        <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
+                        <Text c={"gray"}>
+                          Welcome to Prabowo Subianto for President 2024 -
+                          Digital Intelligence Winning Program.
+                        </Text>
+                      </Stack>
+                    )}
                   </Group>
                 </MediaQuery>
                 {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
