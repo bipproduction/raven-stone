@@ -1,6 +1,7 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
 import { gCandidate } from "@/g_state/g_candidate";
+import { gCityContextDirection } from "@/g_state/g_city_context_direction";
 import { gSelectedDate } from "@/g_state/g_map_state";
 import { gSelectedProvince } from "@/g_state/g_selected_province";
 import { gSelectedView } from "@/g_state/g_selected_view";
@@ -11,7 +12,7 @@ import { ModelDataKabupaten } from "@/model/model_data_kabupaten";
 import { ModelEmotionalViewViaProvinceCity } from "@/model/predictive_ai/model_emotional_view_via_province_city";
 import { listAnimation } from "@/styles/styles_animation";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
+// import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
 import {
   Box,
   Button,
@@ -419,9 +420,9 @@ const EmotionDetai2 = ({
   //   lainnya: dataKabupaten?.attributes.lainnya,
   // };
 
-  const dataContextDirection = sCityContextDirection.value.find(
+  const dataContextDirection = gCityContextDirection.value.find(
     (v) => v.cityId == data.cityId
-  ).content;
+  );
 
   const optionContextDirection: EChartsOption = {
     title: {
@@ -437,7 +438,7 @@ const EmotionDetai2 = ({
         return `
         <div style="background:${stylesGradient1}; width: 300px; padding: 16px">
         <i>${_.upperCase(a[0].name)}</i>
-        <h1>${a[0].value} %</h1>
+        <h1>${a[0].value} </h1>
         </div>
         `;
       },
@@ -452,33 +453,41 @@ const EmotionDetai2 = ({
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
-      max: 100,
+      // max: 100,
       axisLabel: {
         formatter: (v: any) => {
           // console.log(JSON.stringify(v))
-          return `${v} %`;
+          return `${v} `;
         },
       },
     },
     yAxis: {
       type: "category",
-      data: Object.values(
-        dataContextDirection.map((v: any) => _.upperCase(v.name))
-      ),
+      data: !dataContextDirection
+        ? []
+        : Object.values(
+            dataContextDirection.content.map((v: any) => _.upperCase(v.name))
+          ),
     },
     series: [
       {
         // name: "2011",
         type: "bar",
-        data: Object.values(dataContextDirection.map((v: any) => v.value)),
+        data: !dataContextDirection
+          ? []
+          : Object.values(
+              dataContextDirection.content.map((v: any) => v.value)
+            ),
       },
     ],
   };
 
   useShallowEffect(() => {
-    fetch(api.apiUtilGetDataKabupatenById + `?id=${data.cityId}`)
-      .then((v) => v.json())
-      .then(setDataKabupaten);
+    if (data && data.cityId) {
+      fetch(api.apiUtilGetDataKabupatenById + `?id=${data.cityId}`)
+        .then((v) => v.json())
+        .then(setDataKabupaten);
+    }
   }, []);
 
   return (
@@ -519,50 +528,50 @@ const EmotionDetai2 = ({
   );
 };
 
-const ChartPie = ({ data, name }: { data: any; name: string }) => {
-  const option2: EChartsOption = {
-    title: {
-      text: name,
-    },
-    tooltip: {
-      trigger: "item",
-    },
-    // legend: {
-    //   top: "5%",
-    //   left: "center",
-    // },
-    series: [
-      {
-        name: "Access From",
-        type: "pie",
-        radius: ["40%", "80%"],
-        // avoidLabelOverlap: true,
-        label: {
-          show: true,
-          position: "inner",
-        },
-        // emphasis: {
-        //   label: {
-        //     show: true,
-        //     fontSize: 40,
-        //     fontWeight: "bold",
-        //   },
-        // },
-        // labelLine: {
-        //   show: false,
-        // },
-        data: Object.keys(data).map((v) => ({
-          name: v,
-          value: data[v],
-        })),
-      },
-    ],
-  };
-  return (
-    <>
-      <EChartsReact option={option2} />
-    </>
-  );
-};
+// const ChartPie = ({ data, name }: { data: any; name: string }) => {
+//   const option2: EChartsOption = {
+//     title: {
+//       text: name,
+//     },
+//     tooltip: {
+//       trigger: "item",
+//     },
+//     // legend: {
+//     //   top: "5%",
+//     //   left: "center",
+//     // },
+//     series: [
+//       {
+//         name: "Access From",
+//         type: "pie",
+//         radius: ["40%", "80%"],
+//         // avoidLabelOverlap: true,
+//         label: {
+//           show: true,
+//           position: "inner",
+//         },
+//         // emphasis: {
+//         //   label: {
+//         //     show: true,
+//         //     fontSize: 40,
+//         //     fontWeight: "bold",
+//         //   },
+//         // },
+//         // labelLine: {
+//         //   show: false,
+//         // },
+//         data: Object.keys(data).map((v) => ({
+//           name: v,
+//           value: data[v],
+//         })),
+//       },
+//     ],
+//   };
+//   return (
+//     <>
+//       <EChartsReact option={option2} />
+//     </>
+//   );
+// };
 
 export default EmotionalViewViaProvince;
