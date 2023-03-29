@@ -288,6 +288,8 @@ const listAnimation = {
 kurangi masing masing dari data_item dan jika di sum maka hasilnya sama persis dengan nilai_total
 
 const nilai_total = 8773
+
+hilangkan item keagamaan dari array dengan lodash
 const data_item = [
   { name: 'pendidikan', value: 8773 },
   { name: 'infrastruktur', value: 12085 },
