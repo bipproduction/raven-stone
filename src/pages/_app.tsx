@@ -28,6 +28,7 @@ import "rsuite/dist/rsuite.min.css";
 import Swal from "sweetalert2";
 import "animate.css/animate.min.css";
 import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
+import { funcLoadNotification } from "@/fun_load/func_load_notification";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -46,7 +47,8 @@ export default function App(props: AppProps) {
     funcLoadEmotionalViwViaProvinceByDate();
     funcLoadEmotion();
     funcLoadCity();
-    funcLoadCityContextDirection()
+    funcLoadCityContextDirection();
+    funcLoadNotification();
   }, []);
 
   return (
