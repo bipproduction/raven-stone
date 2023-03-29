@@ -27,6 +27,7 @@ import { PropsWithChildren } from "react";
 import "rsuite/dist/rsuite.min.css";
 import Swal from "sweetalert2";
 import "animate.css/animate.min.css";
+import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -45,6 +46,7 @@ export default function App(props: AppProps) {
     funcLoadEmotionalViwViaProvinceByDate();
     funcLoadEmotion();
     funcLoadCity();
+    funcLoadCityContextDirection()
   }, []);
 
   return (

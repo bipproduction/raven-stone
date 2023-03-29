@@ -1,15 +1,17 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
 import { gCandidate } from "@/g_state/g_candidate";
-import { gSelectedView } from "@/g_state/g_selected_view";
-import { glistCandidate, gSelectedDate } from "@/g_state/g_map_state";
+import { gSelectedDate } from "@/g_state/g_map_state";
 import { gSelectedProvince } from "@/g_state/g_selected_province";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
 import { gEmotionalViewViaProvince } from "@/g_state/predictive_ai/g_emotional_view_via_province";
-import { gEmotionalViewViaProvinceCity } from "@/g_state/predictive_ai/g_emotional_view_via_province_city";
 import { api } from "@/lib/api";
 import { ModelDataKabupaten } from "@/model/model_data_kabupaten";
 import { ModelEmotionalViewViaProvinceCity } from "@/model/predictive_ai/model_emotional_view_via_province_city";
+import { listAnimation } from "@/styles/styles_animation";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
 import {
   Box,
   Button,
@@ -22,20 +24,20 @@ import {
   Stack,
   Text,
   TextInput,
+  Title,
 } from "@mantine/core";
 import {
   useDisclosure,
-  useShallowEffect,
   useForceUpdate,
+  useShallowEffect,
 } from "@mantine/hooks";
-import { EChartsOption, Model } from "echarts";
+import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 import { MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -193,7 +195,9 @@ const EmotionalViewViaProvince = () => {
           ))}
       </Group>
       <Modal fullScreen opened={openDetain} onClose={setOpenDetail.close}>
-        {gSelectedProvince.value && <EmotionViewDetail />}
+        <Paper p={"md"}>
+          {gSelectedProvince.value && <EmotionViewDetail />}
+        </Paper>
       </Modal>
     </>
   );
@@ -264,26 +268,42 @@ const EmotionViewDetail = () => {
       .then(setListDetail);
   }, []);
   return (
-    <>
-      <Text>Emotion View Detail</Text>
+    <Stack>
+      <Title>Emotion View Detail</Title>
       {/* {JSON.stringify(listDetail)} */}
       <Group position="center">
-        {listDetail.map((v) => (
-          <Box key={v.city}>
-            <EmotionDetailChart lsData={v.emotion} />
-            <Stack justify={"center"} align={"center"}>
-              <Text fw={"bold"} color={"teal.8"}>
-                {_.upperCase(v.city)}
-              </Text>
-              <Text size={32} fw={"bold"} color={"gray"}>
-                {Intl.NumberFormat("id-ID").format(v.value)}
-              </Text>
-              <EmotionDetai2 data={v} />
-            </Stack>
-          </Box>
+        {listDetail.map((v, i) => (
+          <AnimationOnScroll
+            key={i.toString()}
+            initiallyVisible={true}
+            animateIn={"animate__flipInX"}
+          >
+            <Paper
+              key={v.city}
+              p={"xs"}
+              shadow={"sm"}
+              bg={stylesGradient1}
+              sx={{
+                zIndex: 1000,
+                overflow: "scroll",
+                position: "relative",
+              }}
+            >
+              <EmotionDetailChart lsData={v.emotion} />
+              <Stack justify={"center"} align={"center"}>
+                <Text fw={"bold"} color={"teal.8"}>
+                  {_.upperCase(v.city)}
+                </Text>
+                <Text size={32} fw={"bold"} color={"gray"}>
+                  {Intl.NumberFormat("id-ID").format(v.value)}
+                </Text>
+                <EmotionDetai2 data={v} />
+              </Stack>
+            </Paper>
+          </AnimationOnScroll>
         ))}
       </Group>
-    </>
+    </Stack>
   );
 };
 
@@ -339,67 +359,71 @@ const EmotionDetai2 = ({
     ],
   };
 
-  const dataContextDirection = {
-    pendidikan: dataKabupaten?.attributes.pendidikan,
-    infrastruktur: dataKabupaten?.attributes.aparatur_p,
-    layanan_kesehatan: dataKabupaten?.attributes.tenaga_kes,
-    keagamaan:
-      Number(dataKabupaten?.attributes.islam ?? "0") +
-      Number(dataKabupaten?.attributes.kristen ?? "0") +
-      Number(dataKabupaten?.attributes.katholik ?? "0") +
-      Number(dataKabupaten?.attributes.hindu ?? "0") +
-      Number(dataKabupaten?.attributes.budha ?? "0"),
-    kemiskinan: dataKabupaten?.attributes.belum_tida,
-    lapangan_pekerjaan: dataKabupaten?.attributes.belum_tama,
-    keadilan_sosial: dataKabupaten?.attributes.wiraswasta,
-  };
+  // const dataContextDirection = {
+  //   pendidikan: dataKabupaten?.attributes.pendidikan,
+  //   infrastruktur: dataKabupaten?.attributes.aparatur_p,
+  //   layanan_kesehatan: dataKabupaten?.attributes.tenaga_kes,
+  //   keagamaan:
+  //     Number(dataKabupaten?.attributes.islam ?? "0") +
+  //     Number(dataKabupaten?.attributes.kristen ?? "0") +
+  //     Number(dataKabupaten?.attributes.katholik ?? "0") +
+  //     Number(dataKabupaten?.attributes.hindu ?? "0") +
+  //     Number(dataKabupaten?.attributes.budha ?? "0"),
+  //   kemiskinan: dataKabupaten?.attributes.belum_tida,
+  //   lapangan_pekerjaan: dataKabupaten?.attributes.belum_tama,
+  //   keadilan_sosial: dataKabupaten?.attributes.wiraswasta,
+  // };
 
-  const dataChartGender = {
-    pria: dataKabupaten?.attributes.pria,
-    wanita: dataKabupaten?.attributes.wanita,
-  };
+  // const dataChartGender = {
+  //   pria: dataKabupaten?.attributes.pria,
+  //   wanita: dataKabupaten?.attributes.wanita,
+  // };
 
-  const dataChartUmur = {
-    u5: dataKabupaten?.attributes.u5,
-    u10: dataKabupaten?.attributes.u10,
-    u15: dataKabupaten?.attributes.u15,
-    u20: dataKabupaten?.attributes.u20,
-    u25: dataKabupaten?.attributes.u25,
-    u30: dataKabupaten?.attributes.u30,
-    u35: dataKabupaten?.attributes.u35,
-    u40: dataKabupaten?.attributes.u40,
-    u45: dataKabupaten?.attributes.u45,
-    u50: dataKabupaten?.attributes.u50,
-    u55: dataKabupaten?.attributes.u55,
-    u60: dataKabupaten?.attributes.u60,
-    u65: dataKabupaten?.attributes.u65,
-    u70: dataKabupaten?.attributes.u70,
-    u75: dataKabupaten?.attributes.u75,
-  };
+  // const dataChartUmur = {
+  //   u5: dataKabupaten?.attributes.u5,
+  //   u10: dataKabupaten?.attributes.u10,
+  //   u15: dataKabupaten?.attributes.u15,
+  //   u20: dataKabupaten?.attributes.u20,
+  //   u25: dataKabupaten?.attributes.u25,
+  //   u30: dataKabupaten?.attributes.u30,
+  //   u35: dataKabupaten?.attributes.u35,
+  //   u40: dataKabupaten?.attributes.u40,
+  //   u45: dataKabupaten?.attributes.u45,
+  //   u50: dataKabupaten?.attributes.u50,
+  //   u55: dataKabupaten?.attributes.u55,
+  //   u60: dataKabupaten?.attributes.u60,
+  //   u65: dataKabupaten?.attributes.u65,
+  //   u70: dataKabupaten?.attributes.u70,
+  //   u75: dataKabupaten?.attributes.u75,
+  // };
 
-  const dataChartPendidikan = {
-    sltp: dataKabupaten?.attributes.sltp,
-    slta: dataKabupaten?.attributes.slta,
-    diploma1: dataKabupaten?.attributes.diploma_i_,
-    diploma2: dataKabupaten?.attributes.diploma_ii,
-    diploma4: dataKabupaten?.attributes.diploma_iv,
-    strata2: dataKabupaten?.attributes.strata_ii,
-    strata3: dataKabupaten?.attributes.strata_iii,
-  };
+  // const dataChartPendidikan = {
+  //   sltp: dataKabupaten?.attributes.sltp,
+  //   slta: dataKabupaten?.attributes.slta,
+  //   diploma1: dataKabupaten?.attributes.diploma_i_,
+  //   diploma2: dataKabupaten?.attributes.diploma_ii,
+  //   diploma4: dataKabupaten?.attributes.diploma_iv,
+  //   strata2: dataKabupaten?.attributes.strata_ii,
+  //   strata3: dataKabupaten?.attributes.strata_iii,
+  // };
 
-  const dataChartEkonomi = {
-    aparatur: dataKabupaten?.attributes.aparatur_p,
-    pengajar: dataKabupaten?.attributes.tenaga_pen,
-    tenaga_kesehatan: dataKabupaten?.attributes.tenaga_kes,
-    wiraswasta: dataKabupaten?.attributes.wiraswasta,
-    nelayan: dataKabupaten?.attributes.nelayan,
-    petani: dataKabupaten?.attributes.pertanian_,
-    tenaga_agama: dataKabupaten?.attributes.agama_dan_,
-    pensiunan: dataKabupaten?.attributes.pensiunan,
-    lainnya: dataKabupaten?.attributes.lainnya,
-  };
+  // const dataChartEkonomi = {
+  //   aparatur: dataKabupaten?.attributes.aparatur_p,
+  //   pengajar: dataKabupaten?.attributes.tenaga_pen,
+  //   tenaga_kesehatan: dataKabupaten?.attributes.tenaga_kes,
+  //   wiraswasta: dataKabupaten?.attributes.wiraswasta,
+  //   nelayan: dataKabupaten?.attributes.nelayan,
+  //   petani: dataKabupaten?.attributes.pertanian_,
+  //   tenaga_agama: dataKabupaten?.attributes.agama_dan_,
+  //   pensiunan: dataKabupaten?.attributes.pensiunan,
+  //   lainnya: dataKabupaten?.attributes.lainnya,
+  // };
 
-  const optionContextDirection = {
+  const dataContextDirection = sCityContextDirection.value.find(
+    (v) => v.cityId == data.cityId
+  ).content;
+
+  const optionContextDirection: EChartsOption = {
     title: {
       text: "Context Direction",
     },
@@ -407,6 +431,15 @@ const EmotionDetai2 = ({
       trigger: "axis",
       axisPointer: {
         type: "shadow",
+      },
+      formatter: (a: any, b) => {
+        // console.log(JSON.stringify(a));
+        return `
+        <div style="background:${stylesGradient1}; width: 300px; padding: 16px">
+        <i>${_.upperCase(a[0].name)}</i>
+        <h1>${a[0].value} %</h1>
+        </div>
+        `;
       },
     },
     legend: {},
@@ -419,16 +452,25 @@ const EmotionDetai2 = ({
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
+      max: 100,
+      axisLabel: {
+        formatter: (v: any) => {
+          // console.log(JSON.stringify(v))
+          return `${v} %`;
+        },
+      },
     },
     yAxis: {
       type: "category",
-      data: Object.keys(dataContextDirection),
+      data: Object.values(
+        dataContextDirection.map((v: any) => _.upperCase(v.name))
+      ),
     },
     series: [
       {
         // name: "2011",
         type: "bar",
-        data: Object.values(dataContextDirection),
+        data: Object.values(dataContextDirection.map((v: any) => v.value)),
       },
     ],
   };
@@ -441,21 +483,29 @@ const EmotionDetai2 = ({
 
   return (
     <>
-      <Button onClick={setOpenmodal.open}>Detail</Button>
+      <Button compact variant={"gradient"} onClick={setOpenmodal.open}>
+        Detail
+      </Button>
+
       <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen>
         {/* {JSON.stringify(dataKabupaten)} */}
         <SimpleGrid cols={2}>
           {/* {JSON.stringify(dataKabupaten)} */}
-          <Stack>
-            <EChartsReact option={option1} />
-            <Group position="center">
-              <Text fw={"bold"}>
-                {Intl.NumberFormat("id-ID").format(data.value)}
-              </Text>
-              <Text>Data Sampler</Text>
-            </Group>
-          </Stack>
-          <EChartsReact option={optionContextDirection} />
+          <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
+            <Stack>
+              {/* {JSON.stringify(dataContextDirection)} */}
+              <EChartsReact option={option1} />
+              <Group position="center">
+                <Text fw={"bold"}>
+                  {Intl.NumberFormat("id-ID").format(data.value)}
+                </Text>
+                <Text>Data Sampler</Text>
+              </Group>
+            </Stack>
+          </Paper>
+          <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+            <EChartsReact option={optionContextDirection} />
+          </Paper>
         </SimpleGrid>
         <Space h={70} />
         {/* <SimpleGrid cols={4}>
