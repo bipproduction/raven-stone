@@ -1,34 +1,22 @@
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
 import { gUser } from "@/g_state/auth/g_user";
 import { gSelectedView } from "@/g_state/g_selected_view";
-import ActiveAuthor from "@/layouts/media_listener/active_author";
-import ActiveUrl from "@/layouts/media_listener/active_url";
-import ImportantAuthor from "@/layouts/media_listener/important_author";
-import ImportantUrl from "@/layouts/media_listener/important_url";
-import MediaHastag from "@/layouts/media_listener/media_hastag";
-import MediaLink from "@/layouts/media_listener/media_link";
 import MentionbyCategory from "@/layouts/media_listener/mention_by_category";
-import PopularAuthor from "@/layouts/media_listener/popular_author";
-import SosialMedia from "@/layouts/media_listener/soasial_media";
 import ContextualContent from "@/layouts/prodictive_ai/contextual_content";
 import EmotionalViewViaProvince from "@/layouts/prodictive_ai/emotional_view_via_province";
 import EmotionalViewViaProvinceCouple from "@/layouts/prodictive_ai/emotional_view_via_province_couple";
 import EmotionalViewViaRegion from "@/layouts/prodictive_ai/emotional_view_via_region";
 import NationWideRating from "@/layouts/prodictive_ai/nation_wide_rating";
-import SourceOfmention from "@/layouts/summary/source_of_mention";
 import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_conversation";
 import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_conversation";
 import { api } from "@/lib/api";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
-import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
   AppShell,
   Box,
   Burger,
-  Button,
   Flex,
   Group,
   Header,
@@ -267,9 +255,14 @@ const Dashboard = () => {
         </Navbar>
       }
       header={
-        <Header height={{ base: 50, md: 100 }} p="md" bg={styleGradientLinierBlue} sx={{
-          boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
-        }}>
+        <Header
+          height={{ base: 50, md: 100 }}
+          p="md"
+          bg={styleGradientLinierBlue}
+          sx={{
+            boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
+          }}
+        >
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
@@ -294,13 +287,17 @@ const Dashboard = () => {
                     <Box w={{ sm: 200, lg: 300 }}>
                       <Image width={150} src={"/logo-2.png"} alt={"logo"} />
                     </Box>
-                    <Stack p={"xs"} spacing={0}>
-                      <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
-                      <Text c={"gray"}>
-                        Welcome to Prabowo Subianto for President 2024 - Digital
-                        Intelligence Winning Program.
-                      </Text>
-                    </Stack>
+                    {/* <Text>{gSelectedView.value}</Text> */}
+                    {(gSelectedView.value == "Top 10 Province By Emotions" ||
+                      gSelectedView.value == "Top 10 District by Emotions") && (
+                      <Stack p={"xs"} spacing={0}>
+                        <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
+                        <Text c={"gray"}>
+                          Welcome to Prabowo Subianto for President 2024 -
+                          Digital Intelligence Winning Program.
+                        </Text>
+                      </Stack>
+                    )}
                   </Group>
                 </MediaQuery>
                 {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
