@@ -9,11 +9,13 @@ export const seederContextDirection = async () => {
             infrastruktur: dataKabupaten?.attributes.aparatur_p,
             layanan_kesehatan: dataKabupaten?.attributes.tenaga_kes,
             keagamaan:
-                Number(dataKabupaten?.attributes.islam ?? "0") +
-                Number(dataKabupaten?.attributes.kristen ?? "0") +
-                Number(dataKabupaten?.attributes.katholik ?? "0") +
-                Number(dataKabupaten?.attributes.hindu ?? "0") +
-                Number(dataKabupaten?.attributes.budha ?? "0"),
+                Number(dataKabupaten?.attributes.islam ?? "0") 
+                // +
+                // Number(dataKabupaten?.attributes.kristen ?? "0") +
+                // Number(dataKabupaten?.attributes.katholik ?? "0") +
+                // Number(dataKabupaten?.attributes.hindu ?? "0") +
+                // Number(dataKabupaten?.attributes.budha ?? "0")
+                ,
             kemiskinan: dataKabupaten?.attributes.belum_tida,
             lapangan_pekerjaan: dataKabupaten?.attributes.belum_tama,
             keadilan_sosial: dataKabupaten?.attributes.wiraswasta,
@@ -24,7 +26,7 @@ export const seederContextDirection = async () => {
             cityId: dataKabupaten.attributes.kabkotid,
             content: Object.keys(dataContextDirection).map((v: string) => ({
                 name: v,
-                value: v == "infrastruktur"? _.random(30, 40): _.random(5, 20)
+                value: dataContextDirection[v]
             }))
         }
 
