@@ -283,3 +283,17 @@ const listAnimation = {
   animate__flash: "animate__flash",
   animate__pulse: "animate__pulse"
 }
+
+
+kurangi masing masing dari data_item dan jika di sum maka hasilnya sama persis dengan nilai_total
+
+const nilai_total = 8773
+const data_item = [
+  { name: 'pendidikan', value: 8773 },
+  { name: 'infrastruktur', value: 12085 },
+  { name: 'layanan_kesehatan', value: 642 },
+  { name: 'keagamaan', value: 126763 },
+  { name: 'kemiskinan', value: 119291 },
+  { name: 'lapangan_pekerjaan', value: 30329 },
+  { name: 'keadilan_sosial', value: 53391 }
+]
