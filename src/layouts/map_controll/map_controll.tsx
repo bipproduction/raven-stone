@@ -19,11 +19,14 @@ import {
   JsonInput,
   Menu,
   Modal,
+  NumberInput,
+  Paper,
   Select,
   SimpleGrid,
   Slider,
   Stack,
   Text,
+  Title,
   Tooltip,
 } from "@mantine/core";
 import { DatePicker, DatePickerInput } from "@mantine/dates";
@@ -49,6 +52,11 @@ import Swal from "sweetalert2";
 import { gIsDev } from "@/g_state/g_is_dev";
 import DevAppBar from "../dev/dev_app_bar";
 import InjectData from "./inject_data";
+import { signal } from "@preact/signals-react";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
+import { api } from "@/lib/api";
+import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -104,6 +112,8 @@ const listEmotionColor = [
     color: "#414042",
   },
 ];
+
+const openContextDirection = signal(false);
 
 const LayoutMapControll = () => {
   const [isMap, setIsmap] = useState(false);
@@ -222,7 +232,7 @@ const LayoutMapControll = () => {
       const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
 
       // eidt disini
-      console.log(dataFilter);
+      // console.log(dataFilter);
       const hasil = [];
       for (let i of [
         "trust",
@@ -245,7 +255,7 @@ const LayoutMapControll = () => {
       setbukamodal.open();
     },
     dataZoom: (a: any, b: any, c: any) => {
-      console.log("a");
+      // console.log("a");
     },
   };
 
@@ -516,19 +526,32 @@ const LayoutMapControll = () => {
                 {_.upperCase(selectedData.name)}
               </Text>
               <Group>
-                <Button compact onClick={onProccess}>
-                  Procccess
-                </Button>
-                <Tooltip label={"buat nilainya menjadi 0"}>
-                  <Button compact bg={"pink"} onClick={onClear}>
+                <Button.Group>
+                  <Button w={100} compact onClick={onProccess}>
+                    Procccess
+                  </Button>
+                  <Button w={100} compact bg={"pink"} onClick={onClear}>
                     Clear
                   </Button>
-                </Tooltip>
+                  <Button
+                    w={100}
+                    compact
+                    onClick={() =>
+                      (openContextDirection.value = !openContextDirection.value)
+                    }
+                  >
+                    Context Direction
+                  </Button>
+                </Button.Group>
               </Group>
             </Flex>
 
             <Divider />
-            {/* {JSON.stringify(listSelectedEmotion )} */}
+
+            {/* akan muncul jika kondisi true untuk context  */}
+            {openContextDirection.value && (
+              <EditorCityContextDirection dataKab={selectedData} />
+            )}
             <SimpleGrid cols={2}>
               {listSelectedEmotion.map((v) => (
                 <Stack
@@ -670,6 +693,62 @@ const TableView = ({ dataKabupaten }: any) => {
         <Spreadsheet data={olahData()} />
       </Stack>
     </>
+  );
+};
+
+const EditorCityContextDirection = ({ dataKab }: { dataKab: any }) => {
+  const hasilEdit = signal<any[]>([]);
+  const cityId = dataKab.data.City.id;
+  const listDataContextDirection: { [key: string]: any } =
+    sCityContextDirection.value.find((v) => v.cityId == cityId) ?? {};
+
+  const onSave = () => {
+    const body = {
+      id: listDataContextDirection.id,
+      content: listDataContextDirection.content,
+    };
+
+    fetch(api.apiUtilCityContextDirectionUpdate, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then((v) => {
+      if (v.status == 201) {
+        toast("success");
+        funcLoadCityContextDirection();
+      }
+    });
+  };
+  return (
+    <Paper p={"xs"} bg={stylesGradient1}>
+      {/* <Text>{JSON.stringify(dataKab.data.City.id)}</Text> */}
+      <Title order={3}>Context Direction</Title>
+      {/* {JSON.stringify(listDataContextDirection)} */}
+      <SimpleGrid cols={3}>
+        {listDataContextDirection.content.map((v: any, i: any) => (
+          <Box key={v.name}>
+            <NumberInput
+              min={0}
+              label={v.name}
+              placeholder={v.value.toString()}
+              onChange={(val) => {
+                if (val) {
+                  listDataContextDirection.content[i].value = val;
+                  hasilEdit.value = listDataContextDirection.content;
+                }
+              }}
+            />
+          </Box>
+        ))}
+      </SimpleGrid>
+      <Group position="right" p={"xs"}>
+        <Button onClick={onSave} compact>
+          SAVE
+        </Button>
+      </Group>
+    </Paper>
   );
 };
 

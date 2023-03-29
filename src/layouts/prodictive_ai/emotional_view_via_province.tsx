@@ -1,41 +1,38 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
 import { gCandidate } from "@/g_state/g_candidate";
-import { gSelectedView } from "@/g_state/g_selected_view";
-import { glistCandidate, gSelectedDate } from "@/g_state/g_map_state";
+import { gSelectedDate } from "@/g_state/g_map_state";
 import { gSelectedProvince } from "@/g_state/g_selected_province";
+import { gSelectedView } from "@/g_state/g_selected_view";
 import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
 import { gEmotionalViewViaProvince } from "@/g_state/predictive_ai/g_emotional_view_via_province";
-import { gEmotionalViewViaProvinceCity } from "@/g_state/predictive_ai/g_emotional_view_via_province_city";
 import { api } from "@/lib/api";
 import { ModelDataKabupaten } from "@/model/model_data_kabupaten";
 import { ModelEmotionalViewViaProvinceCity } from "@/model/predictive_ai/model_emotional_view_via_province_city";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import {
   Box,
   Button,
   Group,
   Modal,
-  Paper,
-  Select,
+  Paper, Select,
   SimpleGrid,
   Space,
   Stack,
   Text,
   TextInput,
+  Title
 } from "@mantine/core";
 import {
-  useDisclosure,
-  useShallowEffect,
-  useForceUpdate,
+  useDisclosure, useForceUpdate, useShallowEffect
 } from "@mantine/hooks";
-import { EChartsOption, Model } from "echarts";
+import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useState } from "react";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 import { MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -192,8 +189,10 @@ const EmotionalViewViaProvince = () => {
             </AnimationOnScroll>
           ))}
       </Group>
-      <Modal fullScreen opened={openDetain} onClose={setOpenDetail.close}>
-        {gSelectedProvince.value && <EmotionViewDetail />}
+      <Modal fullScreen opened={openDetain} onClose={setOpenDetail.close} >
+        <Paper p={"md"}>
+          {gSelectedProvince.value && <EmotionViewDetail />}
+        </Paper>
       </Modal>
     </>
   );
@@ -264,8 +263,8 @@ const EmotionViewDetail = () => {
       .then(setListDetail);
   }, []);
   return (
-    <>
-      <Text>Emotion View Detail</Text>
+    <Stack>
+      <Title>Emotion View Detail</Title>
       {/* {JSON.stringify(listDetail)} */}
       <Group position="center">
         {listDetail.map((v) => (
@@ -283,7 +282,7 @@ const EmotionViewDetail = () => {
           </Box>
         ))}
       </Group>
-    </>
+    </Stack>
   );
 };
 

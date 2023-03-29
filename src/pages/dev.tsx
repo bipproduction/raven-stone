@@ -4,14 +4,16 @@ import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
 import { useHookstate } from "@hookstate/core";
 import {
-    Button,
-    Card,
-    Container, Group,
-    Loader,
-    Paper, Stack,
-    Table,
-    Text,
-    Textarea
+  Button,
+  Card,
+  Container,
+  Group,
+  Loader,
+  Paper,
+  Stack,
+  Table,
+  Text,
+  Textarea,
 } from "@mantine/core";
 import { useInputState, useShallowEffect } from "@mantine/hooks";
 import { onValue, ref, set } from "firebase/database";
@@ -71,11 +73,15 @@ const Dev = () => {
       async (res) => res.status == 200
     );
 
+  const seederContextDirection = async () =>
+    await fetch(api.apiSeederApiSeederContextDirection).then(
+      async (res) => res.status == 200
+    );
+
   return (
     <>
       <DevAuthProvider>
         <Stack spacing={0} pos={"static"} bg={"gray.3"}>
-          
           <Container bg={"gray.3"} mt={70} pos={"static"}>
             <Stack>
               {/* <DevCityValue /> */}
@@ -155,6 +161,11 @@ const Dev = () => {
                       loadData={seederCandidateValue}
                       name={"seeder candidate value"}
                     />
+
+                    <ButtonSync
+                      loadData={seederContextDirection}
+                      name={"seeder context direction"}
+                    />
                   </Group>
                   <Stack spacing={0}>
                     <Text color={"orange"} fw={"bold"}>
@@ -180,8 +191,6 @@ const Dev = () => {
     </>
   );
 };
-
-
 
 const B24Dev = () => {
   const [cookie, setCookie] = useInputState("");
