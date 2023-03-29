@@ -172,7 +172,7 @@ const EmotionalViewViaProvince = () => {
                         {Intl.NumberFormat("id-id").format(v.value)}
                       </Text>
                       <Text align={"center"} color={"gray"}>
-                        SAMPLE
+                        DATA VOLUME
                       </Text>
                     </Stack>
                     <Text size={24} align={"center"}>
@@ -499,7 +499,7 @@ const EmotionDetai2 = ({
                 <Text fw={"bold"}>
                   {Intl.NumberFormat("id-ID").format(data.value)}
                 </Text>
-                <Text>Data Sampler</Text>
+                <Text>DATA VOLUME</Text>
               </Group>
             </Stack>
           </Paper>

@@ -48,6 +48,8 @@ import {
   MdNotifications,
   MdSettings,
 } from "react-icons/md";
+import useSound from "use-sound";
+// import notifMp3 from "./../../public/notif.mp3";
 
 const listView = [
   {
@@ -362,11 +364,14 @@ const Dashboard = () => {
 
 const ada = signal(false);
 const bukaDrawer = signal(false);
+
 const MyNotivication = () => {
+  // const [play] = useSound(notifMp3);
   useShallowEffect(() => {
     return onChildChanged(ref(fDb, "eagle_2/notif/"), (snap) => {
       console.log(snap.val());
       ada.value = true;
+      // play();
     });
   }, []);
 
@@ -393,7 +398,7 @@ const MyNotivication = () => {
         onClose={() => (bukaDrawer.value = false)}
       >
         <Stack>
-          <Title>Notofication</Title>
+          <Title>Notification</Title>
         </Stack>
       </Drawer>
     </>
