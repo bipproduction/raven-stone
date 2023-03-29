@@ -280,22 +280,33 @@ model Province {
 }
 
 model City {
-  id            Int             @id @default(autoincrement())
-  name          String?
-  Province      Province?       @relation(fields: [provinceId], references: [id])
-  provinceId    Int?
-  DataEmotion   DataEmotion[]
-  DataByContent DataByContent[]
-  CityValue     CityValue[]
-  CityContext   CityContext[]
+  id                   Int                    @id @default(autoincrement())
+  name                 String?
+  Province             Province?              @relation(fields: [provinceId], references: [id])
+  provinceId           Int?
+  DataEmotion          DataEmotion[]
+  DataByContent        DataByContent[]
+  CityValue            CityValue[]
+  CityContext          CityContext[]
+  CityContextDirection CityContextDirection[]
 }
 
+// belum diketahui untuk apa alias lupa
 model CityContext {
   id     Int     @id @default(autoincrement())
   name   String?
   value  Int?
   City   City?   @relation(fields: [cityId], references: [id])
   cityId Int?
+}
+
+
+// untuk detail kedua emotional view province
+model CityContextDirection {
+  id      Int   @id @default(autoincrement())
+  City    City? @relation(fields: [cityId], references: [id])
+  content Json?
+  cityId  Int?
 }
 
 model Candidate {
