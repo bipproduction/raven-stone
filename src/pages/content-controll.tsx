@@ -2,10 +2,12 @@ import { funcLoadNotification } from "@/fun_load/func_load_notification";
 import { funcSendnotification } from "@/fun_load/func_send_notification";
 import { sListCity } from "@/g_state/s_list_city";
 import { menuSelected } from "@/g_state/s_menu_selected";
+import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
 import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
 import { sListNotification } from "@/s_state/s_list_notification";
 import {
+  ActionIcon,
   Box,
   Button,
   Flex,
@@ -29,7 +31,7 @@ import { signal } from "@preact/signals-react";
 import { ref, set } from "firebase/database";
 import _ from "lodash";
 import moment from "moment";
-import { MdSearch } from "react-icons/md";
+import { MdDelete, MdSearch } from "react-icons/md";
 import toast from "react-simple-toasts";
 import list_contextual_content from "./../assets/contextual_content.json";
 
@@ -106,12 +108,24 @@ const EditorNotification = () => {
     }
   };
 
+  const onDelete = (id: number) => {
+    fetch(api.apiUtilNotificationDelete + `?id=${id}`, {
+      method: "DELETE",
+    }).then((v) => {
+      if (v.status == 201) {
+        toast("success");
+        funcLoadNotification();
+      }
+    });
+  };
+
   return (
     <>
       <Group p={"md"} position={"center"}>
         <Paper bg={stylesGradientMixYellowRed} p={"md"} shadow={"md"}>
           <SimpleGrid cols={2}>
             <Stack
+              h={"90vh"}
               sx={{
                 overflow: "auto",
               }}
@@ -122,6 +136,11 @@ const EditorNotification = () => {
                   <Text fw={"bold"}>{v.title}</Text>
                   <Text fz={12}>{v.date.split("T")[0]}</Text>
                   <Text fz={12}>{v.des}</Text>
+                  <Group position="right">
+                    <ActionIcon onClick={() => onDelete(v.id)}>
+                      <MdDelete />
+                    </ActionIcon>
+                  </Group>
                 </Stack>
               ))}
             </Stack>
