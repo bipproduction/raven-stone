@@ -1,7 +1,7 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
 import { gCandidate } from "@/g_state/g_candidate";
-import { gCityContextDirection } from "@/g_state/g_city_context_direction";
+// import { gCityContextDirection } from "@/g_state/g_city_context_direction";
 import { gSelectedDate } from "@/g_state/g_map_state";
 import { gSelectedProvince } from "@/g_state/g_selected_province";
 import { gSelectedView } from "@/g_state/g_selected_view";
@@ -12,6 +12,7 @@ import { ModelDataKabupaten } from "@/model/model_data_kabupaten";
 import { ModelEmotionalViewViaProvinceCity } from "@/model/predictive_ai/model_emotional_view_via_province_city";
 import { listAnimation } from "@/styles/styles_animation";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { sCityContextDirection } from "@/s_state/s_city_ontext_irection";
 // import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
 import {
   Box,
@@ -420,7 +421,7 @@ const EmotionDetai2 = ({
   //   lainnya: dataKabupaten?.attributes.lainnya,
   // };
 
-  const dataContextDirection = gCityContextDirection.value.find(
+  const dataContextDirection = sCityContextDirection.value.find(
     (v) => v.cityId == data.cityId
   );
 
