@@ -54,9 +54,10 @@ import DevAppBar from "../dev/dev_app_bar";
 import InjectData from "./inject_data";
 import { signal } from "@preact/signals-react";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
+// import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
 import { api } from "@/lib/api";
 import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
+import { gCityContextDirection } from "@/g_state/g_city_context_direction";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -700,7 +701,7 @@ const EditorCityContextDirection = ({ dataKab }: { dataKab: any }) => {
   const hasilEdit = signal<any[]>([]);
   const cityId = dataKab.data.City.id;
   const listDataContextDirection: { [key: string]: any } =
-    sCityContextDirection.value.find((v) => v.cityId == cityId) ?? {};
+  gCityContextDirection.value.find((v) => v.cityId == cityId) ?? {};
 
   const onSave = () => {
     const body = {
