@@ -10,6 +10,7 @@ import NationWideRating from "@/layouts/prodictive_ai/nation_wide_rating";
 import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_conversation";
 import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_conversation";
 import { api } from "@/lib/api";
+import { fDb } from "@/lib/fbs";
 import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
 import { useHookstate } from "@hookstate/core";
 import {
@@ -17,10 +18,12 @@ import {
   AppShell,
   Box,
   Burger,
+  Drawer,
   Flex,
   Group,
   Header,
   Image,
+  Indicator,
   MediaQuery,
   Menu,
   Navbar,
@@ -32,6 +35,8 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
+import { signal } from "@preact/signals-react";
+import { onChildChanged, onValue, ref } from "firebase/database";
 import _ from "lodash";
 import { useState } from "react";
 import {
@@ -40,6 +45,7 @@ import {
   MdCircle,
   MdGridView,
   MdMessage,
+  MdNotifications,
   MdSettings,
 } from "react-icons/md";
 
@@ -305,6 +311,7 @@ const Dashboard = () => {
 
               <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
                 <Group>
+                  <MyNotivication />
                   <Menu>
                     {/* <Menu.Target>
                       <NavLink
@@ -350,6 +357,46 @@ const Dashboard = () => {
       )}
       <LoadFirstData />
     </AppShell>
+  );
+};
+
+const ada = signal(false);
+const bukaDrawer = signal(false);
+const MyNotivication = () => {
+  useShallowEffect(() => {
+    return onChildChanged(ref(fDb, "eagle_2/notif/"), (snap) => {
+      console.log(snap.val());
+      ada.value = true;
+    });
+  }, []);
+
+  const onBukaDrawer = () => {
+    ada.value = false;
+    bukaDrawer.value = true;
+  };
+  return (
+    <>
+      {ada.value ? (
+        <Indicator inline processing size={12}>
+          <ActionIcon onClick={onBukaDrawer} size={24}>
+            <MdNotifications size={24} />
+          </ActionIcon>
+        </Indicator>
+      ) : (
+        <ActionIcon onClick={onBukaDrawer} size={24}>
+          <MdNotifications size={24} />
+        </ActionIcon>
+      )}
+      <Drawer
+        position="right"
+        opened={bukaDrawer.value}
+        onClose={() => (bukaDrawer.value = false)}
+      >
+        <Stack>
+          <Title>Notofication</Title>
+        </Stack>
+      </Drawer>
+    </>
   );
 };
 

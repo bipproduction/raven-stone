@@ -24,7 +24,7 @@ export const seederContextDirection = async () => {
             cityId: dataKabupaten.attributes.kabkotid,
             content: Object.keys(dataContextDirection).map((v: string) => ({
                 name: v,
-                value: dataContextDirection[v]
+                value: 0
             }))
         }
 

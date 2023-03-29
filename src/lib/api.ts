@@ -7,6 +7,8 @@ export const api = {
   "apiCopyData": "/api/copy-data",
   "apiUtilUpdateDataByProvince": "/api/util/update-data-by-province",
   "apiUtilStore": "/api/util/store",
+  "apiUtilNotificationPost": "/api/util/notification-post",
+  "apiUtilNotifficationGet": "/api/util/notiffication-get",
   "apiUtilInjectData": "/api/util/inject_data",
   "apiUtilGetProvince": "/api/util/get-province",
   "apiUtilGetInjetData": "/api/util/get-injet-data",

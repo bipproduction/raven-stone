@@ -300,7 +300,6 @@ model CityContext {
   cityId Int?
 }
 
-
 // untuk detail kedua emotional view province
 model CityContextDirection {
   id      Int   @id @default(autoincrement())
@@ -462,4 +461,14 @@ model B24PopularWord {
 model Store {
   name  String @id @default(cuid())
   value Json?
+}
+
+// untuk menampung notication
+model Notification {
+  id        Int       @id @default(autoincrement())
+  title     String?
+  des       String?   @db.Text
+  date      DateTime? @db.Date
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @updatedAt
 }
