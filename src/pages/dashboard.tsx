@@ -149,11 +149,11 @@ const listView = [
         name: "Nation Wide Rating",
         view: NationWideRating,
       },
-      {
-        id: 2,
-        name: "Emotional View Via Region",
-        view: EmotionalViewViaRegion,
-      },
+      // {
+      //   id: 2,
+      //   name: "Emotional View Via Region",
+      //   view: EmotionalViewViaRegion,
+      // },
       {
         id: 3,
         name: "Emotional View Via Province",
