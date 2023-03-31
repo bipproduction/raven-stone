@@ -116,10 +116,12 @@ const FirebaseProvider = ({ children }: PropsWithChildren) => {
 
   useShallowEffect(() => {
     return onValue(ref(fDb, "eagle_2/update"), (val) => {
-      if (val.val()) {
-        setOpenUpdate.open();
-      } else {
-        setOpenUpdate.close();
+      if (!sIsLocal.value) {
+        if (val.val()) {
+          setOpenUpdate.open();
+        } else {
+          setOpenUpdate.close();
+        }
       }
     });
   }, []);
@@ -132,6 +134,14 @@ const FirebaseProvider = ({ children }: PropsWithChildren) => {
             router.reload();
           }
         });
+      }
+    });
+  }, []);
+
+  useShallowEffect(() => {
+    return onChildChanged(ref(fDb, "eagle_2/force_reload"), (snap) => {
+      if (snap.val()) {
+        router.reload();
       }
     });
   }, []);
