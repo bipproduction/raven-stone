@@ -29,9 +29,17 @@ import Swal from "sweetalert2";
 import "animate.css/animate.min.css";
 import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
 import { funcLoadNotification } from "@/fun_load/func_load_notification";
+import { sIsLocal } from "@/s_state/is_local";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
+
+  useShallowEffect(() => {
+    const local = localStorage.getItem("is_local");
+    if (local) {
+      sIsLocal.value = local === "true";
+    }
+  }, []);
 
   useShallowEffect(() => {
     funcLoadCandidate();

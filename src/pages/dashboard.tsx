@@ -12,12 +12,15 @@ import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_co
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
 import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
+import { sIsLocal } from "@/s_state/is_local";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
   AppShell,
+  Avatar,
   Box,
   Burger,
+  Chip,
   Drawer,
   Flex,
   Group,
@@ -28,18 +31,21 @@ import {
   Menu,
   Navbar,
   NavLink,
+  Paper,
   ScrollArea,
   Stack,
   Text,
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { useShallowEffect } from "@mantine/hooks";
+import { useId, useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
+import { Button } from "antd";
 import { onChildChanged, onValue, ref } from "firebase/database";
 import _ from "lodash";
+import moment from "moment";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   MdAccountCircle,
   MdBarChart,
@@ -47,11 +53,14 @@ import {
   MdGridView,
   MdMessage,
   MdNotifications,
+  MdNotificationsActive,
   MdSettings,
+  MdTimer,
+  MdWatch,
 } from "react-icons/md";
 import useSound from "use-sound";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
-// const notifMp3 = require("./../assets/notif.mp3")
+
 
 const listView = [
   {
@@ -366,15 +375,27 @@ const Dashboard = () => {
 
 const ada = signal(false);
 const bukaDrawer = signal(false);
+const mute = signal(true);
 
 const MyNotivication = () => {
-  const [play] = useSound("./notif.mp3");
+  const refNya = useRef<HTMLAudioElement>(null);
   useShallowEffect(() => {
     return onChildChanged(ref(fDb, "eagle_2/notif/"), (snap) => {
-      console.log(snap.val());
-      ada.value = true;
-      play();
+      const apa_local = snap.val().toString().includes("true");
+
+      if (apa_local == sIsLocal.value) {
+        ada.value = true;
+        mute.value = false;
+        refNya.current?.play();
+      }
     });
+  }, []);
+
+  useShallowEffect(() => {
+    document.body.onclick = () => {
+      mute.value = true;
+      refNya.current?.play();
+    };
   }, []);
 
   const onBukaDrawer = () => {
@@ -383,6 +404,12 @@ const MyNotivication = () => {
   };
   return (
     <>
+      <audio
+        ref={refNya}
+        src="/notif.mp3"
+        autoPlay={true}
+        muted={mute.value}
+      ></audio>
       {ada.value ? (
         <Indicator inline processing size={12}>
           <ActionIcon onClick={onBukaDrawer} size={24}>
@@ -399,13 +426,60 @@ const MyNotivication = () => {
         opened={bukaDrawer.value}
         onClose={() => (bukaDrawer.value = false)}
       >
-        <Stack>
-          <Title>Notification</Title>
-        </Stack>
+        <NotificationDisplay />
       </Drawer>
-      <audio autoPlay src="./notif.mp3">
+    </>
+  );
+};
 
-      </audio>
+const listNotification = signal<any[]>([]);
+const NotificationDisplay = () => {
+  // ambil data notification
+  useShallowEffect(() => {
+    fetch(api.apiUtilNotifficationGet)
+      .then((v) => v.json())
+      .then((v) => (listNotification.value = v));
+  }, []);
+
+  // simpan data notification
+  useShallowEffect(() => {
+    listNotification.subscribe((val) => {
+      localStorage.setItem("list_notif", JSON.stringify(val));
+    });
+  }, []);
+  return (
+    <>
+      <Stack>
+        <Flex>
+          <MdNotifications size={32} color={"orange"} />
+          <Title color={"gray"} order={3}>
+            Notification
+          </Title>
+        </Flex>
+        {listNotification.value.map((v) => (
+          <Box key={v.id} p={"xs"}>
+            <Paper>
+              <Flex gap={"md"}>
+                <Avatar>
+                  <MdNotificationsActive />
+                </Avatar>
+                <Stack spacing={0} w={"100%"}>
+                  <Text fw={"bold"}>{v.title}</Text>
+                  <Text size={12} color={"gray"}>
+                    {v.des}
+                  </Text>
+                  <Group position="right">
+                    <MdTimer color="gray" />
+                    <Text size={12} c={"blue"}>
+                      {moment(v.createdAt).fromNow()}
+                    </Text>
+                  </Group>
+                </Stack>
+              </Flex>
+            </Paper>
+          </Box>
+        ))}
+      </Stack>
     </>
   );
 };
