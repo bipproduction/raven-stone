@@ -299,3 +299,53 @@ const data_item = [
   { name: 'lapangan_pekerjaan', value: 30329 },
   { name: 'keadilan_sosial', value: 53391 }
 ]
+
+
+
+jika ada data seperti dibawah berikut 
+
+// data emosi candidate 1
+const emotion_candidate_1 = {
+  anger: 3,
+  anticipation: 4,
+  disgust: 9,
+  fear: 2,
+  joy: 20,
+  sadness: 2,
+  trust: 49,
+  surprise: 11
+}
+
+// data emosi candidate 2
+const emotion_candidate_2 = {
+  anger: 10,
+  anticipation: 9,
+  disgust: 4,
+  fear: 7,
+  joy: 40,
+  sadness: 20,
+  trust: 7,
+  surprise: 20
+}
+
+// potension candidate jika menjadi presiden atau wakil presiden
+const potensi_candidate_1 = { president: 90, vice_president: 30 }
+
+// potension candidate jika menjadi presiden atau wakil presiden
+const potensi_candidate_2 = { president: 40, vice_president: 60 }
+
+gabungkan kedua kandidat membentuk objek baru 
+dan hasilkan objek baru hasil dari penggabungan tersebut permasing masing item 
+seperti dibawah berikut
+dan jika disum atau di total nilai dari nilai item akan menghasilkan 100% 
+
+const hasil_emotion_candidate1_dan_candidate2 = {
+  anger: ,
+  anticipation: ,
+  disgust: ,
+  fear: ,
+  joy: ,
+  sadness: ,
+  trust: ,
+  surprise: 
+}
