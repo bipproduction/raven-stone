@@ -376,50 +376,50 @@ const EmotionDetai2 = ({
   //   keadilan_sosial: dataKabupaten?.attributes.wiraswasta,
   // };
 
-  // const dataChartGender = {
-  //   pria: dataKabupaten?.attributes.pria,
-  //   wanita: dataKabupaten?.attributes.wanita,
-  // };
+  const dataChartGender = {
+    pria: dataKabupaten?.attributes.pria,
+    wanita: dataKabupaten?.attributes.wanita,
+  };
 
-  // const dataChartUmur = {
-  //   u5: dataKabupaten?.attributes.u5,
-  //   u10: dataKabupaten?.attributes.u10,
-  //   u15: dataKabupaten?.attributes.u15,
-  //   u20: dataKabupaten?.attributes.u20,
-  //   u25: dataKabupaten?.attributes.u25,
-  //   u30: dataKabupaten?.attributes.u30,
-  //   u35: dataKabupaten?.attributes.u35,
-  //   u40: dataKabupaten?.attributes.u40,
-  //   u45: dataKabupaten?.attributes.u45,
-  //   u50: dataKabupaten?.attributes.u50,
-  //   u55: dataKabupaten?.attributes.u55,
-  //   u60: dataKabupaten?.attributes.u60,
-  //   u65: dataKabupaten?.attributes.u65,
-  //   u70: dataKabupaten?.attributes.u70,
-  //   u75: dataKabupaten?.attributes.u75,
-  // };
+  const dataChartUmur = {
+    // u5: dataKabupaten?.attributes.u5,
+    // u10: dataKabupaten?.attributes.u10,
+    u15: dataKabupaten?.attributes.u15,
+    u20: dataKabupaten?.attributes.u20,
+    u25: dataKabupaten?.attributes.u25,
+    u30: dataKabupaten?.attributes.u30,
+    u35: dataKabupaten?.attributes.u35,
+    u40: dataKabupaten?.attributes.u40,
+    u45: dataKabupaten?.attributes.u45,
+    u50: dataKabupaten?.attributes.u50,
+    u55: dataKabupaten?.attributes.u55,
+    u60: dataKabupaten?.attributes.u60,
+    u65: dataKabupaten?.attributes.u65,
+    u70: dataKabupaten?.attributes.u70,
+    u75: dataKabupaten?.attributes.u75,
+  };
 
-  // const dataChartPendidikan = {
-  //   sltp: dataKabupaten?.attributes.sltp,
-  //   slta: dataKabupaten?.attributes.slta,
-  //   diploma1: dataKabupaten?.attributes.diploma_i_,
-  //   diploma2: dataKabupaten?.attributes.diploma_ii,
-  //   diploma4: dataKabupaten?.attributes.diploma_iv,
-  //   strata2: dataKabupaten?.attributes.strata_ii,
-  //   strata3: dataKabupaten?.attributes.strata_iii,
-  // };
+  const dataChartPendidikan = {
+    sltp: dataKabupaten?.attributes.sltp,
+    slta: dataKabupaten?.attributes.slta,
+    diploma1: dataKabupaten?.attributes.diploma_i_,
+    diploma2: dataKabupaten?.attributes.diploma_ii,
+    diploma4: dataKabupaten?.attributes.diploma_iv,
+    strata2: dataKabupaten?.attributes.strata_ii,
+    strata3: dataKabupaten?.attributes.strata_iii,
+  };
 
-  // const dataChartEkonomi = {
-  //   aparatur: dataKabupaten?.attributes.aparatur_p,
-  //   pengajar: dataKabupaten?.attributes.tenaga_pen,
-  //   tenaga_kesehatan: dataKabupaten?.attributes.tenaga_kes,
-  //   wiraswasta: dataKabupaten?.attributes.wiraswasta,
-  //   nelayan: dataKabupaten?.attributes.nelayan,
-  //   petani: dataKabupaten?.attributes.pertanian_,
-  //   tenaga_agama: dataKabupaten?.attributes.agama_dan_,
-  //   pensiunan: dataKabupaten?.attributes.pensiunan,
-  //   lainnya: dataKabupaten?.attributes.lainnya,
-  // };
+  const dataChartEkonomi = {
+    aparatur: dataKabupaten?.attributes.aparatur_p,
+    pengajar: dataKabupaten?.attributes.tenaga_pen,
+    tenaga_kesehatan: dataKabupaten?.attributes.tenaga_kes,
+    wiraswasta: dataKabupaten?.attributes.wiraswasta,
+    nelayan: dataKabupaten?.attributes.nelayan,
+    petani: dataKabupaten?.attributes.pertanian_,
+    tenaga_agama: dataKabupaten?.attributes.agama_dan_,
+    pensiunan: dataKabupaten?.attributes.pensiunan,
+    lainnya: dataKabupaten?.attributes.lainnya,
+  };
 
   const dataContextDirection = sCityContextDirection.value.find(
     (v) => v.cityId == data.cityId
@@ -498,6 +498,8 @@ const EmotionDetai2 = ({
       </Button>
 
       <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen>
+        <Stack>
+
         {/* {JSON.stringify(dataKabupaten)} */}
         <SimpleGrid cols={2}>
           {/* {JSON.stringify(dataKabupaten)} */}
@@ -518,61 +520,63 @@ const EmotionDetai2 = ({
           </Paper>
         </SimpleGrid>
         <Space h={70} />
-        {/* <SimpleGrid cols={4}>
+        <SimpleGrid cols={4}>
           <ChartPie data={dataChartGender} name={"Gender"} />
           <ChartPie data={dataChartUmur} name={"Usia"} />
           <ChartPie data={dataChartPendidikan} name={"Pendidikan"} />
           <ChartPie data={dataChartEkonomi} name={"Ekonomi"} />
-        </SimpleGrid> */}
+        </SimpleGrid>
+      
+        </Stack>
       </Modal>
     </>
   );
 };
 
-// const ChartPie = ({ data, name }: { data: any; name: string }) => {
-//   const option2: EChartsOption = {
-//     title: {
-//       text: name,
-//     },
-//     tooltip: {
-//       trigger: "item",
-//     },
-//     // legend: {
-//     //   top: "5%",
-//     //   left: "center",
-//     // },
-//     series: [
-//       {
-//         name: "Access From",
-//         type: "pie",
-//         radius: ["40%", "80%"],
-//         // avoidLabelOverlap: true,
-//         label: {
-//           show: true,
-//           position: "inner",
-//         },
-//         // emphasis: {
-//         //   label: {
-//         //     show: true,
-//         //     fontSize: 40,
-//         //     fontWeight: "bold",
-//         //   },
-//         // },
-//         // labelLine: {
-//         //   show: false,
-//         // },
-//         data: Object.keys(data).map((v) => ({
-//           name: v,
-//           value: data[v],
-//         })),
-//       },
-//     ],
-//   };
-//   return (
-//     <>
-//       <EChartsReact option={option2} />
-//     </>
-//   );
-// };
+const ChartPie = ({ data, name }: { data: any; name: string }) => {
+  const option2: EChartsOption = {
+    title: {
+      text: name,
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    // legend: {
+    //   top: "5%",
+    //   left: "center",
+    // },
+    series: [
+      {
+        name: "Access From",
+        type: "pie",
+        radius: ["40%", "80%"],
+        // avoidLabelOverlap: true,
+        label: {
+          show: true,
+          position: "inner",
+        },
+        // emphasis: {
+        //   label: {
+        //     show: true,
+        //     fontSize: 40,
+        //     fontWeight: "bold",
+        //   },
+        // },
+        // labelLine: {
+        //   show: false,
+        // },
+        data: Object.keys(data).map((v) => ({
+          name: v,
+          value: data[v],
+        })),
+      },
+    ],
+  };
+  return (
+    <>
+      <EChartsReact option={option2} />
+    </>
+  );
+};
 
 export default EmotionalViewViaProvince;
