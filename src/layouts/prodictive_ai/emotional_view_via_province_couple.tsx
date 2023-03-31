@@ -540,6 +540,8 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
         fullScreen
         style={{ position: "relative" }}
       >
+        {/* {JSON.stringify(data)} */}
+        <Title>{data.cityName}</Title>
         <ScrollArea h={"100vh"} pos={"relative"}>
           {/* {JSON.stringify(dataKabupaten)} */}
           <SimpleGrid cols={2}>
@@ -547,10 +549,11 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
             <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
               <Stack>
                 {/* {JSON.stringify(dataContextDirection)} */}
+                
                 <EChartsReact option={option1} />
                 <Group position="center">
                   <Text fw={"bold"}>
-                    {Intl.NumberFormat("id-ID").format(data.value)}
+                    {Intl.NumberFormat("id-ID").format(data.cityValue)}
                   </Text>
                   <Text>DATA VOLUME</Text>
                 </Group>
