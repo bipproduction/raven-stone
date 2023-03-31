@@ -469,6 +469,7 @@ model Notification {
   title     String?
   des       String?   @db.Text
   date      DateTime? @db.Date
-  createdAt DateTime?  @default(now())
-  updatedAt DateTime?  @updatedAt
+  waktu     DateTime? @db.Time
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 }

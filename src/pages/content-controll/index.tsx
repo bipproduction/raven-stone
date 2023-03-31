@@ -24,7 +24,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
+import { DatePicker, TimeInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
@@ -33,10 +33,11 @@ import _ from "lodash";
 import moment from "moment";
 import { MdDelete, MdSearch } from "react-icons/md";
 import toast from "react-simple-toasts";
-import list_contextual_content from "./../assets/contextual_content.json";
+import list_contextual_content from "../../assets/contextual_content.json";
+import EditorNotification from "./content-controll__editor_notification";
+import NotifView from "./content-controll__notification_view";
 
 const selectedKabupaten = signal("");
-
 export const EditorContextualContent = () => {
   return (
     <Stack bg={"gray.1"} p={"md"}>
@@ -94,83 +95,7 @@ export const EditorContextualContent = () => {
   );
 };
 
-const formData = signal<{ [key: string]: any }>({});
-const EditorNotification = () => {
-  const onKirim = async () => {
-    if (!formData.value.date || !formData.value.title || !formData.value.des)
-      return toast("jangan ada yang kosong");
-    const kirim = await funcSendnotification(formData.value);
-    if (kirim) {
-      set(ref(fDb, "eagle_2/notif/ada"), Math.random()).then((v) => {
-        toast("success");
-        funcLoadNotification();
-      });
-    }
-  };
 
-  const onDelete = (id: number) => {
-    fetch(api.apiUtilNotificationDelete + `?id=${id}`, {
-      method: "DELETE",
-    }).then((v) => {
-      if (v.status == 201) {
-        toast("success");
-        funcLoadNotification();
-      }
-    });
-  };
-
-  return (
-    <>
-      <Group p={"md"} position={"center"}>
-        <Paper bg={stylesGradientMixYellowRed} p={"md"} shadow={"md"}>
-          <SimpleGrid cols={2}>
-            <Stack
-              h={"90vh"}
-              sx={{
-                overflow: "auto",
-              }}
-            >
-              {/* {JSON.stringify(sListNotification.value)} */}
-              {sListNotification.value.map((v) => (
-                <Stack key={v.id} spacing={0} p={4} pb={4} bg={"blue.1"}>
-                  <Text fw={"bold"}>{v.title}</Text>
-                  <Text fz={12}>{v.date.split("T")[0]}</Text>
-                  <Text fz={12}>{v.des}</Text>
-                  <Group position="right">
-                    <ActionIcon onClick={() => onDelete(v.id)}>
-                      <MdDelete />
-                    </ActionIcon>
-                  </Group>
-                </Stack>
-              ))}
-            </Stack>
-            <Stack spacing={"lg"}>
-              <DatePicker
-                onChange={(val) => {
-                  formData.value.date = moment(val).format("YYYY-MM-DD");
-                }}
-              />
-              <TextInput
-                label={"title"}
-                onChange={(val) =>
-                  (formData.value.title = val.currentTarget.value)
-                }
-              />
-              <Textarea
-                cols={8}
-                label={"description"}
-                onChange={(val) =>
-                  (formData.value.des = val.currentTarget.value)
-                }
-              />
-              <Button onClick={onKirim}> Kirim </Button>
-            </Stack>
-          </SimpleGrid>
-        </Paper>
-      </Group>
-    </>
-  );
-};
 
 const listmenuya = [
   {
