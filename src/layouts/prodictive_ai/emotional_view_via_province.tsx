@@ -360,6 +360,7 @@ const EmotionDetai2 = ({
       },
     ],
   };
+  
 
   // const dataContextDirection = {
   //   pendidikan: dataKabupaten?.attributes.pendidikan,
