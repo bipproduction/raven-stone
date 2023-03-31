@@ -33,9 +33,12 @@ const SelectCandidateView = ({
       >
         <Group p={"xs"} position="right">
           <TextInput
-            value={gPredictiveAiSearch.value}
-            onChange={(val) => gPredictiveAiSearch.set(val.currentTarget.value)}
-            placeholder={"search"}
+            // value={gPredictiveAiSearch.value}
+            onChange={(val) => {
+              gPredictiveAiSearch.set(val.currentTarget.value);
+              onUpdate();
+            }}
+            placeholder={gPredictiveAiSearch.value}
             icon={<MdSearch />}
           />
           <Select
