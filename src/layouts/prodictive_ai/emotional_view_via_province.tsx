@@ -521,10 +521,10 @@ const EmotionDetai2 = ({
         </SimpleGrid>
         <Space h={70} />
         <SimpleGrid cols={4}>
-          <ChartPie data={dataChartGender} name={"Gender"} />
+          {/* <ChartPie data={dataChartGender} name={"Gender"} />
           <ChartPie data={dataChartUmur} name={"Usia"} />
           <ChartPie data={dataChartPendidikan} name={"Pendidikan"} />
-          <ChartPie data={dataChartEkonomi} name={"Ekonomi"} />
+          <ChartPie data={dataChartEkonomi} name={"Ekonomi"} /> */}
         </SimpleGrid>
       
         </Stack>
