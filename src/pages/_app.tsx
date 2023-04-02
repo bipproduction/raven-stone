@@ -30,6 +30,7 @@ import "animate.css/animate.min.css";
 import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
 import { funcLoadNotification } from "@/fun_load/func_load_notification";
 import { sIsLocal } from "@/s_state/is_local";
+import { funcloadContextualContent } from "@/fun_load/func_load_contextual_conetent";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -57,6 +58,7 @@ export default function App(props: AppProps) {
     funcLoadCity();
     funcLoadCityContextDirection();
     funcLoadNotification();
+    funcloadContextualContent();
   }, []);
 
   return (

@@ -367,6 +367,14 @@ model DataByContent {
   updatedAt    DateTime   @updatedAt
 }
 
+model ContextualContent {
+  id        Int       @id @default(autoincrement())
+  data      Json?
+  date      DateTime? @db.Date
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt @default(now())
+}
+
 // =====================================
 // data dari google sheet
 model NationWideChart {
