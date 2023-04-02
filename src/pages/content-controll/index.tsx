@@ -1,46 +1,57 @@
-import { funcLoadNotification } from "@/fun_load/func_load_notification";
-import { funcSendnotification } from "@/fun_load/func_send_notification";
+import { funcloadContextualContent } from "@/fun_load/func_load_contextual_conetent";
 import { sListCity } from "@/g_state/s_list_city";
 import { menuSelected } from "@/g_state/s_menu_selected";
 import { api } from "@/lib/api";
-import { fDb } from "@/lib/fbs";
-import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
-import { sListNotification } from "@/s_state/s_list_notification";
+import { sContextualContent } from "@/s_state/s_contextual_content";
 import {
-  ActionIcon,
   Box,
   Button,
   Flex,
   Group,
   Modal,
-  NumberInput,
-  Paper,
-  Select,
-  SimpleGrid,
-  Stack,
+  NumberInput, Select, Stack,
   Table,
-  Text,
-  Textarea,
-  TextInput,
-  Title,
+  Text, TextInput,
+  Title
 } from "@mantine/core";
-import { DatePicker, TimeInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
-import { ref, set } from "firebase/database";
 import _ from "lodash";
-import moment from "moment";
-import { MdDelete, MdSearch } from "react-icons/md";
+import { MdSearch } from "react-icons/md";
 import toast from "react-simple-toasts";
-import list_contextual_content from "../../assets/contextual_content.json";
+import Swal from "sweetalert2";
+// import list_contextual_content from "../../assets/contextual_content.json";
 import EditorNotification from "./content-controll__editor_notification";
-import NotifView from "./content-controll__notification_view";
 
 const selectedKabupaten = signal("");
 export const EditorContextualContent = () => {
+  const onDelete = async (id: number) => {
+    Swal.fire({
+      title: "delete",
+      text: "sure ?",
+      confirmButtonText: "yes",
+      cancelButtonText: "No",
+    }).then((v) => {
+      if (v.isConfirmed) {
+        fetch(api.apiPredictiveAiContextualContentDelete, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        }).then((v) => {
+          if (v.status === 201) {
+            toast("success");
+            funcloadContextualContent();
+          }
+        });
+      }
+    });
+  };
   return (
     <Stack bg={"gray.1"} p={"md"}>
+      {/* {JSON.stringify(sContextualContent.value)} */}
       <Title>Contextual Controll</Title>
       {/* {JSON.stringify(sListCity.value)} */}
       <Flex justify={"space-between"} align={"end"} gap={20}>
@@ -55,7 +66,6 @@ export const EditorContextualContent = () => {
           }))}
           onChange={(val) => (selectedKabupaten.value = val as string)}
         />
-        <Button>Create New</Button>
       </Flex>
 
       <Table>
@@ -67,14 +77,19 @@ export const EditorContextualContent = () => {
           </tr>
         </thead>
         <tbody>
-          {list_contextual_content.map((v, i) => (
-            <tr key={v.title}>
+          {sContextualContent.value.map((v, i) => (
+            <tr key={v.data.title}>
               <td>{i + 1}</td>
-              <td>{v.title}</td>
+              <td>{v.data.title}</td>
               <td>
                 <Button.Group>
-                  <EditItemButton title={v.title} />
-                  <Button compact bg={"gray.1"} c={"pink"}>
+                  <EditItemButton title={v.data.title} />
+                  <Button
+                    onClick={() => onDelete(v.id)}
+                    compact
+                    bg={"gray.1"}
+                    c={"pink"}
+                  >
                     Delete
                   </Button>
                 </Button.Group>
@@ -95,8 +110,6 @@ export const EditorContextualContent = () => {
   );
 };
 
-
-
 const listmenuya = [
   {
     id: "1",
@@ -112,12 +125,39 @@ const listmenuya = [
 
 const EditItemButton = ({ title }: { title: string }) => {
   const data = useForm({
-    initialValues: list_contextual_content.find((v) => v.title == title),
+    initialValues: sContextualContent.value.find((v) => v.data.title == title),
   });
   const [buka, setbuka] = useDisclosure(false);
 
-  const onSave = async () => {
-    console.log(data.values);
+  const onUpdate = async () => {
+    fetch(api.apiPredictiveAiContextualContentUpdate, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data.values),
+    }).then(async (v) => {
+      if (v.status === 201) {
+        toast("sucess");
+        funcloadContextualContent();
+      }
+    });
+  };
+
+  const onCreate = async () => {
+    fetch(api.apiPredictiveAiContextualContentCreate, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data.values.data),
+    }).then(async (v) => {
+      if (v.status === 201) {
+        toast("success");
+        funcloadContextualContent();
+        setbuka.close();
+      }
+    });
   };
   return (
     <>
@@ -130,22 +170,25 @@ const EditItemButton = ({ title }: { title: string }) => {
       <Modal size={"70%"} opened={buka} onClose={setbuka.close}>
         <Stack>
           <Group position="right">
-            <Button compact onClick={onSave}>
-              save
+            <Button bg={"orange"} compact onClick={onUpdate}>
+              update
+            </Button>
+            <Button compact onClick={onCreate}>
+              create
             </Button>
           </Group>
           <TextInput
-            placeholder={data.values?.title}
+            placeholder={data.values.data?.title}
             p={"xs"}
-            {...data.getInputProps("title")}
+            {...data.getInputProps("data.title")}
           />
           <NumberInput
-            placeholder={data.values?.audiences.toString()}
+            placeholder={data.values?.data.audiences.toString()}
             p={"xs"}
-            {...data.getInputProps("audiences")}
+            {...data.getInputProps("data.audiences")}
           />
           <Flex justify={"space-between"}>
-            {data.values?.emotion.map((v, i) => (
+            {data.values.data?.emotion.map((v: any, i: any) => (
               <Box key={v.name} p={"xs"}>
                 <Stack p={"xs"} bg={"gray.1"} mt={"md"}>
                   <Text fw={"bold"} color={"dark"}>
@@ -153,14 +196,14 @@ const EditItemButton = ({ title }: { title: string }) => {
                   </Text>
                   <TextInput
                     placeholder={v.value.toString()}
-                    {...data.getInputProps(`emotion.${i}.value`)}
+                    {...data.getInputProps(`data.emotion.${i}.value`)}
                   />
                 </Stack>
                 <Stack p={"xs"} bg={"gray.1"}>
-                  {v.cluster.map((v2, i2) => (
+                  {v.cluster.map((v2: any, i2: any) => (
                     <Box key={v2.name}>
                       <Text fw={"bold"}>{_.upperCase(v2.name)}</Text>
-                      {v2.data.map((v3, i3) => (
+                      {v2.data.map((v3: any, i3: any) => (
                         <Box key={v3.name}>
                           <Text fz={12} c={"gray"}>
                             {v3.name}
@@ -168,7 +211,7 @@ const EditItemButton = ({ title }: { title: string }) => {
                           <TextInput
                             placeholder={v3.value.toString()}
                             {...data.getInputProps(
-                              `emotion.${i}.cluster.${i2}.data.${i3}.value`
+                              `data.emotion.${i}.cluster.${i2}.data.${i3}.value`
                             )}
                           />
                         </Box>
@@ -210,7 +253,8 @@ const ContentControll = () => {
         </Group>
         <Stack>
           {listmenuya.map(
-            (v) => v.id == menuSelected.value && <v.content key={v.id} />
+            (v) =>
+              v.id == menuSelected.value && <v.content key={v.id} />
           )}
         </Stack>
       </Stack>

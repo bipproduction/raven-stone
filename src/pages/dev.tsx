@@ -78,6 +78,11 @@ const Dev = () => {
       async (res) => res.status == 200
     );
 
+  const seederContextualContent = async () =>
+    await fetch(api.apiSeederApiSeederContextualContent).then(
+      async (res) => res.status == 200
+    );
+
   return (
     <>
       <DevAuthProvider>
@@ -165,6 +170,11 @@ const Dev = () => {
                     <ButtonSync
                       loadData={seederContextDirection}
                       name={"seeder context direction"}
+                    />
+
+                    <ButtonSync
+                      loadData={seederContextualContent}
+                      name={"seeder contextual content"}
                     />
                   </Group>
                   <Stack spacing={0}>

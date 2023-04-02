@@ -11,7 +11,10 @@ import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_co
 import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_conversation";
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
+import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
+import { stylesGradientRed } from "@/styles/styles_gradient_red";
 import { sIsLocal } from "@/s_state/is_local";
 import { useHookstate } from "@hookstate/core";
 import {
@@ -51,6 +54,7 @@ import {
   MdBarChart,
   MdCircle,
   MdGridView,
+  MdInfo,
   MdMessage,
   MdNotifications,
   MdNotificationsActive,
@@ -58,9 +62,9 @@ import {
   MdTimer,
   MdWatch,
 } from "react-icons/md";
+import toast from "react-simple-toasts";
 import useSound from "use-sound";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
-
 
 const listView = [
   {
@@ -221,6 +225,18 @@ const Dashboard = () => {
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
         >
+          <Navbar.Section mb={"lg"}>
+            <Paper shadow={"sm"} bg={"blue.2"} h={105}>
+              <Box w={{ sm: 200, lg: 300 }} p={"sm"}>
+                <Image width={150} src={"/logo-2.png"} alt={"logo"} />
+              </Box>
+              <Group position="right">
+                <ActionIcon onClick={() => toast("Project already running ...")}>
+                  <MdInfo color="white" />
+                </ActionIcon>
+              </Group>
+            </Paper>
+          </Navbar.Section>
           <Navbar.Section grow component={ScrollArea}>
             {listView.map((v) => (
               <NavLink
@@ -229,25 +245,31 @@ const Dashboard = () => {
                 //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
                 // }}
                 label={v.name}
-                icon={<v.icon size={24} color={"#BE2533"} />}
+                icon={
+                  <Avatar radius={100}>
+                    <v.icon size={24} color={"#BE2533"} />
+                  </Avatar>
+                }
                 key={v.id.toString()}
                 c={"dark"}
                 // defaultOpened
               >
                 {v.child.map((vv, i) => (
-                  <NavLink
-                    c={selectedView.value == vv.name ? "blue.8" : "blue.4"}
-                    icon={<MdCircle color="orange" />}
-                    variant={"filled"}
-                    fw={selectedView.value == vv.name ? "bold" : "light"}
-                    // bg={selectedView.value == vv.name ? "blue.1" : ""}
-                    label={_.lowerCase(vv.name)}
-                    key={`${v.id}${i}`}
-                    onClick={() => {
-                      selectedView.set(vv.name);
-                      setOpened(false);
-                    }}
-                  />
+                  <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
+                    <NavLink
+                      c={selectedView.value == vv.name ? "blue.8" : "blue.4"}
+                      icon={<MdCircle color="orange" />}
+                      variant={"filled"}
+                      fw={selectedView.value == vv.name ? "bold" : "light"}
+                      // bg={selectedView.value == vv.name ? "blue.1" : ""}
+                      label={_.lowerCase(vv.name)}
+                      key={`${v.id}${i}`}
+                      onClick={() => {
+                        selectedView.set(vv.name);
+                        setOpened(false);
+                      }}
+                    />
+                  </Paper>
                 ))}
               </NavLink>
             ))}
@@ -275,9 +297,9 @@ const Dashboard = () => {
       }
       header={
         <Header
-          height={{ base: 50, md: 100 }}
+          height={{ base: 50, md: 50 }}
           p="md"
-          bg={styleGradientLinierBlue}
+          bg={"blue.4"}
           sx={{
             boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
           }}
@@ -294,6 +316,7 @@ const Dashboard = () => {
                 mr="xl"
               />
             </MediaQuery>
+
             <Flex
               direction={"row"}
               justify={"space-between"}
@@ -303,11 +326,11 @@ const Dashboard = () => {
               <Group align={"center"}>
                 <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
                   <Group>
-                    <Box w={{ sm: 200, lg: 300 }}>
+                    {/* <Box w={{ sm: 200, lg: 300 }}>
                       <Image width={150} src={"/logo-2.png"} alt={"logo"} />
-                    </Box>
+                    </Box> */}
                     {/* <Text>{gSelectedView.value}</Text> */}
-                    {(gSelectedView.value == "Top 10 Province By Emotions" ||
+                    {/* {(gSelectedView.value == "Top 10 Province By Emotions" ||
                       gSelectedView.value == "Top 10 District by Emotions") && (
                       <Stack p={"xs"} spacing={0}>
                         <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
@@ -316,7 +339,8 @@ const Dashboard = () => {
                           Digital Intelligence Winning Program.
                         </Text>
                       </Stack>
-                    )}
+                    )} */}
+                    {/* <Title order={3} color={"blue.8"}>Eagle Eye Project</Title> */}
                   </Group>
                 </MediaQuery>
                 {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
@@ -337,8 +361,8 @@ const Dashboard = () => {
                     </Menu.Target> */}
 
                     <Menu.Target>
-                      <ActionIcon size={42} bg={"blue.1"} variant={"filled"}>
-                        <MdAccountCircle size={42} color={"gray"} />
+                      <ActionIcon radius={100} size={42} bg={"blue.1"} variant={"filled"}>
+                        <MdAccountCircle size={42} color={"babyblue"} />
                       </ActionIcon>
                     </Menu.Target>
                     <Menu.Dropdown bg={"blue"}>
@@ -412,13 +436,13 @@ const MyNotivication = () => {
       ></audio>
       {ada.value ? (
         <Indicator inline processing size={12}>
-          <ActionIcon onClick={onBukaDrawer} size={24}>
-            <MdNotifications size={24} />
+          <ActionIcon onClick={onBukaDrawer} size={32}>
+            <MdNotifications size={32} color={"orange"} />
           </ActionIcon>
         </Indicator>
       ) : (
-        <ActionIcon onClick={onBukaDrawer} size={24}>
-          <MdNotifications size={24} />
+        <ActionIcon onClick={onBukaDrawer} size={32}>
+          <MdNotifications size={32} color={"lightgray"} />
         </ActionIcon>
       )}
       <Drawer

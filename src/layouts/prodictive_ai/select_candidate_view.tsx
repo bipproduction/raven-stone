@@ -24,9 +24,9 @@ const SelectCandidateView = ({
       <Paper
         bg={"blue.1"}
         shadow={"md"}
-        my={50}
+        // my={50}
         pos={"sticky"}
-        top={100}
+        top={50}
         sx={{
           zIndex: 100,
         }}
