@@ -112,7 +112,7 @@ const EmotionalViewViaProvince = () => {
         sx={{
           zIndex: 100,
         }}
-        top={100}
+        top={50}
         mb={70}
       >
         <Group position="right">
@@ -360,7 +360,7 @@ const EmotionDetai2 = ({
       },
     ],
   };
-  
+
 
   // const dataContextDirection = {
   //   pendidikan: dataKabupaten?.attributes.pendidikan,

@@ -127,7 +127,7 @@ const NationWideRating = () => {
         bg={"blue.1"}
         pos={"sticky"}
         p={"xs"}
-        top={100}
+        top={50}
         sx={{
           zIndex: 100,
         }}

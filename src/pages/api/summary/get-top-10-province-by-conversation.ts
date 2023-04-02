@@ -2,12 +2,12 @@ import client from '@/lib/prisma_db';
 import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { date, emotion } = req.query
-    console.log(emotion)
+    const { date, emotion, candidateId } = req.query
+    // console.log(emotion)
     const data = await client.dataByContent.findMany({
         where: {
             date: new Date(date as string),
-            candidateId: 1
+            candidateId: Number(candidateId )
         },
         orderBy: {
             [_.lowerCase(emotion as string)]: "desc"
@@ -44,20 +44,20 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
         provinceId: v.Province?.id,
         provinceName: v.Province?.name,
         value: v.City?.CityValue[0].value,
-        trust: Math.floor((v.anger! / 100) * v.City?.CityValue![0].value!),
-        joy: Math.floor((v.anticipation! / 100) * v.City?.CityValue![0].value!),
-        surprise: Math.floor((v.disgust! / 100) * v.City?.CityValue![0].value!),
-        anticipation: Math.floor((v.fear! / 100) * v.City?.CityValue![0].value!),
-        sadness: Math.floor((v.joy! / 100) * v.City?.CityValue![0].value!),
-        fear: Math.floor((v.sadness! / 100) * v.City?.CityValue![0].value!),
-        anger: Math.floor((v.surprise! / 100) * v.City?.CityValue![0].value!),
-        disgust: Math.floor((v.trust! / 100) * v.City?.CityValue![0].value!)
+        trust: Math.floor((v.trust! / 100) * v.City?.CityValue![0].value!),
+        joy: Math.floor((v.joy! / 100) * v.City?.CityValue![0].value!),
+        surprise: Math.floor((v.surprise! / 100) * v.City?.CityValue![0].value!),
+        anticipation: Math.floor((v.anticipation! / 100) * v.City?.CityValue![0].value!),
+        sadness: Math.floor((v.sadness! / 100) * v.City?.CityValue![0].value!),
+        fear: Math.floor((v.fear! / 100) * v.City?.CityValue![0].value!),
+        anger: Math.floor((v.anger! / 100) * v.City?.CityValue![0].value!),
+        disgust: Math.floor((v.disgust! / 100) * v.City?.CityValue![0].value!)
     }))
 
     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({
         id: o[0].provinceId,
         name: o[0].provinceName,
-        value: _.sumBy(o, 'value'),
+        // value: _.sumBy(o, 'value'),
         trust: _.sumBy(o, "trust"),
         joy: _.sumBy(o, "anger"),
         surprise: _.sumBy(o, "anticipation"),
@@ -66,7 +66,11 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
         fear: _.sumBy(o, "joy"),
         anger: _.sumBy(o, "sadness"),
         disgust: _.sumBy(o, "surprise"),
-
+    })).map((v) => ({
+        name: v.name,
+        value: v.trust + v.joy + v.surprise + v.anticipation + v.sadness + v.fear + v.anger + v.disgust,
+        ..._.omit(v, 'name'),
+        
     }))
 
     const hasil3 = _.orderBy(hasil2, [_.lowerCase(emotion as string)], "desc")

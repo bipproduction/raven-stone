@@ -1,0 +1,2012 @@
+[
+    {
+        "title": "Kedekatan Jokowi Prabowo Ganjar",
+        "audiences": 32236118,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 52.3,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 26
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 22
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 14
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 17
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 14
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 69
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 19
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 29
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 52
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 21.4,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 24
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 16
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 20
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 24
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 56
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 21
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 23
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 56
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 26.3,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 16
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 15
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 27
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 19
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 22
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 59
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 15
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 23
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 62
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Pejabat Pemerintah Memperkaya Diri",
+        "audiences": 11129003,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 6.2,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 15
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 36
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 58
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 35
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 40
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 36
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 24
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 11.4,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 11
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 28
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 37
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 28
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 36
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 36
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 34
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 28
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 38
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 82.4,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 16
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 35
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 17
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 11
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 9
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 23
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 68
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 33
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 39
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 28
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Isu Duet Prabowo dan Ganjar",
+        "audiences": 27448149,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 54.3,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 14
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 28
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 30
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 10
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 33
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 54
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 13
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 32
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 38
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 30
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 19.9,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 13
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 20
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 29
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 35
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 36
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 29
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 31
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 40
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 25.8,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 14
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 18
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 23
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 34
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 43
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 23
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 38
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 39
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Wacana Penundaan Pemilihan Umum Indonesia",
+        "audiences": 13120411,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 19.3,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 10
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 17
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 26
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 22
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 42
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 33
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 25
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 11
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 26
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 63
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 47.1,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 15
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 26
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 16
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 29
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 28
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 43
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 35
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 31
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 34
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 33.6,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 12
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 19
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 34
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 31
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 35
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 63
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 21
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 16
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Jokowi Selfie Dengan Prabowo dan Ganjar",
+        "audiences": 22263866,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 47.6,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 12
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 27
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 18
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 15
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 13
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 72
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 19
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 32
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 49
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 16.5,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 22
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 14
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 29
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 29
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 42
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 22
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 28
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 50
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 35.9,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 15
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 17
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 26
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 10
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 33
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 57
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 19
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 27
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 54
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Penolakan Ganjar Tim Israel Sepak Bola",
+        "audiences": 27374022,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 32.8,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 17
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 24
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 25
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 16
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 42
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 21
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 37
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 13
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 39
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 48
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 11.7,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 11
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 24
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 31
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 14
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 32
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 23
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 45
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 22
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 22
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 56
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 55.5,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 14
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 24
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 11
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 12
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 77
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 20
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 22
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 58
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Prabowo Lawan Anies Baswedan di Pilpres",
+        "audiences": 13826345,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 66.2,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 22
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 24
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 26
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 8
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 21
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 18
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 61
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 33
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 31
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 36
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 19.1,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 22
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 23
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 13
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 21
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 28
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 51
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 25
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 27
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 48
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 14.7,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 13
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 27
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 21
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 21
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 21
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 58
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 33
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 29
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 38
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Muhaimin Iskandar Imin Kuasai Jawa Timur",
+        "audiences": 6298311,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 22.3,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 24
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 16
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 32
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 7
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 55
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 31
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 14
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 43
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 32
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 25
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 19.1,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 12
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 27
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 29
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 14
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 27
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 32
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 41
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 33
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 26
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 41
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 58.6,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 17
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 26
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 20
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 11
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 25
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 64
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 36
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 39
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 25
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Survei Puan Maharani Terjun Bebas",
+        "audiences": 5209081,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 48.1,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 17
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 22
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 16
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 26
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 34
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 26
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 40
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 40
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 34
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 26
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 32.7,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 31
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 8
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 32
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 36
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 32
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 35
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 31
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 34
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 19.2,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 29
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 22
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 17
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 11
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 62
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 23
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 15
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 15
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 42
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 43
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Prabowo Selalu Bersama Jokowi",
+        "audiences": 19223802,
+        "emotion": [
+            {
+                "name": "positive",
+                "value": 74.1,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 15
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 22
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 26
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 34
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 3
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 17
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 19
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 64
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 25
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 21
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 54
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "neutral",
+                "value": 18.3,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 20
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 21
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 21
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 20
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 52
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 28
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 23
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 23
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 54
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "negative",
+                "value": 7.6,
+                "cluster": [
+                    {
+                        "name": "Prediksi cluster umur",
+                        "data": [
+                            {
+                                "name": "Remaja Akhir 18 - 25 tahun",
+                                "value": 14
+                            },
+                            {
+                                "name": "Dewasa Awal 26 - 35 tahun",
+                                "value": 18
+                            },
+                            {
+                                "name": "Dewasa Akhir 36 - 45 tahun",
+                                "value": 14
+                            },
+                            {
+                                "name": "Lanjut Usia Awal 46 - 55 tahun",
+                                "value": 19
+                            },
+                            {
+                                "name": "Lanjut Usia Akhir 56 - 65 tahun ",
+                                "value": 35
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster ekonomi",
+                        "data": [
+                            {
+                                "name": "rumahtangga kelas atas",
+                                "value": 37
+                            },
+                            {
+                                "name": "rumahtangga kelas tengah",
+                                "value": 39
+                            },
+                            {
+                                "name": "rumahtangga kelas bawah",
+                                "value": 24
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Prediksi cluster pendidikan",
+                        "data": [
+                            {
+                                "name": "pendidikan tingkat tinggi",
+                                "value": 44
+                            },
+                            {
+                                "name": "pendidikan tingkat menengah",
+                                "value": 46
+                            },
+                            {
+                                "name": "pendidikan tingkat dasar",
+                                "value": 10
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

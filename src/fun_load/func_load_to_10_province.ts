@@ -1,3 +1,4 @@
+import { gSelectedCandidate } from '@/g_state/g_map_state';
 import { gTop10ProvinceTake } from '@/g_state/top_10_province/g_top_10_province_take';
 import { gTop10Province } from '../g_state/top_10_province/g_top_10_province';
 import { api } from "@/lib/api";
@@ -6,7 +7,7 @@ import { gSelectedDate } from '@/g_state/g_map_state';
 import { gSelectedEmotion } from '@/g_state/g_selected_emotion';
 
 export const funcLoadTop10Province = () => fetch(
-    api.apiSummaryGetTop10ProvinceByConversation + `?date=${gSelectedDate.value}&emotion=${gSelectedEmotion.value}`
+    api.apiSummaryGetTop10ProvinceByConversation + `?date=${gSelectedDate.value}&emotion=${gSelectedEmotion.value}&candidateId=${gSelectedCandidate.value}`
 ).then(async (res) => {
     if (res.status === 200) {
         const data = await res.json();
