@@ -349,3 +349,16 @@ const hasil_emotion_candidate1_dan_candidate2 = {
   trust: ,
   surprise: 
 }
+
+
+urutkan berdasarkan positive , neutrall, negative
+berdasarkan teory sentiment , beserta warnanya
+
+1 trust
+2 joy
+3 surprise
+4 anticipation
+5 sadness
+6 fear
+7 anger
+8 disgust

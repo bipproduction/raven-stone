@@ -1,11 +1,19 @@
 import { gSelectedView } from "@/g_state/g_selected_view";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { stylesGradientCentiment } from "@/styles/styles_gradient_bg_centiment";
+import { stylesGradientBluegray } from "@/styles/styles_gradient_blue_gray";
+import { stylesGradientBlueWhiteTop } from "@/styles/styles_gradient_blue_white_top";
+import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
+import { sContextualContent } from "@/s_state/s_contextual_content";
 import {
   Box,
+  Chip,
   Divider,
   Flex,
   Group,
   Paper,
   SimpleGrid,
+  Spoiler,
   Stack,
   Text,
   Title,
@@ -16,20 +24,20 @@ import _ from "lodash";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import { MdArrowCircleUp } from "react-icons/md";
 import PageTitle from "../page_title";
-import list_contexttual_content from "./../../assets/contextual_content.json";
+// import list_contexttual_content from "./../../assets/contextual_content.json";
 
 const listColorCentiment = [
   {
     name: "positive",
-    color: "green.1",
+    color: stylesGradientCentiment.green,
   },
   {
     name: "neutral",
-    color: "yellow.1",
+    color: stylesGradientCentiment.gray,
   },
   {
     name: "negative",
-    color: "red.1",
+    color: stylesGradientCentiment.red,
   },
 ];
 
@@ -87,64 +95,97 @@ const ContextualContent = () => {
       <Divider mb={70} />
       {/* {JSON.stringify(list_contexttual_content)} */}
       <Stack>
-        {list_contexttual_content.map((v) => (
-          <Box key={v.title} pb={70}>
-            <Stack>
-              <Group>
-                <Title c={"gray.6"}>{v.title}</Title>
-                <Flex direction={"row"}>
-                  <MdArrowCircleUp color="green" size={24} />
-                  <Title c={"teal.8"}>
-                    {Intl.NumberFormat("id-ID").format(v.audiences)}
-                  </Title>
-                </Flex>
-              </Group>
-              <SimpleGrid cols={3}>
-                {v.emotion.map((v2) => (
-                  <AnimationOnScroll
-                    key={v2.name}
-                    initiallyVisible={true}
-                    animateIn={
-                      ["animate__slideInLeft", "animate__slideInRight"][
-                        _.random(0, 1)
-                      ]
-                    }
-                  >
-                    <Box key={v2.name}>
-                      <Paper
-                        shadow={"xs"}
-                        p={"md"}
-                        bg={
-                          listColorCentiment.find((c) => c.name == v2.name)
-                            ?.color
-                        }
-                      >
-                        <Group position="apart">
-                          <Title c={"gray"} order={3}>
-                            {_.upperCase(v2.name)}
-                          </Title>
-                          <Title c={"gray"} order={3}>
-                            {v2.value + " %"}
-                          </Title>
-                        </Group>
-                        <Stack>
-                          {v2.cluster.map((v3) => (
-                            <Box key={v3.name}>
-                              <Text c={"dark"} fw={"bold"}>
-                                {v3.name}
-                              </Text>
-                              <Divider />
-                              <ContextualItemChart data={v3.data} />
-                            </Box>
-                          ))}
-                        </Stack>
-                      </Paper>
-                    </Box>
-                  </AnimationOnScroll>
-                ))}
-              </SimpleGrid>
-            </Stack>
-          </Box>
+        {sContextualContent.value.map((v) => (
+          <Paper key={v.id} p={"md"}>
+            <Spoiler
+              maxHeight={42}
+              key={v.data.title}
+              showLabel={"show"}
+              hideLabel={"hide"}
+            >
+              <Box key={v.data.title} pb={70}>
+                <Stack>
+                  <Group>
+                    <Title order={3} c={"dark"}>
+                      {v.data.title}
+                    </Title>
+                    <Flex direction={"row"}>
+                      <MdArrowCircleUp color="green" size={24} />
+                      <Title order={3} c={"green"}>
+                        {Intl.NumberFormat("id-ID").format(v.data.audiences)}
+                      </Title>
+                    </Flex>
+                  </Group>
+                  <SimpleGrid cols={3}>
+                    {v.data.emotion.map((v2) => (
+                      <Box key={v2.name}>
+                        <Box
+                          // shadow={"xs"}
+                          p={"md"}
+                          // bg={
+                          //   listColorCentiment.find((c) => c.name == v2.name)
+                          //     ?.color
+                          // }
+                        >
+                          <Chip my={"sm"}>
+                            <Group position="apart">
+                              <Title c={"gray"} order={3}>
+                                {_.upperCase(v2.name)}
+                              </Title>
+                              <Title c={"gray"} order={3}>
+                                {v2.value + " %"}
+                              </Title>
+                            </Group>
+                          </Chip>
+                          <Stack>
+                            {v2.cluster.map((v3, i) => (
+                              <AnimationOnScroll
+                                key={i}
+                                initiallyVisible={true}
+                                animateIn={
+                                  [
+                                    "animate__slideInLeft",
+                                    "animate__slideInRight",
+                                  ][_.random(0, 1)]
+                                }
+                              >
+                                <Paper
+                                  p={"md"}
+                                  key={v3.name}
+                                  shadow={"md"}
+                                  bg={
+                                    listColorCentiment.find(
+                                      (c) => c.name == v2.name
+                                    )?.color
+                                  }
+                                >
+                                  <Text c={"dark"} fw={"bold"}>
+                                    {_.upperCase(v3.name)}
+                                  </Text>
+                                  <Divider />
+                                  <ContextualItemChart data={v3.data} />
+                                </Paper>
+                              </AnimationOnScroll>
+                            ))}
+                          </Stack>
+                        </Box>
+                      </Box>
+                      // <AnimationOnScroll
+                      //   key={v2.name}
+                      //   initiallyVisible={true}
+                      //   animateIn={
+                      //     ["animate__slideInLeft", "animate__slideInRight"][
+                      //       _.random(0, 1)
+                      //     ]
+                      //   }
+                      // >
+                      // </AnimationOnScroll>
+                    ))}
+                  </SimpleGrid>
+                </Stack>
+              </Box>
+            </Spoiler>
+          </Paper>
         ))}
       </Stack>
     </>

@@ -2,14 +2,14 @@ import client from '@/lib/prisma_db';
 import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { date, emotion } = req.query
+    const { date, emotion, candidateId } = req.query
     const data = await client.dataByContent.findMany({
         orderBy: {
             [_.lowerCase(emotion as string)]: "desc"
         },
         where: {
             date: new Date(date as any),
-            candidateId: 1
+            candidateId: Number(candidateId)
         },
         select: {
             City: {
@@ -40,15 +40,29 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
     })).map((v: any, ii) => ({
         no: ii + 1,
         city: v.city,
-        value: v.value,
+        // value: v.value,
         trust: Math.floor((v.trust / 100) * v.value),
         joy: Math.floor((v.joy / 100) * v.value),
-        surprise: Math.floor((v.anger / 100) * v.value),
+        surprise: Math.floor((v.surprise / 100) * v.value),
         anticipation: Math.floor((v.anticipation / 100) * v.value),
-        sadness: Math.floor((v.disgust / 100) * v.value),
+        sadness: Math.floor((v.sadness / 100) * v.value),
         fear: Math.floor((v.fear / 100) * v.value),
-        anger: Math.floor((v.sadness / 100) * v.value),
-        disgust: Math.floor((v.surprise / 100) * v.value),
+        anger: Math.floor((v.anger / 100) * v.value),
+        disgust: Math.floor((v.disgust / 100) * v.value),
+    })).map((v) => ({
+        no: v.no,
+        city: v.city,
+        value:
+            v.trust +
+            v.joy +
+            v.surprise +
+            v.anticipation +
+            v.sadness +
+            v.fear +
+            v.anger +
+            v.disgust,
+
+        ..._.omit(v, ['name', 'no'])
     }))
 
     res.status(200).json(hasil)

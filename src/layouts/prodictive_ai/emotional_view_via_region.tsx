@@ -42,7 +42,7 @@ const EmotionalViewViaRegion = () => {
         const datanya = _.omit(a.data.data, "id", "City");
         const ky = Object.keys(datanya);
         return `
-                  <div style="width: 300px; background: ${stylesGradientRed} ;padding:8px; color: gray">
+                  <div style="width: 300px; background: ${stylesGradientRed} ;padding:8px; color: ">
                   <h3>${a.data.data.City.name}</h3>
                   ${ky.map((v) => `${v}: ${datanya[v]}`).join("<br/>")}
                   </div>
