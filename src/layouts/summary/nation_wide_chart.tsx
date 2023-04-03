@@ -1,5 +1,6 @@
-import { gSelectedView } from "@/g_state/g_selected_view";
-import { gListNationWideChahrt } from "@/g_state/g_nation_wide_chart";
+// import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gListNationWideChahrt } from "@/g_state/g_nation_wide_chart";
+import { sListNationWideChahrt } from "@/s_state/s_list_nation_wide_chart";
 import { useHookstate } from "@hookstate/core";
 import { Paper, Space, Text, Title } from "@mantine/core";
 import { EChartsOption } from "echarts";
@@ -9,7 +10,7 @@ import moment from "moment";
 import PageTitle from "../page_title";
 
 const NationWideChart = () => {
-  const listNationWideNation = useHookstate(gListNationWideChahrt);
+  // const listNationWideNation = useHookstate(sListNationWideChahrt);
 
   const option: EChartsOption = {
     tooltip: {
@@ -38,7 +39,7 @@ const NationWideChart = () => {
       {
         type: "category",
         boundaryGap: false,
-        data: listNationWideNation.value.map((v) =>
+        data: sListNationWideChahrt.value.map((v) =>
           moment(v.date).format("YYYY-MM-DD")
         ),
       },
@@ -59,7 +60,7 @@ const NationWideChart = () => {
           color: "green",
         },
         smooth: false,
-        data: listNationWideNation.value.map((v) => v.positive),
+        data: sListNationWideChahrt.value.map((v) => v.positive),
       },
       {
         name: "Negative",
@@ -71,7 +72,7 @@ const NationWideChart = () => {
         itemStyle: {
           color: "red",
         },
-        data: listNationWideNation.value.map((v) => v.negative),
+        data: sListNationWideChahrt.value.map((v) => v.negative),
       },
       {
         name: "Neutral",
@@ -83,7 +84,7 @@ const NationWideChart = () => {
         itemStyle: {
           color: "orange",
         },
-        data: listNationWideNation.value.map((v) => v.neutral),
+        data: sListNationWideChahrt.value.map((v) => v.neutral),
       },
     ],
   };
