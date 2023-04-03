@@ -1,4 +1,5 @@
-import { gUser } from "@/g_state/auth/g_user";
+// import { gUser } from "@/g_state/auth/g_user";
+import { sUser } from "@/s_state/s_user";
 import { Button, Group, Modal, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { MdAccountCircle } from "react-icons/md";
@@ -18,7 +19,8 @@ export const ButtonLogout = () => {
             <Button
               onClick={() => {
                 localStorage.removeItem("user_id");
-                gUser.set({});
+                // gUser.set({});
+                sUser.value = {}
                 setOpen.close();
               }}
             >
