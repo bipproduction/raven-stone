@@ -1,9 +1,11 @@
-import {
-  gListKabupaten,
-  gSelectedCandidate,
-  gSelectedDate,
-} from "@/g_state/g_map_state";
+// import {
+//   gListKabupaten,
+//   gSelectedCandidate,
+//   gSelectedDate,
+// } from "@/g_state/g_map_state";
 import { api } from "@/lib/api";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import { Button, Group, JsonInput, Modal, Textarea } from "@mantine/core";
 import { useDisclosure, useInputState } from "@mantine/hooks";
 import _ from "lodash";
@@ -76,7 +78,7 @@ const InjectData = () => {
 
     fetch(
       api.apiUtilGetInjetData +
-        `?date=${gSelectedDate.value}&candidateId=${gSelectedCandidate.value}`
+        `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate.value}`
     )
       .then((res) => res.json())
       .then(setDatanya);
