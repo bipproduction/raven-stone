@@ -1,4 +1,4 @@
-import { gUser } from "@/g_state/auth/g_user";
+// import { gUser } from "@/g_state/auth/g_user";
 import DevAuthProvider from "@/layouts/dev/dev_auth_provider";
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
@@ -24,7 +24,7 @@ import { useState } from "react";
 import toast from "react-simple-toasts";
 
 const Dev = () => {
-  const user = useHookstate(gUser);
+  // const user = useHookstate(gUser);
   const syncNationWideChart = async () => {
     const res = await fetch(api.apiDevSyncNationWideChart);
     return res.ok;

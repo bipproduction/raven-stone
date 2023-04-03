@@ -1,2 +1,2 @@
 import { hookstate } from '@hookstate/core';
-export const gListDataPredictiveAiCouple = hookstate<any[]>([])
+// export const gListDataPredictiveAiCouple = hookstate<any[]>([])

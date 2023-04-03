@@ -1,6 +1,7 @@
-import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gSelectedView } from "@/g_state/g_selected_view";
 import { stylesGradientBluegray } from "@/styles/styles_gradient_blue_gray";
 import { stylesGradientOrange } from "@/styles/styles_gradient_orange";
+import { sSelectedView } from "@/s_state/s_selected_view";
 import { Box, Flex, Paper, Space, Stack, Text, Title } from "@mantine/core";
 import _ from "lodash";
 import { MdCircle } from "react-icons/md";
@@ -11,7 +12,7 @@ const PageTitle = ({ text }: { text?: string }) => {
       <Flex>
         <MdCircle color="orange" size={42} />
         <Stack spacing={0}>
-          <Title c={"blue.8"}>{_.upperCase(gSelectedView.value)}</Title>
+          <Title c={"blue.8"}>{_.upperCase(sSelectedView.value)}</Title>
           <Box
             p={"xs"}
             bg={stylesGradientBluegray}

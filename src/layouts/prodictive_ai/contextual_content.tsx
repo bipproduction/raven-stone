@@ -1,10 +1,11 @@
-import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gSelectedView } from "@/g_state/g_selected_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { stylesGradientCentiment } from "@/styles/styles_gradient_bg_centiment";
 import { stylesGradientBluegray } from "@/styles/styles_gradient_blue_gray";
 import { stylesGradientBlueWhiteTop } from "@/styles/styles_gradient_blue_white_top";
 import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
 import { sContextualContent } from "@/s_state/s_contextual_content";
+import { sSelectedView } from "@/s_state/s_selected_view";
 import {
   Box,
   Chip,
@@ -86,8 +87,8 @@ const ContextualItemChart = ({ data }: { [key: string]: any }) => {
 };
 
 const ContextualContent = () => {
-  if (gSelectedView.value != "Contextual Content")
-    return <>${gSelectedView.value}</>;
+  if (sSelectedView.value != "Contextual Content")
+    return <>${sSelectedView.value}</>;
   return (
     <>
       {/* <Title c={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}

@@ -1,10 +1,10 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
-import { gCandidate } from "@/g_state/g_candidate";
-import { gSelectedView } from "@/g_state/g_selected_view";
-import { gSelectedDate } from "@/g_state/g_map_state";
-import { gProvince } from "@/g_state/g_province";
-import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
-import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
+// import { gCandidate } from "@/g_state/g_candidate";
+// import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gSelectedDate } from "@/g_state/g_map_state";
+// import { gProvince } from "@/g_state/g_province";
+// import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
+// import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
 import { api } from "@/lib/api";
 import {
   Box,
@@ -23,6 +23,7 @@ import {
   Text,
   TextInput,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import {
   useDisclosure,
@@ -37,8 +38,8 @@ import { useState } from "react";
 import { MdJoinInner, MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
 import SwipeButton from "./swipe_button";
-import { gListDataPredictiveAiCouple } from "@/g_state/g_list_data_predictive_ai_couple";
-import { gPredictiveAiSearch } from "@/g_state/g_predictive_ai_search";
+// import { gListDataPredictiveAiCouple } from "@/g_state/g_list_data_predictive_ai_couple";
+// import { gPredictiveAiSearch } from "@/g_state/g_predictive_ai_search";
 import SelectCandidateView from "./select_candidate_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { AnimationOnScroll } from "react-animation-on-scroll";
@@ -49,6 +50,15 @@ import { sEmotionalViewViaProvinceCouple } from "@/s_state/s_emotional_view_via_
 import { listAnimation } from "@/styles/styles_animation";
 import { sCityContextDirection } from "@/s_state/s_city_ontext_irection";
 import { ModelDataKabupaten } from "@/model/model_data_kabupaten";
+import { sSelectedCandidate1 } from "@/s_state/s_selected_candidate1";
+import { sSelectedCandidate2 } from "@/s_state/s_selected_candidate2";
+import { sCandidate } from "@/s_state/s_candidate";
+import { sListDataPredictiveAiCouple } from "@/s_state/s_list_data_predictive_ai_couple";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import { sPredictiveAiSearch } from "@/s_state/s_predictive_ai_search";
+import { sProvince } from "@/s_state/s_province";
+import { sSelectedView } from "@/s_state/s_selected_view";
+import colors from "randomcolor";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -157,11 +167,11 @@ const EmotionalViewViaProvinceCouple = () => {
   const proccessData = async () => {
     fetch(
       api.apiPredictiveAiEmotionalViewViaProvinceCoupleByDateCandiate +
-        `?date=${gSelectedDate.value}&candidate1=${gSelectedCandidate1.value}&candidate2=${gSelectedCandidate2.value}`
+        `?date=${sSelectedDate.value}&candidate1=${sSelectedCandidate1.value}&candidate2=${sSelectedCandidate2.value}`
     )
       .then((res) => res.json())
       .then((val) => {
-        gListDataPredictiveAiCouple.set(val);
+        sListDataPredictiveAiCouple.value = val;
         update();
       });
   };
@@ -170,8 +180,8 @@ const EmotionalViewViaProvinceCouple = () => {
     proccessData();
   }, []);
 
-  if (gSelectedView.value != "Emotional View Via Province Couple")
-    return <>${gSelectedView.value}</>;
+  if (sSelectedView.value != "Emotional View Via Province Couple")
+    return <>${sSelectedView.value}</>;
   return (
     <>
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
@@ -190,14 +200,14 @@ const EmotionalViewViaProvinceCouple = () => {
               radius={100}
               width={100}
               src={
-                gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+                sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
                   ?.img
               }
               alt={"gambar_1"}
             />
             <Text>
               {
-                gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+                sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
                   ?.name
               }
             </Text>
@@ -210,14 +220,14 @@ const EmotionalViewViaProvinceCouple = () => {
               radius={100}
               width={100}
               src={
-                gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+                sCandidate.value.find((v) => v.id == sSelectedCandidate2.value)
                   ?.img
               }
               alt={"gambar_1"}
             />
             <Text>
               {
-                gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+                sCandidate.value.find((v) => v.id == sSelectedCandidate2.value)
                   ?.name
               }
             </Text>
@@ -226,9 +236,9 @@ const EmotionalViewViaProvinceCouple = () => {
       </Paper>
       {/* {JSON.stringify(listData)} */}
       <Flex direction={"row"} wrap={"wrap"} justify={"center"} align={"center"}>
-        {gListDataPredictiveAiCouple.value
+        {sListDataPredictiveAiCouple.value
           .filter((v: any) =>
-            _.lowerCase(v.name).includes(_.lowerCase(gPredictiveAiSearch.value))
+            _.lowerCase(v.name).includes(_.lowerCase(sPredictiveAiSearch.value))
           )
           .map((v: any) => (
             <AnimationOnScroll
@@ -262,12 +272,12 @@ const EmotionalViewViaProvinceCouple = () => {
                     </Text>
                   </Stack>
                   <Text size={24}>
-                    {gProvince.value.find((p) => p.id == v.provinceId).name}
+                    {sProvince.value.find((p) => p.id == v.provinceId).name}
                   </Text>
                   <EmotionalViewDetailButton
                     provinceId={v.provinceId}
                     provinceName={
-                      gProvince.value.find((p) => p.id == v.provinceId).name
+                      sProvince.value.find((p) => p.id == v.provinceId).name
                     }
                   />
                 </Stack>
@@ -549,7 +559,7 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
             <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
               <Stack>
                 {/* {JSON.stringify(dataContextDirection)} */}
-                
+
                 <EChartsReact option={option1} />
                 <Group position="center">
                   <Text fw={"bold"}>
@@ -562,6 +572,8 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
             <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
               <EChartsReact option={optionContextDirection} />
             </Paper>
+            <WordCloud data={data} />
+            <LeaderPersonaPredictionChart data={data} />
           </SimpleGrid>
           <Space h={70} />
           <SimpleGrid cols={4}>
@@ -572,6 +584,122 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
           </SimpleGrid>
         </ScrollArea>
       </Modal>
+    </>
+  );
+};
+
+const WordCloud = ({ data }: { data: any }) => {
+  // console.log(data.cityId)
+  const [listData, setlistData] = useState<any[]>();
+  useShallowEffect(() => {
+    fetch(api.apiPredictiveAiWordCloudGet + `?cityId=${data.cityId}`)
+      .then((v) => v.json())
+      .then((v) => {
+        if (v) {
+          setlistData(v.data.content);
+        }
+      });
+  }, []);
+
+  return (
+    <>
+      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+        <Title order={3}>Regions Hot Issue </Title>
+        <Group p={0} spacing={0} align={"center"} position={"center"}>
+          {listData?.map((v, i) => (
+            <Tooltip key={Math.random()} label={v.title}>
+              <Text
+                fw={"bold"}
+                span
+                c={colors()}
+                m={0}
+                p={0}
+                size={Math.floor(v.value / 2)}
+              >
+                {v.title}
+              </Text>
+            </Tooltip>
+          ))}
+        </Group>
+      </Paper>
+    </>
+  );
+};
+
+const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
+  const [listData, setlistData] = useState<any[]>([]);
+  useShallowEffect(() => {
+    fetch(api.apiPredictiveAiWordCloudGet + `?cityId=${data.cityId}`)
+      .then((v) => v.json())
+      .then((v) => {
+        if (v) {
+          console.log(v);
+          setlistData(v.data.content);
+        }
+      });
+  }, []);
+
+  const option1: EChartsOption = {
+    // title: {
+    //   text: "Context Direction",
+    // },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+      formatter: (a: any, b) => {
+        // console.log(JSON.stringify(a));
+        return `
+        <div style="background:${stylesGradient1}; width: 300px; padding: 16px">
+        <i>${_.upperCase(a[0].title)}</i>
+        <h1>${Intl.NumberFormat("id-ID").format(a[0].value)} </h1>
+        </div>
+        `;
+      },
+    },
+    legend: {},
+    grid: {
+      left: "3%",
+      right: "4%",
+      bottom: "3%",
+      containLabel: true,
+    },
+    xAxis: {
+      type: "value",
+      boundaryGap: [0, 0.01],
+      // max: 100,
+      axisLabel: {
+        formatter: (v: any) => {
+          // console.log(JSON.stringify(v))
+          return `${v} `;
+        },
+      },
+    },
+    yAxis: {
+      type: "category",
+      data: listData.map((v) => v.title),
+    },
+    series: [
+      {
+        // name: "2011",
+        type: "bar",
+        data: listData.map((v) => v.value),
+      },
+    ],
+  };
+
+  return (
+    <>
+      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+        <Title order={3}>Leader Persona Prediction </Title>
+        <EChartsReact
+          style={{
+            height: 560,
+          }}
+          option={option1}
+        />
+      </Paper>
     </>
   );
 };

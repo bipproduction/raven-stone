@@ -1,4 +1,4 @@
-import { gListCity } from './../../../src/g_state/g_list_city';
+// import { gListCity } from './../../../src/g_state/g_list_city';
 import client from '@/lib/prisma_db';
 import _ from 'lodash';
 import dataKab from './../data_kabupaten_v2.json'
