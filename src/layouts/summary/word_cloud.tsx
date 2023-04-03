@@ -18,7 +18,8 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import randomcolor from "randomcolor";
 import { AnimationOnScroll } from "react-animation-on-scroll";
-import { gSelectedView } from "@/g_state/g_selected_view";
+import { sSelectedView } from "@/s_state/s_selected_view";
+// import { gSelectedView } from "@/g_state/g_selected_view";
 
 const words = [
   {
@@ -65,7 +66,7 @@ const listNya = [
 const WordCloud = () => {
   const listData = useHookstate(gLiistWordCloud);
   const [list, setlist] = useState<any[]>([]);
-  const selectedPage = useHookstate(gSelectedView);
+  // const selectedPage = useHookstate(sSelectedView);
 
   useShallowEffect(() => {
     if (listData.value.length > 0) {
@@ -76,7 +77,7 @@ const WordCloud = () => {
     }
   }, []);
 
-  if (selectedPage.value != "Word Cloud") return <></>;
+  if (sSelectedView.value != "Word Cloud") return <></>;
 
   return (
     <>

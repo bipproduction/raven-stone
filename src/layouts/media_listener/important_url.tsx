@@ -1,4 +1,4 @@
-import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gSelectedView } from "@/g_state/g_selected_view";
 import { ModelB24ImportantUrl } from "@/model/media_listener/important_url";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { Paper, Stack, Text, Title } from "@mantine/core"

@@ -1,5 +1,6 @@
-import { gProvince } from "@/g_state/g_province";
+// import { gProvince } from "@/g_state/g_province";
 import { api } from "@/lib/api";
+import { sProvince } from "@/s_state/s_province";
 import { useShallowEffect } from "@mantine/hooks";
 
 const LoadProvince = () => {
@@ -8,7 +9,9 @@ const LoadProvince = () => {
     console.log("ini load province")
     fetch(api.apiUtilGetProvince)
       .then((v) => v.json())
-      .then(gProvince.set);
+      .then(v => {
+        sProvince.value = v
+      });
   }, []);
   return <></>;
 };
