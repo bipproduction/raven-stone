@@ -1,18 +1,23 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadEmotionalViwViaProvinceByDate } from "@/fun_load/func_load_emotion_view_via_province";
-import { gCandidate } from "@/g_state/g_candidate";
+// import { gCandidate } from "@/g_state/g_candidate";
 // import { gCityContextDirection } from "@/g_state/g_city_context_direction";
-import { gSelectedDate } from "@/g_state/g_map_state";
-import { gSelectedProvince } from "@/g_state/g_selected_province";
-import { gSelectedView } from "@/g_state/g_selected_view";
-import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
+// import { gSelectedDate } from "@/g_state/g_map_state";
+// import { gSelectedProvince } from "@/g_state/g_selected_province";
+// import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
 import { gEmotionalViewViaProvince } from "@/g_state/predictive_ai/g_emotional_view_via_province";
 import { api } from "@/lib/api";
 import { ModelDataKabupaten } from "@/model/model_data_kabupaten";
 import { ModelEmotionalViewViaProvinceCity } from "@/model/predictive_ai/model_emotional_view_via_province_city";
 import { listAnimation } from "@/styles/styles_animation";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { sCandidate } from "@/s_state/s_candidate";
 import { sCityContextDirection } from "@/s_state/s_city_ontext_irection";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import { sSelectedCandidate1 } from "@/s_state/s_selected_candidate1";
+import { sSelectedProvince } from "@/s_state/s_selected_province";
+import { sSelectedView } from "@/s_state/s_selected_view";
 // import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
 import {
   Box,
@@ -27,6 +32,7 @@ import {
   Text,
   TextInput,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import {
   useDisclosure,
@@ -40,6 +46,7 @@ import { useState } from "react";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import { MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
+import colors from "randomcolor";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -95,8 +102,8 @@ const EmotionalViewViaProvince = () => {
   const update = useForceUpdate();
   const [search, setSearch] = useState("");
 
-  if (gSelectedView.value != "Emotional View Via Province")
-    return <>${gSelectedView.value}</>;
+  if (sSelectedView.value != "Emotional View Via Province")
+    return <>${sSelectedView.value}</>;
   return (
     <>
       {/* <Text size={32} fw={"bold"} color={"cyan.8"}>
@@ -123,17 +130,18 @@ const EmotionalViewViaProvince = () => {
           />
           <Select
             placeholder={
-              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+              sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
                 ?.name
             }
             data={
-              gCandidate.value.map((v) => ({
+              sCandidate.value.map((v) => ({
                 label: v.name,
                 value: v.id,
               })) as any
             }
             onChange={async (val) => {
-              gSelectedCandidate1.set(Number(val));
+              // gSelectedCandidate1.set(Number(val));
+              sSelectedCandidate1.value = Number(val);
               await funcLoadEmotionalViwViaProvinceByDate();
               update();
             }}
@@ -184,7 +192,8 @@ const EmotionalViewViaProvince = () => {
                   <Button
                     compact
                     onClick={() => {
-                      gSelectedProvince.set(v.id);
+                      // sSelectedProvince.set(v.id);
+                      sSelectedProvince.value = v.id;
                       setOpenDetail.open();
                     }}
                     variant={"outline"}
@@ -198,7 +207,7 @@ const EmotionalViewViaProvince = () => {
       </Group>
       <Modal fullScreen opened={openDetain} onClose={setOpenDetail.close}>
         <Paper p={"md"}>
-          {gSelectedProvince.value && <EmotionViewDetail />}
+          {sSelectedProvince.value && <EmotionViewDetail />}
         </Paper>
       </Modal>
     </>
@@ -264,7 +273,7 @@ const EmotionViewDetail = () => {
   useShallowEffect(() => {
     fetch(
       api.apiPredictiveAiEmotionalViewViaProvinceByDateCandidateProvince +
-        `?date=${gSelectedDate.value}&candidateId=${gSelectedCandidate1.value}&provinceId=${gSelectedProvince.value}`
+        `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate1.value}&provinceId=${sSelectedProvince.value}`
     )
       .then((v) => v.json())
       .then(setListDetail);
@@ -360,7 +369,6 @@ const EmotionDetai2 = ({
       },
     ],
   };
-
 
   // const dataContextDirection = {
   //   pendidikan: dataKabupaten?.attributes.pendidikan,
@@ -500,36 +508,152 @@ const EmotionDetai2 = ({
 
       <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen>
         <Stack>
-
-        {/* {JSON.stringify(dataKabupaten)} */}
-        <SimpleGrid cols={2}>
-          {/* {JSON.stringify(dataKabupaten)} */}
-          <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
-            <Stack>
-              {/* {JSON.stringify(dataContextDirection)} */}
-              <EChartsReact option={option1} />
-              <Group position="center">
-                <Text fw={"bold"}>
-                  {Intl.NumberFormat("id-ID").format(data.value)}
-                </Text>
-                <Text>DATA VOLUME</Text>
-              </Group>
-            </Stack>
-          </Paper>
-          <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
-            <EChartsReact option={optionContextDirection} />
-          </Paper>
-        </SimpleGrid>
-        <Space h={70} />
-        <SimpleGrid cols={4}>
-          {/* <ChartPie data={dataChartGender} name={"Gender"} />
+          {/* {JSON.stringify(data)} */}
+          <SimpleGrid cols={2} >
+            {/* {JSON.stringify(dataKabupaten)} */}
+            <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
+              <Stack>
+                {/* {JSON.stringify(dataContextDirection)} */}
+                <EChartsReact option={option1} />
+                <Group position="center">
+                  <Text fw={"bold"}>
+                    {Intl.NumberFormat("id-ID").format(data.value)}
+                  </Text>
+                  <Text>DATA VOLUME</Text>
+                </Group>
+              </Stack>
+            </Paper>
+            <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+              <EChartsReact option={optionContextDirection} />
+            </Paper>
+            <WordCloud data={data} />
+            <LeaderPersonaPredictionChart data={data} />
+          </SimpleGrid>
+          <Space h={70} />
+          <SimpleGrid cols={4}>
+            {/* <ChartPie data={dataChartGender} name={"Gender"} />
           <ChartPie data={dataChartUmur} name={"Usia"} />
           <ChartPie data={dataChartPendidikan} name={"Pendidikan"} />
           <ChartPie data={dataChartEkonomi} name={"Ekonomi"} /> */}
-        </SimpleGrid>
-      
+          </SimpleGrid>
         </Stack>
       </Modal>
+    </>
+  );
+};
+
+const WordCloud = ({ data }: { data: any }) => {
+  // console.log(data.cityId)
+  const [listData, setlistData] = useState<any[]>();
+  useShallowEffect(() => {
+    fetch(api.apiPredictiveAiWordCloudGet + `?cityId=${data.cityId}`)
+      .then((v) => v.json())
+      .then((v) => {
+        if (v) {
+          setlistData(v.data.content);
+        }
+      });
+  }, []);
+
+  return (
+    <>
+      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+        <Title order={3}>Regions Hot Issue </Title>
+        <Group p={0} spacing={0} align={"center"} position={"center"}>
+          {listData?.map((v, i) => (
+            <Tooltip key={Math.random()} label={v.title}>
+              <Text
+                fw={"bold"}
+                span
+                c={colors()}
+                m={0}
+                p={0}
+                size={Math.floor(v.value / 2)}
+              >
+                {v.title}
+              </Text>
+            </Tooltip>
+          ))}
+        </Group>
+      </Paper>
+    </>
+  );
+};
+
+const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
+  const [listData, setlistData] = useState<any[]>([]);
+  useShallowEffect(() => {
+    fetch(api.apiPredictiveAiWordCloudGet + `?cityId=${data.cityId}`)
+      .then((v) => v.json())
+      .then((v) => {
+        if (v) {
+          console.log(v);
+          setlistData(v.data.content);
+        }
+      });
+  }, []);
+
+  const option1: EChartsOption = {
+    // title: {
+    //   text: "Context Direction",
+    // },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+      formatter: (a: any, b) => {
+        // console.log(JSON.stringify(a));
+        return `
+        <div style="background:${stylesGradient1}; width: 300px; padding: 16px">
+        <i>${_.upperCase(a[0].title)}</i>
+        <h1>${Intl.NumberFormat("id-ID").format(a[0].value)} </h1>
+        </div>
+        `;
+      },
+    },
+    legend: {},
+    grid: {
+      left: "3%",
+      right: "4%",
+      bottom: "3%",
+      containLabel: true,
+    },
+    xAxis: {
+      type: "value",
+      boundaryGap: [0, 0.01],
+      // max: 100,
+      axisLabel: {
+        formatter: (v: any) => {
+          // console.log(JSON.stringify(v))
+          return `${v} `;
+        },
+      },
+    },
+    yAxis: {
+      type: "category",
+      data: listData.map((v) => v.title),
+    },
+    series: [
+      {
+        // name: "2011",
+        type: "bar",
+        data: listData.map((v) => v.value),
+      },
+    ],
+  };
+
+  return (
+    <>
+      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+        <Title order={3}>Leader Persona Prediction </Title>
+        <EChartsReact
+          style={{
+            height: 560,
+          }}
+          option={option1}
+        />
+      </Paper>
     </>
   );
 };

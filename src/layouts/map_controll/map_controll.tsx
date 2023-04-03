@@ -1,11 +1,5 @@
 import { funLoadMapData } from "@/fun_load/func_load_map_data";
-import {
-  gIstable,
-  glistCandidate,
-  gListKabupaten,
-  gSelectedCandidate,
-  gSelectedDate,
-} from "@/g_state/g_map_state";
+import {} from "@/g_state/g_map_state";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
@@ -16,21 +10,17 @@ import {
   Flex,
   Grid,
   Group,
-  JsonInput,
   Menu,
   Modal,
-  NumberInput,
-  Paper,
   Select,
   SimpleGrid,
   Slider,
   Stack,
   Text,
-  Title,
-  Tooltip,
 } from "@mantine/core";
 import { DatePicker, DatePickerInput } from "@mantine/dates";
-import { useDisclosure, useInputState, useShallowEffect } from "@mantine/hooks";
+import { useDisclosure, useShallowEffect } from "@mantine/hooks";
+import { signal } from "@preact/signals-react";
 import { EChartsOption, registerMap } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
@@ -38,27 +28,21 @@ import moment from "moment";
 import { useState } from "react";
 import { CSVLink } from "react-csv";
 import { FaCopy, FaLock, FaLockOpen, FaSearch } from "react-icons/fa";
-import {
-  MdAccountCircle,
-  MdClose,
-  MdDownload,
-  MdMap,
-  MdTableView,
-} from "react-icons/md";
+import { MdClose, MdDownload, MdMap, MdTableView } from "react-icons/md";
 import toast from "react-simple-toasts";
 import Spreadsheet from "react-spreadsheet";
 import ButtonAjustByProvince from "./dialog_ajust_by_province";
-import Swal from "sweetalert2";
-import { gIsDev } from "@/g_state/g_is_dev";
-import DevAppBar from "../dev/dev_app_bar";
 import InjectData from "./inject_data";
-import { signal } from "@preact/signals-react";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
 // import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
-import { api } from "@/lib/api";
-import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
 // import { gCityContextDirection } from "@/g_state/g_city_context_direction";
-import { sCityContextDirection } from "@/s_state/s_city_ontext_irection";
+import { sIstable } from "@/s_state/g_is_table";
+import { slistCandidate } from "@/s_state/s_list_candidate";
+import { sListKabupaten } from "@/s_state/s_list_kabupaten";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
+import MapControllContextDirection from "./map_controll_context_direction";
+import MapControllWorCloud from "./map_controll_word_cloud";
+import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -123,14 +107,15 @@ const LayoutMapControll = () => {
   const [bukaModal, setbukamodal] = useDisclosure(false);
   const [selectedData, setSelectedData] = useState<{ [key: string]: any }>({});
   const [listSelectedEmotion, setListSelectedEmotion] = useState<any[]>([]);
-  const listCandidate = useHookstate(glistCandidate);
-  const selectedCandidate = useHookstate(gSelectedCandidate);
-  const selectedDate = useHookstate(gSelectedDate);
+  // const listCandidate = useHookstate(glistCandidate);
+  // const selectedCandidate = useHookstate(gSelectedCandidate);
+  // const selectedDate = useHookstate(gSelectedDate);
   const [search, setSearch] = useState<string>("");
-  const listKabupaten = useHookstate(gListKabupaten);
+  // const listKabupaten = useHookstate(gListKabupaten);
   const [openCopyData, setCopyData] = useDisclosure(false);
   const [selectedDateCopyData, setSelectedDateCopyData] = useState<string>("");
-  const adalahTable = useHookstate(gIstable);
+  // const adalahTable = useHookstate(gIstable);
+  const [selectedCity, setSelectedCity] = useState<any | undefined>(undefined);
 
   useShallowEffect(() => {
     loadData();
@@ -143,7 +128,8 @@ const LayoutMapControll = () => {
     if (!resCandidate.ok) return console.log("error get candidate");
     const dataMap = await res.json();
     const dataCandidate = await resCandidate.json();
-    listCandidate.set(dataCandidate);
+    slistCandidate.value = dataCandidate;
+
     // for (let apa of dataMap.features) {
     //   apa.properties.name = apa.properties.NAME_2;
     //   apa.properties.value = apa.properties.Shape_Leng;
@@ -201,7 +187,7 @@ const LayoutMapControll = () => {
             textBorderWidth: 4,
           },
         },
-        data: listKabupaten.value
+        data: sListKabupaten.value
           .filter((v) => _.lowerCase(v.City.name).includes(_.lowerCase(search)))
           .map((v, i) => {
             const dt = _.omit<{}>(v, ["id", "City"]);
@@ -230,9 +216,11 @@ const LayoutMapControll = () => {
   const onEvent: Record<string, Function> = {
     click: (a: any, b: any, c: any) => {
       if (!a.data) return toast("empty data");
+      // console.log(a.data);
       setSelectedData(a.data);
-      const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
 
+      // console.log(a.data);
+      const dataFilter = _.omit(a.data, ["name", "data.id", "data.City"]).data;
       // eidt disini
       // console.log(dataFilter);
       const hasil = [];
@@ -255,9 +243,6 @@ const LayoutMapControll = () => {
       }
       setListSelectedEmotion(hasil);
       setbukamodal.open();
-    },
-    dataZoom: (a: any, b: any, c: any) => {
-      // console.log("a");
     },
   };
 
@@ -334,8 +319,8 @@ const LayoutMapControll = () => {
   };
 
   const fileName = () => {
-    const nama = listCandidate.value.find(
-      (v) => v.id === Number(selectedCandidate.value)
+    const nama = slistCandidate.value.find(
+      (v) => v.id === Number(sSelectedCandidate.value)
     );
     return `${_.snakeCase(nama ? nama.name : "error")}_data_kabupaten`;
   };
@@ -365,6 +350,41 @@ const LayoutMapControll = () => {
     setbukamodal.close();
   };
 
+  const onForce = () => {
+    // console.log(JSON.stringify(selectedCity, null, 2))
+    const dt = {
+      name: selectedCity.City.name,
+      data: selectedCity
+    };
+
+    setSelectedData(dt);
+    const dataFilter = _.omit(selectedCity, [
+      "id",
+      "City"
+    ]);
+
+    const hasil = [];
+    for (let i of [
+      "trust",
+      "joy",
+      "surprise",
+      "anticipation",
+      "sadness",
+      "fear",
+      "anger",
+      "disgust",
+    ]) {
+      const data = {
+        name: i,
+        value: dataFilter[i],
+        isChecked: true,
+      };
+      hasil.push(data);
+    }
+    setListSelectedEmotion(hasil);
+    setbukamodal.open();
+  };
+
   return (
     <>
       <Stack>
@@ -384,55 +404,72 @@ const LayoutMapControll = () => {
         >
           <Group>
             <DatePickerInput
-              value={new Date(selectedDate.value)}
+              value={new Date(sSelectedDate.value)}
               label={"select date"}
               onChange={(val) => {
                 if (val) {
-                  selectedDate.set(moment(val).format("YYYY-MM-DD"));
+                  // sSelectedDate.set(moment(val).format("YYYY-MM-DD"));
+                  sSelectedDate.value = moment(val).format("YYYY-MM-DD");
                   funLoadMapData();
                 }
               }}
               w={150}
             />
-            {!_.isEmpty(listCandidate.value) && (
+            {!_.isEmpty(slistCandidate.value) && (
               <Select
                 searchable
                 key={"1"}
                 label={"select candidate"}
-                value={selectedCandidate.value}
+                value={sSelectedCandidate.value}
                 placeholder={
-                  listCandidate.value.find(
-                    (v) => v.id == selectedCandidate.value
+                  slistCandidate.value.find(
+                    (v) => v.id == sSelectedCandidate.value
                   ).name
                 }
-                data={listCandidate.value.map((v) => ({
+                data={slistCandidate.value.map((v) => ({
                   label: v.name,
                   value: v.id,
                 }))}
                 onChange={(val) => {
                   if (val) {
-                    selectedCandidate.set(val!);
+                    // sSelectedCandidate.set(val!);
+                    sSelectedCandidate.value = val;
                     funLoadMapData();
                   }
                 }}
               />
             )}
-            <Autocomplete
-              data={listKabupaten.value.map((v) => ({
-                value: v.City.name,
-              }))}
-              icon={<FaSearch />}
-              value={search}
-              rightSection={
-                <ActionIcon onClick={() => setSearch("")}>
-                  <MdClose />
-                </ActionIcon>
-              }
-              label={"search kabupaten"}
-              onChange={(val) => {
-                setSearch(val);
-              }}
-            />
+            <Flex align={"end"} gap={"md"}>
+              <Autocomplete
+                data={sListKabupaten.value.map((v) => ({
+                  value: v.City.name,
+                }))}
+                icon={<FaSearch />}
+                value={search}
+                rightSection={
+                  <ActionIcon onClick={() => setSearch("")}>
+                    <MdClose />
+                  </ActionIcon>
+                }
+                label={"search kabupaten"}
+                onChange={(val) => {
+                  setSearch(val);
+                }}
+                onItemSubmit={(val) => {
+                  const dataCity = sListKabupaten.value.find(
+                    (v) => v.City.name == val.value
+                  );
+                  if (dataCity) {
+                    setSelectedCity(dataCity);
+                  }
+                }}
+              />
+              {selectedCity && (
+                <Button onClick={onForce} compact>
+                  Force Select
+                </Button>
+              )}
+            </Flex>
           </Group>
           {/* <Text>{JSON.stringify(listCandidate.value)}</Text> */}
           <Flex align={"end"} gap={"lg"}>
@@ -447,19 +484,15 @@ const LayoutMapControll = () => {
               </Menu.Dropdown>
             </Menu>
             <Button
-              leftIcon={adalahTable.value ? <MdMap /> : <MdTableView />}
+              leftIcon={sIstable.value ? <MdMap /> : <MdTableView />}
               compact
-              onClick={() => adalahTable.set(!adalahTable.value)}
+              onClick={() => (sIstable.value = !sIstable.value)}
             >
-              {adalahTable.value ? (
-                <Text>Map View</Text>
-              ) : (
-                <Text>Table View</Text>
-              )}
+              {sIstable.value ? <Text>Map View</Text> : <Text>Table View</Text>}
             </Button>
 
             <ButtonAjustByProvince />
-            {listKabupaten.value && listKabupaten.value[0] && (
+            {sListKabupaten.value && sListKabupaten.value[0] && (
               <CSVLink
                 title="download"
                 style={{
@@ -467,7 +500,7 @@ const LayoutMapControll = () => {
                 }}
                 filename={fileName()}
                 data={
-                  listKabupaten.value.map((v: any) => ({
+                  sListKabupaten.value.map((v: any) => ({
                     ..._.omit(v, ["City"]),
                     kabupaten: v.City.name,
                   })) as any
@@ -492,7 +525,7 @@ const LayoutMapControll = () => {
             />
             <Stack spacing={0}>
               <Text>From</Text>
-              <Text>{selectedDate.value}</Text>
+              <Text>{sSelectedDate.value}</Text>
               <Text>To</Text>
               <Text>
                 {!_.isEmpty(selectedDateCopyData) && selectedDateCopyData}
@@ -500,13 +533,13 @@ const LayoutMapControll = () => {
 
               {!_.isEmpty(selectedDateCopyData) &&
                 moment(selectedDateCopyData).diff(
-                  moment(selectedDate.value),
+                  moment(sSelectedDate.value),
                   "days"
                 ) > 0 && (
                   <Button
                     onClick={async () => {
                       const res = await fetch(
-                        `/api/copy-data?from=${selectedDate.value}&to=${selectedDateCopyData}`
+                        `/api/copy-data?from=${sSelectedDate.value}&to=${selectedDateCopyData}`
                       );
 
                       if (res.status != 201) return toast("error");
@@ -523,37 +556,23 @@ const LayoutMapControll = () => {
         {/* modal data configuration emotion */}
         <Modal opened={bukaModal} onClose={setbukamodal.close} size={"70%"}>
           <Stack>
+            <Group position="right">
+              <MapControllContextDirection dataKab={selectedData} />
+              <MapControllWorCloud dataKab={selectedData} />
+              <MapControllLeaderPersonaPrediction dataKab={selectedData} />
+            </Group>
             <Flex justify={"space-between"}>
               <Text size={24} fw={"bold"}>
                 {_.upperCase(selectedData.name)}
               </Text>
-              <Group>
-                <Button.Group>
-                  <Button w={100} compact onClick={onProccess}>
-                    Procccess
-                  </Button>
-                  <Button w={100} compact bg={"pink"} onClick={onClear}>
-                    Clear
-                  </Button>
-                  <Button
-                    w={100}
-                    compact
-                    onClick={() =>
-                      (openContextDirection.value = !openContextDirection.value)
-                    }
-                  >
-                    Context Direction
-                  </Button>
-                </Button.Group>
-              </Group>
             </Flex>
 
             <Divider />
 
             {/* akan muncul jika kondisi true untuk context  */}
-            {openContextDirection.value && (
-              <EditorCityContextDirection dataKab={selectedData} />
-            )}
+            {/* {openContextDirection.value && (
+              <MapControllContextDirection dataKab={selectedData} />
+            )} */}
             <SimpleGrid cols={2}>
               {listSelectedEmotion.map((v) => (
                 <Stack
@@ -625,13 +644,32 @@ const LayoutMapControll = () => {
                 </Stack>
               ))}
             </SimpleGrid>
+            <Group position="right">
+              <Button.Group>
+                <Button w={100} compact onClick={onProccess}>
+                  Procccess
+                </Button>
+                <Button w={100} compact bg={"pink"} onClick={onClear}>
+                  Clear
+                </Button>
+                {/* <Button
+                    w={100}
+                    compact
+                    onClick={() =>
+                      (openContextDirection.value = !openContextDirection.value)
+                    }
+                  >
+                    Context Direction
+                  </Button> */}
+              </Button.Group>
+            </Group>
           </Stack>
         </Modal>
         <Box top={100} pos={"relative"}>
           {isMap && (
             <Box>
               <Stack>
-                <Box hidden={adalahTable.value}>
+                <Box hidden={sIstable.value}>
                   <EChartsReact
                     onEvents={onEvent}
                     style={{
@@ -640,10 +678,10 @@ const LayoutMapControll = () => {
                     option={option}
                   />
                 </Box>
-                <Box hidden={!adalahTable.value}>
+                <Box hidden={!sIstable.value}>
                   <TableView
-                    key={listKabupaten.value.length}
-                    dataKabupaten={listKabupaten.value}
+                    key={sListKabupaten.value.length}
+                    dataKabupaten={sListKabupaten.value}
                   />
                 </Box>
               </Stack>
@@ -656,7 +694,7 @@ const LayoutMapControll = () => {
 };
 
 const TableView = ({ dataKabupaten }: any) => {
-  const keyKab = useHookstate(gListKabupaten);
+  const keyKab = useHookstate(sListKabupaten);
   const [lsTable, setLsTable] = useState<any[]>([]);
 
   useShallowEffect(() => {}, []);
@@ -695,63 +733,6 @@ const TableView = ({ dataKabupaten }: any) => {
         <Spreadsheet data={olahData()} />
       </Stack>
     </>
-  );
-};
-
-const EditorCityContextDirection = ({ dataKab }: { dataKab: any }) => {
-  const hasilEdit = signal<any[]>([]);
-  const cityId = dataKab.data.City.id;
-  const listDataContextDirection: { [key: string]: any } =
-  sCityContextDirection.value.find((v) => v.cityId == cityId) ?? {};
-
-  const onSave = () => {
-    const body = {
-      id: listDataContextDirection.id,
-      content: listDataContextDirection.content,
-    };
-
-    fetch(api.apiUtilCityContextDirectionUpdate, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }).then((v) => {
-      if (v.status == 201) {
-        toast("success");
-        funcLoadCityContextDirection();
-      }
-    });
-  };
-  return (
-    <Paper p={"xs"} bg={stylesGradient1}>
-      {/* <Text>{JSON.stringify(dataKab.data.City.id)}</Text> */}
-      <Title order={3}>Context Direction</Title>
-      {/* {JSON.stringify(listDataContextDirection)} */}
-      <SimpleGrid cols={3}>
-        {listDataContextDirection.content.map((v: any, i: any) => (
-          <Box key={v.name}>
-            <NumberInput
-              min={0}
-              label={v.name}
-              placeholder={v.value.toString()}
-              onChange={(val) => {
-                if (val) {
-                  // disini
-                  listDataContextDirection.content[i].value = val;
-                  hasilEdit.value = listDataContextDirection.content;
-                }
-              }}
-            />
-          </Box>
-        ))}
-      </SimpleGrid>
-      <Group position="right" p={"xs"}>
-        <Button onClick={onSave} compact>
-          SAVE
-        </Button>
-      </Group>
-    </Paper>
   );
 };
 

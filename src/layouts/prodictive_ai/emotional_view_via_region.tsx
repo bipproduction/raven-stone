@@ -1,9 +1,12 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
-import { gIndonesiaMap } from "@/g_state/g_indonesia_map";
-import { gListKabupaten } from "@/g_state/g_map_state";
-import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gIndonesiaMap } from "@/g_state/g_indonesia_map";
+// import { gListKabupaten } from "@/g_state/g_map_state";
+// import { gSelectedView } from "@/g_state/g_selected_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { stylesGradientRed } from "@/styles/styles_gradient_red";
+import { sIndonesiaMap } from "@/s_state/s_indonesia_map";
+import { sListKabupaten } from "@/s_state/s_list_kabupaten";
+import { sSelectedView } from "@/s_state/s_selected_view";
 import { Paper } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
 import { registerMap } from "echarts";
@@ -19,7 +22,7 @@ const EmotionalViewViaRegion = () => {
   //   const indoensiaMap = useHookstate(gIndonesiaMap)
 
   const dataIndonesiaMap: { [key: string]: any } = {
-    ..._.clone(gIndonesiaMap.value),
+    ..._.clone(sIndonesiaMap.value),
   };
 
   //   dataIndonesiaMap?.features?.forEach((apa: any) => {
@@ -29,7 +32,7 @@ const EmotionalViewViaRegion = () => {
   //     }
   //   });
 
-  registerMap("indonesia", gIndonesiaMap.value as any);
+  registerMap("indonesia", sIndonesiaMap.value as any);
   const update = useForceUpdate();
   const option: EChartsOption = {
     toolbox: {
@@ -80,7 +83,7 @@ const EmotionalViewViaRegion = () => {
             textBorderWidth: 4,
           },
         },
-        data: gListKabupaten.value
+        data: sListKabupaten.value
           .filter((v) => _.lowerCase(v.City.name).includes(_.lowerCase(search)))
           .map((v, i) => {
             const dt = _.omit<{}>(v, ["id", "City"]);
@@ -105,8 +108,8 @@ const EmotionalViewViaRegion = () => {
     ],
   };
 
-  if (gSelectedView.value != "Emotional View Via Region")
-    return <>{gSelectedView.value}</>;
+  if (sSelectedView.value != "Emotional View Via Region")
+    return <>{sSelectedView.value}</>;
   return (
     <>
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />

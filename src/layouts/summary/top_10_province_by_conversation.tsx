@@ -1,11 +1,11 @@
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
-import { gCandidate } from "@/g_state/g_candidate";
-import { gListEmotion } from "@/g_state/g_list_emotion";
-import { gSelectedCandidate } from "@/g_state/g_map_state";
-import { gSelectedEmotion } from "@/g_state/g_selected_emotion";
-import { gTop10Province } from "@/g_state/top_10_province/g_top_10_province";
-import { gTop10ProvinceTake } from "@/g_state/top_10_province/g_top_10_province_take";
+// import { gCandidate } from "@/g_state/g_candidate";
+// import { gListEmotion } from "@/g_state/g_list_emotion";
+// import { gSelectedCandidate } from "@/g_state/g_map_state";
+// import { gSelectedEmotion } from "@/g_state/g_selected_emotion";
+// import { gTop10Province } from "@/g_state/top_10_province/g_top_10_province";
+// import { gTop10ProvinceTake } from "@/g_state/top_10_province/g_top_10_province_take";
 import { api } from "@/lib/api";
 import { ModelTop10Province } from "@/model/top_10_province";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
@@ -13,6 +13,12 @@ import { stylesGradientBluegray } from "@/styles/styles_gradient_blue_gray";
 import { stylesGradientBlueWhite } from "@/styles/styles_gradient_blue_white";
 import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
 import { stylesGradientYellow } from "@/styles/styles_gradient_yellow";
+import { sCandidate } from "@/s_state/s_candidate";
+import { sListEmotion } from "@/s_state/s_list_emotion";
+import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
+import { sSelectedEmotion } from "@/s_state/s_selected_emotion";
+import { sTop10Province } from "@/s_state/s_top_10_province";
+import { sTop10ProvinceTake } from "@/s_state/s_top_10_province_take";
 import {
   ActionIcon,
   Box,
@@ -38,7 +44,7 @@ const Top10ProvinceByConversation = () => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
   const update = useForceUpdate();
-  if (_.isEmpty(gTop10Province.value)) return <>loading</>;
+  if (_.isEmpty(sTop10Province.value)) return <>loading</>;
   return (
     <>
       <Stack>
@@ -58,16 +64,17 @@ const Top10ProvinceByConversation = () => {
               <Stack>
                 <Flex>
                   {[
-                    gCandidate.value.find((v) => v.id == 1),
-                    gCandidate.value.find((v) => v.id == 2),
-                    gCandidate.value.find((v) => v.id == 3),
+                    sCandidate.value.find((v) => v.id == 1),
+                    sCandidate.value.find((v) => v.id == 2),
+                    sCandidate.value.find((v) => v.id == 3),
                   ].map((v) => (
                     <Box key={v!.id} p={"sm"}>
                       <ActionIcon
                         radius={100}
                         size={63}
                         onClick={async () => {
-                          gSelectedCandidate.set(v!.id.toString());
+                          // gSelectedCandidate.set(v!.id.toString());
+                          sSelectedCandidate.value = v!.id.toString()
                           await funcLoadTop10District();
                           await funcLoadTop10Province();
                           update();
@@ -78,11 +85,11 @@ const Top10ProvinceByConversation = () => {
                           src={v?.img}
                           style={{
                             border:
-                              Number(gSelectedCandidate.value) == v?.id
+                              Number(sSelectedCandidate.value) == v?.id
                                 ? "4px solid yellow"
                                 : "",
                             filter:
-                              Number(gSelectedCandidate.value) == v?.id
+                              Number(sSelectedCandidate.value) == v?.id
                                 ? "none"
                                 : "grayscale(100%)",
                           }}
@@ -93,8 +100,8 @@ const Top10ProvinceByConversation = () => {
                 </Flex>
                 <Title color={"blue.1"} order={3}>
                   {
-                    gCandidate.value.find(
-                      (v) => v.id == Number(gSelectedCandidate.value)
+                    sCandidate.value.find(
+                      (v) => v.id == Number(sSelectedCandidate.value)
                     )?.name
                   }
                 </Title>
@@ -102,17 +109,18 @@ const Top10ProvinceByConversation = () => {
             </Paper>
             <Group position="right">
               <Select
-                placeholder={gSelectedEmotion.value}
+                placeholder={sSelectedEmotion.value}
                 variant={"filled"}
                 searchable
                 label={"sort emotion"}
-                data={gListEmotion.value.map((v) => ({
+                data={sListEmotion.value.map((v) => ({
                   label: v.name,
                   value: v.name,
                 }))}
                 onChange={async (val) => {
                   if (val) {
-                    gSelectedEmotion.set(val);
+                    // sSelectedEmotion.set(val);
+                    sSelectedEmotion.value = val
                     await funcLoadTop10District();
                     await funcLoadTop10Province();
                     update();
@@ -125,7 +133,7 @@ const Top10ProvinceByConversation = () => {
             <Table highlightOnHover verticalSpacing={"md"}>
               <thead>
                 <tr>
-                  {Object.keys(_.omit(gTop10ProvinceTake.value[0], "id")).map(
+                  {Object.keys(_.omit(sTop10ProvinceTake.value[0], "id")).map(
                     (v, i) => (
                       <th key={i}>
                         <Text c={"cyan.8"} fw={"bold"}>
@@ -137,7 +145,7 @@ const Top10ProvinceByConversation = () => {
                 </tr>
               </thead>
               <tbody>
-                {gTop10ProvinceTake.value.map((v: any, i) => (
+                {sTop10ProvinceTake.value.map((v: any, i) => (
                   <tr key={i}>
                     {Object.keys(_.omit(v, "id")).map((v2, ii) => (
                       <td
@@ -182,14 +190,14 @@ const Top10ProvinceByConversation = () => {
             </Table>
             <Group position="right">
               <Pagination
-                total={Math.ceil(gTop10Province.value.length / pageSize)}
+                total={Math.ceil(sTop10Province.value.length / pageSize)}
                 value={page}
                 onChange={(val) => {
                   const start = (val - 1) * pageSize;
                   const end = start + pageSize;
-                  const pageItem = _.slice(gTop10Province.value, start, end);
+                  const pageItem = _.slice(sTop10Province.value, start, end);
                   setPage(val);
-                  gTop10ProvinceTake.set(pageItem);
+                  sTop10ProvinceTake.value = pageItem;
                 }}
               />
             </Group>

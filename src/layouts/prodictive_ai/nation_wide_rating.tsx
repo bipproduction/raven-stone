@@ -1,14 +1,19 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
-import { gCandidate } from "@/g_state/g_candidate";
-import { gSelectedView } from "@/g_state/g_selected_view";
-import { gNationWideRating } from "@/g_state/nation_wide_rating/g_nation_wide_rating";
-import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
-import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
+// import { gCandidate } from "@/g_state/g_candidate";
+// import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gNationWideRating } from "@/g_state/nation_wide_rating/g_nation_wide_rating";
+// import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
+// import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
 import { ModelNationWideRating } from "@/model/predictive_ai/nation_wide_rating";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { stylesGradientRed } from "@/styles/styles_gradient_red";
 import { stylesGradientYellow } from "@/styles/styles_gradient_yellow";
+import { sCandidate } from "@/s_state/s_candidate";
+import { sNationWide } from "@/s_state/s_nation_wide";
+import { sSelectedCandidate1 } from "@/s_state/s_selected_candidate1";
+import { sSelectedCandidate2 } from "@/s_state/s_selected_candidate2";
+import { sSelectedView } from "@/s_state/s_selected_view";
 import {
   ActionIcon,
   Box,
@@ -117,8 +122,8 @@ const NationChartItem = ({
 
 const NationWideRating = () => {
   const update = useForceUpdate();
-  if (gSelectedView.value != "Nation Wide Rating")
-    return <>{gSelectedView.value}</>;
+  if (sSelectedView.value != "Nation Wide Rating")
+    return <>{sSelectedView.value}</>;
   return (
     <>
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
@@ -138,19 +143,20 @@ const NationWideRating = () => {
             key={Math.random()}
             onChange={(val) => {
               if (val) {
-                gSelectedCandidate1.set(Number(val));
+                // gSelectedCandidate1.set(Number(val));
+                sSelectedCandidate1.value = Number(val)
                 update();
               }
             }}
             placeholder={
-              gCandidate.value.find((v) => v.id == gSelectedCandidate1.value)
+              sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
                 ?.name
             }
             data={
-              gCandidate.value.map((v) => ({
+              sCandidate.value.map((v) => ({
                 label: v.name,
                 value: v.id,
-                disabled: v.id == gSelectedCandidate2.value,
+                disabled: v.id == sSelectedCandidate2.value,
               })) as []
             }
           />
@@ -159,19 +165,20 @@ const NationWideRating = () => {
             key={Math.random()}
             onChange={(val) => {
               if (val) {
-                gSelectedCandidate2.set(Number(val));
+                // sSelectedCandidate2.set();
+                sSelectedCandidate2.value = Number(val)
                 update();
               }
             }}
             placeholder={
-              gCandidate.value.find((v) => v.id == gSelectedCandidate2.value)
+              sCandidate.value.find((v) => v.id == sSelectedCandidate2.value)
                 ?.name
             }
             data={
-              gCandidate.value.map((v) => ({
+              sCandidate.value.map((v) => ({
                 label: v.name,
                 value: v.id,
-                disabled: v.id == gSelectedCandidate1.value,
+                disabled: v.id == sSelectedCandidate1.value,
               })) as []
             }
           />
@@ -195,16 +202,16 @@ const NationWideRating = () => {
                 radius={100}
                 width={100}
                 src={
-                  gCandidate.value.find(
-                    (v) => v.id === gSelectedCandidate1.value
+                  sCandidate.value.find(
+                    (v) => v.id === sSelectedCandidate1.value
                   )?.img
                 }
-                alt={gSelectedCandidate1.value.toString()}
+                alt={sSelectedCandidate1.value.toString()}
               />
               <Text fw={"bold"} align="center">
                 {_.upperCase(
-                  gCandidate.value.find(
-                    (v) => v.id === gSelectedCandidate1.value
+                  sCandidate.value.find(
+                    (v) => v.id === sSelectedCandidate1.value
                   )?.name
                 )}
               </Text>
@@ -214,16 +221,16 @@ const NationWideRating = () => {
                 radius={100}
                 width={100}
                 src={
-                  gCandidate.value.find(
-                    (v) => v.id === gSelectedCandidate2.value
+                  sCandidate.value.find(
+                    (v) => v.id === sSelectedCandidate2.value
                   )?.img
                 }
-                alt={gSelectedCandidate2.value.toString()}
+                alt={sSelectedCandidate2.value.toString()}
               />
               <Text align="center" fw={"bold"}>
                 {_.upperCase(
-                  gCandidate.value.find(
-                    (v) => v.id === gSelectedCandidate2.value
+                  sCandidate.value.find(
+                    (v) => v.id === sSelectedCandidate2.value
                   )?.name
                 )}
               </Text>
@@ -232,7 +239,7 @@ const NationWideRating = () => {
         </Paper>
         <Space h={54} />
         <Paper w={"100%"} p={"md"} bg={stylesGradient1}>
-          <NationChartItem data={gNationWideRating.value as any} height={500} />
+          <NationChartItem data={sNationWide.value as any} height={500} />
         </Paper>
       </Flex>
       {/* {gNationWideRating.value
