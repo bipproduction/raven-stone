@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   Container,
+  Flex,
   Group,
   Loader,
   Paper,
@@ -359,18 +360,30 @@ const UtilDev = () => {
     set(ref(fDb, "/eagle_2/update"), !updateInfo);
   };
 
+  const onForceUpdate = async () => {
+    set(ref(fDb, "/eagle_2/force_reload/value"), Math.random()).then((val) => {
+      toast("success");
+    });
+  };
+
   return (
     <>
       <Stack>
         <Paper p={"md"}>
-          <Group>
-            <Stack>
-              <Text>Util</Text>
-              <Button onClick={infoUpdate}>
-                Info Update {updateInfo.toString()}
-              </Button>
-            </Stack>
-          </Group>
+          <Stack>
+            <Text>Util</Text>
+            <Group>
+              <Flex wrap={"wrap"} gap={"md"}>
+                <Stack spacing={0}>
+                  <Button color={"pink"} onClick={infoUpdate}>
+                    Info Update {updateInfo.toString()}
+                  </Button>
+                  <Text c={"gray"}>Hanya untuk developer</Text>
+                </Stack>
+                <Button onClick={onForceUpdate}>Force Update</Button>
+              </Flex>
+            </Group>
+          </Stack>
         </Paper>
       </Stack>
     </>
