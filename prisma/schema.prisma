@@ -280,15 +280,29 @@ model Province {
 }
 
 model City {
-  id                   Int                    @id @default(autoincrement())
-  name                 String?
-  Province             Province?              @relation(fields: [provinceId], references: [id])
-  provinceId           Int?
-  DataEmotion          DataEmotion[]
-  DataByContent        DataByContent[]
-  CityValue            CityValue[]
-  CityContext          CityContext[]
-  CityContextDirection CityContextDirection[]
+  id                          Int                           @id @default(autoincrement())
+  name                        String?
+  Province                    Province?                     @relation(fields: [provinceId], references: [id])
+  provinceId                  Int?
+  DataEmotion                 DataEmotion[]
+  DataByContent               DataByContent[]
+  CityValue                   CityValue[]
+  CityContext                 CityContext[]
+  CityContextDirection        CityContextDirection[]
+  CityWordCloud               CityWordCloud[]
+  CityLeaderPersonaPrediction CityLeaderPersonaPrediction[]
+}
+
+model CityWordCloud {
+  data   Json?
+  City   City? @relation(fields: [cityId], references: [id])
+  cityId Int   @id @default(autoincrement())
+}
+
+model CityLeaderPersonaPrediction {
+  data   Json?
+  City   City? @relation(fields: [cityId], references: [id])
+  cityId Int   @id @default(autoincrement())
 }
 
 // belum diketahui untuk apa alias lupa
@@ -372,7 +386,7 @@ model ContextualContent {
   data      Json?
   date      DateTime? @db.Date
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
 }
 
 // =====================================

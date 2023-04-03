@@ -1,13 +1,19 @@
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
-import { gCandidate } from "@/g_state/g_candidate";
-import { gListEmotion } from "@/g_state/g_list_emotion";
-import { gSelectedCandidate } from "@/g_state/g_map_state";
-import { gSelectedEmotion } from "@/g_state/g_selected_emotion";
-import { gTop10District } from "@/g_state/top_10_district/g_top_10_district";
-import { gTop10DistrictCount } from "@/g_state/top_10_district/g_top_10_district_take";
+// import { gCandidate } from "@/g_state/g_candidate";
+// import { gListEmotion } from "@/g_state/g_list_emotion";
+// import { gSelectedCandidate } from "@/g_state/g_map_state";
+// import { gSelectedEmotion } from "@/g_state/g_selected_emotion";
+// import { gTop10District } from "@/g_state/top_10_district/g_top_10_district";
+// import { gTop10DistrictCount } from "@/g_state/top_10_district/g_top_10_district_take";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { stylesGradientBlueWhite } from "@/styles/styles_gradient_blue_white";
+import { sCandidate } from "@/s_state/s_candidate";
+import { sListEmotion } from "@/s_state/s_list_emotion";
+import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
+import { sSelectedEmotion } from "@/s_state/s_selected_emotion";
+import { sTop10District } from "@/s_state/s_top_10_district";
+import { sTop10DistrictCount } from "@/s_state/s_top_10_district_count";
 import {
   ActionIcon,
   Avatar,
@@ -33,11 +39,10 @@ const Top10DistrictbyConversation = () => {
   const [page, setPage] = useState(1);
   const update = useForceUpdate();
 
-  if (gTop10District.value && !gTop10District.value[0]) return <></>;
+  if (sTop10District.value && !sTop10District.value[0]) return <></>;
 
   return (
     <>
-      
       {/* <Text>Top 10 District By Conversation</Text> */}
       <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
       <Paper
@@ -53,16 +58,17 @@ const Top10DistrictbyConversation = () => {
             <Stack>
               <Flex>
                 {[
-                  gCandidate.value.find((v) => v.id == 1),
-                  gCandidate.value.find((v) => v.id == 2),
-                  gCandidate.value.find((v) => v.id == 3),
+                  sCandidate.value.find((v) => v.id == 1),
+                  sCandidate.value.find((v) => v.id == 2),
+                  sCandidate.value.find((v) => v.id == 3),
                 ].map((v) => (
                   <Box key={v!.id} p={"sm"}>
                     <ActionIcon
                       radius={100}
                       size={63}
                       onClick={async () => {
-                        gSelectedCandidate.set(v!.id.toString());
+                        // sSelectedCandidate.set(v!.id.toString());
+                        sSelectedCandidate.value = v!.id.toString()
                         await funcLoadTop10District();
                         await funcLoadTop10Province();
                         update();
@@ -74,11 +80,11 @@ const Top10DistrictbyConversation = () => {
                         src={v?.img}
                         style={{
                           border:
-                            Number(gSelectedCandidate.value) == v?.id
+                            Number(sSelectedCandidate.value) == v?.id
                               ? "4px solid yellow"
                               : "",
                           filter:
-                            Number(gSelectedCandidate.value) == v?.id
+                            Number(sSelectedCandidate.value) == v?.id
                               ? "none"
                               : "grayscale(100%)",
                         }}
@@ -89,8 +95,8 @@ const Top10DistrictbyConversation = () => {
               </Flex>
               <Title color={"blue.1"} order={3}>
                 {
-                  gCandidate.value.find(
-                    (v) => v.id == Number(gSelectedCandidate.value)
+                  sCandidate.value.find(
+                    (v) => v.id == Number(sSelectedCandidate.value)
                   )?.name
                 }
               </Title>
@@ -98,17 +104,18 @@ const Top10DistrictbyConversation = () => {
           </Paper>
           <Group position="right">
             <Select
-              placeholder={gSelectedEmotion.value}
+              placeholder={sSelectedEmotion.value}
               variant={"filled"}
               searchable
               label={"sort emotion"}
-              data={gListEmotion.value.map((v) => ({
+              data={sListEmotion.value.map((v) => ({
                 label: v.name,
                 value: v.name,
               }))}
               onChange={async (val) => {
                 if (val) {
-                  gSelectedEmotion.set(val);
+                  // sSelectedEmotion.set(val);
+                  sSelectedEmotion.value = val
                   await funcLoadTop10District();
                   await funcLoadTop10Province();
                   update();
@@ -140,7 +147,7 @@ const Top10DistrictbyConversation = () => {
           <Table highlightOnHover verticalSpacing={"md"}>
             <thead>
               <tr>
-                {Object.keys(gTop10DistrictCount.value[0]).map((v) => (
+                {Object.keys(sTop10DistrictCount.value[0]).map((v) => (
                   <th key={v}>
                     <Text c={"cyan.8"} fw={"bold"}>
                       {_.upperCase(v)}
@@ -150,60 +157,54 @@ const Top10DistrictbyConversation = () => {
               </tr>
             </thead>
             <tbody>
-              {gTop10DistrictCount.value.map((v: any, i) => (
+              {sTop10DistrictCount.value.map((v: any, i) => (
                 <tr key={i}>
-                {Object.keys(_.omit(v, "id")).map((v2, ii) => (
-                  <td
-                    style={{
-                      backgroundColor: [
-                        "trust",
-                        "joy",
-                        "surprise",
-                      ].includes(v2)
-                        ? "#8BD4A0"
-                        : v2 === "anticipation"
-                        ? "#BFBFBF"
-                        : ["sadness", "fear", "anger", "disgust"].includes(
-                            v2
-                          )
-                        ? "#D48B8B"
-                        : "",
-                    }}
-                    key={ii}
-                  >
-                    <Box>
-                      <Text
-                        fw={"bold"}
-                        color={
-                          v2 != "no" && v2 != "city" && v2 != "value"
-                            ? "white"
-                            : ""
-                        }
-                      >
-                        {_.isNaN(Number(v[v2]))
-                          ? v[v2]
-                          : Intl.NumberFormat("id-ID").format(
-                              Number(v[v2])
-                            )}
-                      </Text>
-                    </Box>
-                  </td>
-                ))}
-              </tr>
+                  {Object.keys(_.omit(v, "id")).map((v2, ii) => (
+                    <td
+                      style={{
+                        backgroundColor: ["trust", "joy", "surprise"].includes(
+                          v2
+                        )
+                          ? "#8BD4A0"
+                          : v2 === "anticipation"
+                          ? "#BFBFBF"
+                          : ["sadness", "fear", "anger", "disgust"].includes(v2)
+                          ? "#D48B8B"
+                          : "",
+                      }}
+                      key={ii}
+                    >
+                      <Box>
+                        <Text
+                          fw={"bold"}
+                          color={
+                            v2 != "no" && v2 != "city" && v2 != "value"
+                              ? "white"
+                              : ""
+                          }
+                        >
+                          {_.isNaN(Number(v[v2]))
+                            ? v[v2]
+                            : Intl.NumberFormat("id-ID").format(Number(v[v2]))}
+                        </Text>
+                      </Box>
+                    </td>
+                  ))}
+                </tr>
               ))}
             </tbody>
           </Table>
 
           <Group position="right" mt={"lg"}>
             <Pagination
-              total={Math.floor(gTop10District.value.length / pageSize)}
+              total={Math.floor(sTop10District.value.length / pageSize)}
               value={page}
               onChange={(val) => {
                 const start = (val - 1) * pageSize;
                 const end = start + pageSize;
-                const pageItem = _.slice(gTop10District.value, start, end);
+                const pageItem = _.slice(sTop10District.value, start, end);
                 setPage(val);
-                gTop10DistrictCount.set(pageItem);
+                sTop10DistrictCount.value = pageItem as any;
               }}
             />
           </Group>

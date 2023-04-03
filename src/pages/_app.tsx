@@ -11,7 +11,7 @@ import { funcLoadSourceOfmention } from "@/fun_load/func_load_source_of_mention"
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
 import { funcLoadWordCloud } from "@/fun_load/func_load_word_cloud";
-import { gUser } from "@/g_state/auth/g_user";
+// import { gUser } from "@/g_state/auth/g_user";
 import MyMain from "@/layouts/my_main";
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
@@ -31,6 +31,7 @@ import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_
 import { funcLoadNotification } from "@/fun_load/func_load_notification";
 import { sIsLocal } from "@/s_state/is_local";
 import { funcloadContextualContent } from "@/fun_load/func_load_contextual_conetent";
+import { sUser } from "@/s_state/s_user";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -91,17 +92,17 @@ export default function App(props: AppProps) {
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   // const isUser = useHookstate(gIsUser);
-  const user = useHookstate(gUser);
+  // const user = useHookstate(gUser);
   useShallowEffect(() => {
     const userId = localStorage.getItem("user_id");
 
     fetch(api.apiAuthGetUserById + `?id=${userId}`)
       .then((v) => v.json())
-      .then(user.set);
+      .then((v) => (sUser.value = v));
   }, []);
 
-  if (user.value == undefined) return <>{JSON.stringify(user.value)} </>;
-  if (_.isEmpty(user.value))
+  if (sUser.value == undefined) return <>{JSON.stringify(sUser.value)} </>;
+  if (_.isEmpty(sUser.value))
     return (
       <>
         <MyMain />
@@ -113,7 +114,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
 const FirebaseProvider = ({ children }: PropsWithChildren) => {
   const [openUpadte, setOpenUpdate] = useDisclosure(false);
-  const user = useHookstate(gUser);
+  // const user = useHookstate(gUser);
   const router = useRouter();
 
   useShallowEffect(() => {

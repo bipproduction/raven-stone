@@ -1,2 +1,2 @@
 import { hookstate } from '@hookstate/core';
-export const gIndonesiaMap = hookstate<{ [key: string]: any }>({})
+// export const gIndonesiaMap = hookstate<{ [key: string]: any }>({})
