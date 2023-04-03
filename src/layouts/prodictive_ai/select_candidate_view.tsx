@@ -1,12 +1,12 @@
-import { gCandidate } from "@/g_state/g_candidate";
-import { gListDataPredictiveAiCouple } from "@/g_state/g_list_data_predictive_ai_couple";
-import { gSelectedDate } from "@/g_state/g_map_state";
-import { gPredictiveAiSearch } from "@/g_state/g_predictive_ai_search";
-import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
-import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
-import { api } from "@/lib/api";
+// import { gCandidate } from "@/g_state/g_candidate";
+// import { gPredictiveAiSearch } from "@/g_state/g_predictive_ai_search";
+import { sCandidate } from "@/s_state/s_candidate";
+import { sPredictiveAiSearch } from "@/s_state/s_predictive_ai_search";
+// import { gSelectedCandidate1 } from "@/g_state/nation_wide_rating/g_selected_candidate1";
+// import { gSelectedCandidate2 } from "@/g_state/nation_wide_rating/g_selected_candidate2";
+import { sSelectedCandidate1 } from "@/s_state/s_selected_candidate1";
+import { sSelectedCandidate2 } from "@/s_state/s_selected_candidate2";
 import { Button, Group, Paper, Select, TextInput } from "@mantine/core";
-import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import { MdSearch } from "react-icons/md";
 import SwipeButton from "./swipe_button";
 
@@ -35,29 +35,30 @@ const SelectCandidateView = ({
           <TextInput
             // value={gPredictiveAiSearch.value}
             onChange={(val) => {
-              gPredictiveAiSearch.set(val.currentTarget.value);
+              // sPredictiveAiSearch.set(val.currentTarget.value);
+              sPredictiveAiSearch.value = val.currentTarget.value
               onUpdate();
             }}
-            placeholder={gPredictiveAiSearch.value}
+            placeholder={sPredictiveAiSearch.value}
             icon={<MdSearch />}
           />
           <Select
             key={Math.random()}
             placeholder={
-              gCandidate.value.find((v) => v.id === gSelectedCandidate1.value)
+              sCandidate.value.find((v) => v.id === sSelectedCandidate1.value)
                 ?.name
             }
             searchable
             data={
-              gCandidate.value.map((v) => ({
+              sCandidate.value.map((v) => ({
                 label: v.name,
                 value: v.id,
-                disabled: v.id == gSelectedCandidate2.value,
+                disabled: v.id == sSelectedCandidate2.value,
               })) as any
             }
             onChange={(val) => {
               if (val) {
-                gSelectedCandidate1.set(Number(val));
+                sSelectedCandidate1.value = Number(val);
                 onUpdate();
               }
             }}
@@ -66,20 +67,20 @@ const SelectCandidateView = ({
           <Select
             key={Math.random()}
             placeholder={
-              gCandidate.value.find((v) => v.id === gSelectedCandidate2.value)
+              sCandidate.value.find((v) => v.id === sSelectedCandidate2.value)
                 ?.name
             }
             searchable
             data={
-              gCandidate.value.map((v) => ({
+              sCandidate.value.map((v) => ({
                 label: v.name,
                 value: v.id,
-                disabled: v.id == gSelectedCandidate1.value,
+                disabled: v.id == sSelectedCandidate1.value,
               })) as any
             }
             onChange={(val) => {
               if (val) {
-                gSelectedCandidate2.set(Number(val));
+                sSelectedCandidate2.value = Number(val);
                 onUpdate();
               }
             }}

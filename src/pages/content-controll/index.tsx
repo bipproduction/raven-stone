@@ -1,8 +1,9 @@
 import { funcloadContextualContent } from "@/fun_load/func_load_contextual_conetent";
-import { sListCity } from "@/g_state/s_list_city";
+// import { sListCity } from "@/g_state/s_list_city";
 import { menuSelected } from "@/g_state/s_menu_selected";
 import { api } from "@/lib/api";
 import { sContextualContent } from "@/s_state/s_contextual_content";
+import { sListCity } from "@/s_state/s_list_city";
 import {
   Box,
   Button,

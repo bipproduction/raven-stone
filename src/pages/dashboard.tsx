@@ -1,6 +1,6 @@
 import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_rating";
-import { gUser } from "@/g_state/auth/g_user";
-import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gUser } from "@/g_state/auth/g_user";
+// import { gSelectedView } from "@/g_state/g_selected_view";
 import MentionbyCategory from "@/layouts/media_listener/mention_by_category";
 import ContextualContent from "@/layouts/prodictive_ai/contextual_content";
 import EmotionalViewViaProvince from "@/layouts/prodictive_ai/emotional_view_via_province";
@@ -16,6 +16,8 @@ import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
 import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
 import { stylesGradientRed } from "@/styles/styles_gradient_red";
 import { sIsLocal } from "@/s_state/is_local";
+import { sSelectedView } from "@/s_state/s_selected_view";
+import { sUser } from "@/s_state/s_user";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
@@ -193,7 +195,7 @@ const listView = [
 const Dashboard = () => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const selectedView = useHookstate(gSelectedView);
+  // const selectedView = useHookstate(gSelectedView);
   const [userName, setUserName] = useState<{ [key: string]: any }>({});
 
   useShallowEffect(() => {
@@ -231,7 +233,9 @@ const Dashboard = () => {
                 <Image width={150} src={"/logo-2.png"} alt={"logo"} />
               </Box>
               <Group position="right">
-                <ActionIcon onClick={() => toast("Project already running ...")}>
+                <ActionIcon
+                  onClick={() => toast("Project already running ...")}
+                >
                   <MdInfo color="white" />
                 </ActionIcon>
               </Group>
@@ -257,15 +261,16 @@ const Dashboard = () => {
                 {v.child.map((vv, i) => (
                   <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
                     <NavLink
-                      c={selectedView.value == vv.name ? "blue.8" : "blue.4"}
+                      c={sSelectedView.value == vv.name ? "blue.8" : "blue.4"}
                       icon={<MdCircle color="orange" />}
                       variant={"filled"}
-                      fw={selectedView.value == vv.name ? "bold" : "light"}
+                      fw={sSelectedView.value == vv.name ? "bold" : "light"}
                       // bg={selectedView.value == vv.name ? "blue.1" : ""}
                       label={_.lowerCase(vv.name)}
                       key={`${v.id}${i}`}
                       onClick={() => {
-                        selectedView.set(vv.name);
+                        // selectedView.set(vv.name);
+                        sSelectedView.value = vv.name
                         setOpened(false);
                       }}
                     />
@@ -361,7 +366,12 @@ const Dashboard = () => {
                     </Menu.Target> */}
 
                     <Menu.Target>
-                      <ActionIcon radius={100} size={42} bg={"blue.1"} variant={"filled"}>
+                      <ActionIcon
+                        radius={100}
+                        size={42}
+                        bg={"blue.1"}
+                        variant={"filled"}
+                      >
                         <MdAccountCircle size={42} color={"babyblue"} />
                       </ActionIcon>
                     </Menu.Target>
@@ -371,7 +381,8 @@ const Dashboard = () => {
                         c={"white"}
                         onClick={() => {
                           localStorage.removeItem("user_id");
-                          gUser.set({});
+                          // gUser.set({});
+                          sUser.value = {};
                         }}
                       >
                         Logout
@@ -387,7 +398,7 @@ const Dashboard = () => {
     >
       {listView.map((v) =>
         v.child.map((vv) => (
-          <Box hidden={vv.name != selectedView.value} key={vv.name}>
+          <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
             {<vv.view />}
           </Box>
         ))

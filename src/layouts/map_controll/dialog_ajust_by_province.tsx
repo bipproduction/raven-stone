@@ -1,7 +1,10 @@
 import { funLoadMapData } from "@/fun_load/func_load_map_data";
-import { gSelectedCandidate, gSelectedDate } from "@/g_state/g_map_state";
-import { gProvince } from "@/g_state/g_province";
+// import { gSelectedCandidate, gSelectedDate } from "@/g_state/g_map_state";
+// import { gProvince } from "@/g_state/g_province";
 import { api } from "@/lib/api";
+import { sProvince } from "@/s_state/s_province";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import {
   ActionIcon,
   Box,
@@ -102,11 +105,11 @@ const ButtonAjustByProvince = () => {
             label={"select province"}
             placeholder={
               selectedProvince &&
-              gProvince.value.find((v) => v.id == selectedProvince).name
+              sProvince.value.find((v) => v.id == selectedProvince).name
             }
             onChange={(val) => setSelectedProvince(Number(val))}
             dropdownPosition="bottom"
-            data={gProvince.value.map((v) => ({
+            data={sProvince.value.map((v) => ({
               label: v.name,
               value: v.id,
             }))}
@@ -148,12 +151,12 @@ const ButtonAjustByProvince = () => {
                   lsEmotion.filter((v) => !v.isChecked)
                 );
 
-                if (!selectedProvince || !gSelectedDate.value)
+                if (!selectedProvince || !sSelectedDate.value)
                   return toast("select date and province");
-                const candidate = gSelectedCandidate.value;
+                const candidate = sSelectedCandidate.value;
                 fetch(
                   api.apiUtilGetDataByProvinceidCandidateidDate +
-                    `?provinceid=${selectedProvince}&candidateid=${gSelectedCandidate.value}&date=${gSelectedDate.value}&`
+                    `?provinceid=${selectedProvince}&candidateid=${sSelectedCandidate.value}&date=${sSelectedDate.value}&`
                 )
                   .then((v) => v.json())
                   .then((v) => {
