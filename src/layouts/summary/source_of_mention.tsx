@@ -1,5 +1,6 @@
-import { gSelectedView } from "@/g_state/g_selected_view";
+// import { gSelectedView } from "@/g_state/g_selected_view";
 import { gListSourceOfMention } from "@/g_state/g_source_of_mention";
+import { sSelectedView } from "@/s_state/s_selected_view";
 import { Box, Paper, Text } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import ReactEchart from "echarts-for-react";
@@ -54,8 +55,8 @@ const cssKotak = `
 `;
 
 const SourceOfmention = () => {
-  if (gSelectedView.value != "Source of Mention")
-    return <>{gSelectedView.value}</>;
+  if (sSelectedView.value != "Source of Mention")
+    return <>{sSelectedView.value}</>;
   const option: EChartsOption = {
     // title: {
     //   text: "World Population",
