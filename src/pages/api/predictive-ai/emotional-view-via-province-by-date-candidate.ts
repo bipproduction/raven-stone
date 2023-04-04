@@ -40,14 +40,14 @@ const emotionalViewViaProvinceByDateCandidate = async (req: NextApiRequest, res:
         provinceId: v.Province?.id,
         provinceName: v.Province?.name,
         value: v.City?.CityValue[0].value,
-        anger: Math.round((v.anger! / 100) * v.City?.CityValue![0].value!),
-        anticipation: Math.round((v.anticipation! / 100) * v.City?.CityValue![0].value!),
-        disgust: Math.round((v.disgust! / 100) * v.City?.CityValue![0].value!),
-        fear: Math.round((v.fear! / 100) * v.City?.CityValue![0].value!),
-        joy: Math.round((v.joy! / 100) * v.City?.CityValue![0].value!),
-        sadness: Math.round((v.sadness! / 100) * v.City?.CityValue![0].value!),
-        surprise: Math.round((v.surprise! / 100) * v.City?.CityValue![0].value!),
-        trust: Math.round((v.trust! / 100) * v.City?.CityValue![0].value!)
+        anger: (v.anger! / 100) * v.City?.CityValue![0].value!,
+        anticipation: (v.anticipation! / 100) * v.City?.CityValue![0].value!,
+        disgust: (v.disgust! / 100) * v.City?.CityValue![0].value!,
+        fear: (v.fear! / 100) * v.City?.CityValue![0].value!,
+        joy: (v.joy! / 100) * v.City?.CityValue![0].value!,
+        sadness: (v.sadness! / 100) * v.City?.CityValue![0].value!,
+        surprise: (v.surprise! / 100) * v.City?.CityValue![0].value!,
+        trust: (v.trust! / 100) * v.City?.CityValue![0].value!
     }))
 
     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({
@@ -55,14 +55,14 @@ const emotionalViewViaProvinceByDateCandidate = async (req: NextApiRequest, res:
         name: o[0].provinceName,
         value: _.sumBy(o, 'value'),
         emotion: {
-            trust: _.sumBy(o, "trust"),
-            anger: _.sumBy(o, "anger"),
-            anticipation: _.sumBy(o, "anticipation"),
-            disgust: _.sumBy(o, "disgust"),
-            fear: _.sumBy(o, "fear"),
-            joy: _.sumBy(o, "joy"),
-            sadness: _.sumBy(o, "sadness"),
-            surprise: _.sumBy(o, "surprise"),
+            trust: Math.round(_.sumBy(o, "trust")),
+            anger: Math.round(_.sumBy(o, "anger")),
+            anticipation: Math.round(_.sumBy(o, "anticipation")),
+            disgust: Math.round(_.sumBy(o, "disgust")),
+            fear: Math.round(_.sumBy(o, "fear")),
+            joy: Math.round(_.sumBy(o, "joy")),
+            sadness: Math.round(_.sumBy(o, "sadness")),
+            surprise: Math.round(_.sumBy(o, "surprise")),
         }
     }))
 

@@ -362,3 +362,24 @@ berdasarkan teory sentiment , beserta warnanya
 6 fear
 7 anger
 8 disgust
+
+sum 
+6.891.392
+1.224.365
+2.672.003
+3.129.935
+1.797.891
+5.644.288
+2.524.043
+3.543.388
+
+
+please explain each item by naif vibe theory
+TRUST
+JOY
+SURPRISE
+ANTICIPATION
+SADNESS
+FEAR
+ANGER
+DISGUST
