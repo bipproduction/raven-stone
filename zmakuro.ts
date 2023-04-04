@@ -5,22 +5,27 @@ function pull() {
     const url = "https://eagle-eye-c93d5-default-rtdb.asia-southeast1.firebasedatabase.app/eagle_2/.json"
     const urlForceReload = "https://eagle-eye-c93d5-default-rtdb.asia-southeast1.firebasedatabase.app/eagle_2/force_reload.json"
     execSync(`
-    curl -X PATCH -d '{"update": true}'  ${url} &&
-    git pull origin dev --autostash &&
-    yarn &&
-    yarn build &&
-    pm2 restart 16 &&
-    pm2 save &&
+    curl -X PATCH -d '{"update": true}'  ${url}
+    git pull origin dev --autostash
+    yarn
+    yarn build
+    pm2 restart 16
+    pm2 save
     curl -X PATCH -d '{"update": false}'  ${url}
+    sleep 6
     curl -X PATCH -d '{"value": ${Math.random()} }'  ${urlForceReload}
     `, { stdio: "inherit" })
 }
 
+// echo apa
+// sleep 4
+// echo iya
+
 function push() {
     const branchName = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
     execSync(`
-    git add -A &&
-    git commit -m "auto commit" &&
+    git add -A
+    git commit -m "auto commit"
     git push origin ${branchName}
     `, { stdio: "inherit" })
 }

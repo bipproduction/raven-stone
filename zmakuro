@@ -1,0 +1,41 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+hijau() {
+    echo -e "$GREEN $1 $NC"
+}
+
+pull() {
+    echo "ini aapa namanya"
+}
+
+push() {
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    git add .
+    echo "masukkan commitnya: "
+    read commit
+    git commit -m "$commit"
+    git push origin $branch
+}
+
+info() {
+
+    hijau "
+    info:
+    pull = untuk pull
+    push = untuk push
+    "
+
+}
+
+case $1 in
+pull) pull ;;
+push) push ;;
+*) info ;;
+esac
+
+# branch=$(git rev-parse --abbrev-ref HEAD)
