@@ -36,6 +36,7 @@ import {
   Table,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
@@ -320,9 +321,11 @@ const Top10ProvinceByConversation = () => {
                     </td>
                     <td style={{ padding: 0 }}>
                       <Paper bg={"white"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                       <Tooltip label={v.name}>
+                       <Text lineClamp={1} fw={"bold"} color={"gray"}>
                           {v.name}
                         </Text>
+                       </Tooltip>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
