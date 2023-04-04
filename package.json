@@ -69,6 +69,7 @@
     "react-csv": "^2.2.2",
     "react-d3-cloud": "^1.0.6",
     "react-dom": "18.2.0",
+    "react-iframe": "^1.8.5",
     "react-simple-toasts": "^3.2.5",
     "react-spreadsheet": "^0.7.8",
     "react-wordcloud": "^1.2.7",
