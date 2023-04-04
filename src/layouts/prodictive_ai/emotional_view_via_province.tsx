@@ -583,7 +583,7 @@ const WordCloud = ({ data }: { data: any }) => {
 const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
   const [listData, setlistData] = useState<any[]>([]);
   useShallowEffect(() => {
-    fetch(api.apiPredictiveAiWordCloudGet + `?cityId=${data.cityId}`)
+    fetch(api.apiPredictiveAiLeaderPersonaPrediction + `?cityId=${data.cityId}`)
       .then((v) => v.json())
       .then((v) => {
         if (v) {
@@ -648,9 +648,6 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
       <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
         <Title order={3}>Leader Persona Prediction </Title>
         <EChartsReact
-          style={{
-            height: 560,
-          }}
           option={option1}
         />
       </Paper>

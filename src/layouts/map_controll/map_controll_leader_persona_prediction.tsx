@@ -34,7 +34,14 @@ const MapControllLeaderPersonaPrediction = ({ dataKab }: any) => {
 
   const formData = useForm({
     initialValues: {
-      data: listData,
+      data: [
+        { title: "Gagah", value: 0 },
+        { title: "Tegas", value: 0 },
+        { title: "Merakyat", value: 0 },
+        { title: "Jujur", value: 0 },
+        { title: "Cerdas", value: 0 },
+        { title: "Pekerja Keras", value: 0 },
+      ],
     },
   });
 
