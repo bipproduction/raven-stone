@@ -68,7 +68,7 @@ const Top10DistrictbyConversation = () => {
                       size={63}
                       onClick={async () => {
                         // sSelectedCandidate.set(v!.id.toString());
-                        sSelectedCandidate.value = v!.id.toString()
+                        sSelectedCandidate.value = v!.id.toString();
                         await funcLoadTop10District();
                         await funcLoadTop10Province();
                         update();
@@ -115,7 +115,7 @@ const Top10DistrictbyConversation = () => {
               onChange={async (val) => {
                 if (val) {
                   // sSelectedEmotion.set(val);
-                  sSelectedEmotion.value = val
+                  sSelectedEmotion.value = val;
                   await funcLoadTop10District();
                   await funcLoadTop10Province();
                   update();
@@ -144,22 +144,44 @@ const Top10DistrictbyConversation = () => {
           />
         </Group> */}
         <Stack>
-          <Table highlightOnHover verticalSpacing={"md"}>
+          <Table verticalSpacing={"md"} bg={stylesGradient1} mt={54}>
             <thead>
               <tr>
-                {Object.keys(sTop10DistrictCount.value[0]).map((v) => (
+                <th>NO</th>
+                <th>CITY</th>
+                <th>VALUE</th>
+                <th>TRUST</th>
+                <th>JOY</th>
+                <th>SURPRISE</th>
+                <th>ANTICIPATION</th>
+                <th>SADNESS</th>
+                <th>FEAR</th>
+                <th>ANGER</th>
+                <th>DISGUST</th>
+                {/* {Object.keys(sTop10DistrictCount.value[0]).map((v) => (
                   <th key={v}>
                     <Text c={"cyan.8"} fw={"bold"}>
                       {_.upperCase(v)}
                     </Text>
                   </th>
-                ))}
+                ))} */}
               </tr>
             </thead>
             <tbody>
               {sTop10DistrictCount.value.map((v: any, i) => (
                 <tr key={i}>
-                  {Object.keys(_.omit(v, "id")).map((v2, ii) => (
+                   <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{v.no}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{v.city}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.value)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"green.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.trust)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"green.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.joy)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"green.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.surprise)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"gray.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.anticipation)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"pink.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.sadness)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"pink.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.fear)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"pink.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.anger)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"pink.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.disgust)}</Text></Paper></td>
+                  {/* {Object.keys(_.omit(v, "id")).map((v2, ii) => (
                     <td
                       style={{
                         backgroundColor: ["trust", "joy", "surprise"].includes(
@@ -189,7 +211,7 @@ const Top10DistrictbyConversation = () => {
                         </Text>
                       </Box>
                     </td>
-                  ))}
+                  ))} */}
                 </tr>
               ))}
             </tbody>

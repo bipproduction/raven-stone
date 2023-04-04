@@ -44,33 +44,32 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
         provinceId: v.Province?.id,
         provinceName: v.Province?.name,
         value: v.City?.CityValue[0].value,
-        trust: Math.floor((v.trust! / 100) * v.City?.CityValue![0].value!),
-        joy: Math.floor((v.joy! / 100) * v.City?.CityValue![0].value!),
-        surprise: Math.floor((v.surprise! / 100) * v.City?.CityValue![0].value!),
-        anticipation: Math.floor((v.anticipation! / 100) * v.City?.CityValue![0].value!),
-        sadness: Math.floor((v.sadness! / 100) * v.City?.CityValue![0].value!),
-        fear: Math.floor((v.fear! / 100) * v.City?.CityValue![0].value!),
-        anger: Math.floor((v.anger! / 100) * v.City?.CityValue![0].value!),
-        disgust: Math.floor((v.disgust! / 100) * v.City?.CityValue![0].value!)
+        trust: (v.trust! / 100) * v.City?.CityValue![0].value!,
+        joy: (v.joy! / 100) * v.City?.CityValue![0].value!,
+        surprise: (v.surprise! / 100) * v.City?.CityValue![0].value!,
+        anticipation: (v.anticipation! / 100) * v.City?.CityValue![0].value!,
+        sadness: (v.sadness! / 100) * v.City?.CityValue![0].value!,
+        fear: (v.fear! / 100) * v.City?.CityValue![0].value!,
+        anger: (v.anger! / 100) * v.City?.CityValue![0].value!,
+        disgust: (v.disgust! / 100) * v.City?.CityValue![0].value!,
     }))
 
     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({
         id: o[0].provinceId,
         name: o[0].provinceName,
-        // value: _.sumBy(o, 'value'),
-        trust: _.sumBy(o, "trust"),
-        joy: _.sumBy(o, "anger"),
-        surprise: _.sumBy(o, "anticipation"),
-        anticipation: _.sumBy(o, "disgust"),
-        sadness: _.sumBy(o, "fear"),
-        fear: _.sumBy(o, "joy"),
-        anger: _.sumBy(o, "sadness"),
-        disgust: _.sumBy(o, "surprise"),
+        // total: _.sumBy(o, 'value'),
+        trust: Math.round(_.sumBy(o, "trust")),
+        joy: Math.round(_.sumBy(o, "anger")),
+        surprise: Math.round(_.sumBy(o, "anticipation")),
+        anticipation: Math.round(_.sumBy(o, "disgust")),
+        sadness: Math.round(_.sumBy(o, "fear")),
+        fear: Math.round(_.sumBy(o, "joy")),
+        anger: Math.round(_.sumBy(o, "sadness")),
+        disgust: Math.round(_.sumBy(o, "surprise")),
     })).map((v) => ({
         name: v.name,
         value: v.trust + v.joy + v.surprise + v.anticipation + v.sadness + v.fear + v.anger + v.disgust,
-        ..._.omit(v, 'name'),
-        
+        ..._.omit(v, ['name']),
     }))
 
     const hasil3 = _.orderBy(hasil2, [_.lowerCase(emotion as string)], "desc")

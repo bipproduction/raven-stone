@@ -179,7 +179,7 @@ const EmotionalViewViaProvince = () => {
                   >
                     <Stack justify={"center"} spacing={0}>
                       <Text color={"cyan.8"} size={32} fw={"bold"}>
-                        {Intl.NumberFormat("id-id").format(v.value)}
+                        {Intl.NumberFormat("id-id").format(v.total)}
                       </Text>
                       <Text align={"center"} color={"gray"}>
                         DATA VOLUME

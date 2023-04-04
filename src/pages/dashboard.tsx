@@ -210,6 +210,7 @@ const Dashboard = () => {
 
   return (
     <AppShell
+      bg={"gray.2"}
       styles={{
         main: {
           background:
@@ -270,7 +271,7 @@ const Dashboard = () => {
                       key={`${v.id}${i}`}
                       onClick={() => {
                         // selectedView.set(vv.name);
-                        sSelectedView.value = vv.name
+                        sSelectedView.value = vv.name;
                         setOpened(false);
                       }}
                     />
