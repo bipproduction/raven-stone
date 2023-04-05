@@ -314,7 +314,7 @@ const kandidat_1 = {
   joy: 90,
   sadness: 23,
   trust: 49,
-  surprise: 1130
+  surprise: 1130,
 }
 
 const potensi_kandidat_1 = { 
@@ -338,8 +338,8 @@ const potensi_kandidat_2 = {
   wakil_presiden: 60 
 }
 
-buatkan object baru yang isinya adalah nilai dari penggabungan kedua kandidat 
-dan potensinya berpengaruh pada setiap item jika menjadi peresiden atau wakil presiden 
+buatkan function return object baru yang isinya adalah nilai dari penggabungan kedua kandidat 
+dan potensinya berpengaruh pada setiap item jika menjadi peresiden dan wakil presiden 
 objek baru yang dihasilkan setiap item emosi jika disum maka akan menghasilkan nilai 100 sempurna
 secara proposional
 
