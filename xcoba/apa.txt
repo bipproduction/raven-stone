@@ -304,40 +304,54 @@ const data_item = [
 
 jika ada data seperti dibawah berikut 
 
-// data emosi candidate 1
-const emotion_candidate_1 = {
-  anger: 3,
+
+
+const kandidat_1 = {
+  anger: 30,
   anticipation: 4,
-  disgust: 9,
+  disgust: 99,
   fear: 2,
-  joy: 20,
-  sadness: 2,
+  joy: 90,
+  sadness: 23,
   trust: 49,
-  surprise: 11
+  surprise: 1130
 }
 
-// data emosi candidate 2
-const emotion_candidate_2 = {
-  anger: 10,
-  anticipation: 9,
-  disgust: 4,
-  fear: 7,
+const potensi_kandidat_1 = { 
+  presiden: 90, 
+  wakil_presiden: 30 
+}
+
+const kandidat_2 = {
+  anger: 100,
+  anticipation: 90,
+  disgust: 400,
+  fear: 79,
   joy: 40,
   sadness: 20,
-  trust: 7,
+  trust: 72,
   surprise: 20
 }
 
-// potension candidate jika menjadi presiden atau wakil presiden
-const potensi_candidate_1 = { president: 90, vice_president: 30 }
+const potensi_kandidat_2 = { 
+  presiden: 40, 
+  wakil_presiden: 60 
+}
 
-// potension candidate jika menjadi presiden atau wakil presiden
-const potensi_candidate_2 = { president: 40, vice_president: 60 }
+buatkan object baru yang isinya adalah nilai dari penggabungan kedua kandidat 
+dan potensinya berpengaruh pada setiap item jika menjadi peresiden atau wakil presiden 
+objek baru yang dihasilkan setiap item emosi jika disum maka akan menghasilkan nilai 100 sempurna
+secara proposional
+
+
+contoh objek hasilnya
+const hasil_penggabungan_kedua_kandidat = {}
 
 gabungkan kedua kandidat membentuk objek baru 
 dan hasilkan objek baru hasil dari penggabungan tersebut permasing masing item 
 seperti dibawah berikut
 dan jika disum atau di total nilai dari nilai item akan menghasilkan 100% 
+dan buatkan object baru hasil dari masing masing emosi tersebut
 
 const hasil_emotion_candidate1_dan_candidate2 = {
   anger: ,
