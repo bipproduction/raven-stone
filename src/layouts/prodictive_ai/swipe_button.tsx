@@ -14,13 +14,15 @@ const SwipeButton = ({ update }: { update: () => void }) => {
       <ActionIcon
         size={42}
         onClick={() => {
-          const candidate1 = _.clone(sSelectedCandidate1.value);
-          const candidate2 = _.clone(sSelectedCandidate2.value);
+          const candidate1 = _.clone(sSelectedCandidate2.value);
+          const candidate2 = _.clone(sSelectedCandidate1.value);
           sSelectedCandidate1.value = candidate1
           sSelectedCandidate2.value = candidate2
           // sSelectedCandidate1.set(candidate2);
           // sSelectedCandidate2.set(candidate1);
-          update();
+          // update();
+
+          // console.log(sSelectedCandidate1.value, sSelectedCandidate2.value)
         }}
       >
         <MdSwapHoriz size={42} color={"navi"} />
