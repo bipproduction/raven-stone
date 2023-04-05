@@ -20,65 +20,101 @@ type DataItem = {
 
 type SummedData = Omit<DataItem, "no" | "provinceId" | "name" | "candidate">;
 
-const perhitungan = ({ kandidat_1, potensi_kandidat_1, kandidat_2, potensi_kandidat_2 }: { kandidat_1: any, potensi_kandidat_1: any, kandidat_2: any, potensi_kandidat_2: any }) => {
-    // const kandidat_1: any = {
-    //     anger: 30,
-    //     anticipation: 4,
-    //     disgust: 99,
-    //     fear: 2,
-    //     joy: 90,
-    //     sadness: 23,
-    //     trust: 49,
-    //     surprise: 1
-    //   };
-
-    //   const potensi_kandidat_1: any = { 
-    //     value1: 90, 
-    //     value2: 30 
-    //   };
-
-    //   const kandidat_2: any = {
-    //     anger: 100,
-    //     anticipation: 90,
-    //     disgust: 400,
-    //     fear: 79,
-    //     joy: 40,
-    //     sadness: 20,
-    //     trust: 72,
-    //     surprise: 2
-    //   };
-
-    //   const potensi_kandidat_2: any = { 
-    //     value1: 40, 
-    //     value2: 60 
-    //   };
-
-    // Calculate the total sum of emotions for each candidate
-    const total_emotions_kandidat_1: any = Object.values(kandidat_1).reduce((acc, val) => Number(acc) + Number(val));
-    const total_emotions_kandidat_2: any = Object.values(kandidat_2).reduce((acc, val) => Number(acc) + Number(val));
-
-    // Create a new object to store the combined values with proportional adjustments
-    const combinedObject: any = {};
-
-    // Loop through each emotion item and calculate the proportional adjustment
-    for (let emotion in kandidat_1) {
-        const adjustedValue: any = ((kandidat_1[emotion] / total_emotions_kandidat_1) * potensi_kandidat_1.value1) + ((kandidat_2[emotion] / total_emotions_kandidat_2) * potensi_kandidat_2.value1);
-        combinedObject[emotion] = adjustedValue;
+const calculateNewEmotionPercentage = (
+    { candidate1,
+        score1,
+        candidate2,
+        score2 }: {
+            candidate1: any,
+            score1: any,
+            candidate2: any,
+            score2: any
+        }
+) => {
+    const totalScore = score1.value1! + score2.value2!;
+    const result: any = {};
+    let totalPercentage = 0;
+    for (const emotion in candidate1) {
+        const percentage =
+            ((candidate1[emotion] * score1.value1!) / totalScore +
+                (candidate2[emotion] * score2.value2!) / totalScore) /
+            2;
+        // Bulatkan setiap nilai persentase menjadi 2 angka di belakang koma
+        result[emotion] = Number(percentage.toFixed(2));
+        totalPercentage += result[emotion];
     }
-
-    // Calculate the total sum of emotions in the combined object
-    const total_emotions_combined: any = Object.values(combinedObject).reduce((acc, val) => Number(acc) + Number(val));
-
-    // Check if the total sum of emotions is not equal to 100, and adjust the values accordingly
-    if (total_emotions_combined !== 100) {
-        const adjustmentFactor = 100 / total_emotions_combined;
-        for (let emotion in combinedObject) {
-            combinedObject[emotion] *= adjustmentFactor;
+    // Sesuaikan nilai persentase agar jumlah semua emosi menjadi 100%
+    if (totalPercentage !== 100) {
+        const factor = 100 / totalPercentage;
+        for (const emotion in result) {
+            result[emotion] *= factor;
+            // Bulatkan setiap nilai persentase yang telah disesuaikan menjadi 2 angka di belakang koma
+            result[emotion] = Number(result[emotion].toFixed(2));
         }
     }
-
-    return combinedObject
+    return result;
 }
+
+// const perhitungan = ({ kandidat_1, potensi_kandidat_1, kandidat_2, potensi_kandidat_2 }: { kandidat_1: any, potensi_kandidat_1: any, kandidat_2: any, potensi_kandidat_2: any }) => {
+//     // const kandidat_1: any = {
+//     //     anger: 30,
+//     //     anticipation: 4,
+//     //     disgust: 99,
+//     //     fear: 2,
+//     //     joy: 90,
+//     //     sadness: 23,
+//     //     trust: 49,
+//     //     surprise: 1
+//     //   };
+
+//     //   const potensi_kandidat_1: any = { 
+//     //     value1: 90, 
+//     //     value2: 30 
+//     //   };
+
+//     //   const kandidat_2: any = {
+//     //     anger: 100,
+//     //     anticipation: 90,
+//     //     disgust: 400,
+//     //     fear: 79,
+//     //     joy: 40,
+//     //     sadness: 20,
+//     //     trust: 72,
+//     //     surprise: 2
+//     //   };
+
+//     //   const potensi_kandidat_2: any = { 
+//     //     value1: 40, 
+//     //     value2: 60 
+//     //   };
+
+//     // Calculate the total sum of emotions for each candidate
+//     const total_emotions_kandidat_1: any = Object.values(kandidat_1).reduce((acc, val) => Number(acc) + Number(val));
+//     const total_emotions_kandidat_2: any = Object.values(kandidat_2).reduce((acc, val) => Number(acc) + Number(val));
+
+//     // Create a new object to store the combined values with proportional adjustments
+//     const combinedObject: any = {};
+
+//     // Loop through each emotion item and calculate the proportional adjustment
+//     for (let emotion in kandidat_1) {
+//         const adjustedValue1: any = ((kandidat_1[emotion] / total_emotions_kandidat_1) * potensi_kandidat_1.value1) + ((kandidat_2[emotion] / total_emotions_kandidat_2) * potensi_kandidat_2.value1);
+//         const adjustedValue2: any = ((kandidat_1[emotion] / total_emotions_kandidat_1) * potensi_kandidat_1.value2) + ((kandidat_2[emotion] / total_emotions_kandidat_2) * potensi_kandidat_2.value2);
+//         combinedObject[emotion] = adjustedValue1 + adjustedValue2;
+//     }
+
+//     // Calculate the total sum of emotions in the combined object
+//     const total_emotions_combined: any = Object.values(combinedObject).reduce((acc, val) => Number(acc) + Number(val));
+
+//     // Check if the total sum of emotions is not equal to 100, and adjust the values accordingly
+//     if (total_emotions_combined !== 100) {
+//         const adjustmentFactor = 100 / total_emotions_combined;
+//         for (let emotion in combinedObject) {
+//             combinedObject[emotion] *= adjustmentFactor;
+//         }
+//     }
+
+//     return combinedObject
+// }
 
 
 // const getDataByCandidate = async (date: any, candidateId: any) => {
@@ -168,8 +204,8 @@ const perhitungan = ({ kandidat_1, potensi_kandidat_1, kandidat_2, potensi_kandi
 // }
 
 // interface ScoreObject {
-//     president?: number;
-//     vice_president?: number;
+//     value1?: number;
+//     value2?: number;
 // }
 
 // function calculateNewEmotionPercentage(
@@ -178,13 +214,13 @@ const perhitungan = ({ kandidat_1, potensi_kandidat_1, kandidat_2, potensi_kandi
 //     candidate2: EmotionObject,
 //     score2: ScoreObject
 // ): EmotionObject {
-//     const totalScore = score1.president! + score2.vice_president!;
+//     const totalScore = score1.president! + score2.value2!;
 //     const result: EmotionObject = {};
 //     let totalPercentage = 0;
 //     for (const emotion in candidate1) {
 //         const percentage =
 //             ((candidate1[emotion] * score1.president!) / totalScore +
-//                 (candidate2[emotion] * score2.vice_president!) / totalScore) /
+//                 (candidate2[emotion] * score2.value2!) / totalScore) /
 //             2;
 //         // Bulatkan setiap nilai persentase menjadi 2 angka di belakang koma
 //         result[emotion] = Number(percentage.toFixed(2));
@@ -264,11 +300,11 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     })
 
-    const hasil = perhitungan({
-        kandidat_1: kandidatA,
-        kandidat_2: kandidatB,
-        potensi_kandidat_1: candidateValue1,
-        potensi_kandidat_2: candidateValue12
+    const hasil = calculateNewEmotionPercentage({
+        candidate1: kandidatA,
+        candidate2: kandidatB,
+        score1: candidateValue1,
+        score2: candidateValue12
     })
 
 
@@ -278,10 +314,10 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
     // const score_candidate2: { [key: string]: any } = {}
 
     // score_candidate1.president = candidateValue1?.value1 as any
-    // score_candidate1.vice_president = candidateValue1?.value2 as any
+    // score_candidate1.value2 = candidateValue1?.value2 as any
 
     // score_candidate2.president = candidateValue12?.value1 as any
-    // score_candidate2.vice_president = candidateValue12?.value2 as any
+    // score_candidate2.value2 = candidateValue12?.value2 as any
 
     // const emotion = calculateNewEmotionPercentage(kandidatA as any, score_candidate1, kandidatB as any, score_candidate2)
 

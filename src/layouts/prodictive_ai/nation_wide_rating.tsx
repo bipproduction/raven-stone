@@ -160,7 +160,7 @@ const NationWideRating = () => {
               })) as []
             }
           />
-          <SwipeButton update={update} />
+          <SwipeButton update={() => update()} />
           <Select
             key={Math.random()}
             onChange={(val) => {
