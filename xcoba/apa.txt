@@ -383,3 +383,90 @@ SADNESS
 FEAR
 ANGER
 DISGUST
+
+
+- fix bug nilay value summary dan prodictive ai tidak syncron
+- fix bug ketidak sesuaian nilai emosi di Summary
+- pengurangan 13% - 15% dari total value
+# done
+
+please sort by audiences, use lodash
+const data = [
+  {
+    id: 10,
+    data: {
+      title: 'Prabowo Selalu Bersama Jokowi',
+      emotion: [Array],
+      audiences: 19223802
+    },
+    date: null,
+    createdAt: 2023-04-03T00:32:14.822Z,
+    updatedAt: 2023-04-03T00:32:14.822Z
+  },
+  {
+    id: 9,
+    data: {
+      title: 'Survei Puan Maharani Terjun Bebas',
+      emotion: [Array],
+      audiences: 5209081
+    },
+    date: null,
+    createdAt: 2023-04-03T00:32:14.822Z,
+    updatedAt: 2023-04-03T00:32:14.822Z
+  },
+  {
+    id: 8,
+    data: {
+      title: 'Muhaimin Iskandar Imin Kuasai Jawa Timur',
+      emotion: [Array],
+      audiences: 6298311
+    },
+    date: null,
+    createdAt: 2023-04-03T00:32:14.822Z,
+    updatedAt: 2023-04-03T00:32:14.822Z
+  },
+  {
+    id: 7,
+    data: {
+      title: 'Prabowo Lawan Anies Baswedan di Pilpres',
+      emotion: [Array],
+      audiences: 13826345
+    },
+    date: null,
+    createdAt: 2023-04-03T00:32:14.822Z,
+    updatedAt: 2023-04-03T00:32:14.822Z
+  },
+  {
+    id: 6,
+    data: {
+      title: 'Penolakan Ganjar Tim Israel Sepak Bola',
+      emotion: [Array],
+      audiences: 27374022
+    },
+    date: null,
+    createdAt: 2023-04-03T00:32:14.822Z,
+    updatedAt: 2023-04-03T00:32:14.822Z
+  },
+  {
+    id: 5,
+    data: {
+      title: 'Jokowi Selfie Dengan Prabowo dan Ganjar',
+      emotion: [Array],
+      audiences: 22263866
+    },
+    date: null,
+    createdAt: 2023-04-03T00:32:14.822Z,
+    updatedAt: 2023-04-03T00:32:14.822Z
+  },
+  {
+    id: 4,
+    data: {
+      title: 'Wacana Penundaan Pemilihan Umum Indonesia',
+      emotion: [Array],
+      audiences: 13120411
+    },
+    date: null,
+    createdAt: 2023-04-03T00:32:14.822Z,
+    updatedAt: 2023-04-03T00:32:14.822Z
+  }
+]
