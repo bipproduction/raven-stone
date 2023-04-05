@@ -196,7 +196,7 @@ const Top10ProvinceByConversation = () => {
             </Group>
           </Group>
           <Stack>
-            <Group position="right">
+            {/* <Group position="right">
               <HoverCard>
                 <HoverCard.Target>
                   <ActionIcon
@@ -282,7 +282,7 @@ const Top10ProvinceByConversation = () => {
                   </ScrollArea>
                 </HoverCard.Dropdown>
               </HoverCard>
-            </Group>
+            </Group> */}
             <Table verticalSpacing={"md"} bg={stylesGradient1}>
               <thead>
                 <tr>
