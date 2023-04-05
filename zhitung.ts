@@ -3,63 +3,63 @@ import _ from "lodash"
 
 
 const main = () => {
-    const emotion_candidate_1: any = {
-        anger: 3,
+    const kandidat_1: any = {
+        anger: 30,
         anticipation: 4,
-        disgust: 9,
+        disgust: 99,
         fear: 2,
-        joy: 20,
-        sadness: 2,
+        joy: 90,
+        sadness: 23,
         trust: 49,
-        surprise: 11
-      }
+        surprise: 1
+      };
       
-      const emotion_candidate_2: any = {
-        anger: 10,
-        anticipation: 9,
-        disgust: 4,
-        fear: 7,
+      const potensi_kandidat_1: any = { 
+        presiden: 90, 
+        wakil_presiden: 30 
+      };
+      
+      const kandidat_2: any = {
+        anger: 100,
+        anticipation: 90,
+        disgust: 400,
+        fear: 79,
         joy: 40,
         sadness: 20,
-        trust: 7,
-        surprise: 20
+        trust: 72,
+        surprise: 2
+      };
+      
+      const potensi_kandidat_2: any = { 
+        presiden: 40, 
+        wakil_presiden: 60 
+      };
+      
+      // Calculate the total sum of emotions for each candidate
+      const total_emotions_kandidat_1: any = Object.values(kandidat_1).reduce((acc, val) => Number(acc) + Number(val));
+      const total_emotions_kandidat_2: any = Object.values(kandidat_2).reduce((acc, val) => Number(acc) + Number(val));
+      
+      // Create a new object to store the combined values with proportional adjustments
+      const combinedObject: any = {};
+      
+      // Loop through each emotion item and calculate the proportional adjustment
+      for (let emotion in kandidat_1) {
+        const adjustedValue: any = ((kandidat_1[emotion] / total_emotions_kandidat_1) * potensi_kandidat_1.presiden) + ((kandidat_2[emotion] / total_emotions_kandidat_2) * potensi_kandidat_2.presiden);
+        combinedObject[emotion] = adjustedValue;
       }
       
-      const potensi_candidate_1: any = { president: 90, vice_president: 30 }
-      const potensi_candidate_2: any = { president: 40, vice_president: 60 }
+      // Calculate the total sum of emotions in the combined object
+      const total_emotions_combined: any = Object.values(combinedObject).reduce((acc, val) => Number(acc) + Number(val));
       
-      // Gabungkan kedua kandidat menjadi satu objek baru
-      const combined_emotions = { ...emotion_candidate_1, ...emotion_candidate_2 };
+      // Check if the total sum of emotions is not equal to 100, and adjust the values accordingly
+      if (total_emotions_combined !== 100) {
+        const adjustmentFactor = 100 / total_emotions_combined;
+        for (let emotion in combinedObject) {
+          combinedObject[emotion] *= adjustmentFactor;
+        }
+      }
       
-      // Hitung total nilai emosi untuk kandidat 1 dan kandidat 2
-      const total_emotion_candidate_1:any = Object.values(emotion_candidate_1).reduce((a, b) => Number(a) + Number(b), 0);
-      const total_emotion_candidate_2: any = Object.values(emotion_candidate_2).reduce((a, b) => Number(a) + Number(b), 0);
-      
-      // Hitung presentasi nilai emosi untuk kandidat 1 dan kandidat 2
-      const percentage_emotion_candidate_1: any = Object.keys(emotion_candidate_1).reduce((acc: any, key) => {
-        acc[key] = Math.round((emotion_candidate_1[key] / total_emotion_candidate_1) * potensi_candidate_1.president);
-        return acc;
-      }, {});
-      
-      const percentage_emotion_candidate_2 = Object.keys(emotion_candidate_2).reduce((acc: any, key) => {
-        acc[key] = Math.round((emotion_candidate_2[key] / total_emotion_candidate_2) * potensi_candidate_2.president);
-        return acc;
-      }, {});
-      
-      // Gabungkan presentasi nilai emosi kedua kandidat menjadi satu objek baru
-      const combined_percentage_emotions: any = { ...percentage_emotion_candidate_1, ...percentage_emotion_candidate_2 };
-      
-      // Hitung total presentasi nilai emosi untuk kedua kandidat
-      const total_percentage_emotion: any = Object.values(combined_percentage_emotions).reduce((a, b) => Number(a) + Number(b), 0);
-      
-      // Hitung presentasi nilai untuk setiap emosi dalam objek baru
-      const hasil_emotion_candidate1_dan_candidate2 = Object.keys(combined_percentage_emotions).reduce((acc: any, key) => {
-        acc[key] = Math.round((combined_percentage_emotions[key] / total_percentage_emotion) * 100);
-        return acc;
-      }, {});
-      
-      console.log(hasil_emotion_candidate1_dan_candidate2);
-      
+      console.log(combinedObject);
 }
 
 main()
