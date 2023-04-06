@@ -32,7 +32,8 @@ import { funcLoadNotification } from "@/fun_load/func_load_notification";
 import { sIsLocal } from "@/s_state/is_local";
 import { funcloadContextualContent } from "@/fun_load/func_load_contextual_conetent";
 import { sUser } from "@/s_state/s_user";
-import 'animate.css'
+import "animate.css";
+import { funcLoadCandidateValue } from "@/fun_load/func_load_candidate_value";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -61,6 +62,8 @@ export default function App(props: AppProps) {
     funcLoadCityContextDirection();
     funcLoadNotification();
     funcloadContextualContent();
+    funcLoadCandidateValue();
+    
   }, []);
 
   return (

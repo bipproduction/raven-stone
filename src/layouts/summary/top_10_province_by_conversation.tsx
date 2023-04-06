@@ -48,45 +48,17 @@ import { AnimationOnScroll } from "react-animation-on-scroll";
 import { listAnimation } from "@/styles/styles_animation";
 import AnimateCssReact from "animate-css-reactjs";
 
-const HoverInfo = ({ text }: { text: string }) => {
-  return (
-    <>
-      <HoverCard>
-        <HoverCard.Target>
-          <ActionIcon
-            sx={{
-              border: "2px solid white",
-              borderRadius: "100px",
-            }}
-          >
-            <Image src={"/icon_robot.svg"} alt={"icon"} width={24} />
-          </ActionIcon>
-        </HoverCard.Target>
-        <HoverCard.Dropdown>
-          <Stack>
-            <Center>
-              <AnimateCssReact animation="bounce">
-                <Image width={100} src={"/icon_robot.svg"} alt={"icon"} />
-              </AnimateCssReact>
-            </Center>
-            <Text>{text}</Text>
-          </Stack>
-        </HoverCard.Dropdown>
-      </HoverCard>
-    </>
-  );
-};
-
+// text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours"
 const Top10ProvinceByConversation = () => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
-  const update = useForceUpdate();
+  
   if (_.isEmpty(sTop10Province.value)) return <>loading</>;
   return (
     <>
       <Stack>
-        <Sambutan />
-        <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
+       
+
         {/* {JSON.stringify(gTop10ProvinceTake.value)} */}
         <Paper
           shadow={"sm"}
@@ -96,105 +68,8 @@ const Top10ProvinceByConversation = () => {
             overflow: "scroll",
           }}
         >
-          <Group position="apart" py={"lg"}>
-            <Paper p={"md"} bg={stylesGradientBlueWhite} shadow={"md"} w={300}>
-              <Stack>
-                <Flex>
-                  {[
-                    sCandidate.value.find((v) => v.id == 1),
-                    sCandidate.value.find((v) => v.id == 2),
-                    sCandidate.value.find((v) => v.id == 3),
-                  ].map((v) => (
-                    <Box key={v!.id} p={"sm"}>
-                      <ActionIcon
-                        radius={100}
-                        size={63}
-                        onClick={async () => {
-                          // gSelectedCandidate.set(v!.id.toString());
-                          sSelectedCandidate.value = v!.id.toString();
-                          await funcLoadTop10District();
-                          await funcLoadTop10Province();
-                          update();
-                        }}
-                      >
-                        <Avatar
-                          size={63}
-                          src={v?.img}
-                          style={{
-                            border:
-                              Number(sSelectedCandidate.value) == v?.id
-                                ? "4px solid yellow"
-                                : "",
-                            filter:
-                              Number(sSelectedCandidate.value) == v?.id
-                                ? "none"
-                                : "grayscale(100%)",
-                          }}
-                        />
-                      </ActionIcon>
-                    </Box>
-                  ))}
-                </Flex>
-                <Flex justify="space-between" align={"end"}>
-                  <Title color={"blue.1"} order={3}>
-                    {
-                      sCandidate.value.find(
-                        (v) => v.id == Number(sSelectedCandidate.value)
-                      )?.name
-                    }
-                  </Title>
-                  <HoverInfo text="klik untuk melihat data kandidat" />
-                </Flex>
-              </Stack>
-            </Paper>
-            <Group position="right" align={"end"}>
-              <Select
-                placeholder={sSelectedEmotion.value}
-                variant={"filled"}
-                searchable
-                label={"sort emotion"}
-                data={sListEmotion.value.map((v) => ({
-                  label: v.name,
-                  value: v.name,
-                }))}
-                onChange={async (val) => {
-                  if (val) {
-                    // sSelectedEmotion.set(val);
-                    sSelectedEmotion.value = val;
-                    await funcLoadTop10District();
-                    await funcLoadTop10Province();
-                    update();
-                  }
-                }}
-              />
-              <HoverCard>
-                <HoverCard.Target>
-                  <ActionIcon
-                    sx={{
-                      border: "2px solid white",
-                      borderRadius: "100px",
-                    }}
-                  >
-                    <Image src={"/icon_robot.svg"} alt={"icon"} width={24} />
-                  </ActionIcon>
-                </HoverCard.Target>
-                <HoverCard.Dropdown>
-                  <Stack>
-                    <Center>
-                      <AnimateCssReact animation="bounce">
-                        <Image
-                          width={100}
-                          src={"/icon_robot.svg"}
-                          alt={"icon"}
-                        />
-                      </AnimateCssReact>
-                    </Center>
-                    <Text>Pilih atau sort Emotion Sesuai kebutuhan</Text>
-                  </Stack>
-                </HoverCard.Dropdown>
-              </HoverCard>
-            </Group>
-          </Group>
+          
+          <PageTitle />
           <Stack>
             {/* <Group position="right">
               <HoverCard>
@@ -321,11 +196,11 @@ const Top10ProvinceByConversation = () => {
                     </td>
                     <td style={{ padding: 0 }}>
                       <Paper bg={"white"} p={"xs"}>
-                       <Tooltip label={v.name}>
-                       <Text lineClamp={1} fw={"bold"} color={"gray"}>
-                          {v.name}
-                        </Text>
-                       </Tooltip>
+                        <Tooltip label={v.name}>
+                          <Text lineClamp={1} fw={"bold"} color={"gray"}>
+                            {v.name}
+                          </Text>
+                        </Tooltip>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
