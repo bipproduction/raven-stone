@@ -21,7 +21,7 @@ const DevAuthProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Stack>
-        <DevAppBar />
+        {/* <DevAppBar /> */}
         {children}
       </Stack>
     </>

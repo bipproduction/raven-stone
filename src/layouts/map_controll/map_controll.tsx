@@ -12,6 +12,7 @@ import {
   Group,
   Menu,
   Modal,
+  Paper,
   Select,
   SimpleGrid,
   Slider,
@@ -43,6 +44,7 @@ import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import MapControllContextDirection from "./map_controll_context_direction";
 import MapControllWorCloud from "./map_controll_word_cloud";
 import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -354,14 +356,11 @@ const LayoutMapControll = () => {
     // console.log(JSON.stringify(selectedCity, null, 2))
     const dt = {
       name: selectedCity.City.name,
-      data: selectedCity
+      data: selectedCity,
     };
 
     setSelectedData(dt);
-    const dataFilter = _.omit(selectedCity, [
-      "id",
-      "City"
-    ]);
+    const dataFilter = _.omit(selectedCity, ["id", "City"]);
 
     const hasil = [];
     for (let i of [
@@ -388,130 +387,137 @@ const LayoutMapControll = () => {
   return (
     <>
       <Stack>
-        <Flex
-          w={"100%"}
-          p={"xs"}
-          bg={"gray.1"}
-          direction={"row"}
-          gap={"lg"}
-          justify={"space-between"}
-          align={"center"}
-          pos={"sticky"}
-          top={0}
-          sx={{
-            zIndex: 100,
-          }}
-        >
-          <Group>
-            <DatePickerInput
-              value={new Date(sSelectedDate.value)}
-              label={"select date"}
-              onChange={(val) => {
-                if (val) {
-                  // sSelectedDate.set(moment(val).format("YYYY-MM-DD"));
-                  sSelectedDate.value = moment(val).format("YYYY-MM-DD");
-                  funLoadMapData();
-                }
-              }}
-              w={150}
-            />
-            {!_.isEmpty(slistCandidate.value) && (
-              <Select
-                searchable
-                key={"1"}
-                label={"select candidate"}
-                value={sSelectedCandidate.value}
-                placeholder={
-                  slistCandidate.value.find(
-                    (v) => v.id == sSelectedCandidate.value
-                  ).name
-                }
-                data={slistCandidate.value.map((v) => ({
-                  label: v.name,
-                  value: v.id,
-                }))}
+        <Paper p={"md"}>
+          <Flex
+            // w={"100%"}
+            wrap={"wrap"}
+            // p={"xs"}
+            // bg={"gray.1"}
+            direction={"row"}
+            gap={"lg"}
+            justify={"space-between"}
+            align={"center"}
+            // pos={"sticky"}
+            // top={0}
+            // sx={{
+            //   zIndex: 100,
+            // }}
+          >
+            <Group>
+              <DatePickerInput
+                value={new Date(sSelectedDate.value)}
+                label={"select date"}
                 onChange={(val) => {
                   if (val) {
-                    // sSelectedCandidate.set(val!);
-                    sSelectedCandidate.value = val;
+                    // sSelectedDate.set(moment(val).format("YYYY-MM-DD"));
+                    sSelectedDate.value = moment(val).format("YYYY-MM-DD");
                     funLoadMapData();
                   }
                 }}
+                w={150}
               />
-            )}
-            <Flex align={"end"} gap={"md"}>
-              <Autocomplete
-                data={sListKabupaten.value.map((v) => ({
-                  value: v.City.name,
-                }))}
-                icon={<FaSearch />}
-                value={search}
-                rightSection={
-                  <ActionIcon onClick={() => setSearch("")}>
-                    <MdClose />
-                  </ActionIcon>
-                }
-                label={"search kabupaten"}
-                onChange={(val) => {
-                  setSearch(val);
-                }}
-                onItemSubmit={(val) => {
-                  const dataCity = sListKabupaten.value.find(
-                    (v) => v.City.name == val.value
-                  );
-                  if (dataCity) {
-                    setSelectedCity(dataCity);
+              {!_.isEmpty(slistCandidate.value) && (
+                <Select
+                  searchable
+                  key={"1"}
+                  label={"select candidate"}
+                  value={sSelectedCandidate.value}
+                  placeholder={
+                    slistCandidate.value.find(
+                      (v) => v.id == sSelectedCandidate.value
+                    ).name
                   }
-                }}
-              />
-              {selectedCity && (
-                <Button onClick={onForce} compact>
-                  Force Select
-                </Button>
+                  data={slistCandidate.value.map((v) => ({
+                    label: v.name,
+                    value: v.id,
+                  }))}
+                  onChange={(val) => {
+                    if (val) {
+                      // sSelectedCandidate.set(val!);
+                      sSelectedCandidate.value = val;
+                      funLoadMapData();
+                    }
+                  }}
+                />
               )}
-            </Flex>
-          </Group>
-          {/* <Text>{JSON.stringify(listCandidate.value)}</Text> */}
-          <Flex align={"end"} gap={"lg"}>
-            <Menu>
-              <Menu.Target>
-                <Button compact leftIcon={<FaCopy />}>
-                  copy data
-                </Button>
-              </Menu.Target>
-              <Menu.Dropdown>
-                <Menu.Item onClick={setCopyData.open}>Copy Data</Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
-            <Button
-              leftIcon={sIstable.value ? <MdMap /> : <MdTableView />}
-              compact
-              onClick={() => (sIstable.value = !sIstable.value)}
-            >
-              {sIstable.value ? <Text>Map View</Text> : <Text>Table View</Text>}
-            </Button>
-
-            <ButtonAjustByProvince />
-            {sListKabupaten.value && sListKabupaten.value[0] && (
-              <CSVLink
-                title="download"
-                style={{
-                  height: 25,
-                }}
-                filename={fileName()}
-                data={
-                  sListKabupaten.value.map((v: any) => ({
-                    ..._.omit(v, ["City"]),
-                    kabupaten: v.City.name,
-                  })) as any
-                }
+              <Flex align={"end"} gap={"md"}>
+                <Autocomplete
+                  data={sListKabupaten.value.map((v) => ({
+                    value: v.City.name,
+                  }))}
+                  icon={<FaSearch />}
+                  value={search}
+                  rightSection={
+                    <ActionIcon onClick={() => setSearch("")}>
+                      <MdClose />
+                    </ActionIcon>
+                  }
+                  label={"search kabupaten"}
+                  onChange={(val) => {
+                    setSearch(val);
+                  }}
+                  onItemSubmit={(val) => {
+                    const dataCity = sListKabupaten.value.find(
+                      (v) => v.City.name == val.value
+                    );
+                    if (dataCity) {
+                      setSelectedCity(dataCity);
+                    }
+                  }}
+                />
+                {selectedCity && (
+                  <Button onClick={onForce} compact>
+                    Force Select
+                  </Button>
+                )}
+              </Flex>
+            </Group>
+            {/* <Text>{JSON.stringify(listCandidate.value)}</Text> */}
+            <Flex align={"end"} gap={"lg"}>
+              <Menu>
+                <Menu.Target>
+                  <Button compact leftIcon={<FaCopy />}>
+                    copy data
+                  </Button>
+                </Menu.Target>
+                <Menu.Dropdown>
+                  <Menu.Item onClick={setCopyData.open}>Copy Data</Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+              <Button
+                leftIcon={sIstable.value ? <MdMap /> : <MdTableView />}
+                compact
+                onClick={() => (sIstable.value = !sIstable.value)}
               >
-                <MdDownload size={24} color={"teal"} />
-              </CSVLink>
-            )}
-            <InjectData />
+                {sIstable.value ? (
+                  <Text>Map View</Text>
+                ) : (
+                  <Text>Table View</Text>
+                )}
+              </Button>
+
+              <ButtonAjustByProvince />
+              {sListKabupaten.value && sListKabupaten.value[0] && (
+                <CSVLink
+                  title="download"
+                  style={{
+                    height: 25,
+                  }}
+                  filename={fileName()}
+                  data={
+                    sListKabupaten.value.map((v: any) => ({
+                      ..._.omit(v, ["City"]),
+                      kabupaten: v.City.name,
+                    })) as any
+                  }
+                >
+                  <MdDownload size={24} color={"teal"} />
+                </CSVLink>
+              )}
+              <InjectData />
+            </Flex>
           </Flex>
-        </Flex>
+        </Paper>
 
         {/* modal copy data  */}
         <Modal opened={openCopyData} onClose={setCopyData.close}>
@@ -665,29 +671,31 @@ const LayoutMapControll = () => {
             </Group>
           </Stack>
         </Modal>
-        <Box top={100} pos={"relative"}>
-          {isMap && (
-            <Box>
-              <Stack>
-                <Box hidden={sIstable.value}>
-                  <EChartsReact
-                    onEvents={onEvent}
-                    style={{
-                      height: 700,
-                    }}
-                    option={option}
-                  />
-                </Box>
-                <Box hidden={!sIstable.value}>
-                  <TableView
-                    key={sListKabupaten.value.length}
-                    dataKabupaten={sListKabupaten.value}
-                  />
-                </Box>
-              </Stack>
-            </Box>
-          )}
-        </Box>
+        <Paper p={"md"} pos={"static"} bg={stylesGradient1}>
+          <Box top={100} pos={"static"}>
+            {isMap && (
+              <Box>
+                <Stack>
+                  <Box hidden={sIstable.value}>
+                    <EChartsReact
+                      onEvents={onEvent}
+                      style={{
+                        height: 700,
+                      }}
+                      option={option}
+                    />
+                  </Box>
+                  <Box hidden={!sIstable.value}>
+                    <TableView
+                      key={sListKabupaten.value.length}
+                      dataKabupaten={sListKabupaten.value}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+            )}
+          </Box>
+        </Paper>
       </Stack>
     </>
   );

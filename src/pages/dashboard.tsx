@@ -25,9 +25,11 @@ import {
   Avatar,
   Box,
   Burger,
+  Center,
   Chip,
   Drawer,
   Flex,
+  Grid,
   Group,
   Header,
   Image,
@@ -38,14 +40,16 @@ import {
   NavLink,
   Paper,
   ScrollArea,
+  SimpleGrid,
   Stack,
   Text,
   Title,
+  Tooltip,
   useMantineTheme,
 } from "@mantine/core";
 import { useId, useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
-import { Button } from "antd";
+
 import { onChildChanged, onValue, ref } from "firebase/database";
 import _ from "lodash";
 import moment from "moment";
@@ -53,19 +57,32 @@ import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import {
   MdAccountCircle,
+  MdArrowBackIos,
+  MdArrowForwardIos,
+  MdAssignment,
   MdBarChart,
   MdCircle,
   MdGridView,
   MdInfo,
+  MdJoinLeft,
   MdMessage,
   MdNotifications,
   MdNotificationsActive,
+  MdOutlineStarBorderPurple500,
+  MdOutlineStars,
   MdSettings,
+  MdStackedBarChart,
+  MdStorage,
   MdTimer,
   MdWatch,
 } from "react-icons/md";
 import toast from "react-simple-toasts";
 import useSound from "use-sound";
+import { sNavbarOpen } from "@/s_state/s_navbar_open";
+import { sNavbarIsSmall } from "@/s_state/s_navbar_is_small";
+import AnimateCssReact from "animate-css-reactjs";
+import MainSummary from "@/layouts/summary/main_summary";
+import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -82,13 +99,14 @@ const listView = [
       {
         id: 2,
         name: "Top 10 Province By Emotions",
-        view: Top10ProvinceByConversation,
+        view: MainSummary,
+        icon: MdStorage,
       },
-      {
-        id: 3,
-        name: "Top 10 District by Emotions",
-        view: Top10DistrictbyConversation,
-      },
+      // {
+      //   id: 3,
+      //   name: "Top 10 District by Emotions",
+      //   view: Top10DistrictbyConversation,
+      // },
       //   {
       //     id: 4,
       //     name: "Source of Mention",
@@ -115,6 +133,7 @@ const listView = [
         id: 2,
         name: "Media Summary",
         view: MentionbyCategory,
+        icon: MdAssignment,
       },
       // {
       //   id: 3,
@@ -167,6 +186,7 @@ const listView = [
         id: 1,
         name: "Nation Wide Rating",
         view: NationWideRating,
+        icon: MdOutlineStarBorderPurple500,
       },
       // {
       //   id: 2,
@@ -177,16 +197,19 @@ const listView = [
         id: 3,
         name: "Emotional View Via Province",
         view: EmotionalViewViaProvince,
+        icon: MdOutlineStars,
       },
       {
         id: 3,
         name: "Emotional View Via Province Couple",
         view: EmotionalViewViaProvinceCouple,
+        icon: MdJoinLeft,
       },
       {
         id: 4,
         name: "Contextual Content",
         view: ContextualContent,
+        icon: MdStackedBarChart,
       },
     ],
   },
@@ -194,7 +217,7 @@ const listView = [
 
 const Dashboard = () => {
   const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
+  // const [opened, setOpened] = useState(false);
   // const selectedView = useHookstate(gSelectedView);
   const [userName, setUserName] = useState<{ [key: string]: any }>({});
 
@@ -221,86 +244,7 @@ const Dashboard = () => {
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={
-        <Navbar
-          bg={"blue.0"}
-          hiddenBreakpoint="sm"
-          hidden={!opened}
-          width={{ sm: 200, lg: 300 }}
-        >
-          <Navbar.Section mb={"lg"}>
-            <Paper shadow={"sm"} bg={"blue.2"} h={105}>
-              <Box w={{ sm: 200, lg: 300 }} p={"sm"}>
-                <Image width={150} src={"/logo-2.png"} alt={"logo"} />
-              </Box>
-              <Group position="right">
-                <ActionIcon
-                  onClick={() => toast("Project already running ...")}
-                >
-                  <MdInfo color="white" />
-                </ActionIcon>
-              </Group>
-            </Paper>
-          </Navbar.Section>
-          <Navbar.Section grow component={ScrollArea}>
-            {listView.map((v) => (
-              <NavLink
-                bg={"blue.2"}
-                // sx={{
-                //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
-                // }}
-                label={v.name}
-                icon={
-                  <Avatar radius={100}>
-                    <v.icon size={24} color={"#BE2533"} />
-                  </Avatar>
-                }
-                key={v.id.toString()}
-                c={"dark"}
-                // defaultOpened
-              >
-                {v.child.map((vv, i) => (
-                  <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
-                    <NavLink
-                      c={sSelectedView.value == vv.name ? "blue.8" : "blue.4"}
-                      icon={<MdCircle color="orange" />}
-                      variant={"filled"}
-                      fw={sSelectedView.value == vv.name ? "bold" : "light"}
-                      // bg={selectedView.value == vv.name ? "blue.1" : ""}
-                      label={_.lowerCase(vv.name)}
-                      key={`${v.id}${i}`}
-                      onClick={() => {
-                        // selectedView.set(vv.name);
-                        sSelectedView.value = vv.name;
-                        setOpened(false);
-                      }}
-                    />
-                  </Paper>
-                ))}
-              </NavLink>
-            ))}
-          </Navbar.Section>
-          <Navbar.Section>
-            <NavLink
-              bg={"gray"}
-              c={"dark"}
-              icon={<MdSettings />}
-              label={"setting"}
-            />
-            <Stack spacing={0} p={"xs"} bg={"dark"}>
-              {/* <Text fz={9} c={"gray"}>
-                Bip Production @2023
-              </Text> */}
-              <Text fz={9} c={"gray"}>
-                Version: 2.0.1
-              </Text>
-              <Text fz={9} c={"gray"}>
-                build: 10453
-              </Text>
-            </Stack>
-          </Navbar.Section>
-        </Navbar>
-      }
+      navbar={<MyNavbar />}
       header={
         <Header
           height={{ base: 50, md: 50 }}
@@ -315,8 +259,10 @@ const Dashboard = () => {
           >
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
+                opened={sNavbarOpen.value}
+                onClick={() => {
+                  sNavbarOpen.value = !sNavbarOpen.value;
+                }}
                 size="sm"
                 color={theme.colors.gray[6]}
                 mr="xl"
@@ -516,6 +462,143 @@ const NotificationDisplay = () => {
           </Box>
         ))}
       </Stack>
+    </>
+  );
+};
+
+const MyNavbar = () => {
+  if (sNavbarIsSmall.value)
+    return (
+      <>
+        <AnimateCssReact animation="flipInY">
+          <Navbar
+            bg={"blue.1"}
+            hiddenBreakpoint="sm"
+            hidden={!sNavbarOpen.value}
+            width={{ sm: 64, lg: 64 }}
+          >
+            <Navbar.Section grow>
+              <Stack align="center" p={"xs"}>
+                {listView.map((v) =>
+                  v.child.map((vv) => (
+                    <Box key={vv.id} >
+                      <Tooltip label={vv.name}>
+                      <ActionIcon bg={vv.name === sSelectedView.value? "white": ""} radius={100} size={32} variant="outline" onClick={() => (sSelectedView.value = vv.name)}>
+                        <vv.icon size={32} color="#BE2533" />
+                      </ActionIcon>
+                      </Tooltip>
+                    </Box>
+                  ))
+                )}
+              </Stack>
+            </Navbar.Section>
+            <Navbar.Section bg={"dark"}>
+              <ActionIcon
+                onClick={() => (sNavbarIsSmall.value = false)}
+                m={"md"}
+                radius={100}
+                size={34}
+              >
+                <MdArrowForwardIos size={34} />
+              </ActionIcon>
+            </Navbar.Section>
+          </Navbar>
+        </AnimateCssReact>
+      </>
+    );
+  return (
+    <>
+      <Navbar
+        bg={"blue.0"}
+        hiddenBreakpoint="sm"
+        hidden={!sNavbarOpen.value}
+        width={{ sm: 200, lg: 300 }}
+      >
+        <Navbar.Section mb={"lg"}>
+          <AnimateCssReact animation="flipInY">
+            <Paper shadow={"sm"} bg={"blue.2"} h={105}>
+              <Box w={{ sm: 200, lg: 300 }} p={"sm"}>
+                <Image width={150} src={"/logo-2.png"} alt={"logo"} />
+              </Box>
+              <Group position="right">
+                <ActionIcon
+                  onClick={() => toast("Project already running ...")}
+                >
+                  <MdInfo color="white" />
+                </ActionIcon>
+              </Group>
+            </Paper>
+          </AnimateCssReact>
+        </Navbar.Section>
+        <Navbar.Section grow component={ScrollArea}>
+          {listView.map((v) => (
+            <NavLink
+              bg={"blue.2"}
+              // sx={{
+              //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
+              // }}
+              label={v.name}
+              icon={
+                <Avatar radius={100}>
+                  <v.icon size={24} color={"#BE2533"} />
+                </Avatar>
+              }
+              key={v.id.toString()}
+              c={"dark"}
+              // defaultOpened
+            >
+              {v.child.map((vv, i) => (
+                <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
+                  <NavLink
+                    c={sSelectedView.value == vv.name ? "blue.8" : "blue.4"}
+                    icon={<MdCircle color="orange" />}
+                    variant={"filled"}
+                    fw={sSelectedView.value == vv.name ? "bold" : "light"}
+                    // bg={selectedView.value == vv.name ? "blue.1" : ""}
+                    label={_.lowerCase(vv.name)}
+                    key={`${v.id}${i}`}
+                    onClick={() => {
+                      // selectedView.set(vv.name);
+                      sSelectedView.value = vv.name;
+                      // setOpened(false);
+                      sNavbarOpen.value = false;
+                    }}
+                  />
+                </Paper>
+              ))}
+            </NavLink>
+          ))}
+        </Navbar.Section>
+        <Navbar.Section>
+          <NavLink
+            bg={"gray"}
+            c={"dark"}
+            icon={<MdSettings />}
+            label={"setting"}
+          />
+          <Flex bg={"dark"}>
+            <Stack spacing={0} p={"xs"} w={"100%"}>
+              {/* <Text fz={9} c={"gray"}>
+                Bip Production @2023
+              </Text> */}
+              <Text fz={9} c={"gray"}>
+                Version: 2.0.1
+              </Text>
+              <Text fz={9} c={"gray"}>
+                build: 10453
+              </Text>
+            </Stack>
+            <ActionIcon
+              onClick={() => (sNavbarIsSmall.value = true)}
+              m={"md"}
+              radius={100}
+              size={34}
+            >
+              <MdArrowBackIos size={34} />
+            </ActionIcon>
+          </Flex>
+        </Navbar.Section>
+      </Navbar>
     </>
   );
 };

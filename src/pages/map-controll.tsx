@@ -6,9 +6,9 @@ import DevAuthProvider from "../layouts/dev/dev_auth_provider";
 const MapControll = () => {
   return (
     <>
-      <DevAuthProvider>
+      {/* <DevAuthProvider>
         <LayoutMapControll />
-      </DevAuthProvider>
+      </DevAuthProvider> */}
     </>
   );
 };
