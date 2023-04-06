@@ -57,6 +57,8 @@ export const api = {
   "apiDevSyncWordCloud": "/api/dev/sync-word-cloud",
   "apiDevSyncSourceOfMention": "/api/dev/sync-source-of-mention",
   "apiDevSyncNationWideChart": "/api/dev/sync-nation-wide-chart",
+  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
+  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get",
   "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",

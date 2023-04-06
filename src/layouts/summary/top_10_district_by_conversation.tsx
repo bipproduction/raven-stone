@@ -13,7 +13,7 @@ import { sListEmotion } from "@/s_state/s_list_emotion";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import { sSelectedEmotion } from "@/s_state/s_selected_emotion";
 import { sTop10District } from "@/s_state/s_top_10_district";
-import { sTop10DistrictCount } from "@/s_state/s_top_10_district_count";
+import { sTop10DistrictTake } from "@/s_state/s_top_10_district_take";
 import {
   ActionIcon,
   Avatar,
@@ -35,17 +35,20 @@ import { useState } from "react";
 import PageTitle from "../page_title";
 import Sambutan from "../sambutan";
 
+
+// text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" 
+
 const Top10DistrictbyConversation = () => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
-  const update = useForceUpdate();
+  // const update = useForceUpdate();
 
   if (sTop10District.value && !sTop10District.value[0]) return <></>;
 
   return (
     <>
       {/* <Text>Top 10 District By Conversation</Text> */}
-      <PageTitle text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours" />
+      
       <Paper
         shadow={"sm"}
         p={"md"}
@@ -54,7 +57,7 @@ const Top10DistrictbyConversation = () => {
           overflow: "scroll",
         }}
       >
-        <Group position="apart" py={"lg"}>
+        {/* <Group position="apart" py={"lg"}>
           <Paper p={"md"} bg={stylesGradientBlueWhite} shadow={"md"}>
             <Stack>
               <Flex>
@@ -124,7 +127,7 @@ const Top10DistrictbyConversation = () => {
               }}
             />
           </Group>
-        </Group>
+        </Group> */}
         {/* <Group position="right" py={"lg"}>
           <Select
             placeholder={gSelectedEmotion.value}
@@ -145,7 +148,8 @@ const Top10DistrictbyConversation = () => {
           />
         </Group> */}
         <Stack>
-          <Table verticalSpacing={"md"} bg={stylesGradient1} mt={54}>
+        <PageTitle/>
+          <Table verticalSpacing={"md"} bg={stylesGradient1} >
             <thead>
               <tr>
                 <th>NO</th>
@@ -169,7 +173,7 @@ const Top10DistrictbyConversation = () => {
               </tr>
             </thead>
             <tbody>
-              {sTop10DistrictCount.value.map((v: any, i) => (
+              {sTop10DistrictTake.value.map((v: any, i) => (
                 <tr key={i}>
                    <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{v.no}</Text></Paper></td>
                     <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Tooltip label={v.city}><Text lineClamp={1}  fw={"bold"} color={"gray"}  >{v.city}</Text></Tooltip></Paper></td>
@@ -218,6 +222,7 @@ const Top10DistrictbyConversation = () => {
             </tbody>
           </Table>
 
+          {/* {JSON.stringify(sTop10District.value)}       */}
           <Group position="right" mt={"lg"}>
             <Pagination
               total={Math.floor(sTop10District.value.length / pageSize)}
@@ -227,7 +232,7 @@ const Top10DistrictbyConversation = () => {
                 const end = start + pageSize;
                 const pageItem = _.slice(sTop10District.value, start, end);
                 setPage(val);
-                sTop10DistrictCount.value = pageItem as any;
+                sTop10DistrictTake.value = pageItem as any;
               }}
             />
           </Group>
