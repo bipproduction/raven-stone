@@ -483,7 +483,7 @@ const MyNavbar = () => {
                   v.child.map((vv) => (
                     <Box key={vv.id} >
                       <Tooltip label={vv.name}>
-                      <ActionIcon bg={vv.name === sSelectedView.value? "white": ""} radius={100} size={32} variant="outline" onClick={() => (sSelectedView.value = vv.name)}>
+                      <ActionIcon bg={vv.name === sSelectedView.value? "dark": ""} radius={100} size={32} variant="light" onClick={() => (sSelectedView.value = vv.name)}>
                         <vv.icon size={32} color="#BE2533" />
                       </ActionIcon>
                       </Tooltip>
@@ -547,11 +547,12 @@ const MyNavbar = () => {
               c={"dark"}
               // defaultOpened
             >
+
               {v.child.map((vv, i) => (
                 <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
                   <NavLink
                     c={sSelectedView.value == vv.name ? "blue.8" : "blue.4"}
-                    icon={<MdCircle color="orange" />}
+                    icon={<vv.icon color="orange" />}
                     variant={"filled"}
                     fw={sSelectedView.value == vv.name ? "bold" : "light"}
                     // bg={selectedView.value == vv.name ? "blue.1" : ""}
