@@ -26,7 +26,7 @@ const DevAppBar = () => {
   return (
     <>
       <Flex
-        pos={"sticky"}
+        // pos={"sticky"}
         w={"100%"}
         h={70}
         p={"md"}
@@ -35,7 +35,7 @@ const DevAppBar = () => {
         direction={"row"}
         justify={"space-between"}
         align={"center"}
-        sx={{ zIndex: 100 }}
+        // sx={{ zIndex: 100 }}
         top={0}
       >
         {/* {router.pathname} */}

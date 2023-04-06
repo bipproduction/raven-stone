@@ -4,19 +4,21 @@ import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
 import { useHookstate } from "@hookstate/core";
 import {
+  Box,
   Button,
   Card,
   Container,
   Flex,
   Group,
   Loader,
+  Overlay,
   Paper,
   Stack,
   Table,
   Text,
   Textarea,
 } from "@mantine/core";
-import { useInputState, useShallowEffect } from "@mantine/hooks";
+import { useElementSize, useInputState, useShallowEffect, useViewportSize } from "@mantine/hooks";
 import { onValue, ref, set } from "firebase/database";
 import _ from "lodash";
 import { useRouter } from "next/router";
@@ -25,6 +27,7 @@ import toast from "react-simple-toasts";
 
 const Dev = () => {
   // const user = useHookstate(gUser);
+
   const syncNationWideChart = async () => {
     const res = await fetch(api.apiDevSyncNationWideChart);
     return res.ok;
@@ -84,10 +87,12 @@ const Dev = () => {
       async (res) => res.status == 200
     );
 
+  const {ref, height, width} = useElementSize()
+
   return (
-    <>
+    <Box ref={ref}>
       <DevAuthProvider>
-        <Stack spacing={0} pos={"static"} bg={"gray.3"}>
+        <Stack spacing={0} pos={"static"} bg={"gray.3"} >
           <Container bg={"gray.3"} mt={70} pos={"static"}>
             <Stack>
               {/* <DevCityValue /> */}
@@ -197,9 +202,13 @@ const Dev = () => {
               <B24Dev />
             </Stack>
           </Container>
+
+          {router.query.dev != "true" && (
+            <Overlay zIndex={1} h={height} color="#000" opacity={0.85} />
+          )}
         </Stack>
       </DevAuthProvider>
-    </>
+    </Box>
   );
 };
 

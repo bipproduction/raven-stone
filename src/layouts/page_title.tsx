@@ -6,15 +6,17 @@ import { Box, Flex, Paper, Space, Stack, Text, Title } from "@mantine/core";
 import _ from "lodash";
 import { MdCircle } from "react-icons/md";
 
-const PageTitle = ({ text }: { text?: string }) => {
+const PageTitle = ({ title, text }: { title?: string; text?: string }) => {
   return (
     <>
       <Flex>
         <MdCircle color="orange" size={42} />
         <Stack spacing={0}>
-          <Title c={"blue.8"}>{_.upperCase(sSelectedView.value)}</Title>
+          <Title c={"blue.8"}>
+            {_.upperCase(title ?? sSelectedView.value)}
+          </Title>
           <Box
-            p={"xs"}
+            // p={"xs"}
             bg={stylesGradientBluegray}
             className={"bgGradientBlueGray"}
           >

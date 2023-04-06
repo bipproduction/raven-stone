@@ -97,7 +97,7 @@ const ContextualContent = () => {
       {/* {JSON.stringify(list_contexttual_content)} */}
       <Stack>
         {sContextualContent.value.map((v) => (
-          <Paper key={v.id} p={"md"}>
+          <Paper key={v.id} p={"md"} radius={20} shadow="md">
             <Spoiler
               maxHeight={42}
               key={v.data.title}
