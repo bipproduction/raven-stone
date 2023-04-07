@@ -178,9 +178,9 @@ const EmotionalViewViaProvince = () => {
                     // }}
                   >
                     <Stack justify={"center"} spacing={0}>
-                      <Text color={"cyan.8"} size={32} fw={"bold"}>
+                      <Title color={"cyan.8"}  fw={"bold"}>
                         {Intl.NumberFormat("id-id").format(v.total)}
-                      </Text>
+                      </Title>
                       <Text align={"center"} color={"gray"}>
                         DATA VOLUME
                       </Text>
