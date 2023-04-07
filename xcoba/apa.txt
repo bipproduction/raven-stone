@@ -484,3 +484,47 @@ const data = [
     updatedAt: 2023-04-03T00:32:14.822Z
   }
 ]
+
+
+sum semuanya  menggunakan lodash
+
+const data = [{
+    "no": 1,
+    "name": "Jawa Barat",
+    "value": 30273322,
+    "id": 12,
+    "trust": 8456301,
+    "joy": 1199552,
+    "surprise": 2835627,
+    "anticipation": 3502485,
+    "sadness": 1709682,
+    "fear": 6531939,
+    "anger": 2097610,
+    "disgust": 3940126
+  },
+  {
+    "no": 2,
+    "name": "Jawa Timur",
+    "value": 25338130,
+    "id": 16,
+    "trust": 6405817,
+    "joy": 1248804,
+    "surprise": 2627664,
+    "anticipation": 3061908,
+    "sadness": 1560662,
+    "fear": 4642084,
+    "anger": 2409546,
+    "disgust": 3381645
+  }
+  ]
+
+const positive = trust + joy + surprise
+const neutrall = anticipation
+const negative = sadness + fear + anger + disgust
+
+hasilnya adalah pembulatan menjado nilai real dalam bentuk persen dan akumulasi , jika masing masing item di tambahkan makan akan menghasilkan nilai 100%
+const result = {
+  positive,
+  neutrall
+  negative
+}
