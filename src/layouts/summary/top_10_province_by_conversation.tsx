@@ -53,12 +53,13 @@ const Top10ProvinceByConversation = () => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
   
+
+  
+
   if (_.isEmpty(sTop10Province.value)) return <>loading</>;
   return (
     <>
       <Stack>
-       
-
         {/* {JSON.stringify(gTop10ProvinceTake.value)} */}
         <Paper
           shadow={"sm"}
@@ -68,7 +69,6 @@ const Top10ProvinceByConversation = () => {
             overflow: "scroll",
           }}
         >
-          
           <PageTitle title="Top 10 Province By Emotion" />
           <Stack>
             {/* <Group position="right">

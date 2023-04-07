@@ -63,7 +63,6 @@ export default function App(props: AppProps) {
     funcLoadNotification();
     funcloadContextualContent();
     funcLoadCandidateValue();
-    
   }, []);
 
   return (
@@ -80,7 +79,9 @@ export default function App(props: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          /** Put your mantine theme override here */
+          fontFamily:'Geneva',
+          fontFamilyMonospace: "Monaco, Courier, monospace",
+          headings: { fontFamily: "Impact" },
           colorScheme: "light",
         }}
       >
