@@ -69,7 +69,7 @@ const Top10ProvinceByConversation = () => {
           }}
         >
           
-          <PageTitle />
+          <PageTitle title="Top 10 Province By Emotion" />
           <Stack>
             {/* <Group position="right">
               <HoverCard>

@@ -98,7 +98,7 @@ const listView = [
       //   },
       {
         id: 2,
-        name: "Top 10 Province By Emotions",
+        name: "Top 10 Rating By Emotions",
         view: MainSummary,
         icon: MdStorage,
       },

@@ -148,7 +148,7 @@ const Top10DistrictbyConversation = () => {
           />
         </Group> */}
         <Stack>
-        <PageTitle/>
+        <PageTitle title="Top 10 Region by Emotion"/>
           <Table verticalSpacing={"md"} bg={stylesGradient1} >
             <thead>
               <tr>
