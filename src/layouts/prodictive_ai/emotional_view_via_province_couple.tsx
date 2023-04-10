@@ -272,7 +272,7 @@ const EmotionalViewViaProvinceCouple = () => {
                     </Text>
                   </Stack>
                   <Text size={24}>
-                    {sProvince.value.find((p) => p.id == v.provinceId).name}
+                    {_.upperCase(sProvince.value.find((p) => p.id == v.provinceId).name)}
                   </Text>
                   <EmotionalViewDetailButton
                     provinceId={v.provinceId}

@@ -20,6 +20,7 @@ import _ from "lodash";
 import { MdPlayCircle, MdRunCircle } from "react-icons/md";
 import Dev from "@/layouts/dev/dev";
 import DevTestIframe from "@/layouts/dev/dev_test_iframe";
+import DevTestIframeBoma from "@/layouts/dev/dev_test_iframe_boma";
 
 
 const listMenu = [
@@ -42,6 +43,11 @@ const listMenu = [
     id: "4",
     name: "Test Iframe",
     view: DevTestIframe,
+  },
+  {
+    id: "5",
+    name: "Test Iframe Boma",
+    view: DevTestIframeBoma,
   },
 ];
 
