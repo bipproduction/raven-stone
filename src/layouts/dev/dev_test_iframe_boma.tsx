@@ -10,7 +10,7 @@ const DevTestIframeBoma = () => {
       <Title>Test Iframe Boma</Title>
 
       <Navbar.Section grow bg={stylesGradient1} ref={ref}>
-        <Iframe
+        {/* <Iframe
           allowFullScreen
           frameBorder={0}
           loading="lazy"
@@ -20,11 +20,12 @@ const DevTestIframeBoma = () => {
           display="block"
           position="relative"
           allow="true"
-          allowpaymentrequest={true}
           importance="auto"
-          referrerpolicy="unsafe-url"
-          target="_blank"
-        />
+        //   referrerpolicy="unsafe-url"
+          target="_self"
+        /> */}
+
+        <iframe height={height} frameBorder={0} allowFullScreen={true} width={width} src="https://analytics.bomasatu.com" />
       </Navbar.Section>
     </Stack>
   );
