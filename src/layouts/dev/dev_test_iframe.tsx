@@ -21,10 +21,9 @@ const DevTestIframe = () => {
             display="block"
             position="relative"
             allow="true"
-            allowpaymentrequest={true}
             importance="auto"
-            referrerpolicy="unsafe-url"
-            target="_blank"
+            // referrerpolicy="unsafe-url"
+            target="_self"
           />
         </Navbar.Section>
       </Stack>
