@@ -6,10 +6,10 @@ import Iframe from "react-iframe";
 const DevTestIframeBoma = () => {
   const { ref, height, width } = useElementSize();
   return (
-    <Stack h={"100vh"}>
+    <Stack h={"100vh"} ref={ref}>
       <Title>Test Iframe Boma</Title>
 
-      <Navbar.Section grow bg={stylesGradient1} ref={ref}>
+      <Navbar.Section grow bg={stylesGradient1} >
         {/* <Iframe
           allowFullScreen
           frameBorder={0}
