@@ -9,8 +9,8 @@ const DevTestIframeBoma = () => {
     <Stack h={"100vh"} ref={ref}>
       <Title>Test Iframe Boma</Title>
 
-      <Navbar.Section grow bg={stylesGradient1} >
-        {/* <Iframe
+      <Navbar.Section grow bg={stylesGradient1}>
+        <Iframe
           allowFullScreen
           frameBorder={0}
           loading="lazy"
@@ -19,13 +19,27 @@ const DevTestIframeBoma = () => {
           height={`${height}px`}
           display="block"
           position="relative"
+          scrolling="auto"
           allow="true"
           importance="auto"
-        //   referrerpolicy="unsafe-url"
+          referrerpolicy="origin-when-cross-origin"
+          //   referrerpolicy="unsafe-url"
           target="_self"
-        /> */}
+          //   sandbox="allow-same-origin"
 
-        <iframe height={height} frameBorder={0} allowFullScreen={true} width={width} src="https://analytics.bomasatu.com" />
+          sandbox={[
+            "allow-popups-to-escape-sandbox",
+            "allow-top-navigation-by-user-activation",
+            "allow-forms",
+            "allow-modals",
+            "allow-popups",
+            "allow-same-origin",
+            "allow-scripts",
+            "allow-top-navigation",
+          ]}
+        />
+
+        {/* <iframe height={height}  frameBorder={0}  width={width} src="https://analytics.bomasatu.com" /> */}
       </Navbar.Section>
     </Stack>
   );
