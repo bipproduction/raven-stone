@@ -361,24 +361,35 @@ model DataEmotion {
 }
 
 model DataByContent {
-  id           Int        @id @default(autoincrement())
-  Candidate    Candidate? @relation(fields: [candidateId], references: [id])
-  Province     Province?  @relation(fields: [provinceId], references: [id])
-  City         City?      @relation(fields: [cityId], references: [id])
-  candidateId  Int?
-  provinceId   Int?
-  cityId       Int?
-  trust        Int?
-  joy          Int?
-  surprise     Int?
-  anticipation Int?
-  sadness      Int?
-  fear         Int?
-  anger        Int?
-  disgust      Int?
-  date         DateTime?  @db.Date
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  id                Int                @id @default(autoincrement())
+  Candidate         Candidate?         @relation(fields: [candidateId], references: [id])
+  Province          Province?          @relation(fields: [provinceId], references: [id])
+  City              City?              @relation(fields: [cityId], references: [id])
+  candidateId       Int?
+  provinceId        Int?
+  cityId            Int?
+  trust             Int?
+  joy               Int?
+  surprise          Int?
+  anticipation      Int?
+  sadness           Int?
+  fear              Int?
+  anger             Int?
+  disgust           Int?
+  date              DateTime?          @db.Date
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  DataContentByTime DataContentByTime?
+}
+
+model DataContentByTime {
+  id              Int            @id @default(autoincrement())
+  Jam             DateTime?      @db.Time()
+  positive        Int?
+  negative        Int?
+  neutral         Int?
+  DataByContent   DataByContent? @relation(fields: [dataByContentId], references: [id])
+  dataByContentId Int?           @unique
 }
 
 model ContextualContent {

@@ -40,7 +40,7 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
     })).map((v: any, ii) => ({
         no: ii + 1,
         city: v.city,
-        // value: v.value,
+        total: v.value,
         trust: Math.floor((v.trust / 100) * v.value),
         joy: Math.floor((v.joy / 100) * v.value),
         surprise: Math.floor((v.surprise / 100) * v.value),

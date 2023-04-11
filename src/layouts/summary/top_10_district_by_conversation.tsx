@@ -177,7 +177,7 @@ const Top10DistrictbyConversation = () => {
                 <tr key={i}>
                    <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{v.no}</Text></Paper></td>
                     <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Tooltip label={v.city}><Text lineClamp={1}  fw={"bold"} color={"gray"}  >{v.city}</Text></Tooltip></Paper></td>
-                    <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.value)}</Text></Paper></td>
+                    <td style={{padding: 0}}><Paper bg={"white"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.total)}</Text></Paper></td>
                     <td style={{padding: 0}}><Paper bg={"green.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.trust)}</Text></Paper></td>
                     <td style={{padding: 0}}><Paper bg={"green.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.joy)}</Text></Paper></td>
                     <td style={{padding: 0}}><Paper bg={"green.1"} p={"xs"}  ><Text  fw={"bold"} color={"gray"}  >{Intl.NumberFormat("id-ID").format(v.surprise)}</Text></Paper></td>
