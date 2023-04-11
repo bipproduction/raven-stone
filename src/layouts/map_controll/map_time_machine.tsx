@@ -1,13 +1,15 @@
 import { Button, Drawer, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-const MapTimeMachine = () => {
-    const [open, setOpen] = useDisclosure(false)
+const MapTimeMachine = ({ dataKab }: { dataKab: any }) => {
+  const [open, setOpen] = useDisclosure(false);
   return (
     <>
-      <Button compact>Time Machine</Button>
-      <Drawer opened={open} onClose={setOpen.close}>
-
+      <Button onClick={setOpen.open} compact>
+        Time Machine
+      </Button>
+      <Drawer opened={open} onClose={setOpen.close} position="bottom">
+        {JSON.stringify(dataKab)}
       </Drawer>
     </>
   );

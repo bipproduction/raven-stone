@@ -57,7 +57,7 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({
         id: o[0].provinceId,
         name: o[0].provinceName,
-        // total: _.sumBy(o, 'value'),
+        total: _.sumBy(o, 'value'),
         trust: Math.round(_.sumBy(o, "trust")),
         joy: Math.round(_.sumBy(o, "anger")),
         surprise: Math.round(_.sumBy(o, "anticipation")),

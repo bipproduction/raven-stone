@@ -83,6 +83,7 @@ import { sNavbarIsSmall } from "@/s_state/s_navbar_is_small";
 import AnimateCssReact from "animate-css-reactjs";
 import MainSummary from "@/layouts/summary/main_summary";
 import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
+import { useRouter } from "next/router";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -200,13 +201,13 @@ const listView = [
         icon: MdOutlineStars,
       },
       {
-        id: 3,
+        id: 4,
         name: "Emotional View Via Province Couple",
         view: EmotionalViewViaProvinceCouple,
         icon: MdJoinLeft,
       },
       {
-        id: 4,
+        id: 5,
         name: "Contextual Content",
         view: ContextualContent,
         icon: MdStackedBarChart,
@@ -467,6 +468,19 @@ const NotificationDisplay = () => {
 };
 
 const MyNavbar = () => {
+  const router = useRouter();
+
+  const ketikaCklik = (v: any, vv: any) => {
+    if (v.id == 2 && vv.id == 2) {
+      router.push("/page/media-listener");
+
+      return;
+    }
+
+    sSelectedView.value = vv.name;
+    sNavbarOpen.value = false;
+  };
+
   if (sNavbarIsSmall.value)
     return (
       <>
@@ -480,12 +494,18 @@ const MyNavbar = () => {
             <Navbar.Section grow>
               <Stack align="center" p={"xs"}>
                 {listView.map((v) =>
-                  v.child.map((vv) => (
-                    <Box key={vv.id} >
+                  v.child.map((vv, i) => (
+                    <Box key={i}>
                       <Tooltip label={vv.name}>
-                      <ActionIcon bg={vv.name === sSelectedView.value? "dark": ""} radius={100} size={32} variant="light" onClick={() => (sSelectedView.value = vv.name)}>
-                        <vv.icon size={32} color="#BE2533" />
-                      </ActionIcon>
+                        <ActionIcon
+                          bg={vv.name === sSelectedView.value ? "dark" : ""}
+                          radius={100}
+                          size={32}
+                          variant="light"
+                          onClick={() => ketikaCklik(v, vv)}
+                        >
+                          <vv.icon size={32} color="#BE2533" />
+                        </ActionIcon>
                       </Tooltip>
                     </Box>
                   ))
@@ -547,7 +567,6 @@ const MyNavbar = () => {
               c={"dark"}
               // defaultOpened
             >
-
               {v.child.map((vv, i) => (
                 <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
                   <NavLink
@@ -558,12 +577,7 @@ const MyNavbar = () => {
                     // bg={selectedView.value == vv.name ? "blue.1" : ""}
                     label={_.lowerCase(vv.name)}
                     key={`${v.id}${i}`}
-                    onClick={() => {
-                      // selectedView.set(vv.name);
-                      sSelectedView.value = vv.name;
-                      // setOpened(false);
-                      sNavbarOpen.value = false;
-                    }}
+                    onClick={() => ketikaCklik(v, vv)}
                   />
                 </Paper>
               ))}

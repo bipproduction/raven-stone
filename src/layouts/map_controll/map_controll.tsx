@@ -45,6 +45,7 @@ import MapControllContextDirection from "./map_controll_context_direction";
 import MapControllWorCloud from "./map_controll_word_cloud";
 import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import MapTimeMachine from "./map_time_machine";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -566,6 +567,7 @@ const LayoutMapControll = () => {
               <MapControllContextDirection dataKab={selectedData} />
               <MapControllWorCloud dataKab={selectedData} />
               <MapControllLeaderPersonaPrediction dataKab={selectedData} />
+              <MapTimeMachine dataKab={selectedData} />
             </Group>
             <Flex justify={"space-between"}>
               <Text size={24} fw={"bold"}>

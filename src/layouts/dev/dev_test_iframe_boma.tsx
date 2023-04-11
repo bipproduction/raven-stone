@@ -22,7 +22,7 @@ const DevTestIframeBoma = () => {
           scrolling="auto"
           allow="true"
           importance="auto"
-          referrerpolicy="origin-when-cross-origin"
+        //   referrerpolicy="origin-when-cross-origin"
           //   referrerpolicy="unsafe-url"
           target="_self"
           //   sandbox="allow-same-origin"
