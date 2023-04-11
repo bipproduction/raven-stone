@@ -206,7 +206,7 @@ const Top10ProvinceByConversation = () => {
                     <td style={{ padding: 0 }}>
                       <Paper bg={"white"} p={"xs"}>
                         <Text fw={"bold"} color={"gray"}>
-                          {Intl.NumberFormat("id-ID").format(v.value)}
+                          {Intl.NumberFormat("id-ID").format(v.total)}
                         </Text>
                       </Paper>
                     </td>
