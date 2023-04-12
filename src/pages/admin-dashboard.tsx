@@ -21,7 +21,7 @@ import { MdPlayCircle, MdRunCircle } from "react-icons/md";
 import Dev from "@/layouts/dev/dev";
 import DevTestIframe from "@/layouts/dev/dev_test_iframe";
 import DevTestIframeBoma from "@/layouts/dev/dev_test_iframe_boma";
-
+import DevTimeMachine from "@/layouts/dev/dev_time_machine";
 
 const listMenu = [
   {
@@ -49,17 +49,23 @@ const listMenu = [
     name: "Test Iframe Boma",
     view: DevTestIframeBoma,
   },
+  {
+    id: "6",
+    name: "Time Machine",
+    view: DevTimeMachine,
+  },
 ];
 
 const AdminDashboard = () => {
   return (
     <DevAuthProvider>
       <AppShell
-        padding="md"
+        // padding="md"
+        bg={"gray.2"}
         navbar={
           <Navbar width={{ base: 250 }}>
-            <Navbar.Section h={200}>
-              <Image src={"/team-10.jpg"} alt="gambar" w={"100%"} />
+            <Navbar.Section h={200} >
+              <Image src={"/dev-icon.png"} alt="gambar" width={"100%"} height={170} />
             </Navbar.Section>
             <Navbar.Section grow component={ScrollArea}>
               {listMenu.map((item) => (
