@@ -3,11 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 const mapControllTimeContentGet = async (req: NextApiRequest, res: NextApiResponse) => {
     const {contentId} = req.query
-    const data = await client.dataContentByTime.findUnique({
-        where: {
-            dataByContentId: Number(contentId)
-        }
-    })
+    const data = await client.dataContentByTime.findMany()
 
     res.status(200).json(data)
 }

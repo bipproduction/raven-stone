@@ -34,6 +34,7 @@ import { funcloadContextualContent } from "@/fun_load/func_load_contextual_conet
 import { sUser } from "@/s_state/s_user";
 import "animate.css";
 import { funcLoadCandidateValue } from "@/fun_load/func_load_candidate_value";
+import { httpCityValueTotal } from "@/http/http_city_value_total_get";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -63,6 +64,7 @@ export default function App(props: AppProps) {
     funcLoadNotification();
     funcloadContextualContent();
     funcLoadCandidateValue();
+    httpCityValueTotal.load();
   }, []);
 
   return (
@@ -79,7 +81,7 @@ export default function App(props: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          fontFamily:'Geneva',
+          fontFamily: "Geneva",
           fontFamilyMonospace: "Monaco, Courier, monospace",
           headings: { fontFamily: "Impact" },
           colorScheme: "light",
