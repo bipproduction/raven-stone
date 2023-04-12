@@ -7,6 +7,7 @@ import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import { useShallowEffect } from "@mantine/hooks";
 import { useState } from "react";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 
 const SummaryDataChart = () => {
   const [listData, setlistData] = useState<{ [key: string]: any }>();
@@ -32,8 +33,17 @@ const SummaryDataChart = () => {
   const option: EChartsOption = {
     tooltip: {
       trigger: "axis",
-      position: function (pt: any) {
-        return [pt[0], "10%"];
+    //   position: function (pt: any) {
+    //     return [pt[0], "10%"];
+    //   },
+      formatter: (a: any, b) => {
+        const data = a[0].data.data.sentiment;
+        return `<div style="width:300px; background-color: ${stylesGradient1}">
+            <h3>${a[0].data.data.label}</h3>
+            <div style="display:inline; float: left; padding: 8px"><h3>${data.positive}  %</h3> POSITIVE </div>
+            <div style="display:inline; float: left; padding: 8px"><h3>${data.negative}  %</h3> NEGATIVE </div>
+            <div style="display:inline; float: left; padding: 8px"><h3>${data.neutral}  %</h3> NEUTRAL </div>
+        </div>`;
       },
     },
     title: {
@@ -62,7 +72,7 @@ const SummaryDataChart = () => {
     yAxis: {
       type: "value",
       boundaryGap: [0, "100%"],
-      max: 100
+      max: 100,
     },
     // dataZoom: [
     //   {
@@ -99,6 +109,7 @@ const SummaryDataChart = () => {
         data: listData?.data.map((v: any) => ({
           label: v.label,
           value: v.sentiment.negative,
+          data: v,
         })),
       },
       {
