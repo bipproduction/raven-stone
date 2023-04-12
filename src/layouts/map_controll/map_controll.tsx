@@ -36,7 +36,7 @@ import ButtonAjustByProvince from "./dialog_ajust_by_province";
 import InjectData from "./inject_data";
 // import { sCityContextDirection } from "@/s_state/s_state_city_context_direction";
 // import { gCityContextDirection } from "@/g_state/g_city_context_direction";
-import { sIstable } from "@/s_state/g_is_table";
+import { sIstable } from "@/s_state/s_is_table";
 import { slistCandidate } from "@/s_state/s_list_candidate";
 import { sListKabupaten } from "@/s_state/s_list_kabupaten";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
@@ -45,7 +45,7 @@ import MapControllContextDirection from "./map_controll_context_direction";
 import MapControllWorCloud from "./map_controll_word_cloud";
 import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import MapTimeMachine from "./map_time_machine";
+import DevTimeMachine from "../dev/dev_time_machine";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -567,7 +567,7 @@ const LayoutMapControll = () => {
               <MapControllContextDirection dataKab={selectedData} />
               <MapControllWorCloud dataKab={selectedData} />
               <MapControllLeaderPersonaPrediction dataKab={selectedData} />
-              <MapTimeMachine dataKab={selectedData} />
+              {/* <MapTimeMachine dataKab={selectedData} /> */}
             </Group>
             <Flex justify={"space-between"}>
               <Text size={24} fw={"bold"}>
