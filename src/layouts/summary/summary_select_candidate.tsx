@@ -1,4 +1,4 @@
-import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
+import { funcLoadTop10Province } from "@/fun_load/func_load_top_10_province";
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { sCandidate } from "@/s_state/s_candidate";
 import { sListEmotion } from "@/s_state/s_list_emotion";
