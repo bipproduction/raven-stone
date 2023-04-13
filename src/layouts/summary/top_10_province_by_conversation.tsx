@@ -1,67 +1,43 @@
-import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
-import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
 // import { gCandidate } from "@/g_state/g_candidate";
 // import { gListEmotion } from "@/g_state/g_list_emotion";
 // import { gSelectedCandidate } from "@/g_state/g_map_state";
 // import { gSelectedEmotion } from "@/g_state/g_selected_emotion";
 // import { gTop10Province } from "@/g_state/top_10_province/g_top_10_province";
 // import { gTop10ProvinceTake } from "@/g_state/top_10_province/g_top_10_province_take";
-import { api } from "@/lib/api";
-import { ModelTop10Province } from "@/model/top_10_province";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { stylesGradientBluegray } from "@/styles/styles_gradient_blue_gray";
-import { stylesGradientBlueWhite } from "@/styles/styles_gradient_blue_white";
-import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
-import { stylesGradientYellow } from "@/styles/styles_gradient_yellow";
-import { sCandidate } from "@/s_state/s_candidate";
-import { sListEmotion } from "@/s_state/s_list_emotion";
-import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
-import { sSelectedEmotion } from "@/s_state/s_selected_emotion";
 import { sTop10Province } from "@/s_state/s_top_10_province";
 import { sTop10ProvinceTake } from "@/s_state/s_top_10_province_take";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import {
-  ActionIcon,
-  Avatar,
-  Box,
-  Center,
-  Flex,
   Group,
-  HoverCard,
-  Image,
   Pagination,
   Paper,
-  ScrollArea,
-  Select,
   Stack,
   Table,
   Text,
-  Title,
+  TextInput,
   Tooltip,
 } from "@mantine/core";
-import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
-import { MdEmojiEmotions } from "react-icons/md";
 import PageTitle from "../page_title";
-import Sambutan from "../sambutan";
-import { AnimationOnScroll } from "react-animation-on-scroll";
-import { listAnimation } from "@/styles/styles_animation";
-import AnimateCssReact from "animate-css-reactjs";
+import { MdSearch } from "react-icons/md";
+import { sSearchProvince } from "@/s_state/s_search_province";
+import { funcLoadTop10Province } from "@/fun_load/func_load_top_10_province";
+import { useForceUpdate } from "@mantine/hooks";
 
 // text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours"
 const Top10ProvinceByConversation = () => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
-  
+  const update = useForceUpdate();
 
-  
-
-  if (_.isEmpty(sTop10Province.value)) return <>loading</>;
+  // if (_.isEmpty(sTop10Province.value)) return <>loading</>;
   return (
     <>
       <Stack>
         {/* {JSON.stringify(gTop10ProvinceTake.value)} */}
         <Paper
+          h={780}
           shadow={"sm"}
           p={"md"}
           bg={stylesGradient1}
@@ -70,6 +46,17 @@ const Top10ProvinceByConversation = () => {
           }}
         >
           <PageTitle title="Top 10 Province By Emotion" />
+          <Group>
+            <TextInput
+              onChange={(e) => {
+                sSearchProvince.value = e.currentTarget.value;
+                funcLoadTop10Province();
+                update();
+              }}
+              icon={<MdSearch />}
+              placeholder="search"
+            />
+          </Group>
           <Stack>
             {/* <Group position="right">
               <HoverCard>
