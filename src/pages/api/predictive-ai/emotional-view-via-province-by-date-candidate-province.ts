@@ -30,27 +30,27 @@ const emotionalViewViaProvinceByDateProvinceCandidate = async (req: NextApiReque
                     }
                 }
             },
-            anger: true,
-            anticipation: true,
-            disgust: true,
-            fear: true,
-            joy: true,
-            sadness: true,
-            surprise: true,
             trust: true,
+            joy: true,
+            surprise: true,
+            anticipation: true,
+            sadness: true,
+            fear: true,
+            anger: true,
+            disgust: true,
         },
     })
 
     const hasil = data.map((v) => ({
         ..._.omit(v, ["City", "Province",
-            "anger",
-            "anticipation",
-            "disgust",
-            "fear",
-            "joy",
-            "sadness",
-            "surprise",
             "trust",
+            "joy",
+            "surprise",
+            "anticipation",
+            "sadness",
+            "fear",
+            "anger",
+            "disgust",
         ]),
         cityId: v.City?.id,
         city: v.City?.name,
@@ -58,14 +58,14 @@ const emotionalViewViaProvinceByDateProvinceCandidate = async (req: NextApiReque
         provinceName: v.Province?.name,
         value: v.City?.CityValue[0].value,
         emotion: {
-            anger: Math.round((v.anger! / 100) * v.City?.CityValue![0].value!),
-            anticipation: Math.round((v.anticipation! / 100) * v.City?.CityValue![0].value!),
-            disgust: Math.round((v.disgust! / 100) * v.City?.CityValue![0].value!),
-            fear: Math.round((v.fear! / 100) * v.City?.CityValue![0].value!),
+            trust: Math.round((v.trust! / 100) * v.City?.CityValue![0].value!),
             joy: Math.round((v.joy! / 100) * v.City?.CityValue![0].value!),
-            sadness: Math.round((v.sadness! / 100) * v.City?.CityValue![0].value!),
             surprise: Math.round((v.surprise! / 100) * v.City?.CityValue![0].value!),
-            trust: Math.round((v.trust! / 100) * v.City?.CityValue![0].value!)
+            anticipation: Math.round((v.anticipation! / 100) * v.City?.CityValue![0].value!),
+            sadness: Math.round((v.sadness! / 100) * v.City?.CityValue![0].value!),
+            fear: Math.round((v.fear! / 100) * v.City?.CityValue![0].value!),
+            anger: Math.round((v.anger! / 100) * v.City?.CityValue![0].value!),
+            disgust: Math.round((v.disgust! / 100) * v.City?.CityValue![0].value!)
         }
     }))
 

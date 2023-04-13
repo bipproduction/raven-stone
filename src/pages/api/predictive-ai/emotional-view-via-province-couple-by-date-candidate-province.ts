@@ -94,14 +94,14 @@ const emotionViewViaProvinceCoupleByDateCandidateProvince = async (req: NextApiR
                     }
                 }
             },
-            anger: true,
-            anticipation: true,
-            disgust: true,
-            fear: true,
-            joy: true,
-            sadness: true,
             trust: true,
-            surprise: true
+            joy: true,
+            surprise: true,
+            anticipation: true,
+            sadness: true,
+            fear: true,
+            anger: true,
+            disgust: true
         }
     })
 
@@ -123,14 +123,14 @@ const emotionViewViaProvinceCoupleByDateCandidateProvince = async (req: NextApiR
                     }
                 }
             },
-            anger: true,
-            anticipation: true,
-            disgust: true,
-            fear: true,
-            joy: true,
-            sadness: true,
             trust: true,
-            surprise: true
+            joy: true,
+            surprise: true,
+            anticipation: true,
+            sadness: true,
+            fear: true,
+            anger: true,
+            disgust: true
         }
     })
 
@@ -139,14 +139,14 @@ const emotionViewViaProvinceCoupleByDateCandidateProvince = async (req: NextApiR
         cityName: v.City?.name,
         cityValue: v.City?.CityValue[0].value,
         emotion: {
-            anger: v.anger,
-            anticipation: v.anticipation,
-            disgust: v.disgust,
-            fear: v.fear,
-            joy: v.joy,
-            sadness: v.sadness,
-            trust: v.trust,
-            surprise: v.surprise,
+            trust: v.anger,
+            joy: v.anticipation,
+            surprise: v.disgust,
+            anticipation: v.fear,
+            sadness: v.joy,
+            fear: v.sadness,
+            anger: v.trust,
+            disgust: v.surprise,
         }
     }))
 
@@ -155,14 +155,14 @@ const emotionViewViaProvinceCoupleByDateCandidateProvince = async (req: NextApiR
         cityName: v.City?.name,
         cityValue: v.City?.CityValue[0].value,
         emotion: {
-            anger: v.anger,
-            anticipation: v.anticipation,
-            disgust: v.disgust,
-            fear: v.fear,
-            joy: v.joy,
-            sadness: v.sadness,
-            trust: v.trust,
-            surprise: v.surprise,
+            trust: v.anger,
+            joy: v.anticipation,
+            surprise: v.disgust,
+            anticipation: v.fear,
+            sadness: v.joy,
+            fear: v.sadness,
+            anger: v.trust,
+            disgust: v.surprise,
         }
     }))
 
