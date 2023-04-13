@@ -33,16 +33,17 @@ const SummaryDataChart = () => {
   const option: EChartsOption = {
     tooltip: {
       trigger: "axis",
-    //   position: function (pt: any) {
-    //     return [pt[0], "10%"];
-    //   },
+      //   position: function (pt: any) {
+      //     return [pt[0], "10%"];
+      //   },
       formatter: (a: any, b) => {
         const data = a[0].data.data.sentiment;
-        return `<div style="width:300px; background-color: ${stylesGradient1}">
+        return `
+        <div style="width:300px;position: relative">
             <h3>${a[0].data.data.label}</h3>
-            <div style="display:inline; float: left; padding: 8px"><h3>${data.positive}  %</h3> POSITIVE </div>
-            <div style="display:inline; float: left; padding: 8px"><h3>${data.negative}  %</h3> NEGATIVE </div>
-            <div style="display:inline; float: left; padding: 8px"><h3>${data.neutral}  %</h3> NEUTRAL </div>
+            <div style="display:inline; float: left; padding: 8px; color:#7DFF7A "><h3>${data.positive}  %</h3> POSITIVE </div>
+            <div style="display:inline; float: left; padding: 8px; color:#FF848B"><h3>${data.negative}  %</h3> NEGATIVE </div>
+            <div style="display:inline; float: left; padding: 8px; color:#868686"><h3>${data.neutral}  %</h3> NEUTRAL </div>
         </div>`;
       },
     },
@@ -143,13 +144,13 @@ const SummaryDataChart = () => {
         symbol: "none",
         sampling: "lttb",
         itemStyle: {
-          color: "#62D3F6",
+          color: "#868686",
         },
         areaStyle: {
           color: new graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: "#62D3F6",
+              color: "#868686",
             },
             {
               offset: 1,
