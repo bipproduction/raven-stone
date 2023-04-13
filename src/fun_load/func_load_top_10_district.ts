@@ -10,8 +10,9 @@ import _ from 'lodash';
 // import { gSelectedDate } from '@/g_state/g_map_state';
 import { sTop10District } from '@/s_state/s_top_10_district';
 import { sSelectedEmotion } from '@/s_state/s_selected_emotion';
+import { sSearchDistrict } from '@/s_state/s_search_district';
 
-export const funcLoadTop10District = () => fetch(api.apiSummaryGetTop10DistrictByConversation + `?date=${sSelectedDate.value}&emotion=${sSelectedEmotion.value}&candidateId=${sSelectedCandidate.value}`)
+export const funcLoadTop10District = () => fetch(api.apiSummaryGetTop10DistrictByConversation + `?date=${sSelectedDate.value}&emotion=${sSelectedEmotion.value}&candidateId=${sSelectedCandidate.value}&search=${sSearchDistrict.value}`)
     .then(async (v) => {
         if (v.status == 200) {
             const data = await v.json()
