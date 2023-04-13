@@ -2,12 +2,17 @@ import client from '@/lib/prisma_db';
 import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { date, emotion, candidateId } = req.query
-    // console.log(emotion)
+    const { date, emotion, candidateId, search } = req.query
+    console.log(search)
     const data = await client.dataByContent.findMany({
         where: {
             date: new Date(date as string),
-            candidateId: Number(candidateId )
+            candidateId: Number(candidateId),
+            Province: {
+                name: {
+                    contains: search as any
+                }
+            }
         },
         orderBy: {
             [_.lowerCase(emotion as string)]: "desc"

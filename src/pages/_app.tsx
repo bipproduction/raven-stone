@@ -9,7 +9,7 @@ import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_ratin
 import { funcLoadProvince } from "@/fun_load/func_load_province";
 import { funcLoadSourceOfmention } from "@/fun_load/func_load_source_of_mention";
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
-import { funcLoadTop10Province } from "@/fun_load/func_load_to_10_province";
+import { funcLoadTop10Province } from "@/fun_load/func_load_top_10_province";
 import { funcLoadWordCloud } from "@/fun_load/func_load_word_cloud";
 // import { gUser } from "@/g_state/auth/g_user";
 import MyMain from "@/layouts/my_main";
