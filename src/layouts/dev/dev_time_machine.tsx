@@ -1,6 +1,7 @@
 import { httpDevTimeMachine } from "@/http/http_dev_time_machine";
 import { sCandidate } from "@/s_state/s_candidate";
 import { sCityValueTotal } from "@/s_state/s_city_value_total";
+import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import { sTimeMachineValue } from "@/s_state/s_time_machine_value";
 import {
   Box,
@@ -40,6 +41,7 @@ const DevTimeMachine = () => {
   // };
 
   useShallowEffect(() => {
+   
     onLoadData();
   }, []);
 
@@ -58,6 +60,12 @@ const DevTimeMachine = () => {
           dataNya.date = v.date;
           dataNya.time = v.data;
           sTimeMachineValue.value = dataNya;
+        }else{
+          dataNya.time.forEach((v) => {
+            v.sentiment.positive= 0
+            v.sentiment.negative= 0
+            v.sentiment.neutral= 0
+          })
         }
       });
   };
@@ -189,7 +197,9 @@ const DevTimeMachine = () => {
                       })) as any
                     }
                     onChange={(val) => {
-                      sTimeMachineValue.value.candidate = Number(val);
+                      const data = _.clone(sTimeMachineValue.value)
+                      data.candidate = Number(val);
+                      sTimeMachineValue.value = data
                       onLoadData();
                     }}
                   />

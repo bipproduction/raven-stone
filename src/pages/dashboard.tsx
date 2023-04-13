@@ -486,7 +486,7 @@ const MyNavbar = () => {
       <>
         <AnimateCssReact animation="flipInY">
           <Navbar
-            bg={"blue.1"}
+            bg={"blue.2"}
             hiddenBreakpoint="sm"
             hidden={!sNavbarOpen.value}
             width={{ sm: 64, lg: 64 }}
@@ -600,7 +600,7 @@ const MyNavbar = () => {
                 Version: 2.0.1
               </Text>
               <Text fz={9} c={"gray"}>
-                build: 10453
+                build: 10953
               </Text>
             </Stack>
             <ActionIcon
