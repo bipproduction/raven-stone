@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
     const { date, emotion, candidateId } = req.query
+
+    console.log(emotion)
     const data = await client.dataByContent.findMany({
         orderBy: {
             [_.lowerCase(emotion as string)]: "desc"
@@ -41,6 +43,7 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
         no: ii + 1,
         city: v.city,
         total: v.value,
+        value: v.value,
         trust: Math.floor((v.trust / 100) * v.value),
         joy: Math.floor((v.joy / 100) * v.value),
         surprise: Math.floor((v.surprise / 100) * v.value),
@@ -52,15 +55,15 @@ const top10DistrictByConversation = async (req: NextApiRequest, res: NextApiResp
     })).map((v) => ({
         no: v.no,
         city: v.city,
-        value:
-            v.trust +
-            v.joy +
-            v.surprise +
-            v.anticipation +
-            v.sadness +
-            v.fear +
-            v.anger +
-            v.disgust,
+        // value:
+        //     v.trust +
+        //     v.joy +
+        //     v.surprise +
+        //     v.anticipation +
+        //     v.sadness +
+        //     v.fear +
+        //     v.anger +
+        //     v.disgust,
 
         ..._.omit(v, ['name', 'no'])
     }))
