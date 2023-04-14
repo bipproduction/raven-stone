@@ -26,6 +26,8 @@ import SummaryHoverInfo from "./summary_hover_info";
 import _ from "lodash";
 import { sTop10Province } from "@/s_state/s_top_10_province";
 import { useState } from "react";
+import { stylesRadial } from "@/styles/styles_radial";
+import { MdFace } from "react-icons/md";
 
 const SummarySelectCandidate = () => {
   const update = useForceUpdate();
@@ -83,7 +85,7 @@ const SummarySelectCandidate = () => {
   return (
     <>
       <Group position="apart" py={"lg"}>
-        <Paper p={"md"} bg={stylesGradientBlueWhite} shadow={"md"} w={300}>
+        <Paper p={"md"} bg={stylesRadial.in_cyan_dark} shadow={"md"} w={300}>
           <Stack>
             {/* {JSON.stringify(prosentase)} */}
             <Flex>
@@ -181,7 +183,8 @@ const SummarySelectCandidate = () => {
             placeholder={sSelectedEmotion.value}
             variant={"filled"}
             searchable
-            label={"sort emotion"}
+            icon={<MdFace />}
+            // label={"sort emotion"}
             data={sListEmotion.value.map((v) => ({
               label: v.name,
               value: v.name,

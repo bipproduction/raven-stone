@@ -41,7 +41,6 @@ const DevTimeMachine = () => {
   // };
 
   useShallowEffect(() => {
-   
     onLoadData();
   }, []);
 
@@ -60,12 +59,13 @@ const DevTimeMachine = () => {
           dataNya.date = v.date;
           dataNya.time = v.data;
           sTimeMachineValue.value = dataNya;
-        }else{
+        } else {
           dataNya.time.forEach((v) => {
-            v.sentiment.positive= 0
-            v.sentiment.negative= 0
-            v.sentiment.neutral= 0
-          })
+            v.sentiment.positive = 0;
+            v.sentiment.negative = 0;
+            v.sentiment.neutral = 0;
+          });
+          sTimeMachineValue.value = dataNya;
         }
       });
   };
@@ -117,7 +117,7 @@ const DevTimeMachine = () => {
   };
 
   const onSave = async () => {
-    console.log(sTimeMachineValue.value);
+    // console.log(sTimeMachineValue.value);
 
     const body = {
       candidateId: sTimeMachineValue.value.candidate,
@@ -197,9 +197,9 @@ const DevTimeMachine = () => {
                       })) as any
                     }
                     onChange={(val) => {
-                      const data = _.clone(sTimeMachineValue.value)
+                      const data = _.clone(sTimeMachineValue.value);
                       data.candidate = Number(val);
-                      sTimeMachineValue.value = data
+                      sTimeMachineValue.value = data;
                       onLoadData();
                     }}
                   />
@@ -208,9 +208,9 @@ const DevTimeMachine = () => {
                     value={new Date(sTimeMachineValue.value.date)}
                     onChange={(val) => {
                       if (val) {
-                        sTimeMachineValue.value.date =
-                          moment(val).format("YYYY-MM-DD");
-                        update();
+                        let dataNya = _.clone(sTimeMachineValue.value);
+                        dataNya.date = moment(val).format("YYYY-MM-DD");
+                        sTimeMachineValue.value = dataNya;
                         onLoadData();
                       }
                     }}
