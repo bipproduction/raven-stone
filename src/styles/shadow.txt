@@ -1,0 +1,8 @@
+/* in_blue */
+
+position: absolute;
+width: 630px;
+height: 600px;
+
+background: #23CFFF;
+box-shadow: 0px 0px 40px #23CFFF;
