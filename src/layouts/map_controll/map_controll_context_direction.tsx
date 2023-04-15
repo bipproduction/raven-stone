@@ -50,10 +50,12 @@ const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
       </Button>
       <Drawer opened={open} onClose={setOpen.close} position={"bottom"} >
         <Container>
+          {cityId}
           <Paper p={"xs"} bg={stylesGradient1}>
             {/* <Text>{JSON.stringify(dataKab.data.City.id)}</Text> */}
             <Title order={3}>Context Direction</Title>
             {/* {JSON.stringify(listDataContextDirection)} */}
+            {/* // todo perbaiki dilampung selatan kosong */}
             <SimpleGrid cols={3}>
               { listDataContextDirection && listDataContextDirection.content && listDataContextDirection.content.map((v: any, i: any) => (
                 <Box key={v.name}>
