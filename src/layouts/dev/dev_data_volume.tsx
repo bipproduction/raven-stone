@@ -15,7 +15,7 @@ import {
 import data_volume from "./../../../bin/perhitungan/city_value.json";
 import _ from "lodash";
 import { useState } from "react";
-import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
+import { useForceUpdate, useHover, useShallowEffect } from "@mantine/hooks";
 import { httpdevGetCityValue } from "@/http/http_dev_get_city_value";
 import {
   MdCheck,
@@ -35,6 +35,8 @@ const DevDataVolume = () => {
   const [search, setSearch] = useState("");
   const [tambahVal, setTamabahVal] = useState<number>();
   const [kurangVal, setKurangVal] = useState<number>();
+
+  const {hovered, ref} = useHover()
 
   useShallowEffect(() => {
     httpdevGetCityValue()
@@ -166,21 +168,34 @@ const DevDataVolume = () => {
                               <TextInput w={200} placeholder={v.value} />
                             </Flex>
                           ) : (
-                            <Text p={7} w={200}>
-                              {v.value}
+                            <Text align="end" ref={ref} p={7} w={200} sx={{
+                                cursor: "pointer"
+                            }} bg={hovered? "gray.1": ""} fw={"bold"}>
+                              {Intl.NumberFormat('id-ID').format(Number(v.value))}
                             </Text>
                           )}
                         </Box>
                         {v.isEdit && (
-                          <ActionIcon
-                            size={32}
-                            onClick={() => {
-                              v.isEdit = false;
-                              update();
-                            }}
-                          >
-                            <MdCheckBox size={32} color="green" />
-                          </ActionIcon>
+                          <Flex>
+                            <ActionIcon
+                              size={32}
+                              onClick={() => {
+                                v.isEdit = false;
+                                update();
+                              }}
+                            >
+                              <MdClose size={32} />
+                            </ActionIcon>
+                            <ActionIcon
+                              size={32}
+                              onClick={() => {
+                                v.isEdit = false;
+                                update();
+                              }}
+                            >
+                              <MdCheckBox size={32}  />
+                            </ActionIcon>
+                          </Flex>
                         )}
                       </Flex>
                     </td>
