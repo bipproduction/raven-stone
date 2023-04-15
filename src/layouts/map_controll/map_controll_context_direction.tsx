@@ -55,7 +55,7 @@ const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
             <Title order={3}>Context Direction</Title>
             {/* {JSON.stringify(listDataContextDirection)} */}
             <SimpleGrid cols={3}>
-              {listDataContextDirection.content.map((v: any, i: any) => (
+              { listDataContextDirection && listDataContextDirection.content && listDataContextDirection.content.map((v: any, i: any) => (
                 <Box key={v.name}>
                   <NumberInput
                     min={0}
