@@ -35,6 +35,8 @@ const Top10DistrictbyConversation = () => {
 
   // if (sTop10District.value && !sTop10District.value[0]) return <></>;
 
+  // todo dihide sementara
+  return <></>;
   return (
     <>
       <Paper

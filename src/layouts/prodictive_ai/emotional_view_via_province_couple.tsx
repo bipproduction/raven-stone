@@ -59,6 +59,7 @@ import { sPredictiveAiSearch } from "@/s_state/s_predictive_ai_search";
 import { sProvince } from "@/s_state/s_province";
 import { sSelectedView } from "@/s_state/s_selected_view";
 import colors from "randomcolor";
+import { stylesRadial } from "@/styles/styles_radial";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -187,13 +188,7 @@ const EmotionalViewViaProvinceCouple = () => {
       {/* <Title color={"cyan.8"}>{_.upperCase(gSelectedView.value)}</Title> */}
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <SelectCandidateView onProccess={proccessData} onUpdate={update} />
-      <Paper
-        p={"md"}
-        shadow={"md"}
-        style={{
-          background: stylesGradientYellow,
-        }}
-      >
+      <Box p={"md"} mx={42} >
         <Flex direction={"row"} align={"center"} justify={"center"} p={"lg"}>
           <Stack align={"center"}>
             <Image
@@ -205,12 +200,12 @@ const EmotionalViewViaProvinceCouple = () => {
               }
               alt={"gambar_1"}
             />
-            <Text>
+            <Title order={3} c={"blue"}>
               {
                 sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
                   ?.name
               }
-            </Text>
+            </Title>
           </Stack>
           <Box p={"lg"}>
             <MdJoinInner color="orange" size={53} />
@@ -225,15 +220,15 @@ const EmotionalViewViaProvinceCouple = () => {
               }
               alt={"gambar_1"}
             />
-            <Text>
+            <Title order={3} c={"blue"}>
               {
                 sCandidate.value.find((v) => v.id == sSelectedCandidate2.value)
                   ?.name
               }
-            </Text>
+            </Title>
           </Stack>
         </Flex>
-      </Paper>
+      </Box>
       {/* {JSON.stringify(listData)} */}
       <Flex direction={"row"} wrap={"wrap"} justify={"center"} align={"center"}>
         {sListDataPredictiveAiCouple.value
@@ -272,14 +267,17 @@ const EmotionalViewViaProvinceCouple = () => {
                     </Text>
                   </Stack>
                   <Text size={24}>
-                    {_.upperCase(sProvince.value.find((p) => p.id == v.provinceId).name)}
+                    {_.upperCase(
+                      sProvince.value.find((p) => p.id == v.provinceId).name
+                    )}
                   </Text>
-                  <EmotionalViewDetailButton
+                    {/* // todo hide sementarak */}
+                  {/* <EmotionalViewDetailButton
                     provinceId={v.provinceId}
                     provinceName={
                       sProvince.value.find((p) => p.id == v.provinceId).name
                     }
-                  />
+                  /> */}
                 </Stack>
               </Paper>
             </AnimationOnScroll>
@@ -350,6 +348,8 @@ const LayoutDetailDialog = ({
                 <Title color={"gray"} align={"center"}>
                   {Intl.NumberFormat("id-ID").format(v.cityValue)}
                 </Title>
+
+
                 <ButtonDetail2 data={v} />
               </Stack>
             </Paper>
