@@ -1,5 +1,4 @@
 import { funLoadMapData } from "@/fun_load/func_load_map_data";
-import {} from "@/g_state/g_map_state";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
@@ -10,6 +9,7 @@ import {
   Flex,
   Grid,
   Group,
+  Loader,
   Menu,
   Modal,
   Paper,
@@ -18,8 +18,9 @@ import {
   Slider,
   Stack,
   Text,
+  Title,
 } from "@mantine/core";
-import { DatePicker, DatePickerInput } from "@mantine/dates";
+import { DatePicker, DatePickerInput, DateValue } from "@mantine/dates";
 import { useDisclosure, useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import { EChartsOption, registerMap } from "echarts";
@@ -41,11 +42,10 @@ import { slistCandidate } from "@/s_state/s_list_candidate";
 import { sListKabupaten } from "@/s_state/s_list_kabupaten";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
-import MapControllContextDirection from "./map_controll_context_direction";
-import MapControllWorCloud from "./map_controll_word_cloud";
-import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import DevTimeMachine from "../dev/dev_time_machine";
+import MapControllContextDirection from "./map_controll_context_direction";
+import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
+import MapControllWorCloud from "./map_controll_word_cloud";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
@@ -103,6 +103,107 @@ const listEmotionColor = [
 ];
 
 const openContextDirection = signal(false);
+
+const MapControllMain = () => {
+  const lebarnay = 300;
+
+  const onDateChange = (val: DateValue) => {
+    if (val) {
+      // sSelectedDate.set(moment(val).format("YYYY-MM-DD"));
+      sSelectedDate.value = moment(val).format("YYYY-MM-DD");
+      funLoadMapData();
+    }
+  };
+  return (
+    <>
+      <Stack w={"100%"}>
+        <Flex pos={"relative"} w={"100%"}>
+          <Box pos={"fixed"} w={lebarnay} h={"100vh"} bg={"gray.2"}>
+            <Stack pos={"static"}>
+              <Box p={"xs"}>
+                <DatePicker onChange={onDateChange} bg={"gray.3"} />
+              </Box>
+              <SelectCandidate />
+              <Box p={"xs"}>
+                <SearchCity />
+              </Box>
+            </Stack>
+          </Box>
+          <Box left={lebarnay} pos={"relative"}>
+            <Title>contentnya</Title>
+            {JSON.stringify(sListKabupaten.value)}
+          </Box>
+        </Flex>
+      </Stack>
+    </>
+  );
+};
+
+const SelectCandidate = () => {
+  if (_.isEmpty(slistCandidate.value)) return <Loader />;
+  return (
+    <>
+      <Box p={"xs"}>
+        <Select
+          searchable
+          key={"1"}
+          label={"select candidate"}
+          value={sSelectedCandidate.value}
+          placeholder={
+            slistCandidate.value.find((v) => v.id == sSelectedCandidate.value)
+              .name
+          }
+          data={slistCandidate.value.map((v) => ({
+            label: v.name,
+            value: v.id,
+          }))}
+          onChange={(val) => {
+            if (val) {
+              // sSelectedCandidate.set(val!);
+              sSelectedCandidate.value = val;
+              funLoadMapData();
+            }
+          }}
+        />
+      </Box>
+    </>
+  );
+};
+
+const SearchCity = () => {
+  const [search, setSearch] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<any | undefined>(undefined);
+  return (
+    <>
+      <Autocomplete
+        data={sListKabupaten.value.map((v) => ({
+          value: v.City.name,
+        }))}
+        icon={<FaSearch />}
+        value={search}
+        rightSection={
+          <ActionIcon onClick={() => setSearch("")}>
+            <MdClose />
+          </ActionIcon>
+        }
+        label={"search kabupaten"}
+        onChange={(val) => {
+          setSearch(val);
+        }}
+        onItemSubmit={(val) => {
+          const dataCity = sListKabupaten.value.find(
+            (v) => v.City.name == val.value
+          );
+          if (dataCity) {
+            setSelectedCity(dataCity);
+          }
+        }}
+      />
+    </>
+  );
+};
+
+// TODO > Perbatasan New Model
 
 const LayoutMapControll = () => {
   const [isMap, setIsmap] = useState(false);
@@ -385,6 +486,11 @@ const LayoutMapControll = () => {
     setbukamodal.open();
   };
 
+  return (
+    <>
+      <MapControllMain />
+    </>
+  );
   return (
     <>
       <Stack>

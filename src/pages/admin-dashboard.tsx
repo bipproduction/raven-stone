@@ -23,7 +23,8 @@ import DevTestIframe from "@/layouts/dev/dev_test_iframe";
 import DevTestIframeBoma from "@/layouts/dev/dev_test_iframe_boma";
 import DevTimeMachine from "@/layouts/dev/dev_time_machine";
 import DevDataVolume from "@/layouts/dev/dev_data_volume";
-import DevCandidateValue from "@/layouts/dev/dev_candidate_value";
+import { DevCandidateValue } from "@/layouts/dev/dev_candidate_value";
+
 
 const listMenu = [
   {
