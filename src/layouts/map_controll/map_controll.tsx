@@ -2,7 +2,9 @@ import { funLoadMapData } from "@/fun_load/func_load_map_data";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
+  AppShell,
   Autocomplete,
+  AutocompleteItem,
   Box,
   Button,
   Divider,
@@ -12,25 +14,44 @@ import {
   Loader,
   Menu,
   Modal,
+  NavLink,
+  Navbar,
+  NumberInput,
+  Pagination,
   Paper,
+  ScrollArea,
   Select,
   SimpleGrid,
   Slider,
   Stack,
+  Table,
   Text,
+  TextInput,
   Title,
 } from "@mantine/core";
 import { DatePicker, DatePickerInput, DateValue } from "@mantine/dates";
-import { useDisclosure, useShallowEffect } from "@mantine/hooks";
+import {
+  useDisclosure,
+  useForceUpdate,
+  useShallowEffect,
+} from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import { EChartsOption, registerMap } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import moment from "moment";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { CSVLink } from "react-csv";
 import { FaCopy, FaLock, FaLockOpen, FaSearch } from "react-icons/fa";
-import { MdClose, MdDownload, MdMap, MdTableView } from "react-icons/md";
+import {
+  MdClose,
+  MdDownload,
+  MdEdit,
+  MdMap,
+  MdSave,
+  MdSearch,
+  MdTableView,
+} from "react-icons/md";
 import toast from "react-simple-toasts";
 import Spreadsheet from "react-spreadsheet";
 import ButtonAjustByProvince from "./dialog_ajust_by_province";
@@ -43,20 +64,25 @@ import { sListKabupaten } from "@/s_state/s_list_kabupaten";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { Empty } from "antd";
 import MapControllContextDirection from "./map_controll_context_direction";
 import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
 import MapControllWorCloud from "./map_controll_word_cloud";
+import { title } from "process";
+import { api } from "@/lib/api";
+import { MapControllEmotionEditor } from "./map_controll_emotion_editor";
+import { MapControllCityValueEditor } from "./map_controll_city_value_editor";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
+  trust?: number;
+  joy?: number;
+  surprise?: number;
+  anticipation?: number;
+  sadness?: number;
+  fear?: number;
   anger?: number;
   disgust?: number;
-  fear?: number;
-  joy?: number;
-  sadness?: number;
-  surprise?: number;
-  trust?: number;
-  anticipation?: number;
 }
 
 const listEmotionColor = [
@@ -104,71 +130,91 @@ const listEmotionColor = [
 
 const openContextDirection = signal(false);
 
+
+
+const listMenu = [
+  {
+    id: "1",
+    title: "emotion editor",
+    component: MapControllEmotionEditor
+  },
+  {
+    id: "2",
+    title: "city value editor",
+    component: MapControllCityValueEditor
+  }
+]
+
+const selectedPage = signal("1")
 const MapControllMain = () => {
-  const lebarnay = 300;
-
-  const onDateChange = (val: DateValue) => {
-    if (val) {
-      // sSelectedDate.set(moment(val).format("YYYY-MM-DD"));
-      sSelectedDate.value = moment(val).format("YYYY-MM-DD");
-      funLoadMapData();
+  // const [selectedPage, selectedPageSet] = useState("1")
+  useShallowEffect(() => {
+    const page = localStorage.getItem('selected_page')
+    if (page) {
+      // selectedPageSet(page)
+      selectedPage.value = page
     }
-  };
+  }, [])
+
+
+  function setPage(pg: string) {
+    localStorage.setItem('selected_page', pg)
+    // selectedPageSet(pg)
+    selectedPage.value = pg
+  }
+
   return (
+
     <>
-      <Stack w={"100%"}>
-        <Flex pos={"relative"} w={"100%"}>
-          <Box pos={"fixed"} w={lebarnay} h={"100vh"} bg={"gray.2"}>
-            <Stack pos={"static"}>
-              <Box p={"xs"}>
-                <DatePicker onChange={onDateChange} bg={"gray.3"} />
-              </Box>
-              <SelectCandidate />
-              <Box p={"xs"}>
-                <SearchCity />
-              </Box>
-            </Stack>
-          </Box>
-          <Box left={lebarnay} pos={"relative"}>
-            <Title>contentnya</Title>
-            {JSON.stringify(sListKabupaten.value)}
-          </Box>
-        </Flex>
-      </Stack>
+      <Flex>
+        <Stack w={250} bg={"cyan.0"} spacing={0} >
+          {listMenu.map((v) => <NavLink bg={v.id == selectedPage.value ? "blue.2" : ""} variant="light" key={v.id} onClick={() => setPage(v.id)} label={<Text fw={"bold"} >{v.title}</Text>} />)}
+        </Stack>
+        <ScrollArea.Autosize h={"100vh"} w={"100%"}>
+          {listMenu.map((v) => v.id == selectedPage.value && <v.component key={v.id} />)}
+        </ScrollArea.Autosize>
+      </Flex>
     </>
   );
 };
 
-const SelectCandidate = () => {
-  if (_.isEmpty(slistCandidate.value)) return <Loader />;
+;
+
+const InputEdit = ({
+  isSelected,
+  onClick,
+  onChange,
+  onClose,
+  value,
+}: {
+  isSelected: boolean;
+  onClick: () => void;
+  onChange: (val: number) => void;
+  onClose: () => void;
+  value: number;
+}) => {
   return (
-    <>
-      <Box p={"xs"}>
-        <Select
-          searchable
-          key={"1"}
-          label={"select candidate"}
-          value={sSelectedCandidate.value}
-          placeholder={
-            slistCandidate.value.find((v) => v.id == sSelectedCandidate.value)
-              .name
+    <td onClick={onClick}>
+      {isSelected ? (
+        <NumberInput
+          onChange={onChange}
+          w={120}
+          min={0}
+          placeholder={value.toString()}
+          rightSection={
+            <ActionIcon onClick={onClose}>
+              <MdClose />
+            </ActionIcon>
           }
-          data={slistCandidate.value.map((v) => ({
-            label: v.name,
-            value: v.id,
-          }))}
-          onChange={(val) => {
-            if (val) {
-              // sSelectedCandidate.set(val!);
-              sSelectedCandidate.value = val;
-              funLoadMapData();
-            }
-          }}
         />
-      </Box>
-    </>
+      ) : (
+        <Text>{value}</Text>
+      )}
+    </td>
   );
 };
+
+
 
 const SearchCity = () => {
   const [search, setSearch] = useState<string>("");
@@ -309,7 +355,7 @@ const LayoutMapControll = () => {
                 color: adaNol
                   ? "white"
                   : listEmotionColor.find((v) => _.lowerCase(v.name) == emotion)
-                      ?.color,
+                    ?.color,
               },
             };
           }),
@@ -504,11 +550,11 @@ const LayoutMapControll = () => {
             gap={"lg"}
             justify={"space-between"}
             align={"center"}
-            // pos={"sticky"}
-            // top={0}
-            // sx={{
-            //   zIndex: 100,
-            // }}
+          // pos={"sticky"}
+          // top={0}
+          // sx={{
+          //   zIndex: 100,
+          // }}
           >
             <Group>
               <DatePickerInput
@@ -763,9 +809,9 @@ const LayoutMapControll = () => {
                 <Button w={100} compact onClick={onProccess}>
                   Procccess
                 </Button>
-                <Button w={100} compact bg={"pink"} onClick={onClear}>
+                {/* <Button w={100} compact bg={colors.pink} onClick={onClear}>
                   Clear
-                </Button>
+                </Button> */}
                 {/* <Button
                     w={100}
                     compact
@@ -813,7 +859,7 @@ const TableView = ({ dataKabupaten }: any) => {
   const keyKab = useHookstate(sListKabupaten);
   const [lsTable, setLsTable] = useState<any[]>([]);
 
-  useShallowEffect(() => {}, []);
+  useShallowEffect(() => { }, []);
 
   const olahData = () => {
     if (dataKabupaten && dataKabupaten[0]) {
