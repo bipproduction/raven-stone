@@ -1,6 +1,9 @@
 import {
+  ActionIcon,
   AppShell,
   Box,
+  Card,
+  Center,
   Group,
   Header,
   Image,
@@ -9,6 +12,7 @@ import {
   Paper,
   ScrollArea,
   Text,
+  Title,
 } from "@mantine/core";
 import MapControll from "./map-controll";
 import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
@@ -17,14 +21,27 @@ import DevAuthProvider from "@/layouts/dev/dev_auth_provider";
 import CandidateControll from "@/layouts/candidate/candidate_controll";
 import ButtonLogout from "@/layouts/dev/button_logout";
 import _ from "lodash";
-import { MdPlayCircle, MdRunCircle } from "react-icons/md";
+import {
+  MdArrowBackIos,
+  MdArrowForwardIos,
+  MdMenu,
+  MdPlayCircle,
+  MdRunCircle,
+} from "react-icons/md";
 import Dev from "@/layouts/dev/dev";
 import DevTestIframe from "@/layouts/dev/dev_test_iframe";
 import DevTestIframeBoma from "@/layouts/dev/dev_test_iframe_boma";
 import DevTimeMachine from "@/layouts/dev/dev_time_machine";
 import DevDataVolume from "@/layouts/dev/dev_data_volume";
 import { DevCandidateValue } from "@/layouts/dev/dev_candidate_value";
-
+import { useState } from "react";
+import {
+  useDisclosure,
+  useForceUpdate,
+  useShallowEffect,
+} from "@mantine/hooks";
+import { signal } from "@preact/signals-react";
+import AnimateCssReact from "animate-css-reactjs";
 
 const listMenu = [
   {
@@ -69,7 +86,21 @@ const listMenu = [
   },
 ];
 
+const s_is_small = signal(false);
+
 const AdminDashboard = () => {
+  // const [isSmall, setIsSmall] = useState(false);
+  const update = useForceUpdate();
+
+  useShallowEffect(() => {
+    const isSml = localStorage.getItem("is_small");
+    if (isSml) {
+      s_is_small.value = true;
+    } else {
+      s_is_small.value = false;
+    }
+  }, []);
+
   return (
     <DevAuthProvider>
       <AppShell
@@ -77,33 +108,49 @@ const AdminDashboard = () => {
         // padding="md"
         bg={"gray.2"}
         navbar={
-          <Navbar width={{ base: 250 }}>
-            <Navbar.Section h={200}>
-              <Image
-                src={"/dev-icon.png"}
-                alt="gambar"
-                width={"100%"}
-                height={170}
-              />
-            </Navbar.Section>
-            <Navbar.Section grow component={ScrollArea}>
-              {listMenu.map((item) => (
-                <NavLink
-                  icon={<MdPlayCircle />}
-                  bg={item.id == sAdminDashboardView.get() ? "blue.1" : ""}
-                  onClick={() => sAdminDashboardView.set(item.id)}
-                  key={item.id}
-                  fw={"bold"}
-                  label={_.upperCase(item.name)}
+          s_is_small.value ? (
+            <></>
+          ) : (
+            <Navbar width={{ base: 250 }}>
+              <Navbar.Section h={200}>
+                <Image
+                  src={"/dev-icon.png"}
+                  alt="gambar"
+                  width={"100%"}
+                  height={170}
                 />
-              ))}
-            </Navbar.Section>
-            <Navbar.Section bg={"dark"}>
-              <Group position="left" p={"xs"}>
-                <ButtonLogout />
-              </Group>
-            </Navbar.Section>
-          </Navbar>
+              </Navbar.Section>
+              <Navbar.Section grow component={ScrollArea}>
+                {listMenu.map((item) => (
+                  <NavLink
+                    icon={<MdPlayCircle />}
+                    bg={item.id == sAdminDashboardView.get() ? "blue.1" : ""}
+                    onClick={() => sAdminDashboardView.set(item.id)}
+                    key={item.id}
+                    fw={"bold"}
+                    label={_.upperCase(item.name)}
+                  />
+                ))}
+              </Navbar.Section>
+              <Navbar.Section bg={"dark"}>
+                <Group position="apart" p={"xs"}>
+                  <ButtonLogout />
+                  <ActionIcon
+                    variant="white"
+                    radius={100}
+                    bg={"blue"}
+                    onClick={() => {
+                      localStorage.setItem("is_small", "true");
+                      s_is_small.value = true;
+                      update();
+                    }}
+                  >
+                    <MdArrowBackIos />
+                  </ActionIcon>
+                </Group>
+              </Navbar.Section>
+            </Navbar>
+          )
         }
         // header={
         //   <Header height={60} p="xs">
@@ -124,6 +171,27 @@ const AdminDashboard = () => {
             {<v.view />}
           </Box>
         ))}
+        {s_is_small.value && (
+          <ActionIcon
+            variant="white"
+            radius={100}
+            bg={"blue"}
+            size={32}
+            pos={"fixed"}
+            bottom={20}
+            left={20}
+            sx={{ zIndex: 102 }}
+            onClick={() => {
+              localStorage.setItem("is_small", "false");
+              s_is_small.value = false;
+              update();
+            }}
+          >
+            <Center>
+              <MdArrowForwardIos size={26} color="white" />
+            </Center>
+          </ActionIcon>
+        )}
       </AppShell>
     </DevAuthProvider>
   );

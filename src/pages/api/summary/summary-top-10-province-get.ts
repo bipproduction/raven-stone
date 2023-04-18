@@ -1,9 +1,9 @@
-import client from '@/lib/prisma_db';
-import _ from 'lodash';
-import { NextApiRequest, NextApiResponse } from 'next';
-const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
+import client from "@/lib/prisma_db";
+import _ from "lodash";
+import { NextApiRequest, NextApiResponse } from "next";
+
+export default async function summaryTop10ProvinceGet(req: NextApiRequest, res: NextApiResponse) {
     const { date, emotion, candidateId, search } = req.query
-    console.log(search)
     const data = await client.dataByContent.findMany({
         where: {
             date: new Date(date as string),
@@ -48,15 +48,7 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
         ..._.omit(v, ["City", "Province"]),
         provinceId: v.Province?.id,
         provinceName: v.Province?.name,
-        value: v.City?.CityValue[0].value,
-        // trust: (v.trust! / 100) * v.City?.CityValue![0].value!,
-        // joy: (v.joy! / 100) * v.City?.CityValue![0].value!,
-        // surprise: (v.surprise! / 100) * v.City?.CityValue![0].value!,
-        // anticipation: (v.anticipation! / 100) * v.City?.CityValue![0].value!,
-        // sadness: (v.sadness! / 100) * v.City?.CityValue![0].value!,
-        // fear: (v.fear! / 100) * v.City?.CityValue![0].value!,
-        // anger: (v.anger! / 100) * v.City?.CityValue![0].value!,
-        // disgust: (v.disgust! / 100) * v.City?.CityValue![0].value!,
+        value: v.City?.CityValue[0].value
     }))
 
     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({
@@ -86,5 +78,3 @@ const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiR
 
     res.status(200).json(hasil4)
 }
-
-export default getTop10ProvinceByConversation
