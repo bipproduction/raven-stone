@@ -232,6 +232,13 @@ const Dashboard = () => {
     }
   }, []);
 
+  useShallowEffect(() => {
+    const page = localStorage.getItem("dashboard_selected_page");
+    if (page) {
+      sSelectedView.value = page;
+    }
+  }, []);
+
   return (
     <AppShell
       bg={"gray.2"}
@@ -470,6 +477,11 @@ const NotificationDisplay = () => {
 const MyNavbar = () => {
   const router = useRouter();
 
+  function onSelectedPage(page: string) {
+    localStorage.setItem("dashboard_selected_page", page);
+    sSelectedView.value = page;
+  }
+
   const ketikaCklik = (v: any, vv: any) => {
     if (v.id == 2 && vv.id == 2) {
       router.push("/page/media-listener");
@@ -477,14 +489,15 @@ const MyNavbar = () => {
       return;
     }
 
-    sSelectedView.value = vv.name;
+    // sSelectedView.value = vv.name;
+    onSelectedPage(vv.name);
     sNavbarOpen.value = false;
   };
 
   if (sNavbarIsSmall.value)
     return (
       <>
-        <AnimateCssReact animation="flipInY">
+        <AnimateCssReact animation="fadeIn">
           <Navbar
             bg={"blue.2"}
             hiddenBreakpoint="sm"
@@ -535,8 +548,8 @@ const MyNavbar = () => {
         width={{ sm: 200, lg: 300 }}
       >
         <Navbar.Section mb={"lg"}>
-          <AnimateCssReact animation="flipInY">
-            <Paper shadow={"sm"} bg={"blue.2"} h={105}>
+          <AnimateCssReact animation="fadeIn">
+            <Box  h={105}>
               <Box w={{ sm: 200, lg: 300 }} p={"sm"}>
                 <Image width={150} src={"/logo-2.png"} alt={"logo"} />
               </Box>
@@ -547,12 +560,13 @@ const MyNavbar = () => {
                   <MdInfo color="white" />
                 </ActionIcon>
               </Group>
-            </Paper>
+            </Box>
           </AnimateCssReact>
         </Navbar.Section>
         <Navbar.Section grow component={ScrollArea}>
           {listView.map((v) => (
             <NavLink
+              defaultOpened={true}
               bg={"blue.2"}
               // sx={{
               //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
@@ -600,7 +614,7 @@ const MyNavbar = () => {
                 Version: 2.0.1
               </Text>
               <Text fz={9} c={"gray"}>
-                build: 10953
+                build: 10993
               </Text>
             </Stack>
             <ActionIcon

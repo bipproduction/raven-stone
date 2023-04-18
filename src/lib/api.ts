@@ -73,10 +73,10 @@ export const api = {
   "apiDevDevCityValueUpdate": "/api/dev/dev-city-value-update",
   "apiDevDevCityValueGet": "/api/dev/dev-city-value-get",
   "apiDevCityValueUpdate": "/api/dev/city-value-update",
-  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
-  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get",
   "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",
-  "apiAuthGetUserById": "/api/auth/get-user-by-id"
+  "apiAuthGetUserById": "/api/auth/get-user-by-id",
+  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
+  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get"
 }
