@@ -168,6 +168,7 @@ const MapControllMain = () => {
     <>
       <Flex>
         <Stack w={250} bg={"cyan.0"} spacing={0} >
+          <Title>Map Controll</Title>
           {listMenu.map((v) => <NavLink bg={v.id == selectedPage.value ? "blue.2" : ""} variant="light" key={v.id} onClick={() => setPage(v.id)} label={<Text fw={"bold"} >{v.title}</Text>} />)}
         </Stack>
         <ScrollArea.Autosize h={"100vh"} w={"100%"}>

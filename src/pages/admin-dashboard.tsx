@@ -79,11 +79,11 @@ const listMenu = [
   //   name: "Data Volume",
   //   view: DevDataVolume,
   // },
-  {
-    id: "8",
-    name: "Candidate Value",
-    view: DevCandidateValue,
-  },
+  // {
+  //   id: "8",
+  //   name: "Candidate Value",
+  //   view: DevCandidateValue,
+  // },
 ];
 
 const s_is_small = signal(false);
