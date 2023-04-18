@@ -40,14 +40,14 @@ const emotionalViewViaProvinceByDateCandidate = async (req: NextApiRequest, res:
         provinceId: v.Province?.id,
         provinceName: v.Province?.name,
         value: v.City?.CityValue[0].value,
-        trust: (v.trust! / 100) * v.City?.CityValue![0].value!,
-        joy: (v.joy! / 100) * v.City?.CityValue![0].value!,
-        surprise: (v.surprise! / 100) * v.City?.CityValue![0].value!,
-        anticipation: (v.anticipation! / 100) * v.City?.CityValue![0].value!,
-        sadness: (v.sadness! / 100) * v.City?.CityValue![0].value!,
-        fear: (v.fear! / 100) * v.City?.CityValue![0].value!,
-        anger: (v.anger! / 100) * v.City?.CityValue![0].value!,
-        disgust: (v.disgust! / 100) * v.City?.CityValue![0].value!
+        // trust: (v.trust! / 100) * v.City?.CityValue![0].value!,
+        // joy: (v.joy! / 100) * v.City?.CityValue![0].value!,
+        // surprise: (v.surprise! / 100) * v.City?.CityValue![0].value!,
+        // anticipation: (v.anticipation! / 100) * v.City?.CityValue![0].value!,
+        // sadness: (v.sadness! / 100) * v.City?.CityValue![0].value!,
+        // fear: (v.fear! / 100) * v.City?.CityValue![0].value!,
+        // anger: (v.anger! / 100) * v.City?.CityValue![0].value!,
+        // disgust: (v.disgust! / 100) * v.City?.CityValue![0].value!
     }))
 
     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({

@@ -58,14 +58,22 @@ const emotionalViewViaProvinceByDateProvinceCandidate = async (req: NextApiReque
         provinceName: v.Province?.name,
         value: v.City?.CityValue[0].value,
         emotion: {
-            trust: Math.round((v.trust! / 100) * v.City?.CityValue![0].value!),
-            joy: Math.round((v.joy! / 100) * v.City?.CityValue![0].value!),
-            surprise: Math.round((v.surprise! / 100) * v.City?.CityValue![0].value!),
-            anticipation: Math.round((v.anticipation! / 100) * v.City?.CityValue![0].value!),
-            sadness: Math.round((v.sadness! / 100) * v.City?.CityValue![0].value!),
-            fear: Math.round((v.fear! / 100) * v.City?.CityValue![0].value!),
-            anger: Math.round((v.anger! / 100) * v.City?.CityValue![0].value!),
-            disgust: Math.round((v.disgust! / 100) * v.City?.CityValue![0].value!)
+            trust: v.trust,
+            joy: v.joy,
+            surprise: v.surprise,
+            anticipation: v.anticipation,
+            sadness: v.sadness,
+            fear: v.fear,
+            anger: v.anger,
+            disgust: v.disgust,
+            // trust: Math.round((v.trust! / 100) * v.City?.CityValue![0].value!),
+            // joy: Math.round((v.joy! / 100) * v.City?.CityValue![0].value!),
+            // surprise: Math.round((v.surprise! / 100) * v.City?.CityValue![0].value!),
+            // anticipation: Math.round((v.anticipation! / 100) * v.City?.CityValue![0].value!),
+            // sadness: Math.round((v.sadness! / 100) * v.City?.CityValue![0].value!),
+            // fear: Math.round((v.fear! / 100) * v.City?.CityValue![0].value!),
+            // anger: Math.round((v.anger! / 100) * v.City?.CityValue![0].value!),
+            // disgust: Math.round((v.disgust! / 100) * v.City?.CityValue![0].value!)
         }
     }))
 

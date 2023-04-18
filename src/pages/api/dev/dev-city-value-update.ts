@@ -2,7 +2,7 @@ import client from "@/lib/prisma_db";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function devCityValueUpdate(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === "POST") {
+    if (req.method == "POST") {
         const body = req.body
 
         await client.cityValue.update({
