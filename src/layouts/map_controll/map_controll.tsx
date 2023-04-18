@@ -1,35 +1,57 @@
 import { funLoadMapData } from "@/fun_load/func_load_map_data";
-import {} from "@/g_state/g_map_state";
 import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
+  AppShell,
   Autocomplete,
+  AutocompleteItem,
   Box,
   Button,
   Divider,
   Flex,
   Grid,
   Group,
+  Loader,
   Menu,
   Modal,
+  NavLink,
+  Navbar,
+  NumberInput,
+  Pagination,
   Paper,
+  ScrollArea,
   Select,
   SimpleGrid,
   Slider,
   Stack,
+  Table,
   Text,
+  TextInput,
+  Title,
 } from "@mantine/core";
-import { DatePicker, DatePickerInput } from "@mantine/dates";
-import { useDisclosure, useShallowEffect } from "@mantine/hooks";
+import { DatePicker, DatePickerInput, DateValue } from "@mantine/dates";
+import {
+  useDisclosure,
+  useForceUpdate,
+  useShallowEffect,
+} from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import { EChartsOption, registerMap } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import moment from "moment";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { CSVLink } from "react-csv";
 import { FaCopy, FaLock, FaLockOpen, FaSearch } from "react-icons/fa";
-import { MdClose, MdDownload, MdMap, MdTableView } from "react-icons/md";
+import {
+  MdClose,
+  MdDownload,
+  MdEdit,
+  MdMap,
+  MdSave,
+  MdSearch,
+  MdTableView,
+} from "react-icons/md";
 import toast from "react-simple-toasts";
 import Spreadsheet from "react-spreadsheet";
 import ButtonAjustByProvince from "./dialog_ajust_by_province";
@@ -41,22 +63,26 @@ import { slistCandidate } from "@/s_state/s_list_candidate";
 import { sListKabupaten } from "@/s_state/s_list_kabupaten";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
-import MapControllContextDirection from "./map_controll_context_direction";
-import MapControllWorCloud from "./map_controll_word_cloud";
-import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import DevTimeMachine from "../dev/dev_time_machine";
+import { Empty } from "antd";
+import MapControllContextDirection from "./map_controll_context_direction";
+import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_prediction";
+import MapControllWorCloud from "./map_controll_word_cloud";
+import { title } from "process";
+import { api } from "@/lib/api";
+import { MapControllEmotionEditor } from "./map_controll_emotion_editor";
+import { MapControllCityValueEditor } from "./map_controll_city_value_editor";
 // import { ButtonLogout } from "@/layouts/dev/dev_auth_provider";
 
 interface ModelEmotion {
+  trust?: number;
+  joy?: number;
+  surprise?: number;
+  anticipation?: number;
+  sadness?: number;
+  fear?: number;
   anger?: number;
   disgust?: number;
-  fear?: number;
-  joy?: number;
-  sadness?: number;
-  surprise?: number;
-  trust?: number;
-  anticipation?: number;
 }
 
 const listEmotionColor = [
@@ -103,6 +129,127 @@ const listEmotionColor = [
 ];
 
 const openContextDirection = signal(false);
+
+
+
+const listMenu = [
+  {
+    id: "1",
+    title: "emotion editor",
+    component: MapControllEmotionEditor
+  },
+  {
+    id: "2",
+    title: "city value editor",
+    component: MapControllCityValueEditor
+  }
+]
+
+const selectedPage = signal("1")
+const MapControllMain = () => {
+  // const [selectedPage, selectedPageSet] = useState("1")
+  useShallowEffect(() => {
+    const page = localStorage.getItem('selected_page')
+    if (page) {
+      // selectedPageSet(page)
+      selectedPage.value = page
+    }
+  }, [])
+
+
+  function setPage(pg: string) {
+    localStorage.setItem('selected_page', pg)
+    // selectedPageSet(pg)
+    selectedPage.value = pg
+  }
+
+  return (
+
+    <>
+      <Flex>
+        <Stack w={250} bg={"cyan.0"} spacing={0} >
+          {listMenu.map((v) => <NavLink bg={v.id == selectedPage.value ? "blue.2" : ""} variant="light" key={v.id} onClick={() => setPage(v.id)} label={<Text fw={"bold"} >{v.title}</Text>} />)}
+        </Stack>
+        <ScrollArea.Autosize h={"100vh"} w={"100%"}>
+          {listMenu.map((v) => v.id == selectedPage.value && <v.component key={v.id} />)}
+        </ScrollArea.Autosize>
+      </Flex>
+    </>
+  );
+};
+
+;
+
+const InputEdit = ({
+  isSelected,
+  onClick,
+  onChange,
+  onClose,
+  value,
+}: {
+  isSelected: boolean;
+  onClick: () => void;
+  onChange: (val: number) => void;
+  onClose: () => void;
+  value: number;
+}) => {
+  return (
+    <td onClick={onClick}>
+      {isSelected ? (
+        <NumberInput
+          onChange={onChange}
+          w={120}
+          min={0}
+          placeholder={value.toString()}
+          rightSection={
+            <ActionIcon onClick={onClose}>
+              <MdClose />
+            </ActionIcon>
+          }
+        />
+      ) : (
+        <Text>{value}</Text>
+      )}
+    </td>
+  );
+};
+
+
+
+const SearchCity = () => {
+  const [search, setSearch] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<any | undefined>(undefined);
+  return (
+    <>
+      <Autocomplete
+        data={sListKabupaten.value.map((v) => ({
+          value: v.City.name,
+        }))}
+        icon={<FaSearch />}
+        value={search}
+        rightSection={
+          <ActionIcon onClick={() => setSearch("")}>
+            <MdClose />
+          </ActionIcon>
+        }
+        label={"search kabupaten"}
+        onChange={(val) => {
+          setSearch(val);
+        }}
+        onItemSubmit={(val) => {
+          const dataCity = sListKabupaten.value.find(
+            (v) => v.City.name == val.value
+          );
+          if (dataCity) {
+            setSelectedCity(dataCity);
+          }
+        }}
+      />
+    </>
+  );
+};
+
+// TODO > Perbatasan New Model
 
 const LayoutMapControll = () => {
   const [isMap, setIsmap] = useState(false);
@@ -208,7 +355,7 @@ const LayoutMapControll = () => {
                 color: adaNol
                   ? "white"
                   : listEmotionColor.find((v) => _.lowerCase(v.name) == emotion)
-                      ?.color,
+                    ?.color,
               },
             };
           }),
@@ -387,6 +534,11 @@ const LayoutMapControll = () => {
 
   return (
     <>
+      <MapControllMain />
+    </>
+  );
+  return (
+    <>
       <Stack>
         <Paper p={"md"}>
           <Flex
@@ -398,11 +550,11 @@ const LayoutMapControll = () => {
             gap={"lg"}
             justify={"space-between"}
             align={"center"}
-            // pos={"sticky"}
-            // top={0}
-            // sx={{
-            //   zIndex: 100,
-            // }}
+          // pos={"sticky"}
+          // top={0}
+          // sx={{
+          //   zIndex: 100,
+          // }}
           >
             <Group>
               <DatePickerInput
@@ -657,9 +809,9 @@ const LayoutMapControll = () => {
                 <Button w={100} compact onClick={onProccess}>
                   Procccess
                 </Button>
-                <Button w={100} compact bg={"pink"} onClick={onClear}>
+                {/* <Button w={100} compact bg={colors.pink} onClick={onClear}>
                   Clear
-                </Button>
+                </Button> */}
                 {/* <Button
                     w={100}
                     compact
@@ -707,7 +859,7 @@ const TableView = ({ dataKabupaten }: any) => {
   const keyKab = useHookstate(sListKabupaten);
   const [lsTable, setLsTable] = useState<any[]>([]);
 
-  useShallowEffect(() => {}, []);
+  useShallowEffect(() => { }, []);
 
   const olahData = () => {
     if (dataKabupaten && dataKabupaten[0]) {

@@ -149,8 +149,9 @@ const Top10ProvinceByConversation = () => {
               <thead>
                 <tr>
                   <th>NO</th>
-                  <th>CITY</th>
-                  <th>VALUE</th>
+                  <th>PROVINCE</th>
+                  <th>LOCK AUDIENCE</th>
+                  <th>FILTERED AUDIENCE</th>
                   <th>TRUST</th>
                   <th>JOY</th>
                   <th>SURPRISE</th>
@@ -194,6 +195,22 @@ const Top10ProvinceByConversation = () => {
                       <Paper bg={"white"} p={"xs"}>
                         <Text fw={"bold"} color={"gray"}>
                           {Intl.NumberFormat("id-ID").format(v.total)}
+                        </Text>
+                      </Paper>
+                    </td>
+                    <td style={{ padding: 0 }}>
+                      <Paper bg={"white"} p={"xs"}>
+                        <Text fw={"bold"} color={"gray"}>
+                          {Intl.NumberFormat("id-ID").format(_.sum([
+                            v.trust,
+                            v.joy,
+                            v.surprise,
+                            v.anticipation,
+                            v.sadness,
+                            v.fear,
+                            v.anger,
+                            v.disgust,
+                          ]))}
                         </Text>
                       </Paper>
                     </td>

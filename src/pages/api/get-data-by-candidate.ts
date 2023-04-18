@@ -1,6 +1,7 @@
 import client from '@/lib/prisma_db';
 import { NextApiRequest, NextApiResponse } from 'next';
 import moment from 'moment';
+import _ from 'lodash';
 
 
 const getDataByCandidate = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,17 +17,22 @@ const getDataByCandidate = async (req: NextApiRequest, res: NextApiResponse) => 
             City: {
                 select: {
                     id: true,
-                    name: true
+                    name: true,
+                    CityValue: {
+                        select: {
+                            value: true
+                        }
+                    }
                 }
             },
-            anger: true,
-            disgust: true,
-            fear: true,
-            joy: true,
-            sadness: true,
-            surprise: true,
             trust: true,
-            anticipation: true
+            joy: true,
+            surprise: true,
+            anticipation: true,
+            sadness: true,
+            fear: true,
+            anger: true,
+            disgust: true
         }
     })
 
