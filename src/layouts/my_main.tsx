@@ -31,7 +31,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useState } from "react";
-import Summary from "./summary/summary";
+import Summary from "./summary/summary_derecated";
 import Medialistener from "./media_listener/media_listener";
 import PredictiveAi from "./prodictive_ai/prodictive_ai";
 import { gradient } from "@/styles/gradient";
