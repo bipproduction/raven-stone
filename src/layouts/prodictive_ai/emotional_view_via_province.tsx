@@ -48,6 +48,7 @@ import { AnimationOnScroll } from "react-animation-on-scroll";
 import { MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
 import colors from "randomcolor";
+import { stylesRadial } from "@/styles/styles_radial";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -160,7 +161,7 @@ const EmotionalViewViaProvince = () => {
           .map((v: any) => (
             <AnimationOnScroll
               key={v.id}
-              animateIn={"animate__backInUp"}
+              animateIn={"animate__fadeInUp"}
               initiallyVisible={true}
             >
               <Paper
@@ -315,13 +316,13 @@ const EmotionViewDetail = () => {
           <AnimationOnScroll
             key={i.toString()}
             initiallyVisible={true}
-            animateIn={"animate__flipInX"}
+            animateIn={"animate__fadeInUp"}
           >
             <Paper
               key={v.city}
               p={"xs"}
               shadow={"sm"}
-              bg={stylesGradient1}
+              bg={stylesRadial.out_blue}
               sx={{
                 zIndex: 1000,
                 overflow: "scroll",
@@ -330,12 +331,32 @@ const EmotionViewDetail = () => {
             >
               <EmotionDetailChart lsData={v.emotion} />
               <Stack justify={"center"} align={"center"}>
-                <Text fw={"bold"} color={"teal.8"}>
+                <Flex justify={"space-between"} gap={"md"}>
+                  <Stack justify="center" align="center">
+                    <Title  order={3} fw={"bold"} color={"orange.8"}>
+                      {Intl.NumberFormat("id-ID").format(v.value)}
+                    </Title>
+                    <Text size={12} color="gray">LOCKED AUDIENCE</Text>
+                  </Stack>
+                  <Stack justify="center" align="center">
+                    <Title order={3} fw={"bold"} color={"green.8"}>
+                      {Intl.NumberFormat("id-ID").format(_.sum([
+                              v.emotion.trust,
+                              v.emotion.joy,
+                              v.emotion.surprise,
+                              v.emotion.anticipation,
+                              v.emotion.sadness,
+                              v.emotion.fear,
+                              v.emotion.anger,
+                              v.emotion.disgust,
+                            ]))}
+                    </Title>
+                    <Text size={12} color="gray">LOCKED AUDIENCE</Text>
+                  </Stack>
+                </Flex>
+                <Title order={5} color={"blue.8"}>
                   {_.upperCase(v.city)}
-                </Text>
-                <Text size={32} fw={"bold"} color={"gray"}>
-                  {Intl.NumberFormat("id-ID").format(v.value)}
-                </Text>
+                </Title>
                 <EmotionDetai2 data={v} />
               </Stack>
             </Paper>
@@ -530,11 +551,11 @@ const EmotionDetai2 = ({
 
   return (
     <>
-      <Button compact variant={"gradient"} onClick={setOpenmodal.open}>
+      <Button compact variant={"outline"} onClick={setOpenmodal.open}>
         Detail
       </Button>
 
-      <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen>
+      <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen >
         <Stack>
           {/* {JSON.stringify(data)} */}
           <SimpleGrid cols={2}>
