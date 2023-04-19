@@ -48,6 +48,8 @@ const Top10ProvinceByConversation = () => {
           <PageTitle title="Top 10 Province By Emotion" />
           <Group>
             <TextInput
+              variant="filled"
+              radius={100}
               onChange={(e) => {
                 sSearchProvince.value = e.currentTarget.value;
                 funcLoadTop10Province();
@@ -150,7 +152,7 @@ const Top10ProvinceByConversation = () => {
                 <tr>
                   <th>NO</th>
                   <th>PROVINCE</th>
-                  <th>LOCK AUDIENCE</th>
+                  <th>LOCKED AUDIENCE</th>
                   <th>FILTERED AUDIENCE</th>
                   <th>TRUST</th>
                   <th>JOY</th>

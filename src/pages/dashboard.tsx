@@ -587,9 +587,9 @@ const MyNavbar = () => {
                     c={sSelectedView.value == vv.name ? "blue.8" : "blue.4"}
                     icon={<vv.icon color="orange" />}
                     variant={"filled"}
-                    fw={sSelectedView.value == vv.name ? "bold" : "light"}
+                    // fw={sSelectedView.value == vv.name ? "bold" : "light"}
                     // bg={selectedView.value == vv.name ? "blue.1" : ""}
-                    label={_.lowerCase(vv.name)}
+                    label={ sSelectedView.value == vv.name? <Title order={5}>{_.lowerCase(vv.name)}</Title>:<Text>{_.lowerCase(vv.name)}</Text>}
                     key={`${v.id}${i}`}
                     onClick={() => ketikaCklik(v, vv)}
                   />
