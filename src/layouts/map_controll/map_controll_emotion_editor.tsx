@@ -27,9 +27,10 @@ import { Empty } from "antd";
 import _ from "lodash";
 import moment from "moment";
 import { useState } from "react";
-import { MdClose, MdEdit, MdSave, MdSearch } from "react-icons/md";
+import { MdAccountCircle, MdClose, MdEdit, MdSave, MdSearch } from "react-icons/md";
 import { MapControllMapView } from "./map_controll_map_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { MapControllCopyData } from "./map_controll_copy_data";
 
 const colors = {
   green: "#bbe4b3",
@@ -43,6 +44,8 @@ const SelectCandidate = () => {
     <>
       <Box>
         <Select
+        icon={<MdAccountCircle />}
+          radius={100}
           searchable
           key={"1"}
           // label={"select candidate"}
@@ -133,20 +136,29 @@ export function MapControllEmotionEditor() {
     }
   };
 
-  
   return (
     <>
-      <Stack >
+      <Stack>
         <Stack>
           <Paper p={"md"} bg={stylesGradient1}>
             <Flex>
               <Stack>
-                <Box p={"xs"}>
-                  <DatePicker onChange={onDateChange} />
-                </Box>
+                <Stack p={"xs"}>
+                  <DatePicker
+                    onChange={onDateChange}
+                    value={new Date(sSelectedDate.value)}
+                  />
+                  <Stack spacing={0}>
+                    <Title color="gray">
+                      {moment(sSelectedDate.value).format("DD-MM-YYYY")}
+                    </Title>
+                    <Text color="gray">selected date</Text>
+                  </Stack>
+                </Stack>
                 <Stack>
                   <SelectCandidate />
                   <Autocomplete
+                    radius={100}
                     placeholder="search"
                     onItemSubmit={onSearch}
                     icon={<MdSearch />}
@@ -162,6 +174,10 @@ export function MapControllEmotionEditor() {
               <Stack w={"100%"}>
                 {/* <Title>Emotion Editor</Title> */}
                 <MapControllMapView />
+                {/* // todo dibawah map */}
+                <Group p={"xs"} m={"lg"} position="right">
+                  <MapControllCopyData />
+                </Group>
               </Stack>
             </Flex>
           </Paper>

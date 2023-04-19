@@ -628,6 +628,7 @@ const LayoutMapControll = () => {
             </Group>
             {/* <Text>{JSON.stringify(listCandidate.value)}</Text> */}
             <Flex align={"end"} gap={"lg"}>
+              {/* // todo copy data */}
               <Menu>
                 <Menu.Target>
                   <Button compact leftIcon={<FaCopy />}>
