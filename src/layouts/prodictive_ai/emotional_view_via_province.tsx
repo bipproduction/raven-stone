@@ -22,6 +22,7 @@ import { sSelectedView } from "@/s_state/s_selected_view";
 import {
   Box,
   Button,
+  Flex,
   Group,
   Modal,
   Paper,
@@ -124,11 +125,16 @@ const EmotionalViewViaProvince = () => {
       >
         <Group position="right">
           <TextInput
+            radius={100}
+            variant="filled"
             placeholder="search"
             onChange={(val) => setSearch(val.currentTarget.value)}
             icon={<MdSearch />}
           />
           <Select
+            radius={100}
+            shadow="md"
+            variant="filled"
             placeholder={
               sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
                 ?.name
@@ -151,7 +157,7 @@ const EmotionalViewViaProvince = () => {
       <Group position="center">
         {gEmotionalViewViaProvince.value
           .filter((v) => _.lowerCase(v.name).includes(_.lowerCase(search)))
-          .map((v) => (
+          .map((v: any) => (
             <AnimationOnScroll
               key={v.id}
               animateIn={"animate__backInUp"}
@@ -177,19 +183,41 @@ const EmotionalViewViaProvince = () => {
                     //   borderRadius: 4,
                     // }}
                   >
-                    <Stack justify={"center"} spacing={0}>
-                      <Title color={"cyan.8"}  fw={"bold"}>
-                        {Intl.NumberFormat("id-id").format(v.total)}
-                      </Title>
-                      <Text align={"center"} color={"gray"}>
-                        DATA VOLUME
-                      </Text>
-                    </Stack>
-                    <Text size={24} align={"center"}>
+                    <Flex justify={"space-between"} gap={"md"}>
+                      <Stack justify={"center"} spacing={0} align="center">
+                        <Title order={3} color={"orange.8"} fw={"bold"}>
+                          {Intl.NumberFormat("id-id").format(v.total)}
+                        </Title>
+                        <Text align={"center"} color={"gray"}>
+                          LOCKED AUDIENCE
+                        </Text>
+                      </Stack>
+                      <Stack justify={"center"} spacing={0} align="center">
+                        <Title order={3} color={"green.8"} fw={"bold"}>
+                          {Intl.NumberFormat("id-id").format(
+                            _.sum([
+                              v.emotion.trust,
+                              v.emotion.joy,
+                              v.emotion.surprise,
+                              v.emotion.anticipation,
+                              v.emotion.sadness,
+                              v.emotion.fear,
+                              v.emotion.anger,
+                              v.emotion.disgust,
+                            ])
+                          )}
+                        </Title>
+                        <Text align={"center"} color={"gray"}>
+                          FILTERED AUDIENCE
+                        </Text>
+                      </Stack>
+                    </Flex>
+                    <Title color="blue.8" align={"center"}>
                       {_.upperCase(v.name)}
-                    </Text>
+                    </Title>
                   </Stack>
                   <Button
+                    color="cyan"
                     compact
                     onClick={() => {
                       // sSelectedProvince.set(v.id);
@@ -509,7 +537,7 @@ const EmotionDetai2 = ({
       <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen>
         <Stack>
           {/* {JSON.stringify(data)} */}
-          <SimpleGrid cols={2} >
+          <SimpleGrid cols={2}>
             {/* {JSON.stringify(dataKabupaten)} */}
             <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
               <Stack>
@@ -647,9 +675,7 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
     <>
       <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
         <Title order={3}>Leader Persona Prediction </Title>
-        <EChartsReact
-          option={option1}
-        />
+        <EChartsReact option={option1} />
       </Paper>
     </>
   );

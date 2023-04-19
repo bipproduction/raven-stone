@@ -182,6 +182,7 @@ const SummarySelectCandidate = () => {
           <Select
             placeholder={sSelectedEmotion.value}
             variant={"filled"}
+            radius={100}
             searchable
             icon={<MdFace />}
             // label={"sort emotion"}
