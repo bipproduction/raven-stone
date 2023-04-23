@@ -351,7 +351,7 @@ const EmotionViewDetail = () => {
                               v.emotion.disgust,
                             ]))}
                     </Title>
-                    <Text size={12} color="gray">LOCKED AUDIENCE</Text>
+                    <Text size={12} color="gray">FILTERED AUDIENCE</Text>
                   </Stack>
                 </Flex>
                 <Title order={5} color={"blue.8"}>
