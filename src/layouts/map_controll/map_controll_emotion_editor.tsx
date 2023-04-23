@@ -178,61 +178,78 @@ export function MapControllEmotionEditor() {
       <Stack>
         <Stack>
           <Paper p={"md"} bg={stylesGradient1}>
-            <Flex>
-              <Stack>
-                <Stack p={"xs"}>
-                  <DatePicker
-                    onChange={onDateChange}
-                    value={new Date(sSelectedDate.value)}
-                    renderDay={(date) => {
-                      const day = new Date();
-                      return (
-                        <>
-                          {day.getDate() == date.getDate() ? (
-                            <Avatar radius={100}>
-                              <Title order={3}>{date.getDate()}</Title>
-                            </Avatar>
-                          ) : (
-                            <Title order={3}>{date.getDate()}</Title>
-                          )}
-                        </>
-                      );
-                    }}
-                  />
-                  <Stack spacing={0}>
+            <Stack>
+              <Flex>
+                <Stack>
+                  <Stack p={"xs"}>
+                    <Paper
+                      radius={8}
+                      p={"xs"}
+                      bg={stylesRadial.out_cyan}
+                      shadow="md"
+                    >
+                      <DatePicker
+                        onChange={onDateChange}
+                        value={new Date(sSelectedDate.value)}
+                        renderDay={(date) => {
+                          const day = new Date();
+                          return (
+                            <>
+                              {day.getDate() == date.getDate() ? (
+                                <Avatar radius={100}>
+                                  <Title order={3}>{date.getDate()}</Title>
+                                </Avatar>
+                              ) : (
+                                <Title order={3}>{date.getDate()}</Title>
+                              )}
+                            </>
+                          );
+                        }}
+                      />
+                    </Paper>
+                  </Stack>
+                </Stack>
+                <Stack w={"100%"}>
+                  {/* <Title>Emotion Editor</Title> */}
+                  <MapControllMapView />
+                </Stack>
+              </Flex>
+              <SimpleGrid cols={2}>
+                <Paper p={"xs"} radius={8} shadow="md">
+                  <Stack>
                     <Title color="gray">
                       {moment(sSelectedDate.value).format("DD-MM-YYYY")}
                     </Title>
-                    <Text color="gray">selected date</Text>
+                    <Flex justify={"space-between"}>
+                      <Text fz={12} color="gray">
+                        selected date
+                      </Text>
+                      <MapControllCopyData />
+                    </Flex>
                   </Stack>
-                </Stack>
-                <Stack>
-                  <SelectCandidate />
-                  <Autocomplete
-                    radius={100}
-                    placeholder="search"
-                    onItemSubmit={onSearch}
-                    icon={<MdSearch />}
-                    rightSection={
-                      <ActionIcon onClick={() => onPageChange(1)}>
-                        <MdClose />
-                      </ActionIcon>
-                    }
-                    data={sListKabupaten.value.map((v) => v.City.name)}
-                  />
-                </Stack>
-              </Stack>
-              <Stack w={"100%"}>
-                {/* <Title>Emotion Editor</Title> */}
-                <MapControllMapView />
-                {/* // todo dibawah map */}
-              </Stack>
-            </Flex>
+                </Paper>
+                <Paper shadow="md" radius={8} p={"xs"}>
+                  <Stack>
+                    <SelectCandidate />
+                    <Autocomplete
+                      radius={100}
+                      placeholder="search"
+                      onItemSubmit={onSearch}
+                      icon={<MdSearch />}
+                      rightSection={
+                        <ActionIcon onClick={() => onPageChange(1)}>
+                          <MdClose />
+                        </ActionIcon>
+                      }
+                      data={sListKabupaten.value.map((v) => v.City.name)}
+                    />
+                  </Stack>
+                </Paper>
+              </SimpleGrid>
+            </Stack>
           </Paper>
         </Stack>
-        <Group p={"xs"} m={"lg"} position="right" bg={"gray.1"}>
-          <MapControllCopyData />
-        </Group>
+
         <TableView />
         {sMapControllEditorVal.value != undefined && <EditorActionView />}
       </Stack>
@@ -347,7 +364,7 @@ function TableView() {
                     size={24}
                     bg={v.isSelected ? "orange.1" : ""}
                     onClick={() => {
-                      router.push('#'+id);
+                      router.push("#" + id);
                       localStorage.setItem("map_editor_val", JSON.stringify(v));
                       sMapControllEditorVal.value = v;
                     }}
