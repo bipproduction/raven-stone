@@ -12,7 +12,7 @@ export function MapControllCopyData() {
     const [selectedDateCopyData, setSelectedDateCopyData] = useState<string>("");
 
     return <>
-        <Button onClick={setCopyData.open} compact>copy data</Button>
+        <Button w={150} onClick={setCopyData.open} compact>copy data</Button>
         <Modal opened={openCopyData} onClose={setCopyData.close}>
           <Flex direction={"row"} justify={"space-between"}>
             <DatePicker

@@ -5,17 +5,19 @@ import SummarySelectCandidate from "./summary_select_candidate";
 import Sambutan from "../sambutan";
 import SummaryDataChart from "./summary_data_chart";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { SummaryTrenSentiment } from "./summary_tren_sentiment";
 
 const MainSummary = () => {
   return (
     <>
       <Stack spacing={32}>
         <Sambutan />
-        <Flex gap={"md"} align={"center"}>
-          <Box p={"xs"} >
-          <SummarySelectCandidate />
+        <Flex gap={"md"} align={"start"} w={"100%"}>
+          <Box p={"xs"}>
+            <SummarySelectCandidate />
           </Box>
-          <SummaryDataChart />
+          {/* <SummaryDataChart /> */}
+          <SummaryTrenSentiment />
         </Flex>
         <Top10ProvinceByConversation />
         <Top10DistrictbyConversation />
@@ -23,7 +25,5 @@ const MainSummary = () => {
     </>
   );
 };
-
-
 
 export default MainSummary;
