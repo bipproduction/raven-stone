@@ -23,6 +23,7 @@ export const api = {
   "apiUtilGetCandidate": "/api/util/get-candidate",
   "apiUtilEnvIsDevGet": "/api/util/env-is-dev-get",
   "apiUtilCityContextDirectionUpdate": "/api/util/city-context-direction-update",
+  "apiSummarySummaryTrenSentiment": "/api/summary/summary-tren-sentiment",
   "apiSummarySummaryTop10ProvinceGet": "/api/summary/summary-top-10-province-get",
   "apiSummarySummaryTop10DistrictGet": "/api/summary/summary-top-10-district-get",
   "apiSummarySummaryTimeMachineGetSebulan": "/api/summary/summary-time-machine-get-sebulan",
@@ -73,10 +74,10 @@ export const api = {
   "apiDevDevCityValueUpdate": "/api/dev/dev-city-value-update",
   "apiDevDevCityValueGet": "/api/dev/dev-city-value-get",
   "apiDevCityValueUpdate": "/api/dev/city-value-update",
-  "apiB24B24Api": "/api/b24/b24-api",
+  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
+  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",
   "apiAuthGetUserById": "/api/auth/get-user-by-id",
-  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
-  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get"
+  "apiB24B24Api": "/api/b24/b24-api"
 }

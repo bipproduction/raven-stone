@@ -181,74 +181,74 @@ const MapControllMain = () => {
 
 ;
 
-const InputEdit = ({
-  isSelected,
-  onClick,
-  onChange,
-  onClose,
-  value,
-}: {
-  isSelected: boolean;
-  onClick: () => void;
-  onChange: (val: number) => void;
-  onClose: () => void;
-  value: number;
-}) => {
-  return (
-    <td onClick={onClick}>
-      {isSelected ? (
-        <NumberInput
-          onChange={onChange}
-          w={120}
-          min={0}
-          placeholder={value.toString()}
-          rightSection={
-            <ActionIcon onClick={onClose}>
-              <MdClose />
-            </ActionIcon>
-          }
-        />
-      ) : (
-        <Text>{value}</Text>
-      )}
-    </td>
-  );
-};
+// const InputEdit = ({
+//   isSelected,
+//   onClick,
+//   onChange,
+//   onClose,
+//   value,
+// }: {
+//   isSelected: boolean;
+//   onClick: () => void;
+//   onChange: (val: number) => void;
+//   onClose: () => void;
+//   value: number;
+// }) => {
+//   return (
+//     <td onClick={onClick}>
+//       {isSelected ? (
+//         <NumberInput
+//           onChange={onChange}
+//           w={120}
+//           min={0}
+//           placeholder={value.toString()}
+//           rightSection={
+//             <ActionIcon onClick={onClose}>
+//               <MdClose />
+//             </ActionIcon>
+//           }
+//         />
+//       ) : (
+//         <Text>{value}</Text>
+//       )}
+//     </td>
+//   );
+// };
 
 
 
-const SearchCity = () => {
-  const [search, setSearch] = useState<string>("");
-  const [selectedCity, setSelectedCity] = useState<any | undefined>(undefined);
-  return (
-    <>
-      <Autocomplete
-        data={sListKabupaten.value.map((v) => ({
-          value: v.City.name,
-        }))}
-        icon={<FaSearch />}
-        value={search}
-        rightSection={
-          <ActionIcon onClick={() => setSearch("")}>
-            <MdClose />
-          </ActionIcon>
-        }
-        label={"search kabupaten"}
-        onChange={(val) => {
-          setSearch(val);
-        }}
-        onItemSubmit={(val) => {
-          const dataCity = sListKabupaten.value.find(
-            (v) => v.City.name == val.value
-          );
-          if (dataCity) {
-            setSelectedCity(dataCity);
-          }
-        }}
-      />
-    </>
-  );
-};
+// const SearchCity = () => {
+//   const [search, setSearch] = useState<string>("");
+//   const [selectedCity, setSelectedCity] = useState<any | undefined>(undefined);
+//   return (
+//     <>
+//       <Autocomplete
+//         data={sListKabupaten.value.map((v) => ({
+//           value: v.City.name,
+//         }))}
+//         icon={<FaSearch />}
+//         value={search}
+//         rightSection={
+//           <ActionIcon onClick={() => setSearch("")}>
+//             <MdClose />
+//           </ActionIcon>
+//         }
+//         label={"search kabupaten"}
+//         onChange={(val) => {
+//           setSearch(val);
+//         }}
+//         onItemSubmit={(val) => {
+//           const dataCity = sListKabupaten.value.find(
+//             (v) => v.City.name == val.value
+//           );
+//           if (dataCity) {
+//             setSelectedCity(dataCity);
+//           }
+//         }}
+//       />
+//     </>
+//   );
+// };
 
 // TODO > Perbatasan New Model
 
@@ -476,30 +476,30 @@ const LayoutMapControll = () => {
     return `${_.snakeCase(nama ? nama.name : "error")}_data_kabupaten`;
   };
 
-  const onClear = async () => {
-    let hasilData: { [key: string]: any } = {};
-    for (let itm of listSelectedEmotion) {
-      hasilData[itm.name] = 0;
-    }
-    const dataBody = {
-      id: selectedData.data.id,
-      ...hasilData,
-    };
+  // const onClear = async () => {
+  //   let hasilData: { [key: string]: any } = {};
+  //   for (let itm of listSelectedEmotion) {
+  //     hasilData[itm.name] = 0;
+  //   }
+  //   const dataBody = {
+  //     id: selectedData.data.id,
+  //     ...hasilData,
+  //   };
 
-    const dataUpdate = await fetch("/api/update-content", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataBody),
-    });
+  //   const dataUpdate = await fetch("/api/update-content", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(dataBody),
+  //   });
 
-    if (dataUpdate.status != 201) return toast("error");
-    toast("sussess");
-    // setListSelectedEmotion(listHasilnya);
-    await funLoadMapData();
-    setbukamodal.close();
-  };
+  //   if (dataUpdate.status != 201) return toast("error");
+  //   toast("sussess");
+  //   // setListSelectedEmotion(listHasilnya);
+  //   await funLoadMapData();
+  //   setbukamodal.close();
+  // };
 
   const onForce = () => {
     // console.log(JSON.stringify(selectedCity, null, 2))
@@ -720,7 +720,7 @@ const LayoutMapControll = () => {
             <Group position="right">
               <MapControllContextDirection dataKab={selectedData} />
               <MapControllWorCloud dataKab={selectedData} />
-              <MapControllLeaderPersonaPrediction dataKab={selectedData} />
+              {/* <MapControllLeaderPersonaPrediction dataKab={selectedData} /> */}
               {/* <MapTimeMachine dataKab={selectedData} /> */}
             </Group>
             <Flex justify={"space-between"}>

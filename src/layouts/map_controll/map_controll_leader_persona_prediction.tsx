@@ -1,4 +1,6 @@
 import { api } from "@/lib/api";
+import { sMapControllEditorVal } from "@/s_state/s_map_controll_editor_val";
+import { stylesRadial } from "@/styles/styles_radial";
 import {
   ActionIcon,
   Avatar,
@@ -12,6 +14,7 @@ import {
   Paper,
   SimpleGrid,
   Stack,
+  Text,
   TextInput,
   Title,
 } from "@mantine/core";
@@ -21,58 +24,85 @@ import {
   useForceUpdate,
   useShallowEffect,
 } from "@mantine/hooks";
+import { signal } from "@preact/signals-react";
 import _ from "lodash";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import toast from "react-simple-toasts";
 
-const MapControllLeaderPersonaPrediction = ({ dataKab }: any) => {
-  const [open, setOpen] = useDisclosure(false);
-  const update = useForceUpdate();
-  const [isAda, setisAda] = useState(false);
-  const [listData, setListData] = useState<any[]>([]);
+const listTemplate = [
+  { title: "Gagah", value: 0 },
+  { title: "Tegas", value: 0 },
+  { title: "Merakyat", value: 0 },
+  { title: "Jujur", value: 0 },
+  { title: "Cerdas", value: 0 },
+  { title: "Pekerja Keras", value: 0 },
+];
+const listData = signal<any[]>([]);
 
-  const formData = useForm({
-    initialValues: {
-      data: [
-        { title: "Gagah", value: 0 },
-        { title: "Tegas", value: 0 },
-        { title: "Merakyat", value: 0 },
-        { title: "Jujur", value: 0 },
-        { title: "Cerdas", value: 0 },
-        { title: "Pekerja Keras", value: 0 },
-      ],
-    },
-  });
+const MapControllLeaderPersonaPrediction = () => {
+  const [open, setOpen] = useDisclosure(false);
+  // const update = useForceUpdate();
+  const [isAda, setisAda] = useState(false);
+  // const [listData, setListData] = useState<any[]>([]);
+
+  // const formData = useForm({
+  //   initialValues: {
+  //     data: [
+  //       { title: "Gagah", value: 0 },
+  //       { title: "Tegas", value: 0 },
+  //       { title: "Merakyat", value: 0 },
+  //       { title: "Jujur", value: 0 },
+  //       { title: "Cerdas", value: 0 },
+  //       { title: "Pekerja Keras", value: 0 },
+  //     ],
+  //   },
+  // });
 
   useShallowEffect(() => {
+    sMapControllEditorVal.subscribe(() => {
+      loadData();
+    });
+  }, []);
+
+  function loadData() {
     fetch(
       api.apiMapControllContextualDirectionLeaderPesonaPredictionGet +
-        `?cityId=${dataKab.data.City.id}`
+        `?cityId=${sMapControllEditorVal.value.City.id}`
     )
       .then((v) => v.json())
       .then((v) => {
-        if (!_.isEmpty(v)) {
-          formData.setValues({ data: v.data.content });
+        // console.log(sMapControllEditorVal.value.City.id);
+        console.log(JSON.stringify(v));
+        if (!_.isEmpty(v) || v != null) {
+          // formData.setValues({ data: v.data.content });
+
+          listData.value = v.data.content;
           setisAda(!_.isEmpty(v));
+        } else {
+          listData.value = listTemplate;
+          setisAda(false);
         }
       });
-  }, []);
+  }
 
   const onAddWord = async () => {
     const data = {
       title: "new word",
       value: 0,
     };
-    formData.insertListItem("data", data);
+    // formData.insertListItem("data", data);
+    listData.value.push(data);
+    listData.value = [...listData.value];
   };
 
   const onSave = async () => {
-    if (_.isEmpty(formData.values.data))
+    if (_.isEmpty(listData.value))
       return toast("tidak bisa menyimpan kehampaan , buatlah terlebih dahulu");
+
     const body = {
-      cityId: dataKab.data.City.id,
-      data: formData.values.data,
+      cityId: sMapControllEditorVal.value.City.id,
+      data: listData.value,
     };
 
     fetch(api.apiMapControllContextualDirectionLeaderPesonaPredictionPost, {
@@ -89,30 +119,72 @@ const MapControllLeaderPersonaPrediction = ({ dataKab }: any) => {
   };
 
   const onDeleteItem = (item: number) => {
-    formData.removeListItem("data", item);
+    // formData.removeListItem("data", item);
+    listData.value.splice(item, 1);
+    listData.value = [...listData.value];
   };
-  return (
-    <>
-      <Button compact onClick={setOpen.open}>
-        Persona Prediction
-      </Button>
-      <Drawer
-        opened={open}
-        onClose={setOpen.close}
-        position={"bottom"}
-        lockScroll
-      >
-        <Container>
+  return <ContentView />;
+
+  function ContentView() {
+    return (
+      <>
+        {/* {JSON.stringify(formData.values)} */}
+        <Paper m={"md"} p={"md"} bg={stylesRadial.out_brown}>
           <Stack>
-            <Title>{dataKab.name}</Title>
+            <Title>LEADER PERSONA PREDICTION</Title>
+            <Text>{sMapControllEditorVal.value.City.name}</Text>
             <Group position="right" pos={"sticky"} top={0} sx={{ zIndex: 99 }}>
-              <Button onClick={onAddWord}>Add</Button>
-              <Button bg={isAda ? "orange" : "blue"} onClick={onSave}>
+              <Button compact w={150} onClick={onAddWord}>
+                Add
+              </Button>
+              <Button
+                compact
+                w={150}
+                bg={isAda ? "orange" : "blue"}
+                onClick={onSave}
+              >
                 {isAda ? "UPDATE" : "SAVE"}
               </Button>
             </Group>
+
             <SimpleGrid cols={3}>
-              {formData.values.data.map((v, i) => (
+              {listData.value.map((v, i) => (
+                <Box key={i}>
+                  <Paper p={"xs"}>
+                    <Flex gap={"md"}>
+                      <Stack>
+                        <TextInput
+                          // value={v.title}
+                          label={"word"}
+                          onChange={(val) => {
+                            listData.value[i].title = val.target.value;
+                            listData.value = [...listData.value];
+                          }}
+                          placeholder={v.title}
+                        />
+                        <NumberInput
+                          // value={v.value}
+                          label={"value"}
+                          onChange={(val) => {
+                            listData.value[i].value = val;
+                            listData.value = [...listData.value];
+                          }}
+                          placeholder={v.value}
+                          min={0}
+                        />
+                      </Stack>
+                      <ActionIcon
+                        onClick={() => onDeleteItem(i)}
+                        size={24}
+                        radius={100}
+                      >
+                        <MdClose size={24} color={"pink"} />
+                      </ActionIcon>
+                    </Flex>
+                  </Paper>
+                </Box>
+              ))}
+              {/* {formData.values.data.map((v, i) => (
                 <Box key={i}>
                   <Paper p={"xs"}>
                     <Flex gap={"md"}>
@@ -139,14 +211,13 @@ const MapControllLeaderPersonaPrediction = ({ dataKab }: any) => {
                     </Flex>
                   </Paper>
                 </Box>
-              ))}
+              ))} */}
             </SimpleGrid>
           </Stack>
-        </Container>
-        {/* {JSON.stringify(dataKab)} */}
-      </Drawer>
-    </>
-  );
+        </Paper>
+      </>
+    );
+  }
 };
 
 export default MapControllLeaderPersonaPrediction;
