@@ -1,16 +1,15 @@
 import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
 import { api } from "@/lib/api";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { sCityContextDirection } from "@/s_state/s_city_ontext_irection";
+import { stylesRadial } from "@/styles/styles_radial";
 import {
   Box,
   Button,
-  Container,
-  Drawer,
   Group,
   NumberInput,
   Paper,
   SimpleGrid,
+  Stack,
   Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -19,7 +18,7 @@ import toast from "react-simple-toasts";
 
 const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
   const hasilEdit = signal<any[]>([]);
-  const cityId = dataKab.data.City.id;
+  const cityId = dataKab.City.id;
   const [open, setOpen] = useDisclosure(false);
   const listDataContextDirection: { [key: string]: any } =
     sCityContextDirection.value.find((v) => v.cityId == cityId) ?? {};
@@ -45,45 +44,50 @@ const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
   };
   return (
     <>
-      <Button compact onClick={setOpen.open}>
-        context direction
-      </Button>
-      <Drawer opened={open} onClose={setOpen.close} position={"bottom"} >
-        <Container>
-          {cityId}
-          <Paper p={"xs"} bg={stylesGradient1}>
+      <ContentView />
+    </>
+  );
+
+  function ContentView() {
+    return (
+      <>
+        <Paper p={"md"} bg={stylesRadial.out_green} m={"md"}>
+          <Stack spacing={"lg"}>
             {/* <Text>{JSON.stringify(dataKab.data.City.id)}</Text> */}
-            <Title order={3}>Context Direction</Title>
+            <Title>Context Direction</Title>
             {/* {JSON.stringify(listDataContextDirection)} */}
             {/* // todo perbaiki dilampung selatan kosong */}
             <SimpleGrid cols={3}>
-              { listDataContextDirection && listDataContextDirection.content && listDataContextDirection.content.map((v: any, i: any) => (
-                <Box key={v.name}>
-                  <NumberInput
-                    min={0}
-                    label={v.name}
-                    placeholder={v.value.toString()}
-                    onChange={(val) => {
-                      if (val) {
-                        // disini
-                        listDataContextDirection.content[i].value = val;
-                        hasilEdit.value = listDataContextDirection.content;
-                      }
-                    }}
-                  />
-                </Box>
-              ))}
+              {listDataContextDirection &&
+                listDataContextDirection.content &&
+                listDataContextDirection.content.map((v: any, i: any) => (
+                  <Box key={v.name}>
+                    <NumberInput
+                      // value={v.value}
+                      min={0}
+                      label={v.name}
+                      placeholder={v.value.toString()}
+                      onChange={(val) => {
+                        if (val) {
+                          // disini
+                          listDataContextDirection.content[i].value = val;
+                          hasilEdit.value = listDataContextDirection.content;
+                        }
+                      }}
+                    />
+                  </Box>
+                ))}
             </SimpleGrid>
-            <Group position="right" p={"xs"}>
-              <Button onClick={onSave} compact>
+            <Group position="right">
+              <Button w={150} onClick={onSave} compact>
                 SAVE
               </Button>
             </Group>
-          </Paper>
-        </Container>
-      </Drawer>
-    </>
-  );
+          </Stack>
+        </Paper>
+      </>
+    );
+  }
 };
 
 export default MapControllContextDirection;
