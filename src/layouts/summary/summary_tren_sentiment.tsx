@@ -43,6 +43,7 @@ export function SummaryTrenSentiment() {
       if (v.status == 200) {
         const data = await v.json();
         if (_.isEmpty(data)) return toast("empty data");
+        if(!data) return slistDataTrenSentiment.value = [] ;
         slistDataTrenSentiment.value = data;
         sShowPopDate.value = false;
       }
@@ -61,6 +62,7 @@ export function SummaryTrenSentiment() {
       if (v.status == 200) {
         const data = await v.json();
         if (_.isEmpty(data)) return toast("empty data");
+        if(!data) return slistDataTrenSentiment.value = [] ;
         slistDataTrenSentiment.value = data;
       }
     });
@@ -78,6 +80,7 @@ export function SummaryTrenSentiment() {
       if (v.status == 200) {
         const data = await v.json();
         if (_.isEmpty(data)) return toast("empty data");
+        if(!data) return slistDataTrenSentiment.value = [] ;
         slistDataTrenSentiment.value = data;
       }
     });
