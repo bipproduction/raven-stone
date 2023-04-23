@@ -19,7 +19,7 @@ const sDateEnd = signal(moment(new Date()).format("YYYY-MM-DD"));
 const slistDataTrenSentiment = signal<any[] | null>(null);
 const sShowDateOkButton = signal(false);
 const sShowPopDate = signal(false);
-const sSelectedDateType = signal("1");
+const sSelectedDateType = signal("2");
 
 export function SummaryTrenSentiment() {
   useShallowEffect(() => {
@@ -43,7 +43,7 @@ export function SummaryTrenSentiment() {
       if (v.status == 200) {
         const data = await v.json();
         if (_.isEmpty(data)) return toast("empty data");
-        if(!data) return slistDataTrenSentiment.value = [] ;
+        if (!data) return (slistDataTrenSentiment.value = []);
         slistDataTrenSentiment.value = data;
         sShowPopDate.value = false;
       }
@@ -62,7 +62,7 @@ export function SummaryTrenSentiment() {
       if (v.status == 200) {
         const data = await v.json();
         if (_.isEmpty(data)) return toast("empty data");
-        if(!data) return slistDataTrenSentiment.value = [] ;
+        if (!data) return (slistDataTrenSentiment.value = []);
         slistDataTrenSentiment.value = data;
       }
     });
@@ -80,7 +80,7 @@ export function SummaryTrenSentiment() {
       if (v.status == 200) {
         const data = await v.json();
         if (_.isEmpty(data)) return toast("empty data");
-        if(!data) return slistDataTrenSentiment.value = [] ;
+        if (!data) return (slistDataTrenSentiment.value = []);
         slistDataTrenSentiment.value = data;
       }
     });
@@ -126,6 +126,8 @@ export function SummaryTrenSentiment() {
                 <Stack w={300} bg={stylesRadial.out_gray} p={"md"}>
                   <Title order={3}>Custom</Title>
                   <DatePicker
+                    minDate={new Date("2023-03-16")}
+                    maxDate={new Date()}
                     type="range"
                     onChange={(v) => {
                       if (v[0] && v[1]) {
