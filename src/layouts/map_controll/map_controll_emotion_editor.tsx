@@ -208,44 +208,39 @@ export function MapControllEmotionEditor() {
                       />
                     </Paper>
                   </Stack>
+                  <SimpleGrid cols={2}>
+                    <Paper p={"xs"} radius={8} shadow="md">
+                      <Stack align="center">
+                        <Title color="gray" order={3}>
+                          {moment(sSelectedDate.value).format("DD-MM-YYYY")}
+                        </Title>
+                        <MapControllCopyData />
+                      </Stack>
+                    </Paper>
+                    <Paper shadow="md" radius={8} p={"xs"}>
+                      <Stack>
+                        <SelectCandidate />
+                        <Autocomplete
+                          radius={100}
+                          placeholder="search"
+                          onItemSubmit={onSearch}
+                          icon={<MdSearch />}
+                          rightSection={
+                            <ActionIcon onClick={() => onPageChange(1)}>
+                              <MdClose />
+                            </ActionIcon>
+                          }
+                          data={sListKabupaten.value.map((v) => v.City.name)}
+                        />
+                      </Stack>
+                    </Paper>
+                  </SimpleGrid>
                 </Stack>
                 <Stack w={"100%"}>
                   {/* <Title>Emotion Editor</Title> */}
                   <MapControllMapView />
                 </Stack>
               </Flex>
-              <SimpleGrid cols={2}>
-                <Paper p={"xs"} radius={8} shadow="md">
-                  <Stack>
-                    <Title color="gray">
-                      {moment(sSelectedDate.value).format("DD-MM-YYYY")}
-                    </Title>
-                    <Flex justify={"space-between"}>
-                      <Text fz={12} color="gray">
-                        selected date
-                      </Text>
-                      <MapControllCopyData />
-                    </Flex>
-                  </Stack>
-                </Paper>
-                <Paper shadow="md" radius={8} p={"xs"}>
-                  <Stack>
-                    <SelectCandidate />
-                    <Autocomplete
-                      radius={100}
-                      placeholder="search"
-                      onItemSubmit={onSearch}
-                      icon={<MdSearch />}
-                      rightSection={
-                        <ActionIcon onClick={() => onPageChange(1)}>
-                          <MdClose />
-                        </ActionIcon>
-                      }
-                      data={sListKabupaten.value.map((v) => v.City.name)}
-                    />
-                  </Stack>
-                </Paper>
-              </SimpleGrid>
             </Stack>
           </Paper>
         </Stack>
