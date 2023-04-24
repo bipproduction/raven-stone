@@ -54,6 +54,8 @@ import MapControllLeaderPersonaPrediction from "./map_controll_leader_persona_pr
 import { sMapControllEditorVal } from "@/s_state/s_map_controll_editor_val";
 import toast from "react-simple-toasts";
 import { useRouter } from "next/router";
+import MapControllWorCloud from "./map_controll_word_cloud";
+import { stylesNeon } from "@/styles/styles_neon";
 
 const colors = {
   green: "#bbe4b3",
@@ -529,7 +531,7 @@ function EditorActionView() {
         </ActionIcon> */}
         <Title>{sMapControllEditorVal.value.City.name}</Title>
       </Flex>
-      <Paper p={"md"} m={"md"} bg={stylesRadial.out_cyan}>
+      <Paper p={"md"} m={"md"} sx={stylesNeon("indigo")}>
         <Stack>
           <Title>EMOTION EDITOR</Title>
           <Group spacing={"md"}>
@@ -647,6 +649,7 @@ function EditorActionView() {
       </Paper>
       <MapControllContextDirection dataKab={sMapControllEditorVal.value} />
       <MapControllLeaderPersonaPrediction />
+      <MapControllWorCloud dataKab={sMapControllEditorVal.value} />
     </>
   );
 }
