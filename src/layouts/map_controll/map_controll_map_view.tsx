@@ -74,7 +74,7 @@ export function MapControllMapView() {
     // }
     registerMap("indonesia", dataMap);
     await funLoadMapData();
-    isMuncul.value = true
+    isMuncul.value = true;
     // setIsmap(true);
   };
 
@@ -157,7 +157,14 @@ export function MapControllMapView() {
             show map
           </Button>
         </Group> */}
-        {isMuncul.value && <EChartsReact option={option} />}
+        {isMuncul.value && (
+          <EChartsReact
+            option={option}
+            style={{
+              width: "100%",
+            }}
+          />
+        )}
       </Stack>
     </>
   );
