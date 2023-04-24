@@ -1,4 +1,6 @@
 import { api } from "@/lib/api";
+import { stylesNeon } from "@/styles/styles_neon";
+import { stylesRadial } from "@/styles/styles_radial";
 import {
   ActionIcon,
   Avatar,
@@ -42,7 +44,7 @@ const MapControllWorCloud = ({ dataKab }: { dataKab: any }) => {
   useShallowEffect(() => {
     fetch(
       api.apiMapControllContextualDirectionWordCloudGet +
-        `?cityId=${dataKab.data.City.id}`
+        `?cityId=${dataKab.City.id}`
     )
       .then((v) => v.json())
       .then((v) => {
@@ -65,7 +67,7 @@ const MapControllWorCloud = ({ dataKab }: { dataKab: any }) => {
     if (_.isEmpty(formData.values.data))
       return toast("tidak bisa menyimpan kehampaan , buatlah terlebih dahulu");
     const body = {
-      cityId: dataKab.data.City.id,
+      cityId: dataKab.City.id,
       data: formData.values.data,
     };
 
@@ -87,58 +89,62 @@ const MapControllWorCloud = ({ dataKab }: { dataKab: any }) => {
   };
   return (
     <>
-      <Button compact onClick={setOpen.open}>
-        Word Cloud
-      </Button>
-      <Drawer
-        opened={open}
-        onClose={setOpen.close}
-        position={"bottom"}
-        lockScroll
+      <Paper
+        p={"md"}
+        radius={8}
+        shadow="md"
+        m={"md"}
+        sx={stylesNeon("teal")}
       >
-        <Container>
-          <Stack>
-            <Title>{dataKab.name}</Title>
-            <Group position="right" pos={"sticky"} top={0} sx={{ zIndex: 99 }}>
-              <Button onClick={onAddWord}>Add</Button>
-              <Button bg={isAda ? "orange" : "blue"} onClick={onSave}>
-                {isAda ? "UPDATE" : "SAVE"}
-              </Button>
-            </Group>
-            <SimpleGrid cols={3}>
-              {formData.values.data.map((v, i) => (
-                <Box key={i}>
-                  <Paper p={"xs"}>
-                    <Flex gap={"md"}>
-                      <Stack>
-                        <TextInput
-                          {...formData.getInputProps(`data.${i}.title`)}
-                          placeholder="word"
-                        />
-                        <NumberInput
-                          {...formData.getInputProps(`data.${i}.value`)}
-                          placeholder="value"
-                          min={0}
-                        />
-                      </Stack>
-                      <ActionIcon
-                        onClick={() => onDeleteItem(i)}
-                        size={24}
-                        radius={100}
-                      >
-                        <Avatar radius={100}>
-                          <MdClose size={24} color={"pink"} />
-                        </Avatar>
-                      </ActionIcon>
-                    </Flex>
-                  </Paper>
-                </Box>
-              ))}
-            </SimpleGrid>
-          </Stack>
-        </Container>
-        {/* {JSON.stringify(dataKab)} */}
-      </Drawer>
+        <Title>REGIONS HOT ISSUE</Title>
+        <Stack>
+          {/* {JSON.stringify(dataKab)} */}
+          <Title>{dataKab.name}</Title>
+          <Group position="right" pos={"sticky"} top={0} sx={{ zIndex: 99 }}>
+            <Button w={150} compact onClick={onAddWord}>
+              Add
+            </Button>
+            <Button
+              w={150}
+              compact
+              bg={isAda ? "orange" : "blue"}
+              onClick={onSave}
+            >
+              {isAda ? "UPDATE" : "SAVE"}
+            </Button>
+          </Group>
+          <SimpleGrid cols={3}>
+            {formData.values.data.map((v, i) => (
+              <Box key={i}>
+                <Paper p={"xs"}>
+                  <Flex gap={"md"}>
+                    <Stack>
+                      <TextInput
+                        {...formData.getInputProps(`data.${i}.title`)}
+                        placeholder="word"
+                      />
+                      <NumberInput
+                        {...formData.getInputProps(`data.${i}.value`)}
+                        placeholder="value"
+                        min={0}
+                      />
+                    </Stack>
+                    <ActionIcon
+                      onClick={() => onDeleteItem(i)}
+                      size={24}
+                      radius={100}
+                    >
+                      <Avatar radius={100}>
+                        <MdClose size={24} color={"pink"} />
+                      </Avatar>
+                    </ActionIcon>
+                  </Flex>
+                </Paper>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Stack>
+      </Paper>
     </>
   );
 };

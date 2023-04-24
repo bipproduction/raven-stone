@@ -1,6 +1,7 @@
 import { funcLoadCityContextDirection } from "@/fun_load/func_load_city_context_direction";
 import { api } from "@/lib/api";
 import { sCityContextDirection } from "@/s_state/s_city_ontext_irection";
+import { stylesNeon } from "@/styles/styles_neon";
 import { stylesRadial } from "@/styles/styles_radial";
 import {
   Box,
@@ -51,7 +52,7 @@ const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
   function ContentView() {
     return (
       <>
-        <Paper p={"md"} bg={stylesRadial.out_green} m={"md"}>
+        <Paper p={"md"}  m={"md"} sx={stylesNeon("green")}>
           <Stack spacing={"lg"}>
             {/* <Text>{JSON.stringify(dataKab.data.City.id)}</Text> */}
             <Title>Context Direction</Title>
