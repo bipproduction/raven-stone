@@ -1,5 +1,6 @@
 import { api } from "@/lib/api";
 import { sMapControllEditorVal } from "@/s_state/s_map_controll_editor_val";
+import { stylesNeon } from "@/styles/styles_neon";
 import { stylesRadial } from "@/styles/styles_radial";
 import {
   ActionIcon,
@@ -129,10 +130,10 @@ const MapControllLeaderPersonaPrediction = () => {
     return (
       <>
         {/* {JSON.stringify(formData.values)} */}
-        <Paper m={"md"} p={"md"} bg={stylesRadial.out_brown}>
+        <Paper m={"md"} p={"md"}  style={stylesNeon("cyan")}  >
           <Stack>
             <Title>LEADER PERSONA PREDICTION</Title>
-            <Text>{sMapControllEditorVal.value.City.name}</Text>
+            {/* <Text>{sMapControllEditorVal.value.City.name}</Text> */}
             <Group position="right" pos={"sticky"} top={0} sx={{ zIndex: 99 }}>
               <Button compact w={150} onClick={onAddWord}>
                 Add
