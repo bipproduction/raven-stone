@@ -531,7 +531,7 @@ function EditorActionView() {
         </ActionIcon> */}
         <Title>{sMapControllEditorVal.value.City.name}</Title>
       </Flex>
-      <Paper p={"md"} m={"md"} sx={stylesNeon("indigo")}>
+      <Paper p={"md"} m={"md"} bg={"blue.1"} shadow="md">
         <Stack>
           <Title>EMOTION EDITOR</Title>
           <Group spacing={"md"}>

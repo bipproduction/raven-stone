@@ -130,7 +130,7 @@ const MapControllLeaderPersonaPrediction = () => {
     return (
       <>
         {/* {JSON.stringify(formData.values)} */}
-        <Paper m={"md"} p={"md"}  style={stylesNeon("cyan")}  >
+        <Paper m={"md"} p={"md"} bg={"green.1"} shadow="lg"  >
           <Stack>
             <Title>LEADER PERSONA PREDICTION</Title>
             {/* <Text>{sMapControllEditorVal.value.City.name}</Text> */}
