@@ -94,6 +94,7 @@ const MapControllWorCloud = ({ dataKab }: { dataKab: any }) => {
         radius={8}
         shadow="md"
         m={"md"}
+        bg={"orange.1"}
         sx={stylesNeon("teal")}
       >
         <Title>REGIONS HOT ISSUE</Title>
