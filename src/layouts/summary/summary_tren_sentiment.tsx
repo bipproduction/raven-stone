@@ -2,14 +2,14 @@ import { api } from "@/lib/api";
 import { sListDataPredictiveAiCouple } from "@/s_state/s_list_data_predictive_ai_couple";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import { stylesRadial } from "@/styles/styles_radial";
-import { Button, Group, Loader, Menu, Stack, Title } from "@mantine/core";
+import { Button, Group, Loader, Menu, Stack, Text, Title } from "@mantine/core";
 import { MenuTarget } from "@mantine/core/lib/Menu/MenuTarget/MenuTarget";
 import { DatePicker } from "@mantine/dates";
 import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import { IconHourglassEmpty } from "@tabler/icons-react";
-import { graphic } from "echarts";
-import EChartsReact, { EChartsOption } from "echarts-for-react";
+import { EChartsOption, graphic } from "echarts";
+import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import moment from "moment";
 import toast from "react-simple-toasts";
@@ -89,7 +89,7 @@ export function SummaryTrenSentiment() {
   return (
     <>
       <Stack w={"100%"}>
-        {/* <Title>Summary tren Sentiment</Title> */}
+        {/* <Title order={3}>Tren Sentiment</Title> */}
         <Group position="right">
           <Button.Group>
             <Button
@@ -184,16 +184,40 @@ export function SummaryTrenSentiment() {
 function ChartItem() {
   const option: EChartsOption = {
     title: {
-      //   text: "Stacked Area Chart",
+        text: "Tren Sentiment",
     },
     tooltip: {
       trigger: "axis",
-      axisPointer: {
-        type: "cross",
-        label: {
-          backgroundColor: "#6a7985",
-        },
+      formatter: (a: any, b: any) => {
+        return `
+        <div style="width: 300px; word-break: break-all; background-color: lightblue; padding: 10px">
+            <h5 >${moment(a[0].name).format('DD/MM/YY')}</h5>
+            <div>
+                <div>
+                    <h3 style="color: green">${a[0].data} %</h3>
+                    <div>POSITIVE</div>
+                </div>
+                <div>
+                    <h3 style="color: red">${a[1].data} %</h3>
+                    <div>NEGATIVE</div>
+                </div>
+                <div>
+                    <h3 style="color: gray">${a[2].data} %</h3>
+                    <div>NEUTRAL</div>
+                </div>
+            </div>
+        </div>
+        `;
       },
+
+      //   axisPointer: {
+      //     type: "cross",
+
+      //     label: {
+      //       backgroundColor: "#6a7985",
+
+      //     },
+      //   },
     },
     // legend: {
     //   data: ["Email", "Union Ads", "Video Ads", "Direct", "Search Engine"],
@@ -203,12 +227,12 @@ function ChartItem() {
     //     saveAsImage: {},
     //   },
     // },
-    grid: {
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
-      containLabel: true,
-    },
+    // grid: {
+    //   left: "3%",
+    //   right: "4%",
+    //   bottom: "3%",
+    //   containLabel: true,
+    // },
     xAxis: [
       {
         type: "category",
