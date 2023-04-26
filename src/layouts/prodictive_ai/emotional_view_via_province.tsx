@@ -189,8 +189,8 @@ const EmotionalViewViaProvince = () => {
                         <Title order={3} color={"orange.8"} fw={"bold"}>
                           {Intl.NumberFormat("id-id").format(v.total)}
                         </Title>
-                        <Text align={"center"} color={"gray"}>
-                          LOCKED AUDIENCE
+                        <Text fz={12} align={"center"} color={"gray"}>
+                          LOCKED AUDIENCES
                         </Text>
                       </Stack>
                       <Stack justify={"center"} spacing={0} align="center">
@@ -208,7 +208,7 @@ const EmotionalViewViaProvince = () => {
                             ])
                           )}
                         </Title>
-                        <Text align={"center"} color={"gray"}>
+                        <Text fz={12} align={"center"} color={"gray"}>
                           FILTERED AUDIENCE
                         </Text>
                       </Stack>
@@ -552,7 +552,7 @@ const EmotionDetai2 = ({
   return (
     <>
       <Button compact variant={"outline"} onClick={setOpenmodal.open}>
-        Detail
+        DETAIL
       </Button>
 
       <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen >
