@@ -56,6 +56,7 @@ import toast from "react-simple-toasts";
 import { useRouter } from "next/router";
 import MapControllWorCloud from "./map_controll_word_cloud";
 import { stylesNeon } from "@/styles/styles_neon";
+import { MapControllRandomEmotion } from "./map_controll_random_emotion";
 
 const colors = {
   green: "#bbe4b3",
@@ -210,39 +211,40 @@ export function MapControllEmotionEditor() {
                       />
                     </Paper>
                   </Stack>
-                  <SimpleGrid cols={2}>
-                    <Paper p={"xs"} radius={8} shadow="md">
-                      <Stack align="center">
-                        <Title color="gray" order={3}>
-                          {moment(sSelectedDate.value).format("DD-MM-YYYY")}
-                        </Title>
-                        <MapControllCopyData />
-                      </Stack>
-                    </Paper>
-                    <Paper shadow="md" radius={8} p={"xs"}>
-                      <Stack>
-                        <SelectCandidate />
-                        <Autocomplete
-                          radius={100}
-                          placeholder="search"
-                          onItemSubmit={onSearch}
-                          icon={<MdSearch />}
-                          rightSection={
-                            <ActionIcon onClick={() => onPageChange(1)}>
-                              <MdClose />
-                            </ActionIcon>
-                          }
-                          data={sListKabupaten.value.map((v) => v.City.name)}
-                        />
-                      </Stack>
-                    </Paper>
-                  </SimpleGrid>
                 </Stack>
                 <Stack w={"100%"}>
                   {/* <Title>Emotion Editor</Title> */}
                   <MapControllMapView />
                 </Stack>
               </Flex>
+              <SimpleGrid cols={2}>
+                <Paper p={"xs"} radius={8} shadow="md">
+                  <Stack align="start">
+                    <Title color="gray" order={3}>
+                      {moment(sSelectedDate.value).format("DD-MM-YYYY")}
+                    </Title>
+                    <MapControllCopyData />
+                    <MapControllRandomEmotion dataKab={sListKabupaten.value} />
+                  </Stack>
+                </Paper>
+                <Paper shadow="md" radius={8} p={"xs"}>
+                  <Stack>
+                    <SelectCandidate />
+                    <Autocomplete
+                      radius={100}
+                      placeholder="search"
+                      onItemSubmit={onSearch}
+                      icon={<MdSearch />}
+                      rightSection={
+                        <ActionIcon onClick={() => onPageChange(1)}>
+                          <MdClose />
+                        </ActionIcon>
+                      }
+                      data={sListKabupaten.value.map((v) => v.City.name)}
+                    />
+                  </Stack>
+                </Paper>
+              </SimpleGrid>
             </Stack>
           </Paper>
         </Stack>
