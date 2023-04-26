@@ -218,16 +218,20 @@ export function MapControllEmotionEditor() {
                 </Stack>
               </Flex>
               <SimpleGrid cols={2}>
-                <Paper p={"xs"} radius={8} shadow="md">
-                  <Stack align="start">
-                    <Title color="gray" order={3}>
-                      {moment(sSelectedDate.value).format("DD-MM-YYYY")}
-                    </Title>
-                    <MapControllCopyData />
-                    <MapControllRandomEmotion dataKab={sListKabupaten.value} />
-                  </Stack>
+                <Paper p={"xs"} radius={8} shadow="md" bg={"cyan.2"}>
+                  {!_.isEmpty(sListKabupaten.value) && (
+                    <Stack align="start">
+                      <Title color="gray" order={3}>
+                        {moment(sSelectedDate.value).format("DD-MM-YYYY")}
+                      </Title>
+                      <MapControllCopyData />
+                      <MapControllRandomEmotion
+                        listKab={sListKabupaten.value}
+                      />
+                    </Stack>
+                  )}
                 </Paper>
-                <Paper shadow="md" radius={8} p={"xs"}>
+                <Paper shadow="md" radius={8} p={"xs"} bg={"cyan.2"}>
                   <Stack>
                     <SelectCandidate />
                     <Autocomplete

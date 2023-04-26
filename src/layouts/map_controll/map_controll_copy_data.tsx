@@ -5,6 +5,7 @@ import {
   ActionIcon,
   Button,
   Flex,
+  Group,
   Menu,
   Modal,
   Select,
@@ -140,6 +141,9 @@ export function MapControllCopyData() {
             <Text fz={12} fs={"initial"} p={"xs"} bg={"red.1"}>
               * PERINGATAN ! proses ini bisa menimpa data target
             </Text>
+            <Group position="right">
+                      <Button compact onClick={setCopyData.close} bg={"orange"}> cansel</Button>
+            </Group>
           </Stack>
         </Menu.Dropdown>
       </Menu>
