@@ -23,12 +23,12 @@ import _ from "lodash";
 import toast from "react-simple-toasts";
 
 const l_is_open_modal = signal(false);
-const l_data_by_candidate = signal<any | null>(null);
 const l_batas_atas = signal<number | null>(null);
 const l_batas_bawah = signal<number | null>(null);
 const l_hasil_data_kab = signal<any | null>(null);
+const dataKab = signal<any | null>(null);
 
-export function MapControllRandomEmotion({ dataKab }: { dataKab: any }) {
+export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
   const open = {
     set: (val: any) => {
       localStorage.setItem("randomEmotion_isOpenModal", JSON.stringify(val));
@@ -41,6 +41,8 @@ export function MapControllRandomEmotion({ dataKab }: { dataKab: any }) {
   };
   useShallowEffect(() => {
     open.get();
+    dataKab.value = undefined;
+    dataKab.value = listKab;
   }, []);
 
   // trust
@@ -55,7 +57,10 @@ export function MapControllRandomEmotion({ dataKab }: { dataKab: any }) {
   function onProccessData() {
     const maka: any[] = [];
     if (l_batas_atas.value && l_batas_bawah.value) {
-      dataKab.forEach((v: any) => {
+      if (_.lt(l_batas_atas.value, l_batas_bawah.value)) {
+        return toast("batas atas tidak boleh lebih kecil dari batas bawah");
+      }
+      dataKab.value.forEach((v: any) => {
         let dataVal = _.random(l_batas_bawah.value!, l_batas_atas.value!);
         v.City.CityValue[0].value = dataVal;
         v.trust = _.random(0, dataVal);
@@ -94,9 +99,16 @@ export function MapControllRandomEmotion({ dataKab }: { dataKab: any }) {
         onClose={() => open.set(false)}
       >
         <Stack>
-          <Flex>
-            <Title>{sSelectedDate.value}</Title>
-          </Flex>
+          <Stack>
+            <Title>
+              {
+                sCandidate.value.find(
+                  (v) => Number(v.id) == Number(sSelectedCandidate.value)
+                )?.name
+              }
+            </Title>
+            <Title order={3}>{sSelectedDate.value}</Title>
+          </Stack>
 
           <Group>
             <Stack
@@ -105,12 +117,14 @@ export function MapControllRandomEmotion({ dataKab }: { dataKab: any }) {
               sx={{ zIndex: 0, position: "relative" }}
             >
               <NumberInput
+                value={l_batas_atas.value!}
                 placeholder="batas atas"
                 onChange={(val) => {
                   if (val) l_batas_atas.value = val;
                 }}
               />
               <NumberInput
+                value={l_batas_bawah.value!}
                 placeholder="batas bawah"
                 onChange={(val) => {
                   if (val) l_batas_bawah.value = val;
@@ -148,7 +162,7 @@ function TableView() {
   return (
     <>
       <Stack w={"100%"}>
-        <Title>Table</Title>
+        <Title order={3}>Table</Title>
         <Group position="right">
           <Button onClick={onSave} compact>
             {" "}
