@@ -187,7 +187,13 @@ function ChartItem() {
         text: "Tren Sentiment",
     },
     tooltip: {
-      trigger: "axis",
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
       formatter: (a: any, b: any) => {
         return `
         <div style="width: 300px; word-break: break-all; background-color: lightblue; padding: 10px">
@@ -209,15 +215,6 @@ function ChartItem() {
         </div>
         `;
       },
-
-      //   axisPointer: {
-      //     type: "cross",
-
-      //     label: {
-      //       backgroundColor: "#6a7985",
-
-      //     },
-      //   },
     },
     // legend: {
     //   data: ["Email", "Union Ads", "Video Ads", "Direct", "Search Engine"],

@@ -13,6 +13,7 @@ export default async function devDataValueUpdate(req: NextApiRequest, res: NextA
             },
             data: data
         })
+
         res.status(201).json(body)
     }
 } 
