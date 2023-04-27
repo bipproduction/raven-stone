@@ -204,11 +204,11 @@ function ChartItem() {
                     <div>POSITIVE</div>
                 </div>
                 <div>
-                    <h3 style="color: red">${a[1].data} %</h3>
+                    <h3 style="color: gray">${a[1].data} %</h3>
                     <div>NEUTRAL</div>
                 </div>
                 <div>
-                    <h3 style="color: gray">${a[2].data} %</h3>
+                    <h3 style="color: red">${a[2].data} %</h3>
                     <div>NEGATIVE</div>
                 </div>
             </div>
