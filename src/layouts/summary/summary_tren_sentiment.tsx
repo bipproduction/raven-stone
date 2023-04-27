@@ -156,7 +156,7 @@ export function SummaryTrenSentiment() {
                       w={100}
                       variant="outline"
                     >
-                      cansel
+                      cancel
                     </Button>
                     {sShowDateOkButton.value && (
                       <Button
