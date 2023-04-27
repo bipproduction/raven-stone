@@ -8,19 +8,11 @@ export default async function summaryTrenSentiment(req: NextApiRequest, res: Nex
     
     if (!start || !end || !candidateId) return res.status(403).end()
 
-    const where = {
-        date: {
-            gt: new Date(moment(start).format("YYYY-MM-DD")),
-            lt: new Date(moment(end).format("YYYY-MM-DD")),
-        },
-        candidateId: Number(candidateId)
-    }
-
     const data = await client.dataByContent.findMany({
         where: {
             date: {
-                gt: new Date(moment(start).format("YYYY-MM-DD")),
-                lt: new Date(moment(end).format("YYYY-MM-DD")),
+                gte: new Date(moment(start).format("YYYY-MM-DD")),
+                lte: new Date(moment(end).format("YYYY-MM-DD")),
             },
             candidateId: Number(candidateId)
         },
@@ -69,9 +61,6 @@ export default async function summaryTrenSentiment(req: NextApiRequest, res: Nex
         );
 
         const totalSum = _.sum(Object.values(sum));
-
-        const positiveThreshold = 0.6;
-        const negativeThreshold = 0.4;
 
         const positive = _.round(((sum.trust + sum.joy + sum.surprise) / totalSum) * 100);
         const neutral = _.round((sum.anticipation / totalSum) * 100);
