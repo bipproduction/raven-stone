@@ -1,2 +1,3 @@
 import { signal } from '@preact/signals-react';
-export const sSelectedDate = signal<string>("2023-03-16")
+import moment from 'moment';
+export const sSelectedDate = signal<string>(moment().format('YYYY-MM-DD'));

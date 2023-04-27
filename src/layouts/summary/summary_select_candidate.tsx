@@ -1,10 +1,11 @@
-import { funcLoadTop10Province } from "@/fun_load/func_load_top_10_province";
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
+import { funcLoadTop10Province } from "@/fun_load/func_load_top_10_province";
 import { sCandidate } from "@/s_state/s_candidate";
 import { sListEmotion } from "@/s_state/s_list_emotion";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import { sSelectedEmotion } from "@/s_state/s_selected_emotion";
-import { stylesGradientBlueWhite } from "@/styles/styles_gradient_blue_white";
+import { sTop10Province } from "@/s_state/s_top_10_province";
+import { stylesRadial } from "@/styles/styles_radial";
 import {
   ActionIcon,
   Avatar,
@@ -12,21 +13,15 @@ import {
   Center,
   Flex,
   Group,
-  HoverCard,
-  Image,
   Paper,
   Select,
   Stack,
   Text,
-  Title,
+  Title
 } from "@mantine/core";
 import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
-import AnimateCssReact from "animate-css-reactjs";
-import SummaryHoverInfo from "./summary_hover_info";
 import _ from "lodash";
-import { sTop10Province } from "@/s_state/s_top_10_province";
 import { useState } from "react";
-import { stylesRadial } from "@/styles/styles_radial";
 import { MdFace } from "react-icons/md";
 
 const SummarySelectCandidate = () => {
