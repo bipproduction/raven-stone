@@ -1,3 +1,4 @@
+import { sCandidate } from "@/s_state/s_candidate";
 import { slistCandidate } from "@/s_state/s_list_candidate";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import { stylesRadial } from "@/styles/styles_radial";
@@ -73,7 +74,7 @@ export function MapControllCopyData() {
                   sSelectedCopyCandidate.value = val;
                 }
               }}
-              placeholder="select candidate"
+              placeholder={sCandidate.value.find((v) => Number(v.id) == Number(sSelectedCopyCandidate.value))?.name}
               data={[
                 ...[
                   {
@@ -90,7 +91,7 @@ export function MapControllCopyData() {
             <Flex direction={"row"} justify={"space-between"}>
               <DatePicker
                 p={"md"}
-                minDate={new Date("2023-03-16")}
+                minDate={new Date(moment(sSelectedDate.value).add(1, "days").format("YYYY-MM-DD"))}
                 onChange={(val) => {
                   if (val) {
                     setSelectedDateCopyData(moment(val).format("YYYY-MM-DD"));
