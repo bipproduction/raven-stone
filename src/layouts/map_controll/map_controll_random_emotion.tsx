@@ -88,13 +88,14 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
     }
   }
 
+
   return (
-    <>
+    <Stack>
       <Button onClick={() => open.set(true)} w={150} compact>
         Random Emotion
       </Button>
       <Modal
-        fullScreen
+        size={"lg"}
         opened={l_is_open_modal.value}
         onClose={() => open.set(false)}
       >
@@ -117,15 +118,17 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
               sx={{ zIndex: 0, position: "relative" }}
             >
               <NumberInput
-                value={l_batas_atas.value!}
-                placeholder="batas atas"
+                // value={l_batas_atas.value!}
+                placeholder={l_batas_atas.value! == null ? "0" : l_batas_atas.value.toString()}
+                label={"batas atas"}
                 onChange={(val) => {
                   if (val) l_batas_atas.value = val;
                 }}
               />
               <NumberInput
-                value={l_batas_bawah.value!}
-                placeholder="batas bawah"
+                // value={l_batas_bawah.value!}
+                label={"batas bawah"}
+                placeholder={l_batas_bawah.value! == null ? "0" : l_batas_bawah.value.toString()}
                 onChange={(val) => {
                   if (val) l_batas_bawah.value = val;
                 }}
@@ -135,11 +138,11 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
               </Button>
             </Stack>
           </Group>
-          {/* {JSON.stringify(l_hasil_data_kab.value)} */}
           {l_hasil_data_kab.value && <TableView />}
         </Stack>
+        
       </Modal>
-    </>
+    </Stack>
   );
 }
 
