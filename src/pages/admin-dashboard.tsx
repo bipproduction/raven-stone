@@ -42,6 +42,8 @@ import {
 } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import AnimateCssReact from "animate-css-reactjs";
+import { DevStepAndSwotAnalisys } from "@/layouts/dev/dev_step_and_swot_analisys";
+import client from "@/lib/prisma_db";
 
 const listMenu = [
   {
@@ -74,6 +76,11 @@ const listMenu = [
     name: "Time Machine",
     view: DevTimeMachine,
   },
+  {
+    id: "7",
+    name: "Step And Swot Analisys",
+    view: DevStepAndSwotAnalisys,
+  },
   // {
   //   id: "7",
   //   name: "Data Volume",
@@ -99,6 +106,8 @@ const AdminDashboard = () => {
     } else {
       s_is_small.value = false;
     }
+
+    
   }, []);
 
   return (
@@ -198,3 +207,13 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
+// export async function getStaticProps() {
+//   const data = await client.stepAnalisysName.findMany();
+
+//   return {
+//     props: {
+//       data: data,
+//     },
+//   };
+// }
