@@ -111,6 +111,8 @@ const AdminDashboard = () => {
     }
   }, []);
 
+  return <></>
+
   return (
     <DevAuthProvider>
       <AppShell
