@@ -118,7 +118,7 @@ export default function StepAnalisys() {
                         return (
                           <>
                             <Box p={"xs"} bg={"gray.1"} w={"100%"}>
-                              <AIWriter {...{ delay: 200 }}>
+                              <AIWriter {...{ delay: 300 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
                                 )}

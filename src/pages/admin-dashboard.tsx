@@ -78,11 +78,11 @@ const listMenu = [
     name: "Time Machine",
     view: DevTimeMachine,
   },
-  // {
-  //   id: "7",
-  //   name: "Step And Swot Analisys",
-  //   view: DevStepAndSwotAnalisys,
-  // },
+  {
+    id: "7",
+    name: "Step And Swot Analisys",
+    view: DevStepAndSwotAnalisys,
+  },
   // {
   //   id: "7",
   //   name: "Data Volume",
