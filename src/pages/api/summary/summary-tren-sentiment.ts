@@ -74,6 +74,5 @@ export default async function summaryTrenSentiment(req: NextApiRequest, res: Nex
         };
     });
 
-
     res.status(200).json(result)
 }
