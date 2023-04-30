@@ -190,12 +190,12 @@ const listView = [
         view: StepAnalisys,
         icon: MdOutlineStarBorderPurple500,
       },
-      {
-        id: 2,
-        name: "SWOT Analysis",
-        view: StepAnalisys,
-        icon: MdOutlineStarBorderPurple500,
-      },
+      // {
+      //   id: 2,
+      //   name: "SWOT Analysis",
+      //   view: StepAnalisys,
+      //   icon: MdOutlineStarBorderPurple500,
+      // },
     ],
   },
   {
