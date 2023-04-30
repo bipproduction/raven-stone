@@ -44,6 +44,8 @@ import { signal } from "@preact/signals-react";
 import AnimateCssReact from "animate-css-reactjs";
 import { DevStepAndSwotAnalisys } from "@/layouts/dev/dev_step_and_swot_analisys";
 import client from "@/lib/prisma_db";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import moment from "moment";
 
 const listMenu = [
   {
@@ -76,11 +78,11 @@ const listMenu = [
     name: "Time Machine",
     view: DevTimeMachine,
   },
-  {
-    id: "7",
-    name: "Step And Swot Analisys",
-    view: DevStepAndSwotAnalisys,
-  },
+  // {
+  //   id: "7",
+  //   name: "Step And Swot Analisys",
+  //   view: DevStepAndSwotAnalisys,
+  // },
   // {
   //   id: "7",
   //   name: "Data Volume",
@@ -100,14 +102,13 @@ const AdminDashboard = () => {
   const update = useForceUpdate();
 
   useShallowEffect(() => {
+    sSelectedDate.value = moment(new Date()).format("YYYY-MM-DD");
     const isSml = localStorage.getItem("is_small");
     if (isSml) {
       s_is_small.value = true;
     } else {
       s_is_small.value = false;
     }
-
-    
   }, []);
 
   return (
