@@ -37,6 +37,8 @@ function calculateNewEmotionPercentage(
     return result;
 }
 
+
+
 const emotion_percentage_candidate_1_as_president = calculateNewEmotionPercentage(
     {
         "anger": 45,
