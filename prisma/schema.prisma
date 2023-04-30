@@ -26,6 +26,26 @@ model UserRole {
   User User[]
 }
 
+model StepAnalisys {
+  id                 Int               @id @default(autoincrement())
+  sentiment          String
+  data               String            @db.Text
+  StepAnalisysName   StepAnalisysName? @relation(fields: [stepAnalisysNameId], references: [id])
+  stepAnalisysNameId Int?
+  Candidate          Candidate?        @relation(fields: [candidateId], references: [id])
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  candidateId        Int?
+}
+
+model StepAnalisysName {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  StepAnalisys StepAnalisys[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
 model DukcapilDesa {
   objectid                      Int?
   kode201701                    String
@@ -331,6 +351,7 @@ model Candidate {
 
   CandidateValue    CandidateValue?
   DataContentByTime DataContentByTime[]
+  StepAnalisys      StepAnalisys[]
 }
 
 model CandidateValue {
