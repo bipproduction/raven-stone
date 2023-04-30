@@ -48,11 +48,11 @@ import { sSelectedDate } from "@/s_state/s_selectedDate";
 import moment from "moment";
 
 const listMenu = [
-  {
-    id: "1",
-    name: "Map Controll",
-    view: LayoutMapControll,
-  },
+  // {
+  //   id: "1",
+  //   name: "Map Controll",
+  //   view: LayoutMapControll,
+  // },
   {
     id: "2",
     name: "Candidate Controll",
@@ -110,8 +110,6 @@ const AdminDashboard = () => {
       s_is_small.value = false;
     }
   }, []);
-
-  return <></>
 
   return (
     <DevAuthProvider>
