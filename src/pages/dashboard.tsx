@@ -84,6 +84,7 @@ import AnimateCssReact from "animate-css-reactjs";
 import MainSummary from "@/layouts/summary/main_summary";
 import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
 import { useRouter } from "next/router";
+import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -180,6 +181,25 @@ const listView = [
   },
   {
     id: 3,
+    name: "STEP & SWOT",
+    icon: MdMessage,
+    child: [
+      {
+        id: 1,
+        name: "Step Analisys",
+        view: StepAnalisys,
+        icon: MdOutlineStarBorderPurple500,
+      },
+      {
+        id: 2,
+        name: "SWOT Analysis",
+        view: StepAnalisys,
+        icon: MdOutlineStarBorderPurple500,
+      },
+    ],
+  },
+  {
+    id: 4,
     name: "Predictive Ai",
     icon: MdBarChart,
     child: [
@@ -549,7 +569,7 @@ const MyNavbar = () => {
       >
         <Navbar.Section mb={"lg"}>
           <AnimateCssReact animation="fadeIn">
-            <Box  h={105}>
+            <Box h={105}>
               <Box w={{ sm: 200, lg: 300 }} p={"sm"}>
                 <Image width={150} src={"/logo-2.png"} alt={"logo"} />
               </Box>
@@ -589,7 +609,13 @@ const MyNavbar = () => {
                     variant={"filled"}
                     // fw={sSelectedView.value == vv.name ? "bold" : "light"}
                     // bg={selectedView.value == vv.name ? "blue.1" : ""}
-                    label={ sSelectedView.value == vv.name? <Title order={5}>{_.lowerCase(vv.name)}</Title>:<Text>{_.lowerCase(vv.name)}</Text>}
+                    label={
+                      sSelectedView.value == vv.name ? (
+                        <Title order={5}>{_.lowerCase(vv.name)}</Title>
+                      ) : (
+                        <Text>{_.lowerCase(vv.name)}</Text>
+                      )
+                    }
                     key={`${v.id}${i}`}
                     onClick={() => ketikaCklik(v, vv)}
                   />
