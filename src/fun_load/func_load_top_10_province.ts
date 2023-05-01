@@ -18,9 +18,8 @@ export const funcLoadTop10Province = () => fetch(
 ).then(async (res) => {
     if (res.status === 200) {
         const data = await res.json();
-        // gTop10Province.set(data);
         sTop10Province.value = data
-        // gTop10ProvinceTake.set(_.take(data, 10));
         sTop10ProvinceTake.value = _.take(data, 10)
+
     }
 })

@@ -16,8 +16,12 @@ export const funcLoadTop10District = () => fetch(api.apiSummaryGetTop10DistrictB
     .then(async (v) => {
         if (v.status == 200) {
             const data = await v.json()
-            // gTop10District.set(data);
-            // gTop10DistrictCount.set(_.take(data, 10));
+            // console.log("ini adalah datanya top 10 ", {
+            //     date: sSelectedDate.value,
+            //     emotion: sSelectedEmotion.value,
+            //     candidate: sSelectedCandidate.value,
+            //     search: sSearchDistrict.value
+            // })
             sTop10District.value = data
             sTop10DistrictTake.value = _.take(data, 10)
         }

@@ -3,7 +3,13 @@ import _ from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 const getTop10ProvinceByConversation = async (req: NextApiRequest, res: NextApiResponse) => {
     const { date, emotion, candidateId, search } = req.query
-    console.log(search)
+   console.table({
+    date,
+    emotion,
+    candidateId,
+    search
+   })
+
     const data = await client.dataByContent.findMany({
         where: {
             date: new Date(date as string),
