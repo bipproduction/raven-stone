@@ -12,7 +12,7 @@ import {
 import PageTitle from "../page_title";
 import { sCandidate } from "@/s_state/s_candidate";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
-import { useShallowEffect } from "@mantine/hooks";
+import { useShallowEffect, useTimeout } from "@mantine/hooks";
 import { api } from "@/lib/api";
 import { useState } from "react";
 import _ from "lodash";
@@ -22,9 +22,11 @@ import parse from "html-react-parser";
 export default function StepAnalisys() {
   const [stepDataList, setStepDataList] = useState<{ [key: string]: any }>();
 
+
   useShallowEffect(() => {
     sSelectedCandidate.subscribe((v) => {
       loadData();
+
     });
   }, []);
 
@@ -36,8 +38,9 @@ export default function StepAnalisys() {
       .then((v) => v.json())
       .then(setStepDataList);
   }
+
   return (
-    <Stack spacing={"md"}>
+    <Stack spacing={"md"} >
       <PageTitle
         text="SOSIAL TECHNOLOGY ECONOMIC POLITIC ANALISYS"
         title="STEP ANALISYS"
@@ -118,7 +121,7 @@ export default function StepAnalisys() {
                         return (
                           <>
                             <Box p={"xs"} bg={"gray.1"} w={"100%"}>
-                              <AIWriter {...{ delay: 300 }}>
+                              <AIWriter {...{ delay: 400 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
                                 )}
