@@ -46,7 +46,7 @@ export default function StepAnalisys() {
         title="STEP ANALISYS"
       />
       <Group position="right">
-        <Text size={12}>CANDIDATE TO ANALISYS</Text>
+        <Text size={12}>CANDIDATE TO ANALYZE</Text>
         <Select
           placeholder={
             sCandidate.value.find(
@@ -77,8 +77,8 @@ export default function StepAnalisys() {
             {_.keys(stepDataList).map((v, i) => (
               <Stack key={i} spacing={"lg"}>
                 <Title color={"blue"}>{_.upperCase(v)}</Title>
-                <SimpleGrid cols={2} bg={"blue.0"} p={"md"} w={"100%"}>
-                  <Paper p={"xs"} w={"100%"}>
+                <SimpleGrid cols={2}  p={"md"} w={"100%"}>
+                  <Paper p={"xs"} w={"100%"} h={500} bg={"#343541"} shadow="sm">
                     <Stack spacing={"lg"}>
                       <Text color="green" fw={"bold"} fz={24}>
                         POSITIVE
@@ -93,7 +93,7 @@ export default function StepAnalisys() {
 
                         return (
                           <>
-                            <Box p={"xs"} bg={"gray.1"} w={"100%"}>
+                            <Box p={"xs"} h={400} bg={"#434654"} w={"100%"} c={"white"}>
                               <AIWriter {...{ delay: 200 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
@@ -105,7 +105,7 @@ export default function StepAnalisys() {
                       })()}
                     </Stack>
                   </Paper>
-                  <Paper p={"xs"} w={"100%"}>
+                  <Paper p={"xs"} w={"100%"} bg={"#343541"} shadow="sm">
                     <Stack spacing={"lg"}>
                       <Text color="red" fw={"bold"} fz={24}>
                         NEGATIVE
@@ -120,7 +120,7 @@ export default function StepAnalisys() {
 
                         return (
                           <>
-                            <Box p={"xs"} bg={"gray.1"} w={"100%"}>
+                            <Box p={"xs"} h={400} bg={"#434654"} w={"100%"} c={"white"}>
                               <AIWriter {...{ delay: 400 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
