@@ -205,7 +205,9 @@ function CreateNewName() {
                     <Text>{i + 1}</Text>
                     <Text>{v.name}</Text>
                   </Flex>
-                  <Text color="blue" fw={"bold"}>{v._count.StepAnalisys}</Text>
+                  <Text color="blue" fw={"bold"}>
+                    {v._count.StepAnalisys}
+                  </Text>
                 </Flex>
               ))}
           </List>
@@ -438,6 +440,7 @@ function CreateNewStep() {
               </Group>
             </Radio.Group>
             <DevStepEditor
+              content=""
               onsave={(val) => {
                 if (val) {
                   //   setContent(parse(val.getHTML()) as any);
