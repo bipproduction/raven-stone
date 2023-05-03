@@ -46,6 +46,29 @@ model StepAnalisysName {
   updatedAt    DateTime       @updatedAt
 }
 
+model SwotAnalisys {
+  id                 Int               @id @default(autoincrement())
+  sentiment          String            @default("positive")
+  content            String?           @db.LongText
+  Candidate          Candidate?        @relation(fields: [candidateId], references: [id])
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  candidateId        Int?
+  isActive           Boolean           @default(true)
+  SwotAnalisysName   SwotAnalisysName? @relation(fields: [swotAnalisysNameId], references: [id])
+  swotAnalisysNameId Int?
+}
+
+model SwotAnalisysName {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  category     String         @default("double")
+  isActive     Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  SwotAnalisys SwotAnalisys[]
+}
+
 model DukcapilDesa {
   objectid                      Int?
   kode201701                    String
@@ -352,6 +375,7 @@ model Candidate {
   CandidateValue    CandidateValue?
   DataContentByTime DataContentByTime[]
   StepAnalisys      StepAnalisys[]
+  SwotAnalisys      SwotAnalisys[]
 }
 
 model CandidateValue {

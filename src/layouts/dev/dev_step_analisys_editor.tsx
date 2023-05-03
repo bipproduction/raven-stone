@@ -1,17 +1,22 @@
-import { Button, Group, Stack } from "@mantine/core";
+import { Button, Group, Stack, Text } from "@mantine/core";
 import { RichTextEditor, Link } from "@mantine/tiptap";
 import { Editor, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-const content = "";
-
-export function DevStepEditor({ onsave }: { onsave: (val: Editor) => void }) {
+export function DevStepEditor({
+  content,
+  onsave,
+}: {
+  content: string;
+  onsave: (val: Editor) => void;
+}) {
   const editor = useEditor({
     extensions: [StarterKit, Link],
     content,
   });
   return (
-    <Stack>
+    <Stack spacing={"lg"}>
+      <Text>content</Text>
       <RichTextEditor editor={editor}>
         <RichTextEditor.Toolbar sticky stickyOffset={60}>
           {/* <RichTextEditor.ControlsGroup>

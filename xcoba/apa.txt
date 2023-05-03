@@ -1,98 +1,83 @@
-dapatkan in_blue, in_red dan seterusnya menggunakan javascript pada
-
-const warna = `
-// /* in_blue */
-
-// position: absolute;
-// width: 630px;
-// height: 600px;
-
-// background: radial-gradient(76.67% 76.67% at 50% 50%, #23CFFF 0%, #FFFFFF 100%);
-
-
-// /* in_red */
-
-// position: absolute;
-// width: 630px;
-// height: 600px;
-
-// background: radial-gradient(76.67% 76.67% at 50% 50%, #FF7E7E 0%, #FFFFFF 100%);
-
-
-// /* in_gray */
-
-// position: absolute;
-// width: 630px;
-// height: 600px;
-
-// background: radial-gradient(76.67% 76.67% at 50% 50%, #959595 0%, #FFFFFF 100%);
-`
-
-dan hasilkan array baru 
-const hasil = [
-  {
-    name: "in_blue"
-  },
-  {
-    name: "in_red"
-  }
+const data1 = [
+    {
+        title: "satu",
+        category: "double",
+        sentiment: "positive",
+        content: "ini content positive"
+    },
+     {
+        title: "satu",
+        category: "double",
+        sentiment: "negative",
+        content: "ini content negative"
+    },
+    {
+        title: "tiga",
+        category: "double",
+        sentiment: "negative",
+        content: "ini content negative"
+    },
+    {
+        title: "lima",
+        category: "double",
+        sentiment: "positive",
+        content: "ini content positive"
+    },
+     {
+        title: "dua",
+        category: "sigle",
+        sentiment: "positive",
+        content: "ini content single"
+    }
 ]
 
+bagaimana cara agar terbentuk object baru meggunakan lodash agar hasinya seperti dibawah ini
 
-rubah nilainya masing masing sentiment (result) menjadi prosentase
-
-const data = await client.dataByContent.aggregate({
-        where: {
-            date: {
-                lte: new Date(end!.toString()),
-                gte: new Date(start!.toString())
-            },
-            candidateId: Number(candidateId)
-        },
-        _sum: {
-            trust: true,
-            joy: true,
-            surprise: true,
-            anticipation: true,
-            sadness: true,
-            fear: true,
-            anger: true,
-            disgust: true
+const newObject = {
+    double :[
+        {
+        satu: {
+            positive: {
+                        title: "satu",
+                        category: "double",
+                        sentiment: "positive",
+                        content: "ini content positive"
+                    },
+               negative:     {
+                        title: "satu",
+                        category: "double",
+                        sentiment: "negative",
+                        content: "ini content negative"
+                    }
         }
-    })
-
-    const result: any = {}
-    result.positive = _.sum([data._sum.trust, data._sum.joy, data._sum.surprise])
-    result.neutrall = _.sum([data._sum.anticipation])
-    result.negative = _.sum([data._sum.sadness, data._sum.fear, data._sum.anger, data._sum.disgust])
-
-
-    buat hasilnya group by date
-
-    const data = await client.dataByContent.findMany({
-        where,
-        select: {
-            date: true,
-            trust: true,
-            joy: true,
-            surprise: true,
-            anticipation: true,
-            sadness: true,
-            fear: true,
-            anger: true,
-            disgust: true
-        }
-    })
-
-
-    isi untuk query date agar sesuai start dan end
-
-    const { start, end, candidateId } = req.query
-    if (!start || !end || !candidateId) return res.status(403).end()
-
-    const where = {
-        date: {
-            
         },
-        candidateId: Number(candidateId)
-    }
+        {
+        tiga: {
+            positive: {
+                        title: "tiga",
+                        category: "double",
+                        sentiment: "positive",
+                        content: "ini content positive"
+                    },
+                 negative:   {
+                        title: "tiga",
+                        category: "double",
+                        sentiment: "negative",
+                        content: "ini content negative"
+                    }
+        }
+        }
+
+    ],
+    single: [
+        {
+            dua: {
+                    title: "dua",
+                    category: "sigle",
+                    sentiment: "positive",
+                    content: "ini content single"
+                }
+        }
+    ]
+
+}

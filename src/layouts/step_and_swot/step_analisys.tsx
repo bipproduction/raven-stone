@@ -3,6 +3,7 @@ import {
   Flex,
   Group,
   Paper,
+  ScrollArea,
   Select,
   SimpleGrid,
   Stack,
@@ -16,17 +17,16 @@ import { useShallowEffect, useTimeout } from "@mantine/hooks";
 import { api } from "@/lib/api";
 import { useState } from "react";
 import _ from "lodash";
-import AIWriter from "react-aiwriter";
+// import AIWriter from "react-aiwriter";
 import parse from "html-react-parser";
+import TextAnimation from "react-typing-dynamics";
 
 export default function StepAnalisys() {
   const [stepDataList, setStepDataList] = useState<{ [key: string]: any }>();
 
-
   useShallowEffect(() => {
     sSelectedCandidate.subscribe((v) => {
       loadData();
-
     });
   }, []);
 
@@ -40,7 +40,7 @@ export default function StepAnalisys() {
   }
 
   return (
-    <Stack spacing={"md"} >
+    <Stack spacing={"md"}>
       <PageTitle
         text="SOSIAL TECHNOLOGY ECONOMIC POLITIC ANALISYS"
         title="STEP ANALISYS"
@@ -77,7 +77,7 @@ export default function StepAnalisys() {
             {_.keys(stepDataList).map((v, i) => (
               <Stack key={i} spacing={"lg"}>
                 <Title color={"blue"}>{_.upperCase(v)}</Title>
-                <SimpleGrid cols={2}  p={"md"} w={"100%"}>
+                <SimpleGrid cols={2} p={"md"} w={"100%"}>
                   <Paper p={"xs"} w={"100%"} h={500} bg={"#343541"} shadow="sm">
                     <Stack spacing={"lg"}>
                       <Text color="green" fw={"bold"} fz={24}>
@@ -93,13 +93,30 @@ export default function StepAnalisys() {
 
                         return (
                           <>
-                            <Box p={"xs"} h={400} bg={"#434654"} w={"100%"} c={"white"}>
-                              <AIWriter {...{ delay: 200 }}>
+                            <ScrollArea
+                              p={"xs"}
+                              h={400}
+                              bg={"#434654"}
+                              w={"100%"}
+                              c={"white"}
+                            >
+                              {/* <AIWriter {...{ delay: 200 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
                                 )}
-                              </AIWriter>
-                            </Box>
+                              </AIWriter> */}
+                              <TextAnimation
+                                phrases={[
+                                  datanya[_.random(0, datanya.length - 1)].data,
+                                ]}
+                                typingSpeed={30}
+                                backspaceDelay={500}
+                                eraseDelay={0}
+                                errorProbability={0.1}
+                                eraseOnComplete={false}
+                                //   isSecure={true}
+                              />
+                            </ScrollArea>
                           </>
                         );
                       })()}
@@ -120,13 +137,30 @@ export default function StepAnalisys() {
 
                         return (
                           <>
-                            <Box p={"xs"} h={400} bg={"#434654"} w={"100%"} c={"white"}>
-                              <AIWriter {...{ delay: 400 }}>
+                            <ScrollArea
+                              p={"xs"}
+                              h={400}
+                              bg={"#434654"}
+                              w={"100%"}
+                              c={"white"}
+                            >
+                              {/* <AIWriter {...{ delay: 400 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
                                 )}
-                              </AIWriter>
-                            </Box>
+                              </AIWriter> */}
+                               <TextAnimation
+                                phrases={[
+                                  datanya[_.random(0, datanya.length - 1)].data,
+                                ]}
+                                typingSpeed={200}
+                                backspaceDelay={100}
+                                eraseDelay={0}
+                                errorProbability={0.1}
+                                eraseOnComplete={false}
+                                //   isSecure={true}
+                              />
+                            </ScrollArea>
                           </>
                         );
                       })()}
