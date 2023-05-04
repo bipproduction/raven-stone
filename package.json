@@ -82,6 +82,7 @@
     "react-iframe": "^1.8.5",
     "react-simple-toasts": "^3.2.5",
     "react-spreadsheet": "^0.7.8",
+    "react-tabulator": "^0.18.1",
     "react-typing-dynamics": "^1.1.2",
     "react-typist": "^2.0.5",
     "react-wordcloud": "^1.2.7",

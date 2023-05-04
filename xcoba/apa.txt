@@ -1,83 +1,8 @@
-const data1 = [
-    {
-        title: "satu",
-        category: "double",
-        sentiment: "positive",
-        content: "ini content positive"
-    },
-     {
-        title: "satu",
-        category: "double",
-        sentiment: "negative",
-        content: "ini content negative"
-    },
-    {
-        title: "tiga",
-        category: "double",
-        sentiment: "negative",
-        content: "ini content negative"
-    },
-    {
-        title: "lima",
-        category: "double",
-        sentiment: "positive",
-        content: "ini content positive"
-    },
-     {
-        title: "dua",
-        category: "sigle",
-        sentiment: "positive",
-        content: "ini content single"
-    }
-]
+import {execSync} from 'child_process'
 
-bagaimana cara agar terbentuk object baru meggunakan lodash agar hasinya seperti dibawah ini
-
-const newObject = {
-    double :[
-        {
-        satu: {
-            positive: {
-                        title: "satu",
-                        category: "double",
-                        sentiment: "positive",
-                        content: "ini content positive"
-                    },
-               negative:     {
-                        title: "satu",
-                        category: "double",
-                        sentiment: "negative",
-                        content: "ini content negative"
-                    }
-        }
-        },
-        {
-        tiga: {
-            positive: {
-                        title: "tiga",
-                        category: "double",
-                        sentiment: "positive",
-                        content: "ini content positive"
-                    },
-                 negative:   {
-                        title: "tiga",
-                        category: "double",
-                        sentiment: "negative",
-                        content: "ini content negative"
-                    }
-        }
-        }
-
-    ],
-    single: [
-        {
-            dua: {
-                    title: "dua",
-                    category: "sigle",
-                    sentiment: "positive",
-                    content: "ini content single"
-                }
-        }
-    ]
-
+dapatkan semua nama branch dari remote dan local
+const allBranchName = {
+    remote_branch: [],
+    local_branch: [],
+    current_branch: "ini sengan nama branch yang saat ini digunakan"
 }
