@@ -184,32 +184,32 @@ export function SummaryTrenSentiment() {
 function ChartItem() {
   const option: EChartsOption = {
     title: {
-        text: "Tren Sentiment",
+      text: "Tren Sentiment",
     },
     tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985'
-          }
+      trigger: "axis",
+      axisPointer: {
+        type: "cross",
+        label: {
+          backgroundColor: "#6a7985",
         },
+      },
       formatter: (a: any, b: any) => {
         return `
         <div style="width: 300px; word-break: break-all; background-color: lightblue; padding: 10px">
-            <h5 >${moment(a[0].name).format('DD/MM/YY')}</h5>
+            <h5 >${moment(a[0].name).format("DD/MM/YY")}</h5>
             <div>
                 <div>
                     <h3 style="color: green">${a[0].data} %</h3>
                     <div>POSITIVE</div>
                 </div>
                 <div>
-                    <h3 style="color: gray">${a[1].data} %</h3>
-                    <div>NEUTRAL</div>
+                    <h3 style="color: red">${a[1].data} %</h3>
+                    <div>NEGATIVE</div>
                 </div>
                 <div>
-                    <h3 style="color: red">${a[2].data} %</h3>
-                    <div>NEGATIVE</div>
+                    <h3 style="color: gray">${a[2].data} %</h3>
+                    <div>NEUTRAL</div>
                 </div>
             </div>
         </div>
@@ -292,7 +292,7 @@ function ChartItem() {
         },
         data: !slistDataTrenSentiment.value
           ? []
-          : slistDataTrenSentiment.value!.map((v) => v.neutral),
+          : slistDataTrenSentiment.value!.map((v) => v.negative),
       },
       {
         name: "Neutral",
@@ -316,7 +316,7 @@ function ChartItem() {
         },
         data: !slistDataTrenSentiment.value
           ? []
-          : slistDataTrenSentiment.value!.map((v) => v.negative),
+          : slistDataTrenSentiment.value!.map((v) => v.neutral),
       },
     ],
   };

@@ -30,8 +30,8 @@ export default function SwotAnalisys() {
           text="STRENGTH WEAKNESS OPPORTUNITY THREAT"
           title="SWOT ANALISYS"
         />
-        <Onprogress />
-        {/* <Analisys /> */}
+        {/* <Onprogress /> */}
+        <Analisys />
       </Stack>
     </>
   );
@@ -171,7 +171,24 @@ function Analisys() {
       ))}
       {listSingle?.map((v, i) => (
         <Stack key={i}>
-          <Text>{v.name}</Text>
+          <Title >{v.name}</Title>
+          {v.SwotAnalisys.length > 0 && (
+            <Stack>
+              <Paper p={"xs"} bg={"#343541"}>
+                <ScrollArea h={300} p={"xs"} bg={"#434654"} c={"green"}>
+                  <TextAnimation
+                    phrases={[v.SwotAnalisys[0].content]}
+                    typingSpeed={200}
+                    backspaceDelay={1000}
+                    eraseDelay={0}
+                    errorProbability={0.1}
+                    eraseOnComplete={false}
+                    //   isSecure={true}
+                  />
+                </ScrollArea>
+              </Paper>
+            </Stack>
+          )}
         </Stack>
       ))}
       {/* {JSON.stringify(listDouble)}
