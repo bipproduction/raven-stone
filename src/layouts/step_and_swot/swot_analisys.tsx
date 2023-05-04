@@ -30,8 +30,8 @@ export default function SwotAnalisys() {
           text="STRENGTH WEAKNESS OPPORTUNITY THREAT"
           title="SWOT ANALISYS"
         />
-        {/* <Onprogress /> */}
-        <Analisys />
+        <Onprogress />
+        {/* <Analisys /> */}
       </Stack>
     </>
   );
