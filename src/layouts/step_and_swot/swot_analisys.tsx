@@ -33,6 +33,7 @@ export default function SwotAnalisys() {
         <Onprogress />
         {/* <Analisys /> */}
       </Stack>
+      
     </>
   );
 }
