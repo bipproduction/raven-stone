@@ -267,6 +267,7 @@ const EmotionalViewViaProvinceCouple = () => {
                       DATA VOLUME
                     </Text>
                   </Stack> */}
+                  
                   <Text size={24}>
                     {_.upperCase(
                       sProvince.value.find((p) => p.id == v.provinceId).name
