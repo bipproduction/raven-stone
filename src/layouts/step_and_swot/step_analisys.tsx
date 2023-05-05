@@ -109,7 +109,7 @@ export default function StepAnalisys() {
                                 phrases={[
                                   datanya[_.random(0, datanya.length - 1)].data,
                                 ]}
-                                typingSpeed={30}
+                                typingSpeed={10}
                                 backspaceDelay={500}
                                 eraseDelay={0}
                                 errorProbability={0.1}
@@ -153,7 +153,7 @@ export default function StepAnalisys() {
                                 phrases={[
                                   datanya[_.random(0, datanya.length - 1)].data,
                                 ]}
-                                typingSpeed={200}
+                                typingSpeed={10}
                                 backspaceDelay={100}
                                 eraseDelay={0}
                                 errorProbability={0.1}
