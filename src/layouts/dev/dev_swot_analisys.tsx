@@ -355,30 +355,7 @@ function CreateSwot() {
               )}
             </Stack>
           </Group>
-          {/* <Radio.Group
-            description={"pilih sentiment positive atau negative"}
-            name="sentiment"
-            label="sentiment"
-            value={selectedEmotion}
-            onChange={setSelectedEmotion}
-          >
-            <Group mt="xs">
-              <Radio value="positive" label="positive" />
-              <Radio value="negative" label="negative" />
-            </Group>
-          </Radio.Group> */}
-          {/* <Checkbox
-            checked={isDouble}
-            label={"is double"}
-            description={
-              "uncheck jika ingin menampilhan hanya satu kolom tanpa negative atau positive"
-            }
-            onChange={(val) => {
-              setisDouble(val.currentTarget.checked);
-            }}
-          /> */}
           <DevStepEditor
-            
             content=""
             onsave={(val) => {
               if (_.isEmpty(val)) return toast("isi contentnya");
@@ -471,7 +448,11 @@ function SwotListView() {
         <tbody>
           {_listSwotContent.value?.map((v, i) => (
             <tr key={i}>
-              <td>
+              <td
+                style={{
+                  verticalAlign: "top",
+                }}
+              >
                 <Stack align="start" w={200}>
                   <Title order={5}>{v.name}</Title>
                 </Stack>
@@ -480,14 +461,24 @@ function SwotListView() {
                 {!_.isEmpty(v.SwotAnalisys) &&
                   v.SwotAnalisys.map((v2: any, i2: any) => (
                     <Stack key={i2} spacing={"lg"}>
-                      <Flex align={"center"} gap={"lg"}>
-                        <Flex align={"center"} gap={"lg"}>
+                      <Flex align={"start"} gap={"lg"}>
+                        <Flex align={"start"} gap={"lg"}>
+                          <UpdateContentButton
+                            id={+v2.id}
+                            content={v2.content}
+                          />
                           <ActionIcon size={24} onClick={() => onDelete(v2.id)}>
-                            <MdDelete size={24} />
+                            <MdDelete size={24} color="red" />
                           </ActionIcon>
                           <Avatar radius={100}>{i2 + 1}</Avatar>
                         </Flex>
-                        <Text>{psr(v2.content)}</Text>
+                        <Spoiler
+                          maxHeight={50}
+                          hideLabel={"hide"}
+                          showLabel={"more"}
+                        >
+                          <Text>{psr(v2.content)}</Text>
+                        </Spoiler>
                       </Flex>
                       <Divider />
                     </Stack>
@@ -497,38 +488,21 @@ function SwotListView() {
           ))}
         </tbody>
       </Table>
-
-      {/* <Box w={500}>
-        <Stack spacing={"lg"}>
-          {_contentExten.value.map((v, i) => (
-            <Box key={i}>
-              <Flex>
-                <Text fw={"bold"}>{_.upperCase(v.name)}</Text>
-                <Badge>{v.category}</Badge>
-              </Flex>
-
-              {v.SwotAnalisys.map((v2: any, i2: any) => (
-                <Paper
-                  p={"xs"}
-                  key={i2}
-                  mt={"xs"}
-                  bg={v2.sentiment == "positive" ? "green" : "red"}
-                >
-                  <Flex key={i2} justify={"space-between"}>
-                    <Text lineClamp={4} c={"white"}>
-                      {psr(v2.content)}
-                    </Text>
-                    <ActionIcon size={24} bg={"white"} onClick={() => onDelete(v2.id)}>
-                      <MdDelete size={24} color="red.2" />
-                    </ActionIcon>
-                  </Flex>
-                </Paper>
-              ))}
-            </Box>
-          ))}
-
-        </Stack>
-      </Box> */}
     </Stack>
+  );
+}
+
+function UpdateContentButton({ id, content }: { id: number; content: string }) {
+  const [open, setOpen] = useDisclosure(false);
+  function onUpdate() {}
+  return (
+    <>
+      <ActionIcon size={24} onClick={setOpen.open}>
+        <MdEdit size={24} color="orange" />
+      </ActionIcon>
+      <Modal opened={open} onClose={setOpen.close}>
+        <DevStepEditor content={content} onsave={(val) => {}} />
+      </Modal>
+    </>
   );
 }

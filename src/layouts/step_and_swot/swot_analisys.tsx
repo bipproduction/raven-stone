@@ -128,7 +128,7 @@ function Analisys() {
                       v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
                         .content,
                     ]}
-                    typingSpeed={30}
+                    typingSpeed={10}
                     backspaceDelay={500}
                     eraseDelay={0}
                     errorProbability={0.1}
@@ -153,8 +153,8 @@ function Analisys() {
                       v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
                         .content,
                     ]}
-                    typingSpeed={200}
-                    backspaceDelay={1000}
+                    typingSpeed={10}
+                    backspaceDelay={500}
                     eraseDelay={0}
                     errorProbability={0.1}
                     eraseOnComplete={false}
