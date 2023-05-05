@@ -118,7 +118,7 @@ function Analisys() {
               {!_.isEmpty(v.SwotAnalisys) && (
                 <ScrollArea p={"md"} bg={"white"} h={300} c={"gray"}>
                   <TextAnimation
-                    phrases={[v.SwotAnalisys[0].content]}
+                    phrases={[v.SwotAnalisys[_.random(0, (v.SwotAnalisys.length - 1) )].content]}
                     typingSpeed={30}
                     backspaceDelay={500}
                     eraseDelay={0}
@@ -140,7 +140,7 @@ function Analisys() {
               <Paper p={"md"} bg={"green.2"}>
                 <ScrollArea h={300} p={"xs"} bg={"white"} c={"gray"}>
                   <TextAnimation
-                    phrases={[v.SwotAnalisys[0].content]}
+                    phrases={[v.SwotAnalisys[_.random(0, (v.SwotAnalisys.length - 1) )].content]}
                     typingSpeed={200}
                     backspaceDelay={1000}
                     eraseDelay={0}

@@ -3,6 +3,7 @@ import { sCandidate } from "@/s_state/s_candidate";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
 import {
   ActionIcon,
+  Avatar,
   Badge,
   Box,
   Button,
@@ -14,6 +15,7 @@ import {
   Paper,
   Radio,
   Select,
+  SimpleGrid,
   Spoiler,
   Stack,
   Table,
@@ -31,13 +33,13 @@ import { signal } from "@preact/signals-react";
 import psr from "html-react-parser";
 import assert from "assert";
 
-const _contentExten = signal<any[]>([]);
+const _listSwotContent = signal<any[]>([]);
 
 function _funLoadContent(candateId: string) {
   fetch(api.apiDevSwotAnalisysContentGet + `?candidateId=${candateId}`)
     .then((v) => v.json())
     .then((v) => {
-      _contentExten.value = v;
+      _listSwotContent.value = v;
     });
 }
 
@@ -45,13 +47,11 @@ export function DevSwotAnalisys() {
   return (
     <Stack>
       <Title>DevSwot</Title>
-      <Group align="start">
-        <Stack>
-          <SwotAnalisysCreateTitle />
-          <SwotListView />
-        </Stack>
+      <SimpleGrid cols={2}>
+        <SwotAnalisysCreateTitle />
         <CreateSwot />
-      </Group>
+      </SimpleGrid>
+      <SwotListView />
     </Stack>
   );
 }
@@ -146,40 +146,44 @@ function SwotAnalisysCreateTitle() {
   return (
     <>
       <Paper bg={"cyan.1"}>
-        <Stack p={"md"} w={500}>
-          <Title order={3}>Create Title</Title>
-          <TextInput
-            label={"title"}
-            value={title ?? ""}
-            onChange={(val) => setTitle(val.currentTarget.value)}
-            size="xs"
-            placeholder="input title"
-          />
-          <Radio.Group
-            label={"sentiment"}
-            description={"sentiment positive , negative | green , red"}
-            value={sentiment}
-            onChange={(val) => setSentiment(val)}
-          >
-            <Group>
-              <Radio value="positive" label={"positive"} />
-              <Radio value="negative" label={"negative"} />
-            </Group>
-          </Radio.Group>
-          <Radio.Group
-            description={"pilih single jika ingin single colum"}
-            label={"category"}
-            value={category}
-            onChange={setCategory}
-          >
-            <Group spacing={"md"}>
-              <Radio value="single" label={"single"} />
-              <Radio value="double" label={"double"} />
-            </Group>
-          </Radio.Group>
-          <Button compact onClick={onCreate}>
-            create title
-          </Button>
+        <Stack p={"md"}>
+          <Group position="right">
+            <Stack>
+              <Title order={3}>Create Title</Title>
+              <TextInput
+                label={"title"}
+                value={title ?? ""}
+                onChange={(val) => setTitle(val.currentTarget.value)}
+                size="xs"
+                placeholder="input title"
+              />
+              <Radio.Group
+                label={"sentiment"}
+                description={"sentiment positive , negative | green , red"}
+                value={sentiment}
+                onChange={(val) => setSentiment(val)}
+              >
+                <Group>
+                  <Radio value="positive" label={"positive"} />
+                  <Radio value="negative" label={"negative"} />
+                </Group>
+              </Radio.Group>
+              <Radio.Group
+                description={"pilih single jika ingin single colum"}
+                label={"category"}
+                value={category}
+                onChange={setCategory}
+              >
+                <Group spacing={"md"}>
+                  <Radio value="single" label={"single"} />
+                  <Radio value="double" label={"double"} />
+                </Group>
+              </Radio.Group>
+              <Button compact onClick={onCreate}>
+                create title
+              </Button>
+            </Stack>
+          </Group>
           <Stack p={"md"} bg={"white"}>
             {_listTitle.value &&
               _listTitle.value.map((v, i) => (
@@ -266,7 +270,7 @@ function CreateSwot() {
   const [selectedEmotion, setSelectedEmotion] = useState("positive");
   const [selectedCandidate, setSelectedCandidate] = useState<number>();
   const [selectedTitle, setSelectedTitle] = useState<number>();
-  const [isDouble, setisDouble] = useState(true);
+  // const [isDouble, setisDouble] = useState(true);
 
   // function loadData() {
   //   fetch(api.apiDevSwotAnalisysTitleGet)
@@ -307,50 +311,50 @@ function CreateSwot() {
 
   return (
     <>
-      <Paper
-        w={500}
-        p={"md"}
-        bg={selectedEmotion == "positive" ? "green.1" : "red.1"}
-      >
+      <Paper p={"md"} bg={selectedEmotion == "positive" ? "green.1" : "red.1"}>
         <Stack spacing={"lg"}>
-          <Title order={3}>Create Swot</Title>
-          <Select
-            description={"pilih satu candidate"}
-            onChange={(val) => {
-              if (val) setSelectedCandidate(Number(val));
-            }}
-            label={"select candidate"}
-            size="xs"
-            placeholder={
-              sCandidate.value.find(
-                (v) => Number(v.id) == Number(sSelectedCandidate.value)
-              )?.name
-            }
-            data={sCandidate.value.map(
-              (v) =>
-                ({
-                  label: v.name,
-                  value: v.id,
-                } as any)
-            )}
-          />
-          {_listTitle.value && (
-            <Select
-              description={"pilih title atau header"}
-              onChange={(val) => {
-                if (val) setSelectedTitle(Number(val));
-              }}
-              label={"select title"}
-              placeholder="select title"
-              size="xs"
-              data={
-                _listTitle.value?.map((v) => ({
-                  label: v.name,
-                  value: v.id,
-                })) as any
-              }
-            />
-          )}
+          <Group position="right">
+            <Stack>
+              <Title order={3}>Create Swot</Title>
+              <Select
+                description={"pilih satu candidate"}
+                onChange={(val) => {
+                  if (val) setSelectedCandidate(Number(val));
+                }}
+                label={"select candidate"}
+                size="xs"
+                placeholder={
+                  sCandidate.value.find(
+                    (v) => Number(v.id) == Number(sSelectedCandidate.value)
+                  )?.name
+                }
+                data={sCandidate.value.map(
+                  (v) =>
+                    ({
+                      label: v.name,
+                      value: v.id,
+                    } as any)
+                )}
+              />
+              {_listTitle.value && (
+                <Select
+                  description={"pilih title atau header"}
+                  onChange={(val) => {
+                    if (val) setSelectedTitle(Number(val));
+                  }}
+                  label={"select title"}
+                  placeholder="select title"
+                  size="xs"
+                  data={
+                    _listTitle.value?.map((v) => ({
+                      label: v.name,
+                      value: v.id,
+                    })) as any
+                  }
+                />
+              )}
+            </Stack>
+          </Group>
           {/* <Radio.Group
             description={"pilih sentiment positive atau negative"}
             name="sentiment"
@@ -374,6 +378,7 @@ function CreateSwot() {
             }}
           /> */}
           <DevStepEditor
+            
             content=""
             onsave={(val) => {
               if (_.isEmpty(val)) return toast("isi contentnya");
@@ -425,29 +430,75 @@ function SwotListView() {
 
   return (
     <Stack p={"md"} bg={"teal.1"} spacing={"lg"}>
-      <Stack spacing={0}>
-        <Title order={3}>View</Title>
-        <Text c={"gray"}>green positive red negative</Text>
-      </Stack>
-      <Select
-        label="select candidate"
-        placeholder={
-          sCandidate.value.find((v) => Number(v.id) == Number(candateId))?.name
-        }
-        size="xs"
-        value={candateId}
-        data={
-          sCandidate.value.map((v) => ({
-            label: v.name,
-            value: v.id,
-          })) as any
-        }
-        onChange={(val) => {
-          if (val) _funLoadContent(val);
-        }}
-      />
+      <Group>
+        <Stack>
+          <Stack spacing={0}>
+            <Title order={3}>View</Title>
+            {/* <Text c={"gray"}>green positive red negative</Text> */}
+          </Stack>
+          <Select
+            label="select candidate"
+            placeholder={
+              sCandidate.value.find((v) => Number(v.id) == Number(candateId))
+                ?.name
+            }
+            size="xs"
+            value={candateId}
+            data={
+              sCandidate.value.map((v) => ({
+                label: v.name,
+                value: v.id,
+              })) as any
+            }
+            onChange={(val) => {
+              if (val) _funLoadContent(val);
+            }}
+          />
+        </Stack>
+      </Group>
 
-      <Box w={500}>
+      <Table bg={"white"}>
+        <thead>
+          <tr>
+            <th>
+              <Title order={3}>Title</Title>
+            </th>
+            <th>
+              <Title order={3}>Content</Title>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {_listSwotContent.value?.map((v, i) => (
+            <tr key={i}>
+              <td>
+                <Stack align="start" w={200}>
+                  <Title order={5}>{v.name}</Title>
+                </Stack>
+              </td>
+              <td>
+                {!_.isEmpty(v.SwotAnalisys) &&
+                  v.SwotAnalisys.map((v2: any, i2: any) => (
+                    <Stack key={i2} spacing={"lg"}>
+                      <Flex align={"center"} gap={"lg"}>
+                        <Flex align={"center"} gap={"lg"}>
+                          <ActionIcon size={24} onClick={() => onDelete(v2.id)}>
+                            <MdDelete size={24} />
+                          </ActionIcon>
+                          <Avatar radius={100}>{i2 + 1}</Avatar>
+                        </Flex>
+                        <Text>{psr(v2.content)}</Text>
+                      </Flex>
+                      <Divider />
+                    </Stack>
+                  ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
+      {/* <Box w={500}>
         <Stack spacing={"lg"}>
           {_contentExten.value.map((v, i) => (
             <Box key={i}>
@@ -455,7 +506,7 @@ function SwotListView() {
                 <Text fw={"bold"}>{_.upperCase(v.name)}</Text>
                 <Badge>{v.category}</Badge>
               </Flex>
-              {/* <JsonToTable json={v.SwotAnalisys} /> */}
+
               {v.SwotAnalisys.map((v2: any, i2: any) => (
                 <Paper
                   p={"xs"}
@@ -467,7 +518,7 @@ function SwotListView() {
                     <Text lineClamp={4} c={"white"}>
                       {psr(v2.content)}
                     </Text>
-                    <ActionIcon size={24} bg={"white"}>
+                    <ActionIcon size={24} bg={"white"} onClick={() => onDelete(v2.id)}>
                       <MdDelete size={24} color="red.2" />
                     </ActionIcon>
                   </Flex>
@@ -475,9 +526,9 @@ function SwotListView() {
               ))}
             </Box>
           ))}
-          {/* {JSON.stringify(_contentExten.value)} */}
+
         </Stack>
-      </Box>
+      </Box> */}
     </Stack>
   );
 }
