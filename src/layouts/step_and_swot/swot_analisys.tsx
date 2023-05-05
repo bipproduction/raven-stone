@@ -56,8 +56,8 @@ function Onprogress() {
 }
 
 function Analisys() {
-  const [show, setShow] = useState(false);
-  const [listSwot, setListSwot] = useState<any>();
+  // const [show, setShow] = useState(false);
+  // const [listSwot, setListSwot] = useState<any>();
   const [candidateId, setCandidateId] = useState(1);
   const [listSingle, setListSingle] = useState<any[]>();
   const [listDouble, setlistDouble] = useState<any[]>();
@@ -65,11 +65,17 @@ function Analisys() {
   function loadData(candidateId: number) {
     fetch(api.apiSwotSwotContentGet + `?candidateId=${candidateId}`)
       .then((v) => v.json())
-      .then((v) => {
-        setListSwot(v);
+      .then(async (v) => {
+        // setListSwot(v);
         if (v) {
           const single = v.filter((v: any) => v.category === "single");
           const double = v.filter((v: any) => v.category === "double");
+
+          setListSingle([]);
+          setlistDouble([]);
+
+          // wait 1 second
+          await new Promise((r) => setTimeout(r, 1));
 
           setListSingle(single);
           setlistDouble(double);
@@ -118,7 +124,10 @@ function Analisys() {
               {!_.isEmpty(v.SwotAnalisys) && (
                 <ScrollArea p={"md"} bg={"white"} h={300} c={"gray"}>
                   <TextAnimation
-                    phrases={[v.SwotAnalisys[_.random(0, (v.SwotAnalisys.length - 1) )].content]}
+                    phrases={[
+                      v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
+                        .content,
+                    ]}
                     typingSpeed={30}
                     backspaceDelay={500}
                     eraseDelay={0}
@@ -140,7 +149,10 @@ function Analisys() {
               <Paper p={"md"} bg={"green.2"}>
                 <ScrollArea h={300} p={"xs"} bg={"white"} c={"gray"}>
                   <TextAnimation
-                    phrases={[v.SwotAnalisys[_.random(0, (v.SwotAnalisys.length - 1) )].content]}
+                    phrases={[
+                      v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
+                        .content,
+                    ]}
                     typingSpeed={200}
                     backspaceDelay={1000}
                     eraseDelay={0}
