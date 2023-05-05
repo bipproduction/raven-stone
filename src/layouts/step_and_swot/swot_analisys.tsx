@@ -30,10 +30,9 @@ export default function SwotAnalisys() {
           text="STRENGTH WEAKNESS OPPORTUNITY THREAT"
           title="SWOT ANALISYS"
         />
-        <Onprogress />
-        {/* <Analisys /> */}
+        {/* <Onprogress /> */}
+        <Analisys />
       </Stack>
-      
     </>
   );
 }
@@ -83,7 +82,7 @@ function Analisys() {
   }, []);
 
   return (
-    <Stack>
+    <Stack spacing={"lg"}>
       <Group position="right">
         <Select
           label={"select candidate"}
@@ -103,80 +102,43 @@ function Analisys() {
         />
       </Group>
 
-      {listDouble?.map((v, i) => (
-        <Stack key={i}>
-          <Title>{v.name}</Title>
-          {/* {JSON.stringify(v)} */}
-          {!_.isEmpty(v.SwotAnalisys) &&
-            (() => {
-              const positive = _.groupBy(v.SwotAnalisys, "sentiment")[
-                "positive"
-              ];
-              const negative = _.groupBy(v.SwotAnalisys, "sentiment")[
-                "negative"
-              ];
-              return (
-                <>
-                  <SimpleGrid cols={2}>
-                    <Paper p={"xs"} bg={"#343541"}>
-                      <Stack>
-                        <Text size={24} fw={"bold"} color="green">
-                          POSITIVE
-                        </Text>
-                        <ScrollArea h={500} p={"xs"} bg={"#434654"} c={"white"}>
-                          {positive && (
-                            <TextAnimation
-                              phrases={[
-                                positive[_.random(0, positive.length - 1)]
-                                  .content,
-                              ]}
-                              typingSpeed={30}
-                              backspaceDelay={500}
-                              eraseDelay={0}
-                              errorProbability={0.1}
-                              eraseOnComplete={false}
-                              //   isSecure={true}
-                            />
-                          )}
-                        </ScrollArea>
-                      </Stack>
-                    </Paper>
-                    <Paper p={"xs"} bg={"#343541"}>
-                      <Stack>
-                        <Text size={24} fw={"bold"} color="red">
-                          NEGATIVE
-                        </Text>
-                        <ScrollArea h={500} p={"xs"} bg={"#434654"} c={"white"}>
-                          {negative && (
-                            <TextAnimation
-                              phrases={[
-                                negative[_.random(0, negative.length - 1)]
-                                  .content,
-                              ]}
-                              typingSpeed={200}
-                              backspaceDelay={1000}
-                              eraseDelay={0}
-                              errorProbability={0.1}
-                              eraseOnComplete={false}
-                              //   isSecure={true}
-                            />
-                          )}
-                        </ScrollArea>
-                      </Stack>
-                    </Paper>
-                  </SimpleGrid>
-                </>
-              );
-            })()}
-        </Stack>
-      ))}
+      <SimpleGrid cols={2}>
+        {listDouble?.map((v, i) => (
+          <Paper
+            key={i}
+            p={"md"}
+            bg={v.sentiment == "positive" ? "green.1" : "red.1"}
+          >
+            <Stack>
+              {/* {JSON.stringify(v)} */}
+              <Title order={3} c={v.sentiment == "positive" ? "green" : "red"}>
+                {_.upperCase(v.name)}
+              </Title>
+              {/* {JSON.stringify(v)} */}
+              {!_.isEmpty(v.SwotAnalisys) && (
+                <ScrollArea p={"md"} bg={"white"} h={300} c={"gray"}>
+                  <TextAnimation
+                    phrases={[v.SwotAnalisys[0].content]}
+                    typingSpeed={30}
+                    backspaceDelay={500}
+                    eraseDelay={0}
+                    errorProbability={0.1}
+                    eraseOnComplete={false}
+                    //   isSecure={true}
+                  />
+                </ScrollArea>
+              )}
+            </Stack>
+          </Paper>
+        ))}
+      </SimpleGrid>
       {listSingle?.map((v, i) => (
-        <Stack key={i}>
-          <Title >{v.name}</Title>
+        <Stack key={i} spacing={0}>
+          <Title c={"green"}>{v.name}</Title>
           {v.SwotAnalisys.length > 0 && (
             <Stack>
-              <Paper p={"xs"} bg={"#343541"}>
-                <ScrollArea h={300} p={"xs"} bg={"#434654"} c={"green"}>
+              <Paper p={"md"} bg={"green.2"}>
+                <ScrollArea h={300} p={"xs"} bg={"white"} c={"gray"}>
                   <TextAnimation
                     phrases={[v.SwotAnalisys[0].content]}
                     typingSpeed={200}

@@ -17,6 +17,7 @@ export default async function swotContentGet(req: NextApiRequest, res: NextApiRe
             id: true,
             name: true,
             category: true,
+            sentiment: true,
             SwotAnalisys: {
                 where: {
                     candidateId: Number(candidateId),
