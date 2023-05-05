@@ -10,6 +10,7 @@ import {
   Divider,
   Flex,
   Group,
+  Modal,
   Paper,
   Radio,
   Select,
@@ -20,18 +21,19 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useShallowEffect } from "@mantine/hooks";
+import { useDisclosure, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
 import toast from "react-simple-toasts";
 import { DevStepEditor } from "./dev_step_analisys_editor";
 import { signal } from "@preact/signals-react";
 import psr from "html-react-parser";
+import assert from "assert";
 
 const _contentExten = signal<any[]>([]);
 
-function loadContent(candateId: string) {
+function _funLoadContent(candateId: string) {
   fetch(api.apiDevSwotAnalisysContentGet + `?candidateId=${candateId}`)
     .then((v) => v.json())
     .then((v) => {
@@ -54,10 +56,21 @@ export function DevSwotAnalisys() {
   );
 }
 
+const _listTitle = signal<any[]>([]);
+function _funLoadSwotTitle() {
+  fetch(api.apiDevSwotAnalisysTitleGet)
+    .then((v) => v.json())
+    .then((v) => {
+      console.table(v);
+      _listTitle.value = v;
+    });
+}
+
 function SwotAnalisysCreateTitle() {
   const [title, setTitle] = useState<string>();
-  const [titleList, setTitlelist] = useState<any[]>();
+  // const [titleList, setTitlelist] = useState<any[]>();
   const [category, setCategory] = useState("double");
+  const [sentiment, setSentiment] = useState("positive");
 
   function onCreate() {
     if (_.isEmpty(title)) return toast("title tidak boleh kosong");
@@ -65,6 +78,7 @@ function SwotAnalisysCreateTitle() {
     const body = {
       name: title,
       category: category,
+      sentiment: sentiment,
     };
 
     fetch(api.apiDevSwotAnalisysTitleCreate, {
@@ -75,29 +89,31 @@ function SwotAnalisysCreateTitle() {
       body: JSON.stringify(body),
     }).then(async (v) => {
       if (v.status != 201) return toast("failed");
-      loadData();
+      // loadData();
+      _funLoadSwotTitle();
       return toast("title berhasil dibuat");
     });
   }
 
-  function loadData() {
-    fetch(api.apiDevSwotAnalisysTitleGet)
-      .then((v) => v.json())
-      .then(setTitlelist);
-  }
+  // function loadData() {
+  //   fetch(api.apiDevSwotAnalisysTitleGet)
+  //     .then((v) => v.json())
+  //     .then(setTitlelist);
+  // }
 
   function onDeleteTitle(v: any) {
-    if (!v.title || _.isEmpty(v.title))
-      return toast("title tidak boleh kosong");
+    if (!v.id) return toast("id tidak boleh kosong");
+
     fetch(api.apiDevSwotAnalisysTitleDelete, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: v.title }),
+      body: JSON.stringify({ id: v.id }),
     }).then((v) => {
       if (v.status == 201) {
-        loadData();
+        // loadData();
+        _funLoadSwotTitle();
         return toast("title berhasil dihapus");
       }
       return toast("title gagal dihapus");
@@ -105,8 +121,27 @@ function SwotAnalisysCreateTitle() {
   }
 
   useShallowEffect(() => {
-    loadData();
+    // loadData();
+    _funLoadSwotTitle();
   }, []);
+
+  function onSentimentUpdate(v: any) {
+    fetch(api.apiDevSwotAnalisysTitleSentimentUpdate, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: v.id, sentiment: v.sentiment }),
+    }).then((v) => {
+      if (v.status == 201) {
+        // loadData();
+        _funLoadSwotTitle();
+        return toast("sentiment berhasil diupdate");
+      } else {
+        return toast("sentiment gagal diupdate");
+      }
+    });
+  }
 
   return (
     <>
@@ -120,6 +155,17 @@ function SwotAnalisysCreateTitle() {
             size="xs"
             placeholder="input title"
           />
+          <Radio.Group
+            label={"sentiment"}
+            description={"sentiment positive , negative | green , red"}
+            value={sentiment}
+            onChange={(val) => setSentiment(val)}
+          >
+            <Group>
+              <Radio value="positive" label={"positive"} />
+              <Radio value="negative" label={"negative"} />
+            </Group>
+          </Radio.Group>
           <Radio.Group
             description={"pilih single jika ingin single colum"}
             label={"category"}
@@ -135,20 +181,34 @@ function SwotAnalisysCreateTitle() {
             create title
           </Button>
           <Stack p={"md"} bg={"white"}>
-            {/* {JSON.stringify(titleList)} */}
-            {titleList &&
-              titleList.map((v, i) => (
+            {_listTitle.value &&
+              _listTitle.value.map((v, i) => (
                 <Stack key={i}>
                   <Flex justify={"space-between"}>
                     <Flex gap={"md"}>
+                      <EditName v={v} />
                       <Text>{i + 1}</Text>
-                      <Text>{v.name}</Text>
+                      <Stack>
+                        <Text>{v.name}</Text>
+                        <Radio.Group
+                          value={v.sentiment}
+                          onChange={(val) =>
+                            onSentimentUpdate({ id: v.id, sentiment: val })
+                          }
+                        >
+                          <Group>
+                            <Radio value={"positive"} label={"positive"} />
+                            <Radio value={"negative"} label={"negative"} />
+                          </Group>
+                        </Radio.Group>
+                      </Stack>
                       <Badge>{v.category}</Badge>
                     </Flex>
                     <ActionIcon onClick={() => onDeleteTitle(v)}>
                       <MdDelete />
                     </ActionIcon>
                   </Flex>
+                  <Divider />
                 </Stack>
               ))}
           </Stack>
@@ -158,21 +218,65 @@ function SwotAnalisysCreateTitle() {
   );
 }
 
+// todo : edit name disini
+function EditName({ v }: { v: any }) {
+  const [open, setOpen] = useDisclosure(false);
+  const [name, setName] = useState<string>();
+  function onUpdateName() {
+    fetch(api.apiDevSwotAnalisysTitleNameUpdate, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: v.id, name: name }),
+    }).then((v) => {
+      if (v.status != 201) return toast("failed");
+      _funLoadSwotTitle();
+      setOpen.close();
+      return toast("name berhasil diupdate");
+    });
+  }
+
+  useShallowEffect(() => {
+    _funLoadSwotTitle();
+  }, []);
+  return (
+    <>
+      <ActionIcon onClick={setOpen.open}>
+        <MdEdit />
+      </ActionIcon>
+      <Modal opened={open} onClose={setOpen.close}>
+        <Flex align={"end"} justify={"space-between"}>
+          <TextInput
+            size="xs"
+            placeholder={v.name}
+            onChange={(val) => setName(val.currentTarget.value)}
+          />
+          <Button onClick={onUpdateName} compact>
+            update
+          </Button>
+        </Flex>
+      </Modal>
+    </>
+  );
+}
+
 function CreateSwot() {
-  const [listTitle, setlistTitle] = useState<any[]>();
+  // const [listTitle, setlistTitle] = useState<any[]>();
   const [selectedEmotion, setSelectedEmotion] = useState("positive");
   const [selectedCandidate, setSelectedCandidate] = useState<number>();
   const [selectedTitle, setSelectedTitle] = useState<number>();
   const [isDouble, setisDouble] = useState(true);
 
-  function loadData() {
-    fetch(api.apiDevSwotAnalisysTitleGet)
-      .then((v) => v.json())
-      .then(setlistTitle);
-  }
+  // function loadData() {
+  //   fetch(api.apiDevSwotAnalisysTitleGet)
+  //     .then((v) => v.json())
+  //     .then(setlistTitle);
+  // }
 
   useShallowEffect(() => {
-    loadData();
+    // loadData();
+    _funLoadSwotTitle();
   }, []);
 
   function onCreate(content: string) {
@@ -194,7 +298,7 @@ function CreateSwot() {
       body: JSON.stringify(body),
     }).then(async (v) => {
       if (v.status == 201) {
-        loadContent("1");
+        _funLoadContent("1");
         return toast("content berhasil dibuat");
       }
       return toast("content gagal dibuat");
@@ -209,7 +313,7 @@ function CreateSwot() {
         bg={selectedEmotion == "positive" ? "green.1" : "red.1"}
       >
         <Stack spacing={"lg"}>
-          <Title order={3}>Crrate Swot</Title>
+          <Title order={3}>Create Swot</Title>
           <Select
             description={"pilih satu candidate"}
             onChange={(val) => {
@@ -230,7 +334,7 @@ function CreateSwot() {
                 } as any)
             )}
           />
-          {listTitle && (
+          {_listTitle.value && (
             <Select
               description={"pilih title atau header"}
               onChange={(val) => {
@@ -240,14 +344,14 @@ function CreateSwot() {
               placeholder="select title"
               size="xs"
               data={
-                listTitle?.map((v) => ({
+                _listTitle.value?.map((v) => ({
                   label: v.name,
                   value: v.id,
                 })) as any
               }
             />
           )}
-          <Radio.Group
+          {/* <Radio.Group
             description={"pilih sentiment positive atau negative"}
             name="sentiment"
             label="sentiment"
@@ -258,7 +362,7 @@ function CreateSwot() {
               <Radio value="positive" label="positive" />
               <Radio value="negative" label="negative" />
             </Group>
-          </Radio.Group>
+          </Radio.Group> */}
           {/* <Checkbox
             checked={isDouble}
             label={"is double"}
@@ -298,7 +402,7 @@ function SwotListView() {
   //   }
 
   useShallowEffect(() => {
-    loadContent(candateId);
+    _funLoadContent(candateId);
   }, []);
 
   function onDelete(id: string) {
@@ -312,7 +416,7 @@ function SwotListView() {
       }),
     }).then(async (v) => {
       if (v.status == 201) {
-        loadContent(candateId);
+        _funLoadContent(candateId);
         return toast("content berhasil dihapus");
       }
       return toast("content gagal dihapus");
@@ -339,7 +443,7 @@ function SwotListView() {
           })) as any
         }
         onChange={(val) => {
-          if (val) loadContent(val);
+          if (val) _funLoadContent(val);
         }}
       />
 
