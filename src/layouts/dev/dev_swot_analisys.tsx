@@ -32,6 +32,7 @@ import { DevStepEditor } from "./dev_step_analisys_editor";
 import { signal } from "@preact/signals-react";
 import psr from "html-react-parser";
 import assert from "assert";
+import { Editor } from "@tiptap/react";
 
 const _listSwotContent = signal<any[]>([]);
 
@@ -368,9 +369,10 @@ function CreateSwot() {
   );
 }
 
+const _candidateId = signal("1")
 function SwotListView() {
   //   const [listContent, setListContent] = useState<any[]>();
-  const [candateId, setCandidateId] = useState("1");
+  // const [candateId, setCandidateId] = useState("1");
   //   const [sentiment, setSentiment] = useState("positive");
   //   const [category, setCategory] = useState("double");
 
@@ -384,7 +386,7 @@ function SwotListView() {
   //   }
 
   useShallowEffect(() => {
-    _funLoadContent(candateId);
+    _funLoadContent(_candidateId.value);
   }, []);
 
   function onDelete(id: string) {
@@ -398,7 +400,7 @@ function SwotListView() {
       }),
     }).then(async (v) => {
       if (v.status == 201) {
-        _funLoadContent(candateId);
+        _funLoadContent(_candidateId.value);
         return toast("content berhasil dihapus");
       }
       return toast("content gagal dihapus");
@@ -416,11 +418,11 @@ function SwotListView() {
           <Select
             label="select candidate"
             placeholder={
-              sCandidate.value.find((v) => Number(v.id) == Number(candateId))
+              sCandidate.value.find((v) => Number(v.id) == Number(_candidateId.value))
                 ?.name
             }
             size="xs"
-            value={candateId}
+            value={_candidateId.value}
             data={
               sCandidate.value.map((v) => ({
                 label: v.name,
@@ -494,14 +496,40 @@ function SwotListView() {
 
 function UpdateContentButton({ id, content }: { id: number; content: string }) {
   const [open, setOpen] = useDisclosure(false);
-  function onUpdate() {}
+
   return (
     <>
       <ActionIcon size={24} onClick={setOpen.open}>
         <MdEdit size={24} color="orange" />
       </ActionIcon>
       <Modal opened={open} onClose={setOpen.close}>
-        <DevStepEditor content={content} onsave={(val) => {}} />
+        <DevStepEditor
+          content={content}
+          onsave={async (val) => {
+            // console.log(val.getHTML())
+            if (val) {
+              const data = {
+                id: id,
+                content: val.getHTML(),
+              };
+
+              fetch(api.apiDevSwotAnalisysContentUpdate, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              }).then((v) => {
+                if (v.status == 201) {
+                  setOpen.close();
+                  _funLoadContent(_candidateId.value);
+                  return toast("content berhasil diupdate");
+                }
+                return toast("content gagal diupdate");
+              });
+            }
+          }}
+        />
       </Modal>
     </>
   );

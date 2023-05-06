@@ -72,6 +72,15 @@ model SwotAnalisysName {
   SwotAnalisys SwotAnalisys[]
 }
 
+model BuildLog {
+  id        Int      @id @default(autoincrement())
+  version   String?
+  build     String?
+  log       String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model DukcapilDesa {
   objectid                      Int?
   kode201701                    String
