@@ -40,5 +40,29 @@
         "candidateId": 7,
         "value1": 10,
         "value2": 80
-    }
+    },
+    {
+        "id": 8,
+        "candidateId": 8,
+        "value1": 10,
+        "value2": 80
+      },
+      {
+        "id": 9,
+        "candidateId": 9,
+        "value1": 10,
+        "value2": 80
+      },
+      {
+        "id": 10,
+        "candidateId": 10,
+        "value1": 10,
+        "value2": 80
+      },
+      {
+        "id": 11,
+        "candidateId": 11,
+        "value1": 10,
+        "value2": 80
+      }
 ]
