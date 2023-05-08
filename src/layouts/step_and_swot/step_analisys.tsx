@@ -3,6 +3,7 @@ import {
   Flex,
   Group,
   Paper,
+  ScrollArea,
   Select,
   SimpleGrid,
   Stack,
@@ -12,12 +13,13 @@ import {
 import PageTitle from "../page_title";
 import { sCandidate } from "@/s_state/s_candidate";
 import { sSelectedCandidate } from "@/s_state/s_selected_candidate";
-import { useShallowEffect } from "@mantine/hooks";
+import { useShallowEffect, useTimeout } from "@mantine/hooks";
 import { api } from "@/lib/api";
 import { useState } from "react";
 import _ from "lodash";
-import AIWriter from "react-aiwriter";
+// import AIWriter from "react-aiwriter";
 import parse from "html-react-parser";
+import TextAnimation from "react-typing-dynamics";
 
 export default function StepAnalisys() {
   const [stepDataList, setStepDataList] = useState<{ [key: string]: any }>();
@@ -36,6 +38,7 @@ export default function StepAnalisys() {
       .then((v) => v.json())
       .then(setStepDataList);
   }
+
   return (
     <Stack spacing={"md"}>
       <PageTitle
@@ -43,7 +46,7 @@ export default function StepAnalisys() {
         title="STEP ANALISYS"
       />
       <Group position="right">
-        <Text size={12}>CANDIDATE TO ANALISYS</Text>
+        <Text size={12}>CANDIDATE TO ANALYZE</Text>
         <Select
           placeholder={
             sCandidate.value.find(
@@ -74,8 +77,8 @@ export default function StepAnalisys() {
             {_.keys(stepDataList).map((v, i) => (
               <Stack key={i} spacing={"lg"}>
                 <Title color={"blue"}>{_.upperCase(v)}</Title>
-                <SimpleGrid cols={2} bg={"blue.0"} p={"md"} w={"100%"}>
-                  <Paper p={"xs"} w={"100%"}>
+                <SimpleGrid cols={2} p={"md"} w={"100%"}>
+                  <Paper p={"xs"} w={"100%"} h={500} bg={"#343541"} shadow="sm">
                     <Stack spacing={"lg"}>
                       <Text color="green" fw={"bold"} fz={24}>
                         POSITIVE
@@ -90,19 +93,36 @@ export default function StepAnalisys() {
 
                         return (
                           <>
-                            <Box p={"xs"} bg={"gray.1"} w={"100%"}>
-                              <AIWriter {...{ delay: 200 }}>
+                            <ScrollArea
+                              p={"xs"}
+                              h={400}
+                              bg={"#434654"}
+                              w={"100%"}
+                              c={"white"}
+                            >
+                              {/* <AIWriter {...{ delay: 200 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
                                 )}
-                              </AIWriter>
-                            </Box>
+                              </AIWriter> */}
+                              <TextAnimation
+                                phrases={[
+                                  datanya[_.random(0, datanya.length - 1)].data,
+                                ]}
+                                typingSpeed={10}
+                                backspaceDelay={500}
+                                eraseDelay={0}
+                                errorProbability={0.1}
+                                eraseOnComplete={false}
+                                //   isSecure={true}
+                              />
+                            </ScrollArea>
                           </>
                         );
                       })()}
                     </Stack>
                   </Paper>
-                  <Paper p={"xs"} w={"100%"}>
+                  <Paper p={"xs"} w={"100%"} bg={"#343541"} shadow="sm">
                     <Stack spacing={"lg"}>
                       <Text color="red" fw={"bold"} fz={24}>
                         NEGATIVE
@@ -117,13 +137,24 @@ export default function StepAnalisys() {
 
                         return (
                           <>
-                            <Box p={"xs"} bg={"gray.1"} w={"100%"}>
-                              <AIWriter {...{ delay: 200 }}>
-                                {parse(
-                                  datanya[_.random(0, datanya.length - 1)].data
-                                )}
-                              </AIWriter>
-                            </Box>
+                            <ScrollArea
+                              p={"xs"}
+                              h={400}
+                              bg={"#434654"}
+                              w={"100%"}
+                              c={"white"}
+                            >
+                               <TextAnimation
+                                phrases={[
+                                  datanya[_.random(0, datanya.length - 1)].data,
+                                ]}
+                                typingSpeed={10}
+                                backspaceDelay={100}
+                                eraseDelay={0}
+                                errorProbability={0.1}
+                                eraseOnComplete={false}
+                              />
+                            </ScrollArea>
                           </>
                         );
                       })()}

@@ -40,7 +40,7 @@ const calculateNewEmotionPercentage = (
                 (candidate2[emotion] * score2.value2!) / totalScore) /
             2;
         // Bulatkan setiap nilai persentase menjadi 2 angka di belakang koma
-        result[emotion] = Number(percentage.toFixed(2));
+        result[emotion] = Number(percentage == null? 0: percentage.toFixed(2));
         totalPercentage += result[emotion];
     }
     // Sesuaikan nilai persentase agar jumlah semua emosi menjadi 100%
@@ -49,7 +49,7 @@ const calculateNewEmotionPercentage = (
         for (const emotion in result) {
             result[emotion] *= factor;
             // Bulatkan setiap nilai persentase yang telah disesuaikan menjadi 2 angka di belakang koma
-            result[emotion] = Number(result[emotion].toFixed(2));
+            result[emotion] = Number(result[emotion] == null? 0: result[emotion].toFixed(2));
         }
     }
     return result;

@@ -258,14 +258,16 @@ const EmotionalViewViaProvinceCouple = () => {
                   spacing={"lg"}
                 >
                   <EmotionItemChart lsData={v.emotion} />
-                  <Stack spacing={0} justify={"center"}>
+                  {/* // todo : hide sementara */}
+                  {/* <Stack spacing={0} justify={"center"}>
                     <Title c={"blue.8"}>
                       {Intl.NumberFormat("id-ID").format(v.value)}
                     </Title>
                     <Text align="center" c={"gray"}>
                       DATA VOLUME
                     </Text>
-                  </Stack>
+                  </Stack> */}
+                  
                   <Text size={24}>
                     {_.upperCase(
                       sProvince.value.find((p) => p.id == v.provinceId).name
@@ -561,12 +563,13 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
                 {/* {JSON.stringify(dataContextDirection)} */}
 
                 <EChartsReact option={option1} />
-                <Group position="center">
+                {/* // todo: hide sementara */}
+                {/* <Group position="center">
                   <Text fw={"bold"}>
                     {Intl.NumberFormat("id-ID").format(data.cityValue)}
                   </Text>
                   <Text>DATA VOLUME</Text>
-                </Group>
+                </Group> */}
               </Stack>
             </Paper>
             <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>

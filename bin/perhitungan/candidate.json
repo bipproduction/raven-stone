@@ -33,5 +33,25 @@
       "id": "7",
       "name": "Erick Thohir",
       "img": "/candidate/eric.png"
+    },
+    {
+      "id": "8",
+      "name": "Mahfud MD",
+      "img": "/candidate/mahfud.png"
+    },
+    {
+      "id": "9",
+      "name": "Airlangga Hartarto",
+      "img": "/candidate/airlangga.png"
+    },
+    {
+      "id": "10",
+      "name": "Sandiaga Uno",
+      "img": "/candidate/sandiaga.png"
+    },
+    {
+      "id": "11",
+      "name": "Ridwan Kamil",
+      "img": "/candidate/ridwan.png"
     }
   ]

@@ -85,6 +85,8 @@ import MainSummary from "@/layouts/summary/main_summary";
 import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
 import { useRouter } from "next/router";
 import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -190,12 +192,12 @@ const listView = [
         view: StepAnalisys,
         icon: MdOutlineStarBorderPurple500,
       },
-      // {
-      //   id: 2,
-      //   name: "SWOT Analysis",
-      //   view: StepAnalisys,
-      //   icon: MdOutlineStarBorderPurple500,
-      // },
+      {
+        id: 2,
+        name: "SWOT Analysis",
+        view: SwotAnalisys,
+        icon: MdOutlineStarBorderPurple500,
+      },
     ],
   },
   {
@@ -243,6 +245,7 @@ const Dashboard = () => {
   const [userName, setUserName] = useState<{ [key: string]: any }>({});
 
   useShallowEffect(() => {
+    sSelectedDate.value = moment(new Date()).format("YYYY-MM-DD");
     funcLoadNationWideRating();
     const userId = localStorage.getItem("user_id");
     if (userId) {

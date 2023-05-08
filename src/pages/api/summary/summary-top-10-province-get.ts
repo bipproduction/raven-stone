@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function summaryTop10ProvinceGet(req: NextApiRequest, res: NextApiResponse) {
     const { date, emotion, candidateId, search } = req.query
+   
     const data = await client.dataByContent.findMany({
         where: {
             date: new Date(date as string),

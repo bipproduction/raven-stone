@@ -78,6 +78,7 @@ const SelectCandidate = () => {
   //   });
 
   if (_.isEmpty(slistCandidate.value)) return <Loader />;
+
   return (
     <>
       <Box>
