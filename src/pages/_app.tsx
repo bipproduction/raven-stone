@@ -107,7 +107,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       .then((v) => v.json())
       .then((v) => (sUser.value = v));
   }, []);
-
+  
   if (sUser.value == undefined) return <>{JSON.stringify(sUser.value)} </>;
   if (_.isEmpty(sUser.value))
     return (

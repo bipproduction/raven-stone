@@ -187,7 +187,7 @@ const SummarySelectCandidate = () => {
             }))}
             onChange={async (val) => {
               if (val) {
-                // sSelectedEmotion.set(val);
+                
                 sSelectedEmotion.value = val;
                 await funcLoadTop10District();
                 await funcLoadTop10Province();
