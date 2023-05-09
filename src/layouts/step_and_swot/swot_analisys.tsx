@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Box,
   Button,
   Center,
@@ -21,6 +22,7 @@ import { api } from "@/lib/api";
 import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { sCandidate } from "@/s_state/s_candidate";
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 export default function SwotAnalisys() {
   return (
@@ -141,33 +143,93 @@ function Analisys() {
           </Paper>
         ))}
       </SimpleGrid>
+      <SingleView listSingle={listSingle} />
+    </Stack>
+  );
+}
+
+function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
+  const [selected, setSelected] = useState(0);
+  const [text, setText] = useState<string | undefined>(undefined);
+
+  useShallowEffect(() => {
+    if (listSingle && listSingle.length > 0) {
+      if (listSingle[0].SwotAnalisys.length > 0) {
+        setText(listSingle[0].SwotAnalisys[0].content);
+      }
+    }
+  }, [listSingle]);
+
+  return (
+    <>
       {listSingle?.map((v, i) => (
         <Stack key={i} spacing={0}>
           <Title c={"green"}>{v.name}</Title>
           {v.SwotAnalisys.length > 0 && (
             <Stack>
               <Paper p={"md"} bg={"green.2"}>
-                <ScrollArea h={300} p={"xs"} bg={"white"} c={"gray"}>
-                  <TextAnimation
-                    phrases={[
-                      v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
-                        .content,
-                    ]}
-                    typingSpeed={10}
-                    backspaceDelay={500}
-                    eraseDelay={0}
-                    errorProbability={0.1}
-                    eraseOnComplete={false}
-                    //   isSecure={true}
-                  />
-                </ScrollArea>
+                <Flex>
+                  <Box p={"md"}>
+                    <Flex>
+                      <ActionIcon
+                        onClick={async () => {
+                          if (selected > 0) {
+                            setText(undefined);
+                            // await
+                            await new Promise((r) => setTimeout(r, 1));
+                            setSelected(selected - 1);
+                            setText(v.SwotAnalisys[selected - 1].content);
+                          }
+                        }}
+                      >
+                        <MdArrowBackIos />
+                      </ActionIcon>
+                      <Text>{selected + 1}</Text>
+                      <Text>/</Text>
+                      <Text>{v.SwotAnalisys.length}</Text>
+                      <ActionIcon
+                        onClick={async () => {
+                          if (selected < v.SwotAnalisys.length - 1) {
+                            setText(undefined);
+                            // await
+                            await new Promise((r) => setTimeout(r, 1));
+                            setSelected(selected + 1);
+                            setText(v.SwotAnalisys[selected + 1].content);
+                          }
+                        }}
+                      >
+                        <MdArrowForwardIos />
+                      </ActionIcon>
+                    </Flex>
+                  </Box>
+                  <ScrollArea
+                    h={300}
+                    p={"xs"}
+                    bg={"white"}
+                    c={"gray"}
+                    w={"100%"}
+                  >
+                    {text == undefined ? (
+                      <Stack>
+                        <Text>...</Text>
+                      </Stack>
+                    ) : (
+                      <TextAnimation
+                        phrases={[text!]}
+                        typingSpeed={10}
+                        backspaceDelay={500}
+                        eraseDelay={0}
+                        errorProbability={0.1}
+                        eraseOnComplete={false}
+                      />
+                    )}
+                  </ScrollArea>
+                </Flex>
               </Paper>
             </Stack>
           )}
         </Stack>
       ))}
-      {/* {JSON.stringify(listDouble)}
-      {JSON.stringify(listSingle)} */}
-    </Stack>
+    </>
   );
 }
