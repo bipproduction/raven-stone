@@ -60,6 +60,7 @@
     "glob": "^9.3.0",
     "html-react-parser": "^3.0.16",
     "ip": "^1.1.8",
+    "jotai": "^2.1.0",
     "jquery": "^3.6.4",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
