@@ -160,7 +160,7 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
               {!_.isEmpty(listCandidate) && (
                 <Select
                   placeholder={
-                    listCandidate.find(
+                    listCandidate!.find(
                       (v) => Number(v.id) == Number(selectedCandidate)
                     )?.name
                   }
@@ -172,7 +172,7 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
                       // onLoadData();
                     }
                   }}
-                  data={listCandidate.map((v) => ({
+                  data={listCandidate!.map((v) => ({
                     label: v.name,
                     value: v.id,
                   }))}
