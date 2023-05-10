@@ -174,7 +174,7 @@ export function MapControllCopyData() {
               </Title>
               <DatePicker
                 minDate={new Date("2023-03-16")}
-                maxDate={new Date(moment().format("YYYY-MM-DD"))}
+                // maxDate={new Date(moment().format("YYYY-MM-DD"))}
                 value={new Date(dateFrom)}
                 onChange={(val) => {
                   if (val) {
