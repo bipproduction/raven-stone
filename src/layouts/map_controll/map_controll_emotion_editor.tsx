@@ -109,9 +109,9 @@ const SelectCandidate = () => {
             // label={"select candidate"}
             value={selectedCandidate}
             placeholder={
-              listCandidate.find((v) => v.id == selectedCandidate).name
+              listCandidate!.find((v) => v.id == selectedCandidate).name
             }
-            data={listCandidate.map((v) => ({
+            data={listCandidate!.map((v) => ({
               label: v.name,
               value: v.id,
             }))}
