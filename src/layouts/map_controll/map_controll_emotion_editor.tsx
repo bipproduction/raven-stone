@@ -300,9 +300,9 @@ export function MapControllEmotionEditor() {
                 <Stack w={"100%"}>
                   {/* <Title>Emotion Editor</Title> */}
                   <MapControllMapView />
-                  <CountCandidateView />
                 </Stack>
               </Flex>
+              <CountCandidateView />
               {/* <SimpleGrid cols={2}>
                 <Paper p={"xs"} radius={8} shadow="md" bg={"cyan.2"}>
                   {!_.isEmpty(sListKabupaten.value) && (

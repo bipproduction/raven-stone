@@ -1,246 +1,12 @@
 import client from "@/lib/prisma_db";
 import _, { sumBy } from "lodash";
 import { NextApiRequest, NextApiResponse } from "next";
-
-type DataItem = {
-    no: number;
-    provinceId: number;
-    name: string;
-    candidate: string;
-    value: number;
-    trust: number;
-    anger: number;
-    anticipation: number;
-    disgust: number;
-    fear: number;
-    joy: number;
-    sadness: number;
-    surprise: number;
-};
-
-type SummedData = Omit<DataItem, "no" | "provinceId" | "name" | "candidate">;
-
-const calculateNewEmotionPercentage = (
-    { candidate1,
-        score1,
-        candidate2,
-        score2 }: {
-            candidate1: any,
-            score1: any,
-            candidate2: any,
-            score2: any
-        }
-) => {
-    const totalScore = score1.value1! + score2.value2!;
-    const result: any = {};
-    let totalPercentage = 0;
-    for (const emotion in candidate1) {
-        const percentage =
-            ((candidate1[emotion] * score1.value1!) / totalScore +
-                (candidate2[emotion] * score2.value2!) / totalScore) /
-            2;
-        // Bulatkan setiap nilai persentase menjadi 2 angka di belakang koma
-        result[emotion] = Number(percentage == null? 0: percentage.toFixed(2));
-        totalPercentage += result[emotion];
-    }
-    // Sesuaikan nilai persentase agar jumlah semua emosi menjadi 100%
-    if (totalPercentage !== 100) {
-        const factor = 100 / totalPercentage;
-        for (const emotion in result) {
-            result[emotion] *= factor;
-            // Bulatkan setiap nilai persentase yang telah disesuaikan menjadi 2 angka di belakang koma
-            result[emotion] = Number(result[emotion] == null? 0: result[emotion].toFixed(2));
-        }
-    }
-    return result;
-}
-
-// const perhitungan = ({ kandidat_1, potensi_kandidat_1, kandidat_2, potensi_kandidat_2 }: { kandidat_1: any, potensi_kandidat_1: any, kandidat_2: any, potensi_kandidat_2: any }) => {
-//     // const kandidat_1: any = {
-//     //     anger: 30,
-//     //     anticipation: 4,
-//     //     disgust: 99,
-//     //     fear: 2,
-//     //     joy: 90,
-//     //     sadness: 23,
-//     //     trust: 49,
-//     //     surprise: 1
-//     //   };
-
-//     //   const potensi_kandidat_1: any = { 
-//     //     value1: 90, 
-//     //     value2: 30 
-//     //   };
-
-//     //   const kandidat_2: any = {
-//     //     anger: 100,
-//     //     anticipation: 90,
-//     //     disgust: 400,
-//     //     fear: 79,
-//     //     joy: 40,
-//     //     sadness: 20,
-//     //     trust: 72,
-//     //     surprise: 2
-//     //   };
-
-//     //   const potensi_kandidat_2: any = { 
-//     //     value1: 40, 
-//     //     value2: 60 
-//     //   };
-
-//     // Calculate the total sum of emotions for each candidate
-//     const total_emotions_kandidat_1: any = Object.values(kandidat_1).reduce((acc, val) => Number(acc) + Number(val));
-//     const total_emotions_kandidat_2: any = Object.values(kandidat_2).reduce((acc, val) => Number(acc) + Number(val));
-
-//     // Create a new object to store the combined values with proportional adjustments
-//     const combinedObject: any = {};
-
-//     // Loop through each emotion item and calculate the proportional adjustment
-//     for (let emotion in kandidat_1) {
-//         const adjustedValue1: any = ((kandidat_1[emotion] / total_emotions_kandidat_1) * potensi_kandidat_1.value1) + ((kandidat_2[emotion] / total_emotions_kandidat_2) * potensi_kandidat_2.value1);
-//         const adjustedValue2: any = ((kandidat_1[emotion] / total_emotions_kandidat_1) * potensi_kandidat_1.value2) + ((kandidat_2[emotion] / total_emotions_kandidat_2) * potensi_kandidat_2.value2);
-//         combinedObject[emotion] = adjustedValue1 + adjustedValue2;
-//     }
-
-//     // Calculate the total sum of emotions in the combined object
-//     const total_emotions_combined: any = Object.values(combinedObject).reduce((acc, val) => Number(acc) + Number(val));
-
-//     // Check if the total sum of emotions is not equal to 100, and adjust the values accordingly
-//     if (total_emotions_combined !== 100) {
-//         const adjustmentFactor = 100 / total_emotions_combined;
-//         for (let emotion in combinedObject) {
-//             combinedObject[emotion] *= adjustmentFactor;
-//         }
-//     }
-
-//     return combinedObject
-// }
-
-
-// const getDataByCandidate = async (date: any, candidateId: any) => {
-//     const data = await client.dataByContent.findMany({
-//         where: {
-//             date: new Date(date!.toString()),
-//             candidateId: candidateId
-//         },
-//         select: {
-//             Candidate: {
-//                 select: {
-//                     name: true
-//                 }
-//             },
-//             Province: {
-//                 select: {
-//                     id: true,
-//                     name: true
-//                 }
-//             },
-//             City: {
-//                 select: {
-//                     CityValue: {
-//                         select: {
-//                             value: true
-//                         }
-//                     }
-//                 }
-//             },
-//             anger: true,
-//             anticipation: true,
-//             disgust: true,
-//             fear: true,
-//             joy: true,
-//             sadness: true,
-//             surprise: true,
-//             trust: true,
-//         },
-//     })
-
-//     const hasil = data.map((v) => ({
-//         ..._.omit(v, ["City", "Province", "Candidate"]),
-//         candidate: v.Candidate?.name,
-//         provinceId: v.Province?.id,
-//         provinceName: v.Province?.name,
-//         value: v.City?.CityValue[0].value,
-//         anger: Math.floor((v.anger! / 100) * v.City?.CityValue![0].value!),
-//         anticipation: Math.floor((v.anticipation! / 100) * v.City?.CityValue![0].value!),
-//         disgust: Math.floor((v.disgust! / 100) * v.City?.CityValue![0].value!),
-//         fear: Math.floor((v.fear! / 100) * v.City?.CityValue![0].value!),
-//         joy: Math.floor((v.joy! / 100) * v.City?.CityValue![0].value!),
-//         sadness: Math.floor((v.sadness! / 100) * v.City?.CityValue![0].value!),
-//         surprise: Math.floor((v.surprise! / 100) * v.City?.CityValue![0].value!),
-//         trust: Math.floor((v.trust! / 100) * v.City?.CityValue![0].value!)
-//     }))
-
-//     const hasil2 = _.map(_.groupBy(hasil, "provinceId"), (o, idx) => ({
-//         // provinceId: o[0].provinceId,
-//         // name: o[0].provinceName,
-//         // candidate: o[0].candidate,
-//         // value: _.sumBy(o, 'value'),
-//         trust: _.sumBy(o, "trust"),
-//         anger: _.sumBy(o, "anger"),
-//         anticipation: _.sumBy(o, "anticipation"),
-//         disgust: _.sumBy(o, "disgust"),
-//         fear: _.sumBy(o, "fear"),
-//         joy: _.sumBy(o, "joy"),
-//         sadness: _.sumBy(o, "sadness"),
-//         surprise: _.sumBy(o, "surprise"),
-
-//     }))
-
-//     return hasil2
-// }
-
-// trust
-// joy
-// surprise
-// anticipation
-// sadness
-// fear
-// anger
-// disgust
-
-// interface EmotionObject {
-//     [key: string]: number;
-// }
-
-// interface ScoreObject {
-//     value1?: number;
-//     value2?: number;
-// }
-
-// function calculateNewEmotionPercentage(
-//     candidate1: EmotionObject,
-//     score1: ScoreObject,
-//     candidate2: EmotionObject,
-//     score2: ScoreObject
-// ): EmotionObject {
-//     const totalScore = score1.president! + score2.value2!;
-//     const result: EmotionObject = {};
-//     let totalPercentage = 0;
-//     for (const emotion in candidate1) {
-//         const percentage =
-//             ((candidate1[emotion] * score1.president!) / totalScore +
-//                 (candidate2[emotion] * score2.value2!) / totalScore) /
-//             2;
-//         // Bulatkan setiap nilai persentase menjadi 2 angka di belakang koma
-//         result[emotion] = Number(percentage.toFixed(2));
-//         totalPercentage += result[emotion];
-//     }
-//     // Sesuaikan nilai persentase agar jumlah semua emosi menjadi 100%
-//     if (totalPercentage !== 100) {
-//         const factor = 100 / totalPercentage;
-//         for (const emotion in result) {
-//             result[emotion] *= factor;
-//             // Bulatkan setiap nilai persentase yang telah disesuaikan menjadi 2 angka di belakang koma
-//             result[emotion] = Number(result[emotion].toFixed(2));
-//         }
-//     }
-//     return result;
-// }
+import 'colors'
 
 const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
     const { date, candidate1, candidate2 } = req.query
 
+    console.log(date, candidate1, candidate2)
 
     let k1 = await client.dataByContent.aggregate({
         where: {
@@ -290,7 +56,7 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     })
 
-    const candidateValue12 = await client.candidateValue.findUnique({
+    const candidateValue2 = await client.candidateValue.findUnique({
         where: {
             id: Number(candidate2)
         },
@@ -300,85 +66,38 @@ const nationWideRating = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     })
 
-    const hasil = calculateNewEmotionPercentage({
-        candidate1: kandidatA,
-        candidate2: kandidatB,
-        score1: candidateValue1,
-        score2: candidateValue12
-    })
 
+    const positive = ['trust', 'joy', 'surprise', 'anticipation']
+    const kandidatC: any = {}
 
+    for (let item of _.keys(kandidatA)) {
+        if (!positive.includes(item)) {
+            kandidatA[item] += candidateValue1?.value1
+            // kandidatB[item] += candidateValue2?.value1
+        } else {
+            kandidatA[item] += candidateValue2?.value2
+            // kandidatB[item] += candidateValue1?.value2
+        }
 
+        kandidatC[item] = kandidatA[item] + kandidatB[item]
 
-    // const score_candidate1: { [key: string]: any } = {}
-    // const score_candidate2: { [key: string]: any } = {}
+    }
 
-    // score_candidate1.president = candidateValue1?.value1 as any
-    // score_candidate1.value2 = candidateValue1?.value2 as any
+    const gabungan = _.sum([_.sum(_.values(kandidatA)), _.sum(_.values(kandidatB))])
 
-    // score_candidate2.president = candidateValue12?.value1 as any
-    // score_candidate2.value2 = candidateValue12?.value2 as any
+    const prosentase = _.mapValues(kandidatC, (value) => _.round((value / gabungan) * 100, 2))
 
-    // const emotion = calculateNewEmotionPercentage(kandidatA as any, score_candidate1, kandidatB as any, score_candidate2)
+    console.log("gabungan".green, gabungan)
 
-    // const data1 = await getDataByCandidate('2023-03-16', Number(target1))
-    // const kandidatA: any = _.reduce(data1, (acc, item) => {
-    //     // acc.value = acc.value + item.value
-    //     acc.trust = acc.trust + item.trust
-    //     acc.anger = acc.anger + item.anger
-    //     acc.anticipation = acc.anticipation + item.anticipation
-    //     acc.disgust = acc.disgust + item.disgust
-    //     acc.fear = acc.fear + item.fear
-    //     acc.joy = acc.joy + item.joy
-    //     acc.sadness = acc.sadness + item.sadness
-    //     acc.surprise = acc.surprise + item.surprise
-    //     return acc
+    // const hasil = calculateNewEmotionPercentage({
+    //     candidate1: kandidatA,
+    //     candidate2: kandidatB,
+    //     score1: candidateValue1,
+    //     score2: candidateValue12
     // })
 
-    // const data2 = await getDataByCandidate('2023-03-16', Number(target2))
-    // const kandidatB: any = _.reduce(data2, (acc, item) => {
-    //     // acc.value = acc.value + item.value
-    //     acc.trust = acc.trust + item.trust
-    //     acc.anger = acc.anger + item.anger
-    //     acc.anticipation = acc.anticipation + item.anticipation
-    //     acc.disgust = acc.disgust + item.disgust
-    //     acc.fear = acc.fear + item.fear
-    //     acc.joy = acc.joy + item.joy
-    //     acc.sadness = acc.sadness + item.sadness
-    //     acc.surprise = acc.surprise + item.surprise
-    //     return acc
-    // })
 
-    // urutkan berdasarkan urutan yang benar kata kata dibawah ini
-    // anger
-    // anticipation
-    // disgust
-    // fear
-    // joy
-    // sadness
-    // surprise
-    // trust
-
-    // const hasilProsentasePenggabungan: any = {};
-
-    // Menghitung persentase tiap emosi dari kedua kandidat
-    // Object.keys(kandidatA).forEach(key => {
-    //     const persentaseA: any = kandidatA[key] / Number(Object.values(kandidatA).slice(1).reduce((a: any, b: any) => a + b)) * 100;
-    //     const persentaseB: any = kandidatB[key] / Number(Object.values(kandidatB).slice(1).reduce((a: any, b: any) => a + b)) * 100;
-    //     const persentaseGabungan: any = persentaseA + persentaseB - (persentaseA * persentaseB / 100);
-    //     hasilProsentasePenggabungan[key] = Math.round(persentaseGabungan);
-    // });
-
-    // hasilProsentasePenggabungan['candidate1'] = Number(candidate1);
-    // hasilProsentasePenggabungan['candidate2'] = Number(candidate2);
-
-    // emotion['candidate1'] = Number(candidate1);
-    // emotion['candidate2'] = Number(candidate2);
-
-    // console.log(hasilProsentasePenggabungan);
-
-    // console.log(emotion)
-    res.status(200).json(hasil)
+    res.status(200).json(prosentase)
 }
 
 
