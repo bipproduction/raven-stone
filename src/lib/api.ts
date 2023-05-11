@@ -88,6 +88,7 @@ export const api = {
   "apiDevStepAnalisysDataDelete": "/api/dev/step-analisys-data-delete",
   "apiDevStepAnalisysDataCreate": "/api/dev/step-analisys-data-create",
   "apiDevStepAnalisysCreateName": "/api/dev/step-analisys-create-name",
+  "apiDevMapControllCandidateCountContent": "/api/dev/map_controll_candidate_count_content",
   "apiDevDevCityValueTotalGet": "/api/dev/dev_city_value_total_get",
   "apiDevDevTimeMachinePost": "/api/dev/dev-time-machine-post",
   "apiDevDevTimeMachineGet": "/api/dev/dev-time-machine-get",

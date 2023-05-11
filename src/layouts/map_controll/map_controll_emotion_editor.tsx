@@ -302,6 +302,7 @@ export function MapControllEmotionEditor() {
                   <MapControllMapView />
                 </Stack>
               </Flex>
+              <CountCandidateView />
               {/* <SimpleGrid cols={2}>
                 <Paper p={"xs"} radius={8} shadow="md" bg={"cyan.2"}>
                   {!_.isEmpty(sListKabupaten.value) && (
@@ -341,6 +342,46 @@ export function MapControllEmotionEditor() {
         <TableView />
         {sMapControllEditorVal.value != undefined && <EditorActionView />}
       </Stack>
+    </>
+  );
+}
+
+function CountCandidateView() {
+  const [listCandidateDataCount, setLsistCandidateDataCount] = useState<
+    any[] | undefined
+  >();
+
+  useShallowEffect(() => {
+    sSelectedDate.subscribe(() => {
+      loadData();
+    });
+  }, []);
+
+  function loadData() {
+    fetch(
+      api.apiDevMapControllCandidateCountContent +
+        "?date=" +
+        sSelectedDate.value
+    )
+      .then((res) => res.json())
+      .then(setLsistCandidateDataCount);
+  }
+  return (
+    <>
+      <Group>
+        {listCandidateDataCount?.map((v) => (
+          <Paper key={v.id} p={"xs"} bg={"white"}>
+            <Stack key={v.id} spacing={0} align="center" justify="center">
+              <Title c={"gray"} order={3}>
+                {v.count}
+              </Title>
+              <Text lineClamp={1} w={70} size={12}>
+                {v.name}
+              </Text>
+            </Stack>
+          </Paper>
+        ))}
+      </Group>
     </>
   );
 }
