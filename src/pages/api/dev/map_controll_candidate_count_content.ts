@@ -15,6 +15,7 @@ export default async function mapControllCandidateCountContent(req: NextApiReque
     for (let itm of data) {
         itm['count'] = await client.dataByContent.count({
             where: {
+                candidateId: itm.id,
                 date: new Date(date as any),
             }
         })

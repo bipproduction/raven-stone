@@ -54,5 +54,45 @@ const main = async () => {
     })
 }
 
-main()
-export { }
+
+import Papa from 'papaparse'
+import client from '@/lib/prisma_db'
+import fs from 'fs'
+import _ from 'lodash'
+async function main2() {
+
+    const date = "2023-03-16"
+    const candidate = await client.candidate.findMany()
+    const hasil: any = {}
+    for (let itm of candidate) {
+        const data = await client.dataByContent.findMany({
+            where: {
+                date: new Date(date),
+                candidateId: itm.id
+            },
+            select: {
+                id: true,
+                date: true,
+                candidateId: true,
+                provinceId: true,
+                cityId: true,
+                anger: true,
+                disgust: true,
+                fear: true,
+                joy: true,
+                sadness: true,
+                surprise: true,
+                trust: true,
+                anticipation: true,
+            }
+        })
+
+        const name = itm.name ?? ""
+        hasil[`${_.camelCase(name)}_${date}`] = Papa.unparse(data)
+    }
+
+    
+
+}
+
+main2()
