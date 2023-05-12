@@ -37,6 +37,7 @@
     "@types/jquery": "^3.5.16",
     "@types/lodash": "^4.14.191",
     "@types/node": "18.15.1",
+    "@types/papaparse": "^5.3.7",
     "@types/prompts": "^2.4.3",
     "@types/randomcolor": "^0.5.7",
     "@types/react": "18.0.28",
@@ -68,6 +69,7 @@
     "next": "13.2.4",
     "next-pwa": "^5.6.0",
     "node-fetch": "^3.3.1",
+    "papaparse": "^5.4.1",
     "prompts": "^2.4.2",
     "randomcolor": "^0.6.2",
     "react": "18.2.0",
@@ -96,6 +98,7 @@
     "tsv-json": "^2.0.0",
     "typescript": "4.9.5",
     "typing-effect-reactjs": "^1.4.1",
-    "use-sound": "^4.0.1"
+    "use-sound": "^4.0.1",
+    "xlsx": "^0.18.5"
   }
 }
