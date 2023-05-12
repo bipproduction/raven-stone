@@ -20,6 +20,9 @@ import { useState } from "react";
 import _ from "lodash";
 import { api } from "@/lib/api";
 import { DateInput } from "@mantine/dates";
+import moment from "moment";
+import { mc_list_candidate } from "./map_controll_state";
+import toast from "react-simple-toasts";
 
 const openModal = atomWithStorage("map_controll_inject_data_modal", false);
 const _list_data = atomWithStorage<any[] | undefined>(
@@ -61,18 +64,6 @@ export default function MapControllInjectData({ bg }: { bg: string }) {
       >
         <Stack>
           <DropView />
-          <Group>
-            <Title>{type}</Title>
-            <Flex>
-              {type && type == "insert" && (
-                <Stack spacing={0}>
-                  <DateInput />
-                </Stack>
-              )}
-
-              <Button>{type}</Button>
-            </Flex>
-          </Group>
           {listData && <TableView />}
         </Stack>
       </Modal>
@@ -137,11 +128,112 @@ function DropView() {
 
 function TableView() {
   const [listData, setListData] = useAtom(_list_data);
+  const [type, setType] = useAtom(_type);
+  const [selectedDate, setSelectedDate] = useState<string>();
+  const [selectedCandidate, setSelectedCandidate] = useState<number>();
+  const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
+  const [loading, setLoading] = useState(false);
+
+  function onUpdate() {
+    setLoading(true);
+    fetch(api.apiDevEmotionUpdateInsert, {
+      method: "POST",
+      body: JSON.stringify({
+        type: type,
+        data: listData,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.status === 201) {
+        setLoading(false);
+        return toast("success");
+      }
+
+      setLoading(false);
+      return toast("error");
+    });
+  }
+
+  function onInsert() {
+    setLoading(true);
+    fetch(api.apiDevEmotionUpdateInsert, {
+      method: "POST",
+      body: JSON.stringify({
+        type: type,
+        data: listData,
+        date: selectedDate,
+        candidateId: selectedCandidate,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.status === 201) {
+        setLoading(false);
+        return toast("success");
+      }
+
+      setLoading(false);
+      return toast("error");
+    });
+  }
   return (
     <>
       <Stack>
         {listData && (
           <Stack>
+            <Title>{type}</Title>
+            <Group position="right">
+              {type === "insert" && (
+                <Flex gap={`xs`} align={"end"}>
+                  <DateInput
+                    onChange={(val) => {
+                      if (val) {
+                        setSelectedDate(moment(val).format("YYYY-MM-DD"));
+                      }
+                    }}
+                    label="Date"
+                    placeholder="select date"
+                    size="xs"
+                  />
+                  <Select
+                    placeholder="select candidate"
+                    onChange={(val) => {
+                      if (val) {
+                        setSelectedCandidate(Number(val));
+                      }
+                    }}
+                    data={
+                      listCandidate?.map((v) => ({
+                        label: v.name,
+                        value: v.id,
+                      })) as any
+                    }
+                    label="Candidate"
+                    size="xs"
+                  />
+                  {selectedDate && selectedCandidate && (
+                    <Button disabled={loading} onClick={onInsert} compact>
+                      INSERT
+                    </Button>
+                  )}
+                </Flex>
+              )}
+              {type === "update" && (
+                <Button
+                  disabled={loading}
+                  onClick={onUpdate}
+                  c={"white"}
+                  variant="white"
+                  bg={"orange"}
+                  compact
+                >
+                  UPDATE
+                </Button>
+              )}
+            </Group>
             <ScrollArea h={300}>
               {/* {JSON.stringify(listData)} */}
               <Table>
