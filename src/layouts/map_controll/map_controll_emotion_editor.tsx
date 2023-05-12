@@ -41,9 +41,12 @@ import { useState } from "react";
 import {
   MdAccountCircle,
   MdClose,
+  MdDownload,
   MdEdit,
   MdSave,
   MdSearch,
+  MdThumbDown,
+  MdThumbUp,
 } from "react-icons/md";
 import { MapControllMapView } from "./map_controll_map_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
@@ -65,6 +68,8 @@ import {
   mc_selected_candidate,
   mc_selected_tool,
 } from "./map_controll_state";
+import MapControllDownloadContent from "./map_controll_download_content";
+import Link from "next/link";
 
 const colors = {
   green: "#bbe4b3",
@@ -297,12 +302,14 @@ export function MapControllEmotionEditor() {
                     </Paper>
                   </Stack>
                 </Stack>
+                <CountCandidateView />
                 <Stack w={"100%"}>
                   {/* <Title>Emotion Editor</Title> */}
                   <MapControllMapView />
                 </Stack>
               </Flex>
-              <CountCandidateView />
+
+              {/* <MapControllDownloadContent /> */}
               {/* <SimpleGrid cols={2}>
                 <Paper p={"xs"} radius={8} shadow="md" bg={"cyan.2"}>
                   {!_.isEmpty(sListKabupaten.value) && (
@@ -368,20 +375,47 @@ function CountCandidateView() {
   }
   return (
     <>
-      <Group>
-        {listCandidateDataCount?.map((v) => (
-          <Paper key={v.id} p={"xs"} bg={"white"}>
-            <Stack key={v.id} spacing={0} align="center" justify="center">
-              <Title c={"gray"} order={3}>
-                {v.count}
-              </Title>
-              <Text lineClamp={1} w={70} size={12}>
-                {v.name}
-              </Text>
-            </Stack>
-          </Paper>
-        ))}
-      </Group>
+      <Stack p={"md"}>
+        <SimpleGrid cols={3} w={400} spacing={0}>
+          {listCandidateDataCount?.map((v) => (
+            <Box
+              key={v.id}
+              p={"xs"}
+              sx={{
+                border: "1px solid white",
+              }}
+            >
+              <Stack key={v.id} spacing={0} align="center" justify="center">
+                <Title c={"gray"} order={3}>
+                  {v.count > 0 ? (
+                    <Link
+                      href={`/api/dev/download-content?date=${sSelectedDate.value}&candidateId=${v.id}`}
+                    >
+                      <MdDownload color="green" />
+                    </Link>
+                  ) : (
+                    <MdThumbDown color="gray" />
+                  )}
+                </Title>
+                <Title
+                  h={30}
+                  align="center"
+                  order={3}
+                  color={v.count > 0 ? "green.8" : "gray"}
+                  lineClamp={2}
+                  w={70}
+                  size={12}
+                >
+                  {v.name}
+                </Title>
+              </Stack>
+            </Box>
+          ))}
+        </SimpleGrid>
+        <Text fz={12} c={"gray"} bg={"cyan.1"} p={"xs"}>
+          * Press icon download to download data , by curent selected date
+        </Text>
+      </Stack>
     </>
   );
 }
