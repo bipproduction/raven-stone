@@ -70,6 +70,8 @@ import {
 } from "./map_controll_state";
 import MapControllDownloadContent from "./map_controll_download_content";
 import Link from "next/link";
+import MapControllInjectData from "./map_controll_inject_data";
+import { MapControllEmotionDownload } from "./map_controll_emotion_download";
 
 const colors = {
   green: "#bbe4b3",
@@ -248,6 +250,7 @@ export function MapControllEmotionEditor() {
                 </Stack> */}
               </Menu.Dropdown>
             </Menu>
+            <MapControllInjectData bg="dark" />
           </Flex>
         </Box>
         <MapControllCopyData />
@@ -302,7 +305,7 @@ export function MapControllEmotionEditor() {
                     </Paper>
                   </Stack>
                 </Stack>
-                <CountCandidateView />
+                <MapControllEmotionDownload />
                 <Stack w={"100%"}>
                   {/* <Title>Emotion Editor</Title> */}
                   <MapControllMapView />
@@ -348,73 +351,6 @@ export function MapControllEmotionEditor() {
 
         <TableView />
         {sMapControllEditorVal.value != undefined && <EditorActionView />}
-      </Stack>
-    </>
-  );
-}
-
-function CountCandidateView() {
-  const [listCandidateDataCount, setLsistCandidateDataCount] = useState<
-    any[] | undefined
-  >();
-
-  useShallowEffect(() => {
-    sSelectedDate.subscribe(() => {
-      loadData();
-    });
-  }, []);
-
-  function loadData() {
-    fetch(
-      api.apiDevMapControllCandidateCountContent +
-        "?date=" +
-        sSelectedDate.value
-    )
-      .then((res) => res.json())
-      .then(setLsistCandidateDataCount);
-  }
-  return (
-    <>
-      <Stack p={"md"}>
-        <SimpleGrid cols={3} w={400} spacing={0}>
-          {listCandidateDataCount?.map((v) => (
-            <Box
-              key={v.id}
-              p={"xs"}
-              sx={{
-                border: "1px solid white",
-              }}
-            >
-              <Stack key={v.id} spacing={0} align="center" justify="center">
-                <Title c={"gray"} order={3}>
-                  {v.count > 0 ? (
-                    <Link
-                      href={`/api/dev/download-content?date=${sSelectedDate.value}&candidateId=${v.id}`}
-                    >
-                      <MdDownload color="green" />
-                    </Link>
-                  ) : (
-                    <MdThumbDown color="gray" />
-                  )}
-                </Title>
-                <Title
-                  h={30}
-                  align="center"
-                  order={3}
-                  color={v.count > 0 ? "green.8" : "gray"}
-                  lineClamp={2}
-                  w={70}
-                  size={12}
-                >
-                  {v.name}
-                </Title>
-              </Stack>
-            </Box>
-          ))}
-        </SimpleGrid>
-        <Text fz={12} c={"gray"} bg={"cyan.1"} p={"xs"}>
-          * Press icon download to download data , by curent selected date
-        </Text>
       </Stack>
     </>
   );
