@@ -91,6 +91,12 @@ export function MapControllCopyData() {
     });
   }
 
+  function onResetAll() {
+    setListData(undefined);
+    setDateTo(undefined);
+    setDateFrom("");
+  }
+
   return (
     <>
       {/* <Stack>
@@ -100,8 +106,12 @@ export function MapControllCopyData() {
       <Modal
         opened={selectedTool == "copy_data" ? true : false}
         // title="Copy Data"
-        onClose={() => setSelectedTool("")}
+        onClose={() => {
+          setSelectedTool("");
+          onResetAll();
+        }}
         size={"xl"}
+        closeOnClickOutside={false}
       >
         <Stack p={"md"}>
           <Flex justify={"space-between"}>
@@ -272,8 +282,8 @@ export function MapControllCopyData() {
                       typeAction == "all"
                         ? ""
                         : listCandidate?.find(
-                            (v) => Number(v.id) == Number(selectedCandidate)
-                          ).name
+                          (v) => Number(v.id) == Number(selectedCandidate)
+                        ).name
                     }
                   >
                     <Group>
