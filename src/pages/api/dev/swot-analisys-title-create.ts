@@ -11,11 +11,13 @@ export default async function swotAnalisysTitleCreate(req: NextApiRequest, res: 
         },
         create: {
             name: body.name,
-            category: body.category
+            category: body.category,
+            sentiment:body.sentiment
         },
         update: {
             name: body.name,
-            category: body.category
+            category: body.category,
+            sentiment:body.sentiment
         }
     })
 

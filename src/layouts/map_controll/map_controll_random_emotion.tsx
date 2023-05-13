@@ -138,6 +138,11 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
     setListEmotion(undefined);
   }
 
+  function onResetAll() {
+    setlistHasilRandom(undefined);
+    setListEmotion(undefined);
+  }
+
   return (
     <Stack>
       {/* <Button onClick={() => open.set(true)} w={150} compact>
@@ -151,7 +156,11 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
       <Modal
         size={"lg"}
         opened={selectedTool == "random_emotion"}
-        onClose={() => setSelectedTool("")}
+        onClose={() => {
+          setSelectedTool("")
+          onResetAll();
+        }}
+        closeOnClickOutside={false}
       >
         <Stack>
           {/* {JSON.stringify(listCandidate)} */}
@@ -195,7 +204,7 @@ export function MapControllRandomEmotion({ listKab }: { listKab: any }) {
               <>
                 <Stack p={"md"} bg={"yellow.0"}>
                   <Text c={"gray"} fs={"italic"}>
-                    Pilih Candidate lalu oilih tanggal yang sudah berisi data ,
+                    Pilih Candidate lalu pilih tanggal yang sudah berisi data,
                     jika belum silahkan copy terlebih dahulu
                   </Text>
                 </Stack>
