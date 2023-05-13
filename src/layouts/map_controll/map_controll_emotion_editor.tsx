@@ -34,7 +34,7 @@ import {
   useShallowEffect,
   useWindowScroll,
 } from "@mantine/hooks";
-import { Empty } from "antd";
+import { Empty, TourProps } from "antd";
 import _ from "lodash";
 import moment from "moment";
 import { useState } from "react";
@@ -169,6 +169,11 @@ const listToolMenus = [
 
 export function MapControllEmotionEditor() {
   const [selectedTool, setSelectedTool] = useAtom(mc_selected_tool);
+
+  const step: TourProps['steps'] = [
+
+  ]
+
   useShallowEffect(() => {
     if (sListKabupaten.value) {
       // const first = (currentPage - 1) * perPage;
@@ -191,19 +196,19 @@ export function MapControllEmotionEditor() {
     }
   };
 
-  const onUpdateData = async (body: any) => {
-    fetch(api.apiDevDevDataValueUpdate, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.status === 201) {
-        funLoadMapData();
-      }
-    });
-  };
+  // const onUpdateData = async (body: any) => {
+  //   fetch(api.apiDevDevDataValueUpdate, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   }).then((res) => {
+  //     if (res.status === 201) {
+  //       funLoadMapData();
+  //     }
+  //   });
+  // };
 
   const onDateChange = (val: DateValue) => {
     sMapControllEditorVal.value = undefined;
