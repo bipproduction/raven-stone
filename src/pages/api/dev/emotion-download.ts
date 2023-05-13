@@ -47,7 +47,7 @@ export default async function downloadContent(req: NextApiRequest, res: NextApiR
         return res
             .status(200)
             .setHeader("Content-Type", "text/csv")
-            .setHeader("Content-Disposition", `attachment; filename=update_${_.kebabCase(candidate.name!)}_${candidate.id}_${date}.csv`)
+            .setHeader("Content-Disposition", `attachment; filename=update_${_.kebabCase(candidate.name!)}__${candidate.id}_${date}.csv`)
             .send(PAPA.unparse(data.map(v => ({
                 city_name: v.City!.name,
                 ..._.omit(v, "City"),
@@ -84,7 +84,7 @@ export default async function downloadContent(req: NextApiRequest, res: NextApiR
         return res
             .status(200)
             .setHeader("Content-Type", "text/csv")
-            .setHeader("Content-Disposition", `attachment; filename=insert_${_.kebabCase(candidate.name!)}_${candidate.id}_${date}.csv`)
+            .setHeader("Content-Disposition", `attachment; filename=insert_${_.kebabCase(candidate.name!)}__${candidate.id}_${date}.csv`)
             .send(PAPA.unparse(data.map(v => ({
                 city_name: v.City!.name,
                 ..._.omit(v, "City"),

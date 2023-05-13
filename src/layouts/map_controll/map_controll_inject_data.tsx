@@ -34,6 +34,11 @@ const _type = atomWithStorage<string | undefined>(
   undefined
 );
 
+const _fileName = atomWithStorage<string | undefined>(
+  "map_controll_inject_file_name",
+  undefined
+);
+
 export default function MapControllInjectData({ bg }: { bg: string }) {
   const [open, setOpen] = useAtom(openModal);
   const [listData, setListData] = useAtom(_list_data);
@@ -74,6 +79,8 @@ export default function MapControllInjectData({ bg }: { bg: string }) {
 function DropView() {
   const [listData, setListData] = useAtom(_list_data);
   const [type, setType] = useAtom(_type);
+  const [fileName, setFilename] = useAtom(_fileName);
+
   return (
     <>
       <Dropzone
@@ -88,6 +95,8 @@ function DropView() {
                 ? "insert"
                 : undefined
             );
+
+            setFilename(name);
 
             const reader = new FileReader();
             reader.readAsText(file[0]);
@@ -133,6 +142,7 @@ function TableView() {
   const [selectedCandidate, setSelectedCandidate] = useState<number>();
   const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
   const [loading, setLoading] = useState(false);
+  const [fileName, setFilename] = useAtom(_fileName);
 
   function onUpdate() {
     setLoading(true);
@@ -222,20 +232,42 @@ function TableView() {
                 </Flex>
               )}
               {type === "update" && (
-                <Button
-                  disabled={loading}
-                  onClick={onUpdate}
-                  c={"white"}
-                  variant="white"
-                  bg={"orange"}
-                  compact
-                >
-                  UPDATE
-                </Button>
+                <Group>
+                  <Text>
+                    {_.upperCase(
+                      fileName?.split("__")[0].replace("update", "")
+                    )}
+                  </Text>
+                  <Text>
+                    {fileName?.split("__")[1].split("_")[1].split(".")[0]}
+                  </Text>
+                  <Button
+                    disabled={loading}
+                    onClick={onUpdate}
+                    c={"white"}
+                    variant="white"
+                    bg={"orange"}
+                    compact
+                  >
+                    UPDATE
+                  </Button>
+                </Group>
               )}
             </Group>
+            <Text
+              sx={{
+                borderRadius: "5px",
+              }}
+              bg={"gray"}
+              c={"white"}
+              p="xs"
+              size={"sm"}
+              fs={"italic"}
+            >
+              system auto detect , update or insert by file name , make sure
+              file name is correct
+            </Text>
             <ScrollArea h={300}>
-              {/* {JSON.stringify(listData)} */}
               <Table>
                 <thead>
                   <tr>
