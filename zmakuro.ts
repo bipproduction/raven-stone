@@ -91,8 +91,39 @@ async function main2() {
         hasil[`${_.camelCase(name)}_${date}`] = Papa.unparse(data)
     }
 
-    
+
 
 }
 
-main2()
+async function main3() {
+    const candidate = await client.candidate.findMany()
+    const candidate1 = candidate
+    const candidate2 = candidate
+
+    const listHasil = []
+    for (let i in candidate1) {
+        for (let j in candidate2) {
+            if (candidate1[i].name != candidate2[j].name) {
+                const data = {
+                    candidate1Id: candidate1[i].id,
+                    candidate2Id: candidate2[j].id,
+                    trust: 0,
+                    joy: 0,
+                    surprise: 0,
+                    anticipation: 0,
+                    sadness: 0,
+                    fear: 0,
+                    anger: 0,
+                    disgust: 0,
+                    rate: 0,
+                    text: "text"
+                }
+                listHasil.push(data)
+            }
+        }
+    }
+
+    console.table(listHasil)
+}
+
+main3()
