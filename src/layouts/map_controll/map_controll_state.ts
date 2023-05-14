@@ -14,3 +14,5 @@ export const mc_list_hasil_random_data = atom<any[] | undefined>(undefined);
 
 export const mc_selected_candidate_random = atom("1");
 export const mc_selected_date_random = atom(moment().format("YYYY-MM-DD"));
+
+export const mc_list_candidate_count = atomWithStorage<any[] | undefined>("mc_list_candidate_count", undefined);

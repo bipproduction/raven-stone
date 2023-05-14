@@ -21,8 +21,12 @@ import _ from "lodash";
 import { api } from "@/lib/api";
 import { DateInput } from "@mantine/dates";
 import moment from "moment";
-import { mc_list_candidate } from "./map_controll_state";
+import {
+  mc_list_candidate,
+  mc_list_candidate_count,
+} from "./map_controll_state";
 import toast from "react-simple-toasts";
+import { _fun_mc_load_data } from "./map_controll_fun";
 
 const openModal = atomWithStorage("map_controll_inject_data_modal", false);
 const _list_data = atomWithStorage<any[] | undefined>(
@@ -46,11 +50,11 @@ export default function MapControllInjectData({ bg }: { bg: string }) {
   //   const [listData, setListData] = useState<any[]>();
   //   const [type, setType] = useState<string>();
 
-  function onSend() {
-    const data = listData?.map((v) => ({
-      ..._.omit(v, ["city_name"]),
-    }));
-  }
+  //   function onSend() {
+  //     const data = listData?.map((v) => ({
+  //       ..._.omit(v, ["city_name"]),
+  //     }));
+  //   }
 
   return (
     <>
@@ -143,6 +147,9 @@ function TableView() {
   const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
   const [loading, setLoading] = useState(false);
   const [fileName, setFilename] = useAtom(_fileName);
+  const [listCandidateDataCount, setListCandidateDataCount] = useAtom(
+    mc_list_candidate_count
+  );
 
   function onUpdate() {
     setLoading(true);
@@ -182,6 +189,7 @@ function TableView() {
     }).then((res) => {
       if (res.status === 201) {
         setLoading(false);
+        _fun_mc_load_data(setListCandidateDataCount);
         return toast("success");
       }
 
@@ -195,41 +203,60 @@ function TableView() {
         {listData && (
           <Stack>
             <Title>{type}</Title>
+            <Text
+              sx={{
+                borderRadius: "5px",
+              }}
+              bg={"gray"}
+              c={"white"}
+              p="xs"
+              size={"sm"}
+              fs={"italic"}
+            >
+              system auto detect , update or insert by file name , make sure
+              file name is correct
+            </Text>
             <Group position="right">
               {type === "insert" && (
-                <Flex gap={`xs`} align={"end"}>
-                  <DateInput
-                    onChange={(val) => {
-                      if (val) {
-                        setSelectedDate(moment(val).format("YYYY-MM-DD"));
+                <Stack justify="end" align="end">
+                  <Title p={"xs"} order={3} c={"red"}>
+                    PERINGATAN! JANGAN MENIMPA DATA YANG SUDAH ADA , GUNAKAN
+                    UPDATE !
+                  </Title>
+                  <Flex gap={`xs`} align={"end"} justify={"end"}>
+                    <DateInput
+                      onChange={(val) => {
+                        if (val) {
+                          setSelectedDate(moment(val).format("YYYY-MM-DD"));
+                        }
+                      }}
+                      label="Date"
+                      placeholder="select date"
+                      size="xs"
+                    />
+                    <Select
+                      placeholder="select candidate"
+                      onChange={(val) => {
+                        if (val) {
+                          setSelectedCandidate(Number(val));
+                        }
+                      }}
+                      data={
+                        listCandidate?.map((v) => ({
+                          label: v.name,
+                          value: v.id,
+                        })) as any
                       }
-                    }}
-                    label="Date"
-                    placeholder="select date"
-                    size="xs"
-                  />
-                  <Select
-                    placeholder="select candidate"
-                    onChange={(val) => {
-                      if (val) {
-                        setSelectedCandidate(Number(val));
-                      }
-                    }}
-                    data={
-                      listCandidate?.map((v) => ({
-                        label: v.name,
-                        value: v.id,
-                      })) as any
-                    }
-                    label="Candidate"
-                    size="xs"
-                  />
-                  {selectedDate && selectedCandidate && (
-                    <Button disabled={loading} onClick={onInsert} compact>
-                      INSERT
-                    </Button>
-                  )}
-                </Flex>
+                      label="Candidate"
+                      size="xs"
+                    />
+                    {selectedDate && selectedCandidate && (
+                      <Button disabled={loading} onClick={onInsert} compact>
+                        INSERT
+                      </Button>
+                    )}
+                  </Flex>
+                </Stack>
               )}
               {type === "update" && (
                 <Group>
@@ -254,19 +281,7 @@ function TableView() {
                 </Group>
               )}
             </Group>
-            <Text
-              sx={{
-                borderRadius: "5px",
-              }}
-              bg={"gray"}
-              c={"white"}
-              p="xs"
-              size={"sm"}
-              fs={"italic"}
-            >
-              system auto detect , update or insert by file name , make sure
-              file name is correct
-            </Text>
+
             <ScrollArea h={300}>
               <Table>
                 <thead>
