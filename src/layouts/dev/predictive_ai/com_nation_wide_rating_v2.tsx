@@ -26,7 +26,7 @@ import { useShallowEffect, useViewportSize } from "@mantine/hooks";
 import { atom, useAtom } from "jotai";
 import { atomWithStorage, loadable } from "jotai/utils";
 import _ from "lodash";
-import { MdEdit, MdSave } from "react-icons/md";
+import { MdDownload, MdEdit, MdSave, MdUpload } from "react-icons/md";
 import ReactSheet from "react-spreadsheet";
 import { useState } from "react";
 import { RichTextEditor } from "@mantine/tiptap";
@@ -36,6 +36,10 @@ import toast from "react-simple-toasts";
 import prs from "html-react-parser";
 import { _fun_loadNationWideRating } from "./fun_dev_nation_wide_rating";
 import { _val_listNation } from "./val_dev_nation_wide_rating";
+import Link from "next/link";
+import { Dropzone } from "@mantine/dropzone";
+import { IconUpload } from "@tabler/icons-react";
+import Papa from "papaparse";
 
 const _muncul_modal = atomWithStorage("dev_nation_wide_v2_muncul_modal", false);
 const _target_data = atomWithStorage<any | undefined>(
@@ -66,7 +70,20 @@ export function DevNationWideRatingv2() {
   return (
     <Stack spacing={"lg"} bg={"white"} w={width}>
       {/* {JSON.stringify(listNationWideRating[0])} */}
-      <Title p={"xs"}>Dev Nation Wide Rating</Title>
+      <Group position="apart">
+        <Title p={"xs"}>Dev Nation Wide Rating</Title>
+        <Flex gap={"lg"}>
+          <Flex>
+            <Link href={api.apiPredictiveAiNationWideRatingDownload}>
+              <ActionIcon size={"lg"} radius={"xl"}>
+                <MdDownload size={24} />
+              </ActionIcon>
+            </Link>
+            <Text>Download</Text>
+          </Flex>
+          <ButtonModalUpload />
+        </Flex>
+      </Group>
       <Table
         highlightOnHover
         withColumnBorders
@@ -228,6 +245,74 @@ export function DevNationWideRatingv2() {
       </Table>
       <ModalEditData />
     </Stack>
+  );
+}
+
+const _val_open_modal_upload_nation_wide_rating = atomWithStorage(
+  "_val_open_modal_upload_nation_wide_rating",
+  false
+);
+
+function ButtonModalUpload() {
+  const [open, setOpen] = useAtom(_val_open_modal_upload_nation_wide_rating);
+  const [listNation, setListNationWideRating] = useAtom(_val_listNation);
+  return (
+    <>
+      <Flex>
+        <ActionIcon size={"lg"} radius={"xl"} onClick={() => setOpen(true)}>
+          <MdUpload size={24} />
+        </ActionIcon>
+        <Text>Upload</Text>
+      </Flex>
+      <Modal opened={open} onClose={() => setOpen(false)}>
+        <Dropzone
+          onDrop={(val) => {
+            const file = val[0];
+            if (!file.name.includes("nation-wide-rating"))
+              return toast("file salah");
+
+            const reader = new FileReader();
+
+            reader.onload = async () => {
+              const csvData = reader.result;
+              const data = Papa.parse(csvData as any, {
+                header: true,
+              }).data;
+
+              fetch(api.apiPredictiveAiNationWideRatingCsvUpdate, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }).then(async (res) => {
+                if (res.status == 201) {
+                  await _fun_loadNationWideRating({ setListNationWideRating });
+                  setOpen(false);
+                  return toast("success");
+                }
+
+                return toast("failed");
+              });
+            };
+
+            reader.readAsText(file);
+          }}
+        >
+          <Dropzone.Accept>
+            <IconUpload size="3.2rem" stroke={1.5} />
+          </Dropzone.Accept>
+          <div>
+            <Text size="xl" inline>
+              Drag images here or click to select files
+            </Text>
+            <Text size="sm" color="dimmed" inline mt={7}>
+              Attach as many files as you like, each file should not exceed 5mb
+            </Text>
+          </div>
+        </Dropzone>
+      </Modal>
+    </>
   );
 }
 
