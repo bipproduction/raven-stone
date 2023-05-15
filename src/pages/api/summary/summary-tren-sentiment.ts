@@ -62,9 +62,9 @@ export default async function summaryTrenSentiment(req: NextApiRequest, res: Nex
 
         const totalSum = _.sum(Object.values(sum));
 
-        const positive = _.round(((sum.trust + sum.joy + sum.surprise) / totalSum) * 100);
-        const neutral = _.round((sum.anticipation / totalSum) * 100);
-        const negative = _.round(((sum.sadness + sum.fear + sum.anger + sum.disgust) / totalSum) * 100);
+        const positive = _.round(((sum.trust + sum.joy + sum.surprise) / totalSum) * 100, 2);
+        const neutral = _.round((sum.anticipation / totalSum) * 100, 2);
+        const negative = _.round(((sum.sadness + sum.fear + sum.anger + sum.disgust) / totalSum) * 100, 2);
 
         return {
             date: moment(dateStr).format("YYYY-MM-DD"),

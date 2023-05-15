@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Box,
   Button,
   Center,
@@ -21,6 +22,7 @@ import { api } from "@/lib/api";
 import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { sCandidate } from "@/s_state/s_candidate";
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 export default function SwotAnalisys() {
   return (
@@ -56,8 +58,8 @@ function Onprogress() {
 }
 
 function Analisys() {
-  const [show, setShow] = useState(false);
-  const [listSwot, setListSwot] = useState<any>();
+  // const [show, setShow] = useState(false);
+  // const [listSwot, setListSwot] = useState<any>();
   const [candidateId, setCandidateId] = useState(1);
   const [listSingle, setListSingle] = useState<any[]>();
   const [listDouble, setlistDouble] = useState<any[]>();
@@ -65,11 +67,17 @@ function Analisys() {
   function loadData(candidateId: number) {
     fetch(api.apiSwotSwotContentGet + `?candidateId=${candidateId}`)
       .then((v) => v.json())
-      .then((v) => {
-        setListSwot(v);
+      .then(async (v) => {
+        // setListSwot(v);
         if (v) {
           const single = v.filter((v: any) => v.category === "single");
           const double = v.filter((v: any) => v.category === "double");
+
+          setListSingle([]);
+          setlistDouble([]);
+
+          // wait 1 second
+          await new Promise((r) => setTimeout(r, 1));
 
           setListSingle(single);
           setlistDouble(double);
@@ -82,7 +90,7 @@ function Analisys() {
   }, []);
 
   return (
-    <Stack>
+    <Stack spacing={"lg"}>
       <Group position="right">
         <Select
           label={"select candidate"}
@@ -102,97 +110,126 @@ function Analisys() {
         />
       </Group>
 
-      {listDouble?.map((v, i) => (
-        <Stack key={i}>
-          <Title>{v.name}</Title>
-          {/* {JSON.stringify(v)} */}
-          {!_.isEmpty(v.SwotAnalisys) &&
-            (() => {
-              const positive = _.groupBy(v.SwotAnalisys, "sentiment")[
-                "positive"
-              ];
-              const negative = _.groupBy(v.SwotAnalisys, "sentiment")[
-                "negative"
-              ];
-              return (
-                <>
-                  <SimpleGrid cols={2}>
-                    <Paper p={"xs"} bg={"#343541"}>
-                      <Stack>
-                        <Text size={24} fw={"bold"} color="green">
-                          POSITIVE
-                        </Text>
-                        <ScrollArea h={500} p={"xs"} bg={"#434654"} c={"white"}>
-                          {positive && (
-                            <TextAnimation
-                              phrases={[
-                                positive[_.random(0, positive.length - 1)]
-                                  .content,
-                              ]}
-                              typingSpeed={30}
-                              backspaceDelay={500}
-                              eraseDelay={0}
-                              errorProbability={0.1}
-                              eraseOnComplete={false}
-                              //   isSecure={true}
-                            />
-                          )}
-                        </ScrollArea>
-                      </Stack>
-                    </Paper>
-                    <Paper p={"xs"} bg={"#343541"}>
-                      <Stack>
-                        <Text size={24} fw={"bold"} color="red">
-                          NEGATIVE
-                        </Text>
-                        <ScrollArea h={500} p={"xs"} bg={"#434654"} c={"white"}>
-                          {negative && (
-                            <TextAnimation
-                              phrases={[
-                                negative[_.random(0, negative.length - 1)]
-                                  .content,
-                              ]}
-                              typingSpeed={200}
-                              backspaceDelay={1000}
-                              eraseDelay={0}
-                              errorProbability={0.1}
-                              eraseOnComplete={false}
-                              //   isSecure={true}
-                            />
-                          )}
-                        </ScrollArea>
-                      </Stack>
-                    </Paper>
-                  </SimpleGrid>
-                </>
-              );
-            })()}
-        </Stack>
-      ))}
-      {listSingle?.map((v, i) => (
-        <Stack key={i}>
-          <Title >{v.name}</Title>
-          {v.SwotAnalisys.length > 0 && (
+      <SimpleGrid cols={2}>
+        {listDouble?.map((v, i) => (
+          <Paper
+            key={i}
+            p={"md"}
+            bg={v.sentiment == "positive" ? "green.1" : "red.1"}
+          >
             <Stack>
-              <Paper p={"xs"} bg={"#343541"}>
-                <ScrollArea h={300} p={"xs"} bg={"#434654"} c={"green"}>
+              {/* {JSON.stringify(v)} */}
+              <Title order={3} c={v.sentiment == "positive" ? "green" : "red"}>
+                {_.upperCase(v.name)}
+              </Title>
+              {/* {JSON.stringify(v)} */}
+              {!_.isEmpty(v.SwotAnalisys) && (
+                <ScrollArea p={"md"} bg={"white"} h={300} c={"gray"}>
                   <TextAnimation
-                    phrases={[v.SwotAnalisys[0].content]}
-                    typingSpeed={200}
-                    backspaceDelay={1000}
+                    phrases={[
+                      v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
+                        .content,
+                    ]}
+                    typingSpeed={10}
+                    backspaceDelay={500}
                     eraseDelay={0}
                     errorProbability={0.1}
                     eraseOnComplete={false}
                     //   isSecure={true}
                   />
                 </ScrollArea>
+              )}
+            </Stack>
+          </Paper>
+        ))}
+      </SimpleGrid>
+      <SingleView listSingle={listSingle} />
+    </Stack>
+  );
+}
+
+function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
+  const [selected, setSelected] = useState(0);
+  const [text, setText] = useState<string | undefined>(undefined);
+
+  useShallowEffect(() => {
+    if (listSingle && listSingle.length > 0) {
+      if (listSingle[0].SwotAnalisys.length > 0) {
+        setText(listSingle[0].SwotAnalisys[0].content);
+      }
+    }
+  }, [listSingle]);
+
+  return (
+    <>
+      {listSingle?.map((v, i) => (
+        <Stack key={i} spacing={0}>
+          <Title c={"green"}>{v.name}</Title>
+          {v.SwotAnalisys.length > 0 && (
+            <Stack>
+              <Paper p={"md"} bg={"green.2"}>
+                <Flex>
+                  <Box p={"md"}>
+                    <Flex>
+                      <ActionIcon
+                        onClick={async () => {
+                          if (selected > 0) {
+                            setText(undefined);
+                            // await
+                            await new Promise((r) => setTimeout(r, 1));
+                            setSelected(selected - 1);
+                            setText(v.SwotAnalisys[selected - 1].content);
+                          }
+                        }}
+                      >
+                        <MdArrowBackIos />
+                      </ActionIcon>
+                      <Text>{selected + 1}</Text>
+                      <Text>/</Text>
+                      <Text>{v.SwotAnalisys.length}</Text>
+                      <ActionIcon
+                        onClick={async () => {
+                          if (selected < v.SwotAnalisys.length - 1) {
+                            setText(undefined);
+                            // await
+                            await new Promise((r) => setTimeout(r, 1));
+                            setSelected(selected + 1);
+                            setText(v.SwotAnalisys[selected + 1].content);
+                          }
+                        }}
+                      >
+                        <MdArrowForwardIos />
+                      </ActionIcon>
+                    </Flex>
+                  </Box>
+                  <ScrollArea
+                    h={300}
+                    p={"xs"}
+                    bg={"white"}
+                    c={"gray"}
+                    w={"100%"}
+                  >
+                    {text == undefined ? (
+                      <Stack>
+                        <Text>...</Text>
+                      </Stack>
+                    ) : (
+                      <TextAnimation
+                        phrases={[text!]}
+                        typingSpeed={10}
+                        backspaceDelay={500}
+                        eraseDelay={0}
+                        errorProbability={0.1}
+                        eraseOnComplete={false}
+                      />
+                    )}
+                  </ScrollArea>
+                </Flex>
               </Paper>
             </Stack>
           )}
         </Stack>
       ))}
-      {/* {JSON.stringify(listDouble)}
-      {JSON.stringify(listSingle)} */}
-    </Stack>
+    </>
   );
 }

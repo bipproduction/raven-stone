@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Eagle Eye Project",
-    "short_name": "Eagle Eye",
-    "description": "Bip Eagle Eye Project",
+    "name": "Eagle Eyes Project",
+    "short_name": "Eagle Eyes",
+    "description": "Bip Eagle Eyes Project",
     "icons": [
         {
             "src": "/icon-192.png",

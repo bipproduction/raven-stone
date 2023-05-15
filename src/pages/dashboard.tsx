@@ -87,6 +87,7 @@ import { useRouter } from "next/router";
 import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
+import NationWideRatingv2 from "../layouts/prodictive_ai/nation_wide_rating_v2";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -208,7 +209,7 @@ const listView = [
       {
         id: 1,
         name: "Nation Wide Rating",
-        view: NationWideRating,
+        view: NationWideRatingv2,
         icon: MdOutlineStarBorderPurple500,
       },
       // {

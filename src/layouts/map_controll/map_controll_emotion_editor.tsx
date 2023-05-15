@@ -15,6 +15,7 @@ import {
   Group,
   Indicator,
   Loader,
+  Menu,
   NumberInput,
   Pagination,
   Paper,
@@ -33,16 +34,19 @@ import {
   useShallowEffect,
   useWindowScroll,
 } from "@mantine/hooks";
-import { Empty } from "antd";
+import { Empty, TourProps } from "antd";
 import _ from "lodash";
 import moment from "moment";
 import { useState } from "react";
 import {
   MdAccountCircle,
   MdClose,
+  MdDownload,
   MdEdit,
   MdSave,
   MdSearch,
+  MdThumbDown,
+  MdThumbUp,
 } from "react-icons/md";
 import { MapControllMapView } from "./map_controll_map_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
@@ -57,6 +61,17 @@ import { useRouter } from "next/router";
 import MapControllWorCloud from "./map_controll_word_cloud";
 import { stylesNeon } from "@/styles/styles_neon";
 import { MapControllRandomEmotion } from "./map_controll_random_emotion";
+import { atomWithStorage } from "jotai/utils";
+import { useAtom } from "jotai/react";
+import {
+  mc_list_candidate,
+  mc_selected_candidate,
+  mc_selected_tool,
+} from "./map_controll_state";
+import MapControllDownloadContent from "./map_controll_download_content";
+import Link from "next/link";
+import MapControllInjectData from "./map_controll_inject_data";
+import { MapControllEmotionDownload } from "./map_controll_emotion_download";
 
 const colors = {
   green: "#bbe4b3",
@@ -76,38 +91,50 @@ const SelectCandidate = () => {
   //       sMapControllEditorVal.value = JSON.parse(mapEditorVal);
   //     }
   //   });
+  const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
+  const [selectedCandidate, setSelectedCandidate] = useAtom(
+    mc_selected_candidate
+  );
 
-  if (_.isEmpty(slistCandidate.value)) return <Loader />;
+  useShallowEffect(() => {
+    fetch(api.apiGetCandidate)
+      .then((v) => v.json())
+      .then(setListCandidate);
+  }, []);
+
+  if (_.isEmpty(listCandidate)) return <Loader />;
 
   return (
     <>
-      <Box>
-        <Select
-          icon={<MdAccountCircle />}
-          radius={100}
-          searchable
-          key={"1"}
-          // label={"select candidate"}
-          value={sSelectedCandidate.value}
-          placeholder={
-            slistCandidate.value.find((v) => v.id == sSelectedCandidate.value)
-              .name
-          }
-          data={slistCandidate.value.map((v) => ({
-            label: v.name,
-            value: v.id,
-          }))}
-          onChange={(val) => {
-            sMapControllEditorVal.value = undefined;
-            localStorage.removeItem("map_editor_val");
-            if (val) {
-              // sSelectedCandidate.set(val!);
-              sSelectedCandidate.value = val;
-              funLoadMapData();
+      <Stack>
+        <Box>
+          <Select
+            icon={<MdAccountCircle />}
+            radius={100}
+            searchable
+            key={"1"}
+            // label={"select candidate"}
+            value={selectedCandidate}
+            placeholder={
+              listCandidate!.find((v) => v.id == selectedCandidate).name
             }
-          }}
-        />
-      </Box>
+            data={listCandidate!.map((v) => ({
+              label: v.name,
+              value: v.id,
+            }))}
+            onChange={(val) => {
+              sMapControllEditorVal.value = undefined;
+              localStorage.removeItem("map_editor_val");
+              if (val) {
+                // sSelectedCandidate.set(val!);
+                sSelectedCandidate.value = val;
+                setSelectedCandidate(val);
+                funLoadMapData();
+              }
+            }}
+          />
+        </Box>
+      </Stack>
     </>
   );
 };
@@ -129,7 +156,24 @@ function onPageChange(val: number) {
   listTable.value = listData;
 }
 
+const listToolMenus = [
+  {
+    id: "copy_data",
+    title: "copy data",
+  },
+  {
+    id: "random_emotion",
+    title: "random emotion",
+  },
+];
+
 export function MapControllEmotionEditor() {
+  const [selectedTool, setSelectedTool] = useAtom(mc_selected_tool);
+
+  const step: TourProps['steps'] = [
+
+  ]
+
   useShallowEffect(() => {
     if (sListKabupaten.value) {
       // const first = (currentPage - 1) * perPage;
@@ -152,19 +196,19 @@ export function MapControllEmotionEditor() {
     }
   };
 
-  const onUpdateData = async (body: any) => {
-    fetch(api.apiDevDevDataValueUpdate, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.status === 201) {
-        funLoadMapData();
-      }
-    });
-  };
+  // const onUpdateData = async (body: any) => {
+  //   fetch(api.apiDevDevDataValueUpdate, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   }).then((res) => {
+  //     if (res.status === 201) {
+  //       funLoadMapData();
+  //     }
+  //   });
+  // };
 
   const onDateChange = (val: DateValue) => {
     sMapControllEditorVal.value = undefined;
@@ -180,6 +224,42 @@ export function MapControllEmotionEditor() {
   return (
     <>
       <Stack>
+        <Box
+          p={"xs"}
+          pos={"sticky"}
+          top={0}
+          bg={"dark"}
+          style={{
+            zIndex: 200,
+          }}
+        >
+          <Flex gap={"lg"}>
+            <Text c={"white"} fw={"bold"}>
+              Map Controll
+            </Text>
+            <Menu>
+              <Menu.Target>
+                <Button bg={"dark"} compact>
+                  Tools
+                </Button>
+              </Menu.Target>
+              <Menu.Dropdown>
+                {listToolMenus.map((v) => (
+                  <Menu.Item onClick={() => setSelectedTool(v.id)} key={v.id}>
+                    {v.title}
+                  </Menu.Item>
+                ))}
+                {/* <Stack spacing={"xs"}>
+                  <MapControllCopyData />
+                  <MapControllRandomEmotion listKab={sListKabupaten.value} />
+                </Stack> */}
+              </Menu.Dropdown>
+            </Menu>
+            <MapControllInjectData bg="dark" />
+          </Flex>
+        </Box>
+        <MapControllCopyData />
+        <MapControllRandomEmotion listKab={sListKabupaten.value} />
         <Stack>
           <Paper p={"md"} bg={stylesGradient1}>
             <Stack>
@@ -211,14 +291,34 @@ export function MapControllEmotionEditor() {
                         }}
                       />
                     </Paper>
+                    <Paper shadow="md" radius={8} p={"xs"} bg={"cyan.2"}>
+                      <Stack>
+                        <SelectCandidate />
+                        <Autocomplete
+                          radius={100}
+                          placeholder="search"
+                          onItemSubmit={onSearch}
+                          icon={<MdSearch />}
+                          rightSection={
+                            <ActionIcon onClick={() => onPageChange(1)}>
+                              <MdClose />
+                            </ActionIcon>
+                          }
+                          data={sListKabupaten.value.map((v) => v.City.name)}
+                        />
+                      </Stack>
+                    </Paper>
                   </Stack>
                 </Stack>
+                <MapControllEmotionDownload />
                 <Stack w={"100%"}>
                   {/* <Title>Emotion Editor</Title> */}
                   <MapControllMapView />
                 </Stack>
               </Flex>
-              <SimpleGrid cols={2}>
+
+              {/* <MapControllDownloadContent /> */}
+              {/* <SimpleGrid cols={2}>
                 <Paper p={"xs"} radius={8} shadow="md" bg={"cyan.2"}>
                   {!_.isEmpty(sListKabupaten.value) && (
                     <Stack align="start">
@@ -249,7 +349,7 @@ export function MapControllEmotionEditor() {
                     />
                   </Stack>
                 </Paper>
-              </SimpleGrid>
+              </SimpleGrid> */}
             </Stack>
           </Paper>
         </Stack>

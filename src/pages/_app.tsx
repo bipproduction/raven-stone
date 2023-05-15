@@ -70,7 +70,7 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>Page title</title>
+        <title>Dashboard</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -107,7 +107,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       .then((v) => v.json())
       .then((v) => (sUser.value = v));
   }, []);
-
+  
   if (sUser.value == undefined) return <>{JSON.stringify(sUser.value)} </>;
   if (_.isEmpty(sUser.value))
     return (

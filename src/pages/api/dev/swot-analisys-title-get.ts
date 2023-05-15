@@ -6,7 +6,8 @@ export default async function swotAnalisysTitleGet(req: NextApiRequest, res: Nex
         select: {
             id: true,
             name: true,
-            category: true
+            category: true,
+            sentiment: true
         }
     })
 
