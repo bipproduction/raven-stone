@@ -53,11 +53,16 @@ import { useAtom } from "jotai/react";
 import { jSelectedAdminDashboard } from "@/s_state/j_selected_admin_dashboard";
 import { MapControllEmotionEditor } from "@/layouts/map_controll/map_controll_emotion_editor";
 import { MapControllCityValueEditor } from "@/layouts/map_controll/map_controll_city_value_editor";
+import { DevNationWideRatingv2 } from "@/layouts/dev/predictive_ai/com_nation_wide_rating_v2";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { stylesRadial } from "@/styles/styles_radial";
+import { atomWithStorage } from "jotai/utils";
 
 const listMenu = [
   {
     id: "1",
     name: "Map Controll",
+    isOpen: true,
     // view: LayoutMapControll,
     children: [
       {
@@ -75,6 +80,7 @@ const listMenu = [
   {
     id: "2",
     name: "Candidate Controll",
+    isOpen: false,
     // view: CandidateControll,
     children: [
       {
@@ -87,6 +93,7 @@ const listMenu = [
   {
     id: "3",
     name: "Dev",
+    isOpen: false,
     // view: Dev,
     children: [
       {
@@ -99,6 +106,7 @@ const listMenu = [
   {
     id: "4",
     name: "Test Iframe",
+    isOpen: false,
     // view: DevTestIframe,
     children: [
       {
@@ -111,6 +119,7 @@ const listMenu = [
   {
     id: "5",
     name: "Test Iframe Boma",
+    isOpen: false,
     // view: DevTestIframeBoma,
     children: [
       {
@@ -123,6 +132,7 @@ const listMenu = [
   {
     id: "6",
     name: "Time Machine",
+    isOpen: false,
     // view: DevTimeMachine,
     children: [
       {
@@ -135,12 +145,26 @@ const listMenu = [
   {
     id: "7",
     name: "Step And Swot Analisys",
+    isOpen: false,
     // view: DevStepAndSwotAnalisys,
     children: [
       {
         id: "1",
         name: "Step And Swot Analisys",
         view: DevStepAndSwotAnalisys,
+      },
+    ],
+  },
+  {
+    id: "8",
+    name: "Predictive Ai",
+    isOpen: false,
+    // view: DevStepAndSwotAnalisys,
+    children: [
+      {
+        id: "1",
+        name: "Nation Wide Rating v2",
+        view: DevNationWideRatingv2,
       },
     ],
   },
@@ -156,7 +180,8 @@ const listMenu = [
   // },
 ];
 
-const s_is_small = signal(false);
+// const s_is_small = signal(false);
+const _is_small = atomWithStorage("admin_dashboard_is_small", false);
 
 const AdminDashboard = () => {
   // const [isSmall, setIsSmall] = useState(false);
@@ -164,15 +189,16 @@ const AdminDashboard = () => {
   const [selectedDashboard, setSelectedDashboard] = useAtom(
     jSelectedAdminDashboard
   );
+  const [isSmall, setIsSmall] = useAtom(_is_small);
 
   useShallowEffect(() => {
     sSelectedDate.value = moment(new Date()).format("YYYY-MM-DD");
-    const isSml = localStorage.getItem("is_small");
-    if (isSml) {
-      s_is_small.value = true;
-    } else {
-      s_is_small.value = false;
-    }
+    // const isSml = localStorage.getItem("is_small");
+    // if (isSml) {
+    //   s_is_small.value = true;
+    // } else {
+    //   s_is_small.value = false;
+    // }
   }, []);
 
   return (
@@ -182,10 +208,10 @@ const AdminDashboard = () => {
         // padding="md"
         bg={"gray.2"}
         navbar={
-          s_is_small.value ? (
+          isSmall ? (
             <></>
           ) : (
-            <Navbar width={{ base: 300 }}>
+            <Navbar width={{ base: 300 }} bg={"gray.1"}>
               <Navbar.Section h={200}>
                 <Image
                   src={"/dev-icon.png"}
@@ -197,19 +223,23 @@ const AdminDashboard = () => {
               <Navbar.Section grow component={ScrollArea}>
                 {listMenu.map((item) => (
                   <NavLink
-                    defaultOpened={true}
+                    defaultOpened={item.isOpen}
                     // icon={<MdPlayCircle />}
                     // bg={item.id == sAdminDashboardView.get() ? "blue.1" : ""}
                     // onClick={() => sAdminDashboardView.set(item.id)}
                     key={item.id}
                     fw={"bold"}
-                    label={_.upperCase(item.name)}
+                    label={
+                      <Title c={"gray.8"} order={5}>
+                        {_.upperCase(item.name)}
+                      </Title>
+                    }
                   >
                     {item.children.map((v) => (
                       <NavLink
                         bg={
                           `${item.id}_${v.id}` == selectedDashboard
-                            ? "blue.2"
+                            ? "white"
                             : ""
                         }
                         key={v.id}
@@ -217,7 +247,7 @@ const AdminDashboard = () => {
                           setSelectedDashboard(`${item.id}_${v.id}`);
                         }}
                         label={_.upperCase(v.name)}
-                        icon={<MdCircle />}
+                        icon={<MdCircle color="orange" />}
                       />
                     ))}
                   </NavLink>
@@ -231,8 +261,9 @@ const AdminDashboard = () => {
                     radius={100}
                     bg={"blue"}
                     onClick={() => {
-                      localStorage.setItem("is_small", "true");
-                      s_is_small.value = true;
+                      // localStorage.setItem("is_small", "true");
+                      // s_is_small.value = true;
+                      setIsSmall(true);
                       update();
                     }}
                   >
@@ -265,7 +296,7 @@ const AdminDashboard = () => {
               )
           )
         )}
-        {s_is_small.value && (
+        {isSmall && (
           <ActionIcon
             variant="white"
             radius={100}
@@ -276,8 +307,9 @@ const AdminDashboard = () => {
             left={20}
             sx={{ zIndex: 102 }}
             onClick={() => {
-              localStorage.setItem("is_small", "false");
-              s_is_small.value = false;
+              // localStorage.setItem("is_small", "false");
+              // s_is_small.value = false;
+              setIsSmall(false);
               update();
             }}
           >
