@@ -459,6 +459,13 @@ model ContextualContent {
   updatedAt DateTime  @default(now()) @updatedAt
 }
 
+model NationWideRatingV2 {
+  id        Int      @id @default(autoincrement())
+  data      Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
 // =====================================
 // data dari google sheet
 model NationWideChart {

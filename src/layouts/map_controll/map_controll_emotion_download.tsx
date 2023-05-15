@@ -17,6 +17,8 @@ import { atomWithStorage } from "jotai/utils";
 import Link from "next/link";
 import { useState } from "react";
 import { MdDownload, MdThumbDown } from "react-icons/md";
+import { mc_list_candidate_count } from "./map_controll_state";
+import { _fun_mc_load_data } from "./map_controll_fun";
 
 const _openModal = atomWithStorage(
   "map_controll_download_emotion_modal",
@@ -24,27 +26,28 @@ const _openModal = atomWithStorage(
 );
 
 export function MapControllEmotionDownload() {
-  const [listCandidateDataCount, setLsistCandidateDataCount] = useState<
-    any[] | undefined
-  >();
+  const [listCandidateDataCount, setLsistCandidateDataCount] = useAtom(
+    mc_list_candidate_count
+  );
   const [open, setOpen] = useAtom(_openModal);
   const [selectedId, setSelectedId] = useState<number>();
 
   useShallowEffect(() => {
     sSelectedDate.subscribe(() => {
-      loadData();
+      //   loadData();
+      _fun_mc_load_data(setLsistCandidateDataCount);
     });
   }, []);
 
-  function loadData() {
-    fetch(
-      api.apiDevMapControllCandidateCountContent +
-        "?date=" +
-        sSelectedDate.value
-    )
-      .then((res) => res.json())
-      .then(setLsistCandidateDataCount);
-  }
+  //   function loadData() {
+  //     fetch(
+  //       api.apiDevMapControllCandidateCountContent +
+  //         "?date=" +
+  //         sSelectedDate.value
+  //     )
+  //       .then((res) => res.json())
+  //       .then(setLsistCandidateDataCount);
+  //   }
   return (
     <>
       <Stack p={"md"}>
@@ -107,7 +110,10 @@ export function MapControllEmotionDownload() {
                 </Stack>
                 <Center>
                   <Link
-                    href={api.apiDevEmotionDownload+`?date=${sSelectedDate.value}&candidateId=${selectedId}&type=update`}
+                    href={
+                      api.apiDevEmotionDownload +
+                      `?date=${sSelectedDate.value}&candidateId=${selectedId}&type=update`
+                    }
                   >
                     <MdDownload size={32} color="green" />
                   </Link>
@@ -123,7 +129,10 @@ export function MapControllEmotionDownload() {
                 </Stack>
                 <Center>
                   <Link
-                    href={api.apiDevEmotionDownload+`?date=${sSelectedDate.value}&candidateId=${selectedId}&type=insert`}
+                    href={
+                      api.apiDevEmotionDownload +
+                      `?date=${sSelectedDate.value}&candidateId=${selectedId}&type=insert`
+                    }
                   >
                     <MdDownload size={32} color="green" />
                   </Link>
