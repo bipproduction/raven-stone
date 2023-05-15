@@ -1,8 +1,0 @@
-import {execSync} from 'child_process'
-
-dapatkan semua nama branch dari remote dan local
-const allBranchName = {
-    remote_branch: [],
-    local_branch: [],
-    current_branch: "ini sengan nama branch yang saat ini digunakan"
-}

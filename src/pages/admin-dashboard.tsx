@@ -2,6 +2,7 @@ import {
   ActionIcon,
   AppShell,
   Box,
+  Button,
   Card,
   Center,
   Group,
@@ -24,6 +25,8 @@ import _ from "lodash";
 import {
   MdArrowBackIos,
   MdArrowForwardIos,
+  MdCheck,
+  MdCircle,
   MdMenu,
   MdPlayCircle,
   MdRunCircle,
@@ -46,42 +49,124 @@ import { DevStepAndSwotAnalisys } from "@/layouts/dev/dev_step_and_swot_analisys
 import client from "@/lib/prisma_db";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import moment from "moment";
+import { useAtom } from "jotai/react";
+import { jSelectedAdminDashboard } from "@/s_state/j_selected_admin_dashboard";
+import { MapControllEmotionEditor } from "@/layouts/map_controll/map_controll_emotion_editor";
+import { MapControllCityValueEditor } from "@/layouts/map_controll/map_controll_city_value_editor";
+import { DevNationWideRatingv2 } from "@/layouts/dev/predictive_ai/com_nation_wide_rating_v2";
+import { stylesGradient1 } from "@/styles/styles_gradient_1";
+import { stylesRadial } from "@/styles/styles_radial";
+import { atomWithStorage } from "jotai/utils";
 
 const listMenu = [
   {
     id: "1",
     name: "Map Controll",
-    view: LayoutMapControll,
+    isOpen: true,
+    // view: LayoutMapControll,
+    children: [
+      {
+        id: "1",
+        name: "emotion editor",
+        view: MapControllEmotionEditor,
+      },
+      {
+        id: "2",
+        name: "city value editor",
+        view: MapControllCityValueEditor,
+      },
+    ],
   },
   {
     id: "2",
     name: "Candidate Controll",
-    view: CandidateControll,
+    isOpen: false,
+    // view: CandidateControll,
+    children: [
+      {
+        id: "1",
+        name: "Candidate Controll",
+        view: CandidateControll,
+      },
+    ],
   },
   {
     id: "3",
     name: "Dev",
-    view: Dev,
+    isOpen: false,
+    // view: Dev,
+    children: [
+      {
+        id: "1",
+        name: "Dev",
+        view: Dev,
+      },
+    ],
   },
   {
     id: "4",
     name: "Test Iframe",
-    view: DevTestIframe,
+    isOpen: false,
+    // view: DevTestIframe,
+    children: [
+      {
+        id: "1",
+        name: "Test Iframe",
+        view: DevTestIframe,
+      },
+    ],
   },
   {
     id: "5",
     name: "Test Iframe Boma",
-    view: DevTestIframeBoma,
+    isOpen: false,
+    // view: DevTestIframeBoma,
+    children: [
+      {
+        id: "1",
+        name: "Test Iframe Boma",
+        view: DevTestIframeBoma,
+      },
+    ],
   },
   {
     id: "6",
     name: "Time Machine",
-    view: DevTimeMachine,
+    isOpen: false,
+    // view: DevTimeMachine,
+    children: [
+      {
+        id: "1",
+        name: "Time Machine",
+        view: DevTimeMachine,
+      },
+    ],
   },
   {
     id: "7",
     name: "Step And Swot Analisys",
-    view: DevStepAndSwotAnalisys,
+    isOpen: false,
+    // view: DevStepAndSwotAnalisys,
+    children: [
+      {
+        id: "1",
+        name: "Step And Swot Analisys",
+        view: DevStepAndSwotAnalisys,
+      },
+    ],
+  },
+  {
+    id: "8",
+    name: "Predictive Ai",
+    isOpen: false,
+    // view: DevStepAndSwotAnalisys,
+    children: [
+      {
+        id: "1",
+        name: "Nation Wide Rating v2",
+        view: DevNationWideRatingv2,
+      },
+    ],
   },
   // {
   //   id: "7",
@@ -95,20 +180,25 @@ const listMenu = [
   // },
 ];
 
-const s_is_small = signal(false);
+// const s_is_small = signal(false);
+const _is_small = atomWithStorage("admin_dashboard_is_small", false);
 
 const AdminDashboard = () => {
   // const [isSmall, setIsSmall] = useState(false);
   const update = useForceUpdate();
+  const [selectedDashboard, setSelectedDashboard] = useAtom(
+    jSelectedAdminDashboard
+  );
+  const [isSmall, setIsSmall] = useAtom(_is_small);
 
   useShallowEffect(() => {
     sSelectedDate.value = moment(new Date()).format("YYYY-MM-DD");
-    const isSml = localStorage.getItem("is_small");
-    if (isSml) {
-      s_is_small.value = true;
-    } else {
-      s_is_small.value = false;
-    }
+    // const isSml = localStorage.getItem("is_small");
+    // if (isSml) {
+    //   s_is_small.value = true;
+    // } else {
+    //   s_is_small.value = false;
+    // }
   }, []);
 
   return (
@@ -118,10 +208,10 @@ const AdminDashboard = () => {
         // padding="md"
         bg={"gray.2"}
         navbar={
-          s_is_small.value ? (
+          isSmall ? (
             <></>
           ) : (
-            <Navbar width={{ base: 250 }}>
+            <Navbar width={{ base: 300 }} bg={"gray.1"}>
               <Navbar.Section h={200}>
                 <Image
                   src={"/dev-icon.png"}
@@ -133,13 +223,34 @@ const AdminDashboard = () => {
               <Navbar.Section grow component={ScrollArea}>
                 {listMenu.map((item) => (
                   <NavLink
-                    icon={<MdPlayCircle />}
-                    bg={item.id == sAdminDashboardView.get() ? "blue.1" : ""}
-                    onClick={() => sAdminDashboardView.set(item.id)}
+                    defaultOpened={item.isOpen}
+                    // icon={<MdPlayCircle />}
+                    // bg={item.id == sAdminDashboardView.get() ? "blue.1" : ""}
+                    // onClick={() => sAdminDashboardView.set(item.id)}
                     key={item.id}
                     fw={"bold"}
-                    label={_.upperCase(item.name)}
-                  />
+                    label={
+                      <Title c={"gray.8"} order={5}>
+                        {_.upperCase(item.name)}
+                      </Title>
+                    }
+                  >
+                    {item.children.map((v) => (
+                      <NavLink
+                        bg={
+                          `${item.id}_${v.id}` == selectedDashboard
+                            ? "white"
+                            : ""
+                        }
+                        key={v.id}
+                        onClick={() => {
+                          setSelectedDashboard(`${item.id}_${v.id}`);
+                        }}
+                        label={_.upperCase(v.name)}
+                        icon={<MdCircle color="orange" />}
+                      />
+                    ))}
+                  </NavLink>
                 ))}
               </Navbar.Section>
               <Navbar.Section bg={"dark"}>
@@ -150,8 +261,9 @@ const AdminDashboard = () => {
                     radius={100}
                     bg={"blue"}
                     onClick={() => {
-                      localStorage.setItem("is_small", "true");
-                      s_is_small.value = true;
+                      // localStorage.setItem("is_small", "true");
+                      // s_is_small.value = true;
+                      setIsSmall(true);
                       update();
                     }}
                   >
@@ -176,12 +288,15 @@ const AdminDashboard = () => {
           },
         })}
       >
-        {listMenu.map((v) => (
-          <Box key={v.id} hidden={v.id != sAdminDashboardView.get()}>
-            {<v.view />}
-          </Box>
-        ))}
-        {s_is_small.value && (
+        {listMenu.map((v) =>
+          v.children.map(
+            (v2) =>
+              `${v.id}_${v2.id}` == selectedDashboard && (
+                <Box key={`${v.id}_${v2.id}`}>{<v2.view />}</Box>
+              )
+          )
+        )}
+        {isSmall && (
           <ActionIcon
             variant="white"
             radius={100}
@@ -192,8 +307,9 @@ const AdminDashboard = () => {
             left={20}
             sx={{ zIndex: 102 }}
             onClick={() => {
-              localStorage.setItem("is_small", "false");
-              s_is_small.value = false;
+              // localStorage.setItem("is_small", "false");
+              // s_is_small.value = false;
+              setIsSmall(false);
               update();
             }}
           >

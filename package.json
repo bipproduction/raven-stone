@@ -15,7 +15,7 @@
     "@mantine/carousel": "^6.0.1",
     "@mantine/core": "^6.0.9",
     "@mantine/dates": "^6.0.1",
-    "@mantine/dropzone": "^6.0.1",
+    "@mantine/dropzone": "^6.0.10",
     "@mantine/form": "^6.0.1",
     "@mantine/hooks": "^6.0.9",
     "@mantine/modals": "^6.0.1",
@@ -37,6 +37,7 @@
     "@types/jquery": "^3.5.16",
     "@types/lodash": "^4.14.191",
     "@types/node": "18.15.1",
+    "@types/papaparse": "^5.3.7",
     "@types/prompts": "^2.4.3",
     "@types/randomcolor": "^0.5.7",
     "@types/react": "18.0.28",
@@ -60,6 +61,7 @@
     "glob": "^9.3.0",
     "html-react-parser": "^3.0.16",
     "ip": "^1.1.8",
+    "jotai": "^2.1.0",
     "jquery": "^3.6.4",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
@@ -67,6 +69,7 @@
     "next": "13.2.4",
     "next-pwa": "^5.6.0",
     "node-fetch": "^3.3.1",
+    "papaparse": "^5.4.1",
     "prompts": "^2.4.2",
     "randomcolor": "^0.6.2",
     "react": "18.2.0",
@@ -89,12 +92,12 @@
     "rsuite": "^5.28.3",
     "scheduler": "^0.23.0",
     "simple-json-db": "^2.0.0",
-    "spreadsheet-to-json": "^2.0.0",
     "store2": "^2.14.2",
     "sweetalert2": "^11.7.3",
     "tsv-json": "^2.0.0",
     "typescript": "4.9.5",
     "typing-effect-reactjs": "^1.4.1",
-    "use-sound": "^4.0.1"
+    "use-sound": "^4.0.1",
+    "xlsx": "^0.18.5"
   }
 }

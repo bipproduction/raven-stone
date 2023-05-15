@@ -68,7 +68,17 @@ model SwotAnalisysName {
   isActive     Boolean        @default(true)
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
+  sentiment    String         @default("positive")
   SwotAnalisys SwotAnalisys[]
+}
+
+model BuildLog {
+  id        Int      @id @default(autoincrement())
+  version   String?
+  build     String?
+  log       String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model DukcapilDesa {
@@ -447,6 +457,13 @@ model ContextualContent {
   date      DateTime? @db.Date
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
+}
+
+model NationWideRatingV2 {
+  id        Int      @id @default(autoincrement())
+  data      Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 // =====================================
