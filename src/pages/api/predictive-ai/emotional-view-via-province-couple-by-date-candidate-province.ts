@@ -13,30 +13,10 @@ const perhitungan = ({
     peluang_candidate_1: any,
     peluang_candidate_2: any
 }) => {
-    // const emotion_candidate_1: any = {
-    //     anger: 3,
-    //     anticipation: 4,
-    //     disgust: 9,
-    //     fear: 2,
-    //     joy: 20,
-    //     sadness: 2,
-    //     trust: 49,
-    //     surprise: 11
-    //   }
 
-    //   const emotion_candidate_2: any = {
-    //     anger: 10,
-    //     anticipation: 9,
-    //     disgust: 4,
-    //     fear: 7,
-    //     joy: 40,
-    //     sadness: 20,
-    //     trust: 7,
-    //     surprise: 20
-    //   }
 
-      const potensi_candidate_1: any = { president: peluang_candidate_1.value1, vice_president: peluang_candidate_1.value2 }
-      const potensi_candidate_2: any = { president: peluang_candidate_1.value1, vice_president: peluang_candidate_2.value2 }
+    const potensi_candidate_1: any = { president: peluang_candidate_1.value1, vice_president: peluang_candidate_1.value2 }
+    const potensi_candidate_2: any = { president: peluang_candidate_1.value1, vice_president: peluang_candidate_2.value2 }
 
     // Gabungkan kedua kandidat menjadi satu objek baru
     const combined_emotions = { ...emotion_candidate_1, ...emotion_candidate_2 };
@@ -70,8 +50,6 @@ const perhitungan = ({
 
     return hasil_emotion_candidate1_dan_candidate2
 }
-
-
 
 const emotionViewViaProvinceCoupleByDateCandidateProvince = async (req: NextApiRequest, res: NextApiResponse) => {
     const { date, provinceId, candidateId1, candidateId2 } = req.query
