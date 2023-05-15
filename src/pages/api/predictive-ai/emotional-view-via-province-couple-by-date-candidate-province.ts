@@ -182,6 +182,7 @@ const emotionViewViaProvinceCoupleByDateCandidateProvince = async (req: NextApiR
         }
 
         listHail.push(body)
+        
 
     }
 
