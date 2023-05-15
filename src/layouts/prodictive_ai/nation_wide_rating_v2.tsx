@@ -5,6 +5,7 @@ import {
   Group,
   Image,
   Loader,
+  Modal,
   Paper,
   ScrollArea,
   Select,
@@ -26,6 +27,7 @@ import _ from "lodash";
 import TextAnimation from "react-typing-dynamics";
 import prs from "html-react-parser";
 import { NationWideRatingV2Chart } from "./nation_wide_rating_v2_chart";
+import { atomWithStorage } from "jotai/utils";
 
 export default function NationWideRatingv2() {
   const [listNation, setListNationWideRating] = useAtom(_val_listNation);
@@ -68,17 +70,21 @@ export default function NationWideRatingv2() {
 
   return (
     <>
-      {/* {JSON.stringify(listNation[0])} */}
-      {/* {JSON.stringify(selectedData)}
-      {JSON.stringify(listCandidate)} */}
       <Stack>
         <PageTitle
           title="NATION WIDE RATING"
           text="EMOTIONAL METERS BRAND MERGER SIMULATION"
         />
-        <Paper bg={"blue.1"} p={"xs"} shadow={"md"} pos={"sticky"} top={60} style={{
-          zIndex: 100
-        }}>
+        <Paper
+          bg={"blue.1"}
+          p={"xs"}
+          shadow={"md"}
+          pos={"sticky"}
+          top={60}
+          style={{
+            zIndex: 100,
+          }}
+        >
           <Group position="right" spacing={"md"}>
             <Select
               placeholder={
@@ -200,3 +206,5 @@ export default function NationWideRatingv2() {
     </>
   );
 }
+
+
