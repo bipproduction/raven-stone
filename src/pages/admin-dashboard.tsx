@@ -57,6 +57,7 @@ import { DevNationWideRatingv2 } from "@/layouts/dev/predictive_ai/com_nation_wi
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { stylesRadial } from "@/styles/styles_radial";
 import { atomWithStorage } from "jotai/utils";
+import _VieEmotionViewProvinceCoupleV2 from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
 
 const listMenu = [
   {
@@ -166,6 +167,11 @@ const listMenu = [
         name: "Nation Wide Rating v2",
         view: DevNationWideRatingv2,
       },
+      {
+        id: "2",
+        name: "Emotion View Via Province Couple V2",
+        view: _VieEmotionViewProvinceCoupleV2,
+      },
     ],
   },
   // {
@@ -183,7 +189,7 @@ const listMenu = [
 // const s_is_small = signal(false);
 const _is_small = atomWithStorage("admin_dashboard_is_small", false);
 
-const AdminDashboard = () => {
+const AdminDashboard = (props: any) => {
   // const [isSmall, setIsSmall] = useState(false);
   const update = useForceUpdate();
   const [selectedDashboard, setSelectedDashboard] = useAtom(
