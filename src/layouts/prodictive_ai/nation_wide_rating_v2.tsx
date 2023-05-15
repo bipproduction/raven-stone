@@ -175,11 +175,11 @@ export default function NationWideRatingv2() {
                   <Title align="end" c={"gray.2"}>
                     WINNING RATES PREDICTION
                   </Title>
-                  <Paper p={"xs"} bg={"dark.2"} shadow="md">
+                  <Paper p={"xs"} bg={"dark.4"} shadow="md">
                     <Stack justify="center" align="center" h={100}>
-                      <Text c={"green"} size={32} fw={"bold"}>
+                      <Title c={"green"} fz={64}>
                         {selectedData?.rate}%
-                      </Text>
+                      </Title>
                     </Stack>
                   </Paper>
                 </SimpleGrid>

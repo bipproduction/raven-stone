@@ -68,9 +68,17 @@ export function DevNationWideRatingv2() {
       </>
     );
   return (
-    <Stack spacing={"lg"} bg={"white"} w={width}>
+    <Stack
+      spacing={"lg"}
+      bg={"white"}
+      w={width}
+      pos={"relative"}
+      sx={{
+        zIndex: 100,
+      }}
+    >
       {/* {JSON.stringify(listNationWideRating[0])} */}
-      <Group position="apart">
+      <Stack>
         <Title p={"xs"}>Dev Nation Wide Rating</Title>
         <Flex gap={"lg"}>
           <Flex>
@@ -83,7 +91,7 @@ export function DevNationWideRatingv2() {
           </Flex>
           <ButtonModalUpload />
         </Flex>
-      </Group>
+      </Stack>
       <Table
         highlightOnHover
         withColumnBorders
