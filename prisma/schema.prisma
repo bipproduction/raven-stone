@@ -346,6 +346,7 @@ model City {
   CityContextDirection        CityContextDirection[]
   CityWordCloud               CityWordCloud[]
   CityLeaderPersonaPrediction CityLeaderPersonaPrediction[]
+  EmotionViewProvinceCoupleV2 EmotionViewProvinceCoupleV2[]
 }
 
 model CityWordCloud {
@@ -378,12 +379,11 @@ model CityContextDirection {
 }
 
 model Candidate {
-  id            Int             @id @default(autoincrement())
-  name          String?
-  img           String?
-  DataEmotion   DataEmotion[]
-  DataByContent DataByContent[]
-
+  id                Int                 @id @default(autoincrement())
+  name              String?
+  img               String?
+  DataEmotion       DataEmotion[]
+  DataByContent     DataByContent[]
   CandidateValue    CandidateValue?
   DataContentByTime DataContentByTime[]
   StepAnalisys      StepAnalisys[]
@@ -464,6 +464,25 @@ model NationWideRatingV2 {
   data      Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+model EmotionViewProvinceCoupleV2 {
+  id           String   @id @default(cuid())
+  data         Json?
+  candidate1Id Int?
+  candidate2Id Int?
+  City         City?    @relation(fields: [cityId], references: [id])
+  trust        Int?
+  joy          Int?
+  surprise     Int?
+  anticipation Int?
+  sadness      Int?
+  fear         Int?
+  anger        Int?
+  disgust      Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+  cityId       Int?
 }
 
 // =====================================
