@@ -4,32 +4,19 @@ import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_ratin
 import MentionbyCategory from "@/layouts/media_listener/mention_by_category";
 import ContextualContent from "@/layouts/prodictive_ai/contextual_content";
 import EmotionalViewViaProvince from "@/layouts/prodictive_ai/emotional_view_via_province";
-import EmotionalViewViaProvinceCouple from "@/layouts/prodictive_ai/emotional_view_via_province_couple";
-import EmotionalViewViaRegion from "@/layouts/prodictive_ai/emotional_view_via_region";
-import NationWideRating from "@/layouts/prodictive_ai/nation_wide_rating";
-import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_conversation";
-import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_conversation";
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
-import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
-import { stylesGradientRed } from "@/styles/styles_gradient_red";
 import { sIsLocal } from "@/s_state/is_local";
 import { sSelectedView } from "@/s_state/s_selected_view";
 import { sUser } from "@/s_state/s_user";
-import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
   AppShell,
   Avatar,
   Box,
   Burger,
-  Center,
-  Chip,
   Drawer,
   Flex,
-  Grid,
   Group,
   Header,
   Image,
@@ -40,20 +27,27 @@ import {
   NavLink,
   Paper,
   ScrollArea,
-  SimpleGrid,
   Stack,
   Text,
   Title,
   Tooltip,
-  useMantineTheme,
+  useMantineTheme
 } from "@mantine/core";
-import { useId, useShallowEffect } from "@mantine/hooks";
+import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 
-import { onChildChanged, onValue, ref } from "firebase/database";
+import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_view_province_couple_v2";
+import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
+import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
+import MainSummary from "@/layouts/summary/main_summary";
+import { sNavbarIsSmall } from "@/s_state/s_navbar_is_small";
+import { sNavbarOpen } from "@/s_state/s_navbar_open";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import AnimateCssReact from "animate-css-reactjs";
+import { onChildChanged, ref } from "firebase/database";
 import _ from "lodash";
 import moment from "moment";
-import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import {
   MdAccountCircle,
@@ -61,7 +55,6 @@ import {
   MdArrowForwardIos,
   MdAssignment,
   MdBarChart,
-  MdCircle,
   MdGridView,
   MdInfo,
   MdJoinLeft,
@@ -73,20 +66,9 @@ import {
   MdSettings,
   MdStackedBarChart,
   MdStorage,
-  MdTimer,
-  MdWatch,
+  MdTimer
 } from "react-icons/md";
 import toast from "react-simple-toasts";
-import useSound from "use-sound";
-import { sNavbarOpen } from "@/s_state/s_navbar_open";
-import { sNavbarIsSmall } from "@/s_state/s_navbar_is_small";
-import AnimateCssReact from "animate-css-reactjs";
-import MainSummary from "@/layouts/summary/main_summary";
-import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
-import { useRouter } from "next/router";
-import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
-import { sSelectedDate } from "@/s_state/s_selectedDate";
-import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
 import NationWideRatingv2 from "../layouts/prodictive_ai/nation_wide_rating_v2";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
@@ -226,7 +208,7 @@ const listView = [
       {
         id: 4,
         name: "Emotional View Via Province Couple",
-        view: EmotionalViewViaProvinceCouple,
+        view: EmotionViewProvinceCoupleV2,
         icon: MdJoinLeft,
       },
       {

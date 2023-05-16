@@ -468,7 +468,7 @@ model NationWideRatingV2 {
 
 model EmotionViewProvinceCoupleV2 {
   id           String   @id @default(cuid())
-  data         Json?
+  // data         Json?
   candidate1Id Int?
   candidate2Id Int?
   City         City?    @relation(fields: [cityId], references: [id])
