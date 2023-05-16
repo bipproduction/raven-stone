@@ -64,6 +64,9 @@ export const api = {
   "apiPredictiveAiEmotionalViewViaProvinceByDateCandidate": "/api/predictive-ai/emotional-view-via-province-by-date-candidate",
   "apiPredictiveAiEmotionalViewViaProvinceByDateCandidateProvince": "/api/predictive-ai/emotional-view-via-province-by-date-candidate-province",
   "apiPredictiveAiEmotionViewProvinceCoupleV2Get": "/api/predictive-ai/emotion_view_province_couple_v2_get",
+  "apiPredictiveAiEmotionViewProvinceCoupleV2Update": "/api/predictive-ai/emotion-view-province-couple-v2-update",
+  "apiPredictiveAiEmotionViewProvinceCoupleV2GetAll": "/api/predictive-ai/emotion-view-province-couple-v2-get-all",
+  "apiPredictiveAiEmotionViewProvinceCoupleV2Download": "/api/predictive-ai/emotion-view-province-couple-v2-download",
   "apiPredictiveAiContsextualContentGet": "/api/predictive-ai/contsextual_content_get",
   "apiPredictiveAiContextualContentUpdate": "/api/predictive-ai/contextual_content_update",
   "apiPredictiveAiContextualContentDelete": "/api/predictive-ai/contextual_content_delete",
@@ -104,10 +107,10 @@ export const api = {
   "apiDevDevCityValueUpdate": "/api/dev/dev-city-value-update",
   "apiDevDevCityValueGet": "/api/dev/dev-city-value-get",
   "apiDevCityValueUpdate": "/api/dev/city-value-update",
-  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
-  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get",
   "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",
-  "apiAuthGetUserById": "/api/auth/get-user-by-id"
+  "apiAuthGetUserById": "/api/auth/get-user-by-id",
+  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
+  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get"
 }
