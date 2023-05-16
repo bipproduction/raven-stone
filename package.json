@@ -83,6 +83,7 @@
     "react-dom": "18.2.0",
     "react-embed": "^3.6.0",
     "react-iframe": "^1.8.5",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-simple-toasts": "^3.2.5",
     "react-spreadsheet": "^0.7.8",
     "react-tabulator": "^0.18.1",

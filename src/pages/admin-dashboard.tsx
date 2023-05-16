@@ -57,7 +57,8 @@ import { DevNationWideRatingv2 } from "@/layouts/dev/predictive_ai/com_nation_wi
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { stylesRadial } from "@/styles/styles_radial";
 import { atomWithStorage } from "jotai/utils";
-import _VieEmotionViewProvinceCoupleV2 from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
+import Vie_emotion_view_province_couple_v2 from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
+
 
 const listMenu = [
   {
@@ -170,7 +171,8 @@ const listMenu = [
       {
         id: "2",
         name: "Emotion View Via Province Couple V2",
-        view: _VieEmotionViewProvinceCoupleV2,
+        view: Vie_emotion_view_province_couple_v2,
+        
       },
     ],
   },
