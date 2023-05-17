@@ -114,7 +114,7 @@ const EmotionalViewViaProvince = () => {
       {/* {JSON.stringify(gEmotionalViewViaProvince.value[0])} */}
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <Paper
-        bg={"blue.1"}
+        // bg={"blue.1"}
         shadow={"md"}
         pos={"sticky"}
         p={"xs"}
@@ -170,7 +170,7 @@ const EmotionalViewViaProvince = () => {
                 w={400}
                 p={"xs"}
                 style={{
-                  background: stylesGradient1,
+                  // background: stylesGradient1,
                 }}
               >
                 <EmotionItemChart lsData={v.emotion} />
@@ -322,7 +322,7 @@ const EmotionViewDetail = () => {
               key={v.city}
               p={"xs"}
               shadow={"sm"}
-              bg={stylesRadial.out_blue}
+              // bg={stylesRadial.out_blue}
               sx={{
                 zIndex: 1000,
                 overflow: "scroll",
@@ -560,7 +560,9 @@ const EmotionDetai2 = ({
           {/* {JSON.stringify(data)} */}
           <SimpleGrid cols={2}>
             {/* {JSON.stringify(dataKabupaten)} */}
-            <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
+            <Paper p={"md"} shadow={"md"} 
+            // bg={stylesGradient1}
+            >
               <Stack>
                 {/* {JSON.stringify(dataContextDirection)} */}
                 <EChartsReact option={option1} />
@@ -572,7 +574,9 @@ const EmotionDetai2 = ({
                 </Group>
               </Stack>
             </Paper>
-            <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+            <Paper shadow={"md"} p={"md"} 
+            // bg={stylesGradient1}
+            >
               <EChartsReact option={optionContextDirection} />
             </Paper>
             <WordCloud data={data} />
@@ -606,7 +610,9 @@ const WordCloud = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+      <Paper shadow={"md"} p={"md"} 
+      // bg={stylesGradient1}
+      >
         <Title order={3}>Regions Hot Issue </Title>
         <Group p={0} spacing={0} align={"center"} position={"center"}>
           {listData?.map((v, i) => (
@@ -694,7 +700,9 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+      <Paper shadow={"md"} p={"md"} 
+      // bg={stylesGradient1}
+      >
         <Title order={3}>Leader Persona Prediction </Title>
         <EChartsReact option={option1} />
       </Paper>

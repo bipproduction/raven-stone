@@ -80,7 +80,9 @@ const SummarySelectCandidate = () => {
   return (
     <>
       <Group position="apart" py={"lg"}>
-        <Paper p={"md"} bg={stylesRadial.in_cyan_dark} shadow={"md"} w={300}>
+        <Paper p={"md"} 
+        // bg={stylesRadial.in_cyan_dark} 
+        shadow={"md"} w={300}>
           <Stack>
             {/* {JSON.stringify(prosentase)} */}
             <Flex>

@@ -341,7 +341,9 @@ const LayoutDetailDialog = ({
             initiallyVisible={true}
             animateIn={listAnimation.animate__flipInX}
           >
-            <Paper p={"xs"} shadow={"sm"} bg={stylesGradient1} pos={"relative"}>
+            <Paper p={"xs"} shadow={"sm"} 
+            // bg={stylesGradient1} 
+            pos={"relative"}>
               <Stack justify={"center"}>
                 <EmotionDetailChart lsData={v.emotion} />
                 <Text size={24} color={"cyan.8"} align={"center"}>
@@ -558,7 +560,9 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
           {/* {JSON.stringify(dataKabupaten)} */}
           <SimpleGrid cols={2}>
             {/* {JSON.stringify(dataKabupaten)} */}
-            <Paper p={"md"} shadow={"md"} bg={stylesGradient1}>
+            <Paper p={"md"} shadow={"md"} 
+            // bg={stylesGradient1}
+            >
               <Stack>
                 {/* {JSON.stringify(dataContextDirection)} */}
 
@@ -572,7 +576,9 @@ const ButtonDetail2 = ({ data }: { data: any }) => {
                 </Group> */}
               </Stack>
             </Paper>
-            <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+            <Paper shadow={"md"} p={"md"} 
+            // bg={stylesGradient1}
+            >
               <EChartsReact option={optionContextDirection} />
             </Paper>
             <WordCloud data={data} />
@@ -606,7 +612,9 @@ const WordCloud = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+      <Paper shadow={"md"} p={"md"} 
+      // bg={stylesGradient1}
+      >
         <Title order={3}>Regions Hot Issue </Title>
         <Group p={0} spacing={0} align={"center"} position={"center"}>
           {listData?.map((v, i) => (
@@ -694,7 +702,9 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"} bg={stylesGradient1}>
+      <Paper shadow={"md"} p={"md"} 
+      // bg={stylesGradient1}
+      >
         <Title order={3}>Leader Persona Prediction </Title>
         <EChartsReact option={option1} />
       </Paper>
