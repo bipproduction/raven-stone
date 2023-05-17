@@ -15,7 +15,7 @@ export default async function handler(req: any, res: any) {
         where: {
             candidate1Id: Number(candidate1),
             candidate2Id: Number(candidate2),
-            City: {
+            Province: {
                 name: {
                     contains: search
                 }
@@ -26,7 +26,7 @@ export default async function handler(req: any, res: any) {
             id: true,
             candidate1Id: true,
             candidate2Id: true,
-            City: {
+            Province: {
                 select: {
                     id: true,
                     name: true
@@ -47,7 +47,7 @@ export default async function handler(req: any, res: any) {
         where: {
             candidate1Id: Number(candidate1),
             candidate2Id: Number(candidate2),
-            City: {
+            Province: {
                 name: {
                     contains: search
                 }
@@ -55,15 +55,17 @@ export default async function handler(req: any, res: any) {
         }
     })
 
-    // console.log("ini datanya".yellow, data)
 
-    console.table([data.length, count])
+
+    // console.log("ini datanya".yellow, page, count)
+
+    console.table([(page* 10), count])
     res.status(200).json({
         count,
         data: data.map((v) => ({
-            ..._.omit(v, ["City"]),
-            cityId: v.City!.id,
-            cityName: v.City!.name
+            ..._.omit(v, ["Province"]),
+            provinceId: v.Province!.id,
+            provinceName: v.Province!.name
         }))
     });
 }
