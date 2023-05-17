@@ -114,7 +114,9 @@ const EmotionalViewViaRegion = () => {
     <>
       <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <SelectCandidateView onProccess={() => {}} onUpdate={update} />
-      <Paper h={550} bg={stylesGradient1}>
+      <Paper h={550} 
+      // bg={stylesGradient1}
+      >
         {!_.isEmpty(dataIndonesiaMap.features) && (
           <EChartsReact
             style={{

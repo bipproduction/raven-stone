@@ -5,8 +5,8 @@ import _ from "lodash";
 export default async function handler(req: any, res: any) {
     const { candidate1, candidate2, search, page } = req.query
 
-    console.log(__filename.yellow)
-    console.table([candidate1, candidate2, search, page])
+    // console.log(__filename.yellow)
+    // console.table([candidate1, candidate2, search, page])
 
 
     if (!candidate1 || !candidate2) return res.status(400).send("Bad request")
@@ -59,7 +59,7 @@ export default async function handler(req: any, res: any) {
 
     // console.log("ini datanya".yellow, page, count)
 
-    console.table([(page* 10), count])
+    // console.table([(page * 10), count])
     res.status(200).json({
         count,
         data: data.map((v) => ({
