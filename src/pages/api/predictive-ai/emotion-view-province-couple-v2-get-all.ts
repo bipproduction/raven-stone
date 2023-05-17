@@ -17,7 +17,7 @@ export default async function handler(req: any, res: any) {
             id: true,
             candidate1Id: true,
             candidate2Id: true,
-            City: {
+            Province: {
                 select: {
                     id: true,
                     name: true
@@ -41,8 +41,8 @@ export default async function handler(req: any, res: any) {
         candidate1Name: candidate[v.candidate1Id! - 1].name,
         candidate2Id: v.candidate2Id,
         candidate2Name: candidate[v.candidate2Id! - 1].name,
-        cityId: v.City!.id,
-        cityName: v.City!.name,
+        provinceId: v.Province!.id,
+        provinceName: v.Province!.name,
         trust: v.trust,
         joy: v.joy,
         surprise: v.surprise,
@@ -53,5 +53,5 @@ export default async function handler(req: any, res: any) {
         disgust: v.disgust,
     }))
 
-    res.status(200).json(_.orderBy(result, ["cityId"]))
+    res.status(200).json(_.orderBy(result, ["provinceId"]))
 }

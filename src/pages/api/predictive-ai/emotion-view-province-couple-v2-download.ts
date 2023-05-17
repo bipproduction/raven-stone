@@ -15,7 +15,7 @@ export default async function handler(req: any, res: any) {
             id: true,
             candidate1Id: true,
             candidate2Id: true,
-            City: {
+            Province: {
                 select: {
                     id: true,
                     name: true
@@ -39,8 +39,8 @@ export default async function handler(req: any, res: any) {
         candidate1Name: candidate[v.candidate1Id! - 1].name,
         candidate2Id: v.candidate2Id,
         candidate2Name: candidate[v.candidate2Id! - 1].name,
-        cityId: v.City!.id,
-        cityName: v.City!.name,
+        provinceId: v.Province!.id,
+        provinceName: v.Province!.name,
         trust: v.trust,
         joy: v.joy,
         surprise: v.surprise,
@@ -54,5 +54,5 @@ export default async function handler(req: any, res: any) {
         .status(200)
         .setHeader("Content-Type", "text/csv")
         .setHeader("Content-Disposition", `attachment; filename=emotion-view-province-couple-v2_${_.kebabCase(candidate[Number(candidate1) - 1].name!)}_${_.kebabCase(candidate[Number(candidate2) - 1].name!)}.csv`)
-        .send(Papa.unparse(_.orderBy(result, ["cityId"])));
+        .send(Papa.unparse(_.orderBy(result, ["provinceId"])));
 }

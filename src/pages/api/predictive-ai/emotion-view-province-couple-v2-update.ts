@@ -10,10 +10,10 @@ export default async function handler(req: any, res: any) {
                 id: itm.id
             },
             data: {
-                id: itm.id,
-                candidate1Id: Number(itm.candidate1Id),
-                candidate2Id: Number(itm.candidate2Id),
-                cityId: Number(itm.cityId),
+                // id: itm.id,
+                // candidate1Id: Number(itm.candidate1Id),
+                // candidate2Id: Number(itm.candidate2Id),
+                // provinceId: Number(itm.provinceId),
                 trust: Number(itm.trust),
                 joy: Number(itm.joy),
                 surprise: Number(itm.surprise),

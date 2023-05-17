@@ -327,11 +327,12 @@ model DukcapilDesa {
 }
 
 model Province {
-  id            Int             @id @default(autoincrement())
-  name          String?
-  City          City[]
-  DataEmotion   DataEmotion[]
-  DataByContent DataByContent[]
+  id                          Int                           @id @default(autoincrement())
+  name                        String?
+  City                        City[]
+  DataEmotion                 DataEmotion[]
+  DataByContent               DataByContent[]
+  EmotionViewProvinceCoupleV2 EmotionViewProvinceCoupleV2[]
 }
 
 model City {
@@ -346,7 +347,7 @@ model City {
   CityContextDirection        CityContextDirection[]
   CityWordCloud               CityWordCloud[]
   CityLeaderPersonaPrediction CityLeaderPersonaPrediction[]
-  EmotionViewProvinceCoupleV2 EmotionViewProvinceCoupleV2[]
+  // EmotionViewProvinceCoupleV2 EmotionViewProvinceCoupleV2[]
 }
 
 model CityWordCloud {
@@ -467,11 +468,11 @@ model NationWideRatingV2 {
 }
 
 model EmotionViewProvinceCoupleV2 {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   // data         Json?
   candidate1Id Int?
   candidate2Id Int?
-  City         City?    @relation(fields: [cityId], references: [id])
+  Province     Province? @relation(fields: [provinceId], references: [id])
   trust        Int?
   joy          Int?
   surprise     Int?
@@ -480,9 +481,9 @@ model EmotionViewProvinceCoupleV2 {
   fear         Int?
   anger        Int?
   disgust      Int?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now()) @updatedAt
-  cityId       Int?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+  provinceId   Int?
 }
 
 // =====================================
