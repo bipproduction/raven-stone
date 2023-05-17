@@ -13,6 +13,7 @@ async function main() {
             value: v
         })),
     }).then(({ pilihan }) => {
+        if(!pilihan) return process.exit(1)
         execSync(`tsx ${__dirname}/${pilihan}`, { stdio: 'inherit' })
     })
 
