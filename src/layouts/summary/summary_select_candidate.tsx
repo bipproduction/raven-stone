@@ -80,7 +80,9 @@ const SummarySelectCandidate = () => {
   return (
     <>
       <Group position="apart" py={"lg"}>
-        <Paper p={"md"} bg={stylesRadial.in_cyan_dark} shadow={"md"} w={300}>
+        <Paper p={"md"} 
+        // bg={stylesRadial.in_cyan_dark} 
+        shadow={"md"} w={300}>
           <Stack>
             {/* {JSON.stringify(prosentase)} */}
             <Flex>
@@ -120,7 +122,9 @@ const SummarySelectCandidate = () => {
               ))}
             </Flex>
             <Flex justify="center" align={"center"} >
-              <Title align="center" color={"white"} order={3}>
+              <Title align="center" 
+              // color={"white"} 
+              order={3}>
                 {_.upperCase(
                   sCandidate.value.find(
                     (v) => v.id == Number(sSelectedCandidate.value)
@@ -139,7 +143,9 @@ const SummarySelectCandidate = () => {
                 }}
               >
                 <Center>
-                  <Text c={"white"} fw={"bold"}>
+                  <Text 
+                  // c={"white"} 
+                  fw={"bold"}>
                     {prosentase.positive} %
                   </Text>
                 </Center>
@@ -153,7 +159,9 @@ const SummarySelectCandidate = () => {
                 }}
               >
                 <Center>
-                  <Text c={"white"} fw={"bold"}>
+                  <Text 
+                  // c={"white"}
+                   fw={"bold"}>
                     {prosentase.neutral} %
                   </Text>
                 </Center>
@@ -167,7 +175,9 @@ const SummarySelectCandidate = () => {
                 }}
               >
                 <Center>
-                  <Text c={"white"} fw={"bold"}>
+                  <Text 
+                  // c={"white"} 
+                  fw={"bold"}>
                     {prosentase.negative} %
                   </Text>
                 </Center>

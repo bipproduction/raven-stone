@@ -54,7 +54,7 @@ const Top10ProvinceByConversation = () => {
           h={780}
           shadow={"sm"}
           p={"md"}
-          bg={stylesGradient1}
+          // bg={stylesGradient1}
           sx={{
             overflow: "scroll",
           }}
@@ -74,7 +74,9 @@ const Top10ProvinceByConversation = () => {
             />
           </Group>
           <Stack>
-            <Table verticalSpacing={"md"} bg={stylesGradient1}>
+            <Table verticalSpacing={"md"} 
+            // bg={stylesGradient1}
+            >
               <thead>
                 <tr>
                   <th>NO</th>
@@ -105,31 +107,47 @@ const Top10ProvinceByConversation = () => {
                 {sTop10ProvinceTake.value.map((v: any, i) => (
                   <tr key={i}>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"white"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper 
+                      // bg={"white"}
+                       p={"xs"}>
+                        <Text fw={"bold"} 
+                        // color={"gray"}
+                        >
                           {v.no}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"white"} p={"xs"}>
+                      <Paper 
+                      // bg={"white"}
+                       p={"xs"}>
                         <Tooltip label={v.name}>
-                          <Text lineClamp={1} fw={"bold"} color={"gray"}>
+                          <Text lineClamp={1} fw={"bold"} 
+                          // color={"gray"}
+                          >
                             {v.name}
                           </Text>
                         </Tooltip>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"white"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper 
+                      // bg={"white"} 
+                      p={"xs"}>
+                        <Text fw={"bold"} 
+                        // color={"gray"}
+                        >
                           {Intl.NumberFormat("id-ID").format(v.total)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"white"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper
+                      //  bg={"white"}
+                        p={"xs"}>
+                        <Text fw={"bold"} 
+                        // color={"gray"}
+                        >
                           {Intl.NumberFormat("id-ID").format(
                             _.sum([
                               v.trust,

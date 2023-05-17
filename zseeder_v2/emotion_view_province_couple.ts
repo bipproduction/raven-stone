@@ -3,6 +3,7 @@ import client from "@/lib/prisma_db"
 import 'colors'
 import _ from "lodash"
 import fs from "fs"
+import { execFileSync, execSync } from "child_process"
 
 async function main() {
     const province = await client.province.findMany()
@@ -30,14 +31,6 @@ async function main() {
                         disgust: _.random(1, 100)
                     }
 
-                    // await client.emotionViewProvinceCoupleV2.upsert({
-                    //     where: {
-                    //         id: data.id
-                    //     },
-                    //     update: data,
-                    //     create: data
-                    // })
-
                     list_result.push(data)
                 }
             }
@@ -49,7 +42,13 @@ async function main() {
     // console.log(list_result)
     // await client.emotionViewProvinceCoupleV2.createMany({ data: list_result })
     const sql = `INSERT INTO EmotionViewProvinceCoupleV2 (id, candidate1Id, candidate2Id, provinceId, trust, joy, surprise, anticipation, sadness, fear, anger, disgust) values ${list_result.map((v: any) => `('${v.id}', ${v.candidate1Id}, ${v.candidate2Id}, ${v.provinceId}, ${v.trust}, ${v.joy}, ${v.surprise}, ${v.anticipation}, ${v.sadness}, ${v.fear}, ${v.anger}, ${v.disgust})`).join(', ')}`
-    fs.writeFileSync('emotion_view_province_couple.sql', sql)
+    fs.writeFileSync('./emotion_view_province_couple.sql', sql)
+
+    console.log("clean table...".red)
+    await client.$executeRaw`delete from EmotionViewProvinceCoupleV2`
+    await new Promise((resolve) => setTimeout(resolve, 5000))
+    console.log('mencoba update data ...'.yellow)
+    execSync('mysql -u bip -p eagle_v2 < ./emotion_view_province_couple.sql', { stdio: "inherit", cwd: __dirname })
 }
 
 main()
