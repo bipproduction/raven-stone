@@ -79,7 +79,7 @@ export default function EmotionViewProvinceCoupleV2() {
       .then((val) => val.json())
       .then((v) => {
         if (listEmotion) {
-          setHasmore(listEmotion!.length <= v.count);
+          setHasmore((page * 10) < count);
         }
         setCount(v.count);
         setListEmotion(v.data);
@@ -248,8 +248,8 @@ export default function EmotionViewProvinceCoupleV2() {
                     anger: v.anger,
                     disgust: v.disgust,
                   }}
-                  cityId={v.cityId}
-                  cityName={v.cityName}
+                  provinceId={v.provinceId}
+                  provinceName={v.provinceName}
                   key={i}
                 />
               ))}
@@ -262,12 +262,12 @@ export default function EmotionViewProvinceCoupleV2() {
 
 const EmotionItemChart = ({
   lsData,
-  cityId,
-  cityName,
+  provinceId,
+  provinceName,
 }: {
   lsData: any;
-  cityId: string;
-  cityName: string;
+  provinceId: string;
+  provinceName: string;
 }) => {
   const option: EChartsOption = {
     radiusAxis: {},
@@ -316,7 +316,7 @@ const EmotionItemChart = ({
       {/* {JSON.stringify(lsData)} */}
       <Paper p="md" bg={stylesRadial.out_cyan} m={"xs"}>
         <Stack align="center">
-          <Title order={1}>{cityName}</Title>
+          <Title order={1}>{provinceName}</Title>
           <EChartsReact style={{ width: 400 }} option={option} />
         </Stack>
       </Paper>
