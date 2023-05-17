@@ -234,6 +234,8 @@ function ChartItem() {
       {
         type: "category",
         boundaryGap: false,
+        // min: -60,
+        // max: 20,
         data: !slistDataTrenSentiment.value
           ? []
           : slistDataTrenSentiment.value!.map((v) => v.date),
