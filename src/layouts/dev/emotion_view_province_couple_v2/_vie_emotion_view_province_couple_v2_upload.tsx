@@ -30,7 +30,7 @@ export function Vie_emotion_view_province_couple_v2_upload() {
   function onUpdate() {
     setisloading(true);
     const body = listUpload?.map((val) => ({
-      ..._.omit(val, ["cityName", "candidate1Name", "candidate2Name"]),
+      ..._.omit(val, ["provinceName", "candidate1Name", "candidate2Name"]),
     }));
 
     fetch(api.apiPredictiveAiEmotionViewProvinceCoupleV2Update, {
