@@ -3,7 +3,7 @@ import fs from 'fs'
 import prompts from 'prompts'
 
 async function main() {
-    const files = [...fs.readdirSync(__dirname)].filter((f) => !f.includes("index"));
+    const files = [...fs.readdirSync(__dirname)].filter((f) => !f.includes("index") && f.endsWith(".ts"));
     prompts({
         type: "autocomplete",
         name: "pilihan",
