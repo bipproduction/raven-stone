@@ -76,7 +76,7 @@ export default function NationWideRatingv2() {
           text="EMOTIONAL METERS BRAND MERGER SIMULATION"
         />
         <Paper
-          bg={"blue.1"}
+          // bg={"blue.1"}
           p={"xs"}
           shadow={"md"}
           pos={"sticky"}
