@@ -31,7 +31,7 @@ import {
   Text,
   Title,
   Tooltip,
-  useMantineTheme
+  useMantineTheme,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
@@ -55,9 +55,11 @@ import {
   MdArrowForwardIos,
   MdAssignment,
   MdBarChart,
+  MdDarkMode,
   MdGridView,
   MdInfo,
   MdJoinLeft,
+  MdLightMode,
   MdMessage,
   MdNotifications,
   MdNotificationsActive,
@@ -66,10 +68,12 @@ import {
   MdSettings,
   MdStackedBarChart,
   MdStorage,
-  MdTimer
+  MdTimer,
 } from "react-icons/md";
 import toast from "react-simple-toasts";
 import NationWideRatingv2 from "../layouts/prodictive_ai/nation_wide_rating_v2";
+import { useAtom } from "jotai";
+import { _is_dark_mode } from "@/g_state/atom_util_state";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -244,10 +248,10 @@ const Dashboard = () => {
       sSelectedView.value = page;
     }
   }, []);
-
+  
   return (
     <AppShell
-      bg={"gray.2"}
+      // bg={"gray.2"}
       styles={{
         main: {
           background:
@@ -263,7 +267,7 @@ const Dashboard = () => {
         <Header
           height={{ base: 50, md: 50 }}
           p="md"
-          bg={"blue.4"}
+          // bg={"blue.4"}
           sx={{
             boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
           }}
@@ -330,16 +334,18 @@ const Dashboard = () => {
                       <ActionIcon
                         radius={100}
                         size={42}
-                        bg={"blue.1"}
+                        // bg={"blue.1"}
                         variant={"filled"}
                       >
                         <MdAccountCircle size={42} color={"babyblue"} />
                       </ActionIcon>
                     </Menu.Target>
-                    <Menu.Dropdown bg={"blue"}>
+                    <Menu.Dropdown 
+                    // bg={"blue"}
+                    >
                       <Menu.Item
-                        bg={"red"}
-                        c={"white"}
+                        // bg={"red"}
+                        // c={"white"}
                         onClick={() => {
                           localStorage.removeItem("user_id");
                           // gUser.set({});
@@ -466,7 +472,9 @@ const NotificationDisplay = () => {
                   </Text>
                   <Group position="right">
                     <MdTimer color="gray" />
-                    <Text size={12} c={"blue"}>
+                    <Text size={12} 
+                    // c={"blue"}
+                    >
                       {moment(v.createdAt).fromNow()}
                     </Text>
                   </Group>
@@ -482,6 +490,7 @@ const NotificationDisplay = () => {
 
 const MyNavbar = () => {
   const router = useRouter();
+  const [isDarkMode, setisDarkMode] = useAtom(_is_dark_mode);
 
   function onSelectedPage(page: string) {
     localStorage.setItem("dashboard_selected_page", page);
@@ -505,7 +514,7 @@ const MyNavbar = () => {
       <>
         <AnimateCssReact animation="fadeIn">
           <Navbar
-            bg={"blue.2"}
+            // bg={"blue.2"}
             hiddenBreakpoint="sm"
             hidden={!sNavbarOpen.value}
             width={{ sm: 64, lg: 64 }}
@@ -531,7 +540,9 @@ const MyNavbar = () => {
                 )}
               </Stack>
             </Navbar.Section>
-            <Navbar.Section bg={"dark"}>
+            <Navbar.Section 
+            // bg={"dark"}
+            >
               <ActionIcon
                 onClick={() => (sNavbarIsSmall.value = false)}
                 m={"md"}
@@ -548,7 +559,7 @@ const MyNavbar = () => {
   return (
     <>
       <Navbar
-        bg={"blue.0"}
+        // bg={"blue.0"}
         hiddenBreakpoint="sm"
         hidden={!sNavbarOpen.value}
         width={{ sm: 200, lg: 300 }}
@@ -573,7 +584,7 @@ const MyNavbar = () => {
           {listView.map((v) => (
             <NavLink
               defaultOpened={true}
-              bg={"blue.2"}
+              // bg={"blue.2"}
               // sx={{
               //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
               // }}
@@ -584,13 +595,15 @@ const MyNavbar = () => {
                 </Avatar>
               }
               key={v.id.toString()}
-              c={"dark"}
+              // c={"dark"}
               // defaultOpened
             >
               {v.child.map((vv, i) => (
-                <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
+                <Paper key={`${v.id}${i}`} mb={"xs"} 
+                // bg={"blue.1"}
+                >
                   <NavLink
-                    c={sSelectedView.value == vv.name ? "blue.8" : "blue.4"}
+                    c={sSelectedView.value == vv.name ? "blue.8" : ""}
                     icon={<vv.icon color="orange" />}
                     variant={"filled"}
                     // fw={sSelectedView.value == vv.name ? "bold" : "light"}
@@ -612,21 +625,51 @@ const MyNavbar = () => {
         </Navbar.Section>
         <Navbar.Section>
           <NavLink
-            bg={"gray"}
-            c={"dark"}
+            // bg={"gray"}
+            // c={"dark"}
             icon={<MdSettings />}
             label={"setting"}
-          />
-          <Flex bg={"dark"}>
+          >
+            <NavLink
+              icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
+              label={isDarkMode ? "Light" : "Dark"}
+              onClick={() => setisDarkMode(!isDarkMode)}
+            />
+          </NavLink>
+          {/* <Menu>
+            <Menu.Target>
+              <NavLink
+                bg={"gray"}
+                c={"dark"}
+                icon={<MdSettings />}
+                label={"setting"}
+              />
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item onClick={() => setisDarkMode(!isDarkMode)}>
+                <Flex gap={"md"}>
+                  <MdDarkMode size={24} />
+                  <Text>{isDarkMode? "Light" : "Dark"}</Text>
+                </Flex>
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu> */}
+          <Flex 
+          // bg={"dark"}
+          >
             <Stack spacing={0} p={"xs"} w={"100%"}>
               {/* <Text fz={9} c={"gray"}>
                 Bip Production @2023
               </Text> */}
-              <Text fz={9} c={"gray"}>
-                Version: 2.0.1
+              <Text fz={9} 
+              // c={"gray"}
+              >
+                Version: 3.0.1
               </Text>
-              <Text fz={9} c={"gray"}>
-                build: 10993
+              <Text fz={9} 
+              // c={"gray"}
+              >
+                build: 20993
               </Text>
             </Stack>
             <ActionIcon

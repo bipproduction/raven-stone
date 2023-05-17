@@ -38,7 +38,7 @@ import { MdSearch } from "react-icons/md";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { api } from "@/lib/api";
-let pag = 1;
+// let pag = 1;
 
 export default function EmotionViewProvinceCoupleV2() {
   //   const [listEmotion, setListEmotion] = useAtom(
@@ -60,6 +60,8 @@ export default function EmotionViewProvinceCoupleV2() {
   const [listEmotion, setListEmotion] = useState<any[] | undefined>();
   const [count, setCount] = useState(0);
   const [hasMore, setHasmore] = useState(true);
+  // let page = 1;
+  // let total = 0;
 
   useShallowEffect(() => {
     // _fun_emotion_view_province_couple({
@@ -68,29 +70,35 @@ export default function EmotionViewProvinceCoupleV2() {
     //   selectedCandidate2: selectedCandidate2,
     // });
     // console.log(selectedCandidate1, selectedCandidate2, "ini data select".yellow)
-    loadData({ pg: 1 });
+    loadData();
   }, []);
 
-  async function loadData({ pg }: { pg: number }) {
+  async function loadData() {
     fetch(
       api.apiPredictiveAiEmotionViewProvinceCoupleV2Get +
-        `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${pg}`
+        `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
     )
       .then((val) => val.json())
       .then((v) => {
-        if (listEmotion) {
-          setHasmore((page * 10) < count);
+        if (v) {
+          // setCount(v.count);
+
+          setListEmotion(v.data);
+          setHasmore(v.data.length < v.count);
+          setPage((p) => p + 1);
+          // setPage((p) => (p + 10 > v.count ? v.count : p + 10));
         }
-        setCount(v.count);
-        setListEmotion(v.data);
       });
+
+    // setHasmore(page * 10 < count);
   }
 
   async function loadMore() {
     // let pg = page + 1;
-    setPage(page + 1);
-    pag = page + 1;
-    await loadData({ pg: pag });
+    // setPage(page + 1);
+    // pag = page + 1;
+
+    await loadData();
   }
 
   if (!listEmotion)
@@ -111,7 +119,7 @@ export default function EmotionViewProvinceCoupleV2() {
         {/* {JSON.stringify(listEmotion)} */}
         <Paper
           p="xs"
-          bg={"blue.1"}
+          // bg={"blue.1"}
           mx={"md"}
           shadow="md"
           pos={"sticky"}
@@ -121,9 +129,12 @@ export default function EmotionViewProvinceCoupleV2() {
           }}
         >
           <Group position="right" spacing={"md"}>
+            {/* <Text>{page}</Text>
+            <Text>{count}</Text> */}
             <TextInput
               onChange={(val) => {
                 if (val) {
+                  // setPage(1);
                   setSearch(val.target.value);
                 }
               }}
@@ -148,6 +159,7 @@ export default function EmotionViewProvinceCoupleV2() {
               }
               onChange={(val) => {
                 if (val) {
+                  setPage(1);
                   setSelectedCandidate1(Number(val));
                 }
               }}
@@ -169,6 +181,7 @@ export default function EmotionViewProvinceCoupleV2() {
               }
               onChange={(val) => {
                 if (val) {
+                  setPage(1);
                   setSelectedCandidate2(Number(val));
                 }
               }}
@@ -180,7 +193,8 @@ export default function EmotionViewProvinceCoupleV2() {
                 //   selectedCandidate1: selectedCandidate1,
                 //   selectedCandidate2: selectedCandidate2,
                 // });
-                loadData({ pg: 1 });
+
+                loadData();
               }}
               radius={100}
             >
@@ -189,7 +203,9 @@ export default function EmotionViewProvinceCoupleV2() {
           </Group>
         </Paper>
         <Flex justify={"center"} align={"center"} p={"md"} gap={"lg"}>
-          <Paper p={"xs"} shadow={"md"} bg={stylesRadial.out_cyan}>
+          <Paper p={"xs"} shadow={"md"} 
+          // bg={stylesRadial.out_cyan}
+          >
             <Stack w={200} align="center">
               <Image
                 radius={10}
@@ -205,7 +221,9 @@ export default function EmotionViewProvinceCoupleV2() {
               </Title>
             </Stack>
           </Paper>
-          <Paper p={"xs"} shadow={"md"} bg={stylesRadial.out_blue}>
+          <Paper p={"xs"} shadow={"md"} 
+          // bg={stylesRadial.out_blue}
+          >
             <Stack w={200} align="center">
               <Image
                 radius={10}
@@ -226,32 +244,39 @@ export default function EmotionViewProvinceCoupleV2() {
         <InfiniteScroll
           loader={
             <Center>
-              <Loader />
+              <Flex>
+                <Loader />
+                <Title>Loading...</Title>
+              </Flex>
             </Center>
           }
           dataLength={listEmotion.length}
           next={loadMore}
           hasMore={hasMore}
-          endMessage={<Center>No more data</Center>}
+          // endMessage={<Center></Center>}
         >
           <Flex justify={"center"} align={"center"} wrap={"wrap"}>
             {listEmotion &&
               listEmotion.map((v, i) => (
-                <EmotionItemChart
-                  lsData={{
-                    trust: v.trust,
-                    joy: v.joy,
-                    surprise: v.surprise,
-                    anticipation: v.anticipation,
-                    sadness: v.sadness,
-                    fear: v.fear,
-                    anger: v.anger,
-                    disgust: v.disgust,
-                  }}
-                  provinceId={v.provinceId}
-                  provinceName={v.provinceName}
-                  key={i}
-                />
+                <Stack key={i}>
+                  {/* <Text>{i + 1}</Text> */}
+                  <EmotionItemChart
+                    lsData={{
+                      trust: v.trust,
+                      joy: v.joy,
+                      surprise: v.surprise,
+                      anticipation: v.anticipation,
+                      sadness: v.sadness,
+                      fear: v.fear,
+                      anger: v.anger,
+                      disgust: v.disgust,
+                    }}
+                    provinceId={v.provinceId}
+                    provinceName={v.provinceName}
+                    key={i}
+                    no={i + 1}
+                  />
+                </Stack>
               ))}
           </Flex>
         </InfiniteScroll>
@@ -264,10 +289,12 @@ const EmotionItemChart = ({
   lsData,
   provinceId,
   provinceName,
+  no,
 }: {
   lsData: any;
   provinceId: string;
   provinceName: string;
+  no: number;
 }) => {
   const option: EChartsOption = {
     radiusAxis: {},
@@ -314,9 +341,16 @@ const EmotionItemChart = ({
   return (
     <>
       {/* {JSON.stringify(lsData)} */}
-      <Paper p="md" bg={stylesRadial.out_cyan} m={"xs"}>
+      <Paper p="md" 
+      // bg={stylesRadial.out_cyan}
+       m={"xs"}>
         <Stack align="center">
-          <Title order={1}>{provinceName}</Title>
+          <Flex gap="md">
+            <Title c={"gray"}>{no}</Title>
+            <Title order={1} >
+              {provinceName}
+            </Title>
+          </Flex>
           <EChartsReact style={{ width: 400 }} option={option} />
         </Stack>
       </Paper>
