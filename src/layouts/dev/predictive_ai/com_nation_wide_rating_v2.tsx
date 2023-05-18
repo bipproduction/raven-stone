@@ -70,12 +70,12 @@ export function DevNationWideRatingv2() {
   return (
     <Stack
       spacing={"lg"}
-      bg={"white"}
-      w={width}
-      pos={"relative"}
-      sx={{
-        zIndex: 100,
-      }}
+      // bg={"dark"}
+      // w={width}
+      // pos={"relative"}
+      // sx={{
+      //   zIndex: 100,
+      // }}
     >
       {/* {JSON.stringify(listNationWideRating[0])} */}
       <Stack>
@@ -92,165 +92,174 @@ export function DevNationWideRatingv2() {
           <ButtonModalUpload />
         </Flex>
       </Stack>
-      <Table
-        highlightOnHover
-        withColumnBorders
-        withBorder
+      <Box
         sx={{
-          borderCollapse: "collapse",
+          overflow: "scroll",
         }}
       >
-        <thead>
-          <tr
-            style={{
-              position: "sticky",
-              top: 0,
-              zIndex: 101,
-              backgroundColor: "lightgray",
-            }}
-          >
-            <th>
-              <Title order={5}>Action</Title>
-            </th>
-            <th
+        <Table
+          highlightOnHover
+          withColumnBorders
+          withBorder
+          // bg={"gray"}
+          sx={{
+            borderCollapse: "collapse",
+          }}
+        >
+          <thead>
+            <tr
               style={{
                 position: "sticky",
-                left: 0,
-                zIndex: 100,
-                backgroundColor: "lightgray",
+                top: 0,
+                zIndex: 101,
+                // backgroundColor: "lightgray",
               }}
             >
-              <Title order={5}>Candidate 1</Title>
-            </th>
-            <th
-              style={{
-                position: "sticky",
-                left: 0,
-                zIndex: 100,
-                backgroundColor: "lightgray",
-              }}
-            >
-              <Title order={5}>Candidate 2</Title>
-            </th>
-            <th>
-              <Title order={5}>trust</Title>
-            </th>
-            <th>
-              <Title order={5}>joy</Title>
-            </th>
-            <th>
-              <Title order={5}>surprise</Title>
-            </th>
-            <th>
-              <Title order={5}>anticipation</Title>
-            </th>
-            <th>
-              <Title order={5}>sadness</Title>
-            </th>
-            <th>
-              <Title order={5}>fear</Title>
-            </th>
-            <th>
-              <Title order={5}>anger</Title>
-            </th>
-            <th>
-              <Title order={5}>disgust</Title>
-            </th>
-            <th>
-              <Title order={5}>Rate</Title>
-            </th>
-            <th>
-              <Title order={5}>Text</Title>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {listNationWideRating.map((v, i) => (
-            <tr key={i}>
-              <td>
-                <ActionIcon
-                  onClick={() => {
-                    setTargetData(v);
-                    setOpenModal(true);
-                  }}
-                  radius={100}
-                  bg={"orange"}
-                  size={"md"}
-                  variant="gradient"
-                >
-                  <MdEdit color="white" size={24} />
-                </ActionIcon>
-              </td>
-              <td
+              <th>
+                <Title order={5}>Action</Title>
+              </th>
+              <th
                 style={{
                   position: "sticky",
                   left: 0,
                   zIndex: 100,
-                  backgroundColor: "white",
+                  backgroundColor: "#343A3F",
                 }}
               >
-                <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
-                  <Avatar
-                    src={
-                      listCandidate?.find((v2) => v2.id == v.candidate_1_id).img
-                    }
-                  ></Avatar>
-                  <Text lineClamp={1}>{v["candidate_1_name"]}</Text>
-                </Flex>
-              </td>
-              <td
+                <Title order={5}>Candidate 1</Title>
+              </th>
+              <th
                 style={{
                   position: "sticky",
                   left: 0,
                   zIndex: 100,
-                  backgroundColor: "white",
+                  backgroundColor: "#343A3F",
                 }}
               >
-                <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
-                  <Avatar
-                    src={
-                      listCandidate?.find((v2) => v2.id == v.candidate_2_id).img
-                    }
-                  ></Avatar>{" "}
-                  <Text lineClamp={1}>{v["candidate_2_name"]}</Text>
-                </Flex>
-              </td>
-              <td>
-                <Text w={w}>{v.trust}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.joy}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.surprise}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.anticipation}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.sadness}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.fear}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.anger}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.disgust}</Text>
-              </td>
-              <td>
-                <Text w={w}>{v.rate}</Text>
-              </td>
-              <td>
-                <Text lineClamp={4} w={700}>
-                  {prs(v.text)}
-                </Text>
-              </td>
+                <Title order={5}>Candidate 2</Title>
+              </th>
+              <th>
+                <Title order={5}>trust</Title>
+              </th>
+              <th>
+                <Title order={5}>joy</Title>
+              </th>
+              <th>
+                <Title order={5}>surprise</Title>
+              </th>
+              <th>
+                <Title order={5}>anticipation</Title>
+              </th>
+              <th>
+                <Title order={5}>sadness</Title>
+              </th>
+              <th>
+                <Title order={5}>fear</Title>
+              </th>
+              <th>
+                <Title order={5}>anger</Title>
+              </th>
+              <th>
+                <Title order={5}>disgust</Title>
+              </th>
+              <th>
+                <Title order={5}>Rate</Title>
+              </th>
+              <th>
+                <Title order={5}>Text</Title>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {listNationWideRating.map((v, i) => (
+              <tr key={i}>
+                <td>
+                  <ActionIcon
+                    onClick={() => {
+                      setTargetData(v);
+                      setOpenModal(true);
+                    }}
+                    radius={100}
+                    bg={"orange"}
+                    size={"md"}
+                    variant="gradient"
+                  >
+                    <MdEdit color="white" size={24} />
+                  </ActionIcon>
+                </td>
+                <td
+                  style={{
+                    position: "sticky",
+                    left: 0,
+                    zIndex: 100,
+                    backgroundColor: "#343A3F",
+                  }}
+                >
+                  <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
+                    <Avatar
+                      src={
+                        listCandidate?.find((v2) => v2.id == v.candidate_1_id)
+                          .img
+                      }
+                    ></Avatar>
+                    <Text lineClamp={1}>{v["candidate_1_name"]}</Text>
+                  </Flex>
+                </td>
+                <td
+                  style={{
+                    position: "sticky",
+                    left: 0,
+                    zIndex: 100,
+                    backgroundColor: "#343A3F",
+                  }}
+                >
+                  <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
+                    <Avatar
+                      src={
+                        listCandidate?.find((v2) => v2.id == v.candidate_2_id)
+                          .img
+                      }
+                    ></Avatar>{" "}
+                    <Text lineClamp={1}>{v["candidate_2_name"]}</Text>
+                  </Flex>
+                </td>
+                <td>
+                  <Text w={w}>{v.trust}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.joy}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.surprise}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.anticipation}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.sadness}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.fear}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.anger}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.disgust}</Text>
+                </td>
+                <td>
+                  <Text w={w}>{v.rate}</Text>
+                </td>
+                <td>
+                  <Text lineClamp={4} w={700}>
+                    {prs(v.text)}
+                  </Text>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Box>
       <ModalEditData />
     </Stack>
   );
@@ -335,7 +344,7 @@ function ModalEditData() {
   return (
     <>
       <Modal
-        bg={"gray"}
+        // bg={"gray"}
         size={"xl"}
         opened={openModal}
         closeOnClickOutside={false}
@@ -384,7 +393,10 @@ function ModalEditData() {
             </Stack>
           </Flex>
           <Flex gap={"md"}>
-            <Stack p={"md"} bg={"gray.1"}>
+            <Stack
+              p={"md"}
+              // bg={"gray.1"}
+            >
               <Title order={3}>EMOTION</Title>
               <SimpleGrid cols={2}>
                 <NumberInput
@@ -453,7 +465,10 @@ function ModalEditData() {
                 />
               </SimpleGrid>
             </Stack>
-            <Stack p={"md"} bg={"gray.1"}>
+            <Stack
+              p={"md"}
+              // bg={"gray.1"}
+            >
               <Title order={3}>RATE</Title>
               <TextInput
                 label={"rate"}
@@ -515,7 +530,9 @@ function ContentEditor({
 
   return (
     <>
-      <Stack bg={"gray.1"}>
+      <Stack
+      // bg={"gray.1"}
+      >
         <RichTextEditor editor={editor}>
           <RichTextEditor.Toolbar sticky stickyOffset={60}>
             <RichTextEditor.ControlsGroup>

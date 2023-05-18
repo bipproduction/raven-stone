@@ -115,7 +115,7 @@ function Analisys() {
           <Paper
             key={i}
             p={"md"}
-            bg={v.sentiment == "positive" ? "green.1" : "red.1"}
+            // bg={v.sentiment == "positive" ? "green.1" : "red.1"}
           >
             <Stack>
               {/* {JSON.stringify(v)} */}
@@ -124,7 +124,11 @@ function Analisys() {
               </Title>
               {/* {JSON.stringify(v)} */}
               {!_.isEmpty(v.SwotAnalisys) && (
-                <ScrollArea p={"md"} bg={"white"} h={300} c={"gray"}>
+                <ScrollArea p={"md"} 
+                // bg={"white"} 
+                h={300} 
+                // c={"gray"}
+                >
                   <TextAnimation
                     phrases={[
                       v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
@@ -167,7 +171,9 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
           <Title c={"green"}>{v.name}</Title>
           {v.SwotAnalisys.length > 0 && (
             <Stack>
-              <Paper p={"md"} bg={"green.2"}>
+              <Paper p={"md"} 
+              // bg={"green.2"}
+              >
                 <Flex>
                   <Box p={"md"}>
                     <Flex>
@@ -205,8 +211,8 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
                   <ScrollArea
                     h={300}
                     p={"xs"}
-                    bg={"white"}
-                    c={"gray"}
+                    // bg={"white"}
+                    // c={"gray"}
                     w={"100%"}
                   >
                     {text == undefined ? (

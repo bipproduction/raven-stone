@@ -92,8 +92,12 @@ const Dev = () => {
   return (
     <Box ref={ref}>
       <DevAuthProvider>
-        <Stack spacing={0} pos={"static"} bg={"gray.3"} >
-          <Container bg={"gray.3"} mt={70} pos={"static"}>
+        <Stack spacing={0} pos={"static"} 
+        // bg={"gray.3"}
+         >
+          <Container 
+          // bg={"gray.3"} 
+          mt={70} pos={"static"}>
             <Stack>
               {/* <DevCityValue /> */}
 
@@ -102,7 +106,9 @@ const Dev = () => {
                 <Stack>
                   <Stack spacing={0}>
                     <Text>From Google Sheet</Text>
-                    <Text size={16} color={"gray"}>
+                    <Text size={16} 
+                    // color={"gray"}
+                    >
                       sync data dari google sheet
                     </Text>
                   </Stack>
@@ -126,7 +132,9 @@ const Dev = () => {
                 <Stack>
                   <Stack spacing={0}>
                     <Text>Generate Api</Text>
-                    <Text size={16} color={"gray"}>
+                    <Text size={16} 
+                    // color={"gray"}
+                    >
                       otomatis generate api dari folder api ;! hanya untuk
                       developer
                     </Text>
@@ -138,7 +146,9 @@ const Dev = () => {
                 <Stack>
                   <Stack spacing={0}>
                     <Text>Seeder</Text>
-                    <Text size={16} color={"gray"}>
+                    <Text size={16} 
+                    // color={"gray"}
+                    >
                       Seeder data dari json ke database jika ada penginstalan
                       awal
                     </Text>
@@ -187,7 +197,9 @@ const Dev = () => {
                     <Text color={"orange"} fw={"bold"}>
                       Danger Zone
                     </Text>
-                    <Text size={16} color={"gray"}>
+                    <Text size={16} 
+                    // color={"gray"}
+                    >
                       Hati hati karena akan menghapus dan mereplace ulang semua
                       data yang ada di content data
                     </Text>

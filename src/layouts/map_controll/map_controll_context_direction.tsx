@@ -52,7 +52,9 @@ const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
   function ContentView() {
     return (
       <>
-        <Paper p={"md"}  m={"md"} bg={"indigo.1"} shadow="md">
+        <Paper p={"md"}  m={"md"} 
+        // bg={"indigo.1"} 
+        shadow="md">
           <Stack spacing={"lg"}>
             {/* <Text>{JSON.stringify(dataKab.data.City.id)}</Text> */}
             <Title>Context Direction</Title>
