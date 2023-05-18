@@ -127,7 +127,9 @@ export default function NationWideRatingv2() {
         </Paper>
         <Flex gap={"md"}>
           <Stack w={"100%"} spacing={"md"}>
-            <Paper p={"md"} bg={"yellow.2"} shadow="md">
+            <Paper p={"md"} 
+            // bg={"yellow.2"} 
+            shadow="md">
               <Flex align={"center"} justify={"center"} gap={"lg"}>
                 <Stack align="center" w={200}>
                   <Image
@@ -138,7 +140,9 @@ export default function NationWideRatingv2() {
                     }
                     alt=""
                   />
-                  <Title align="center" lineClamp={1} c={"gray.8"} order={3}>
+                  <Title align="center" lineClamp={1} 
+                  // c={"gray.8"} 
+                  order={3}>
                     {_.upperCase(
                       listCandidate.find((v) => v.id == selectedCandidate1)
                         ?.name
@@ -155,7 +159,9 @@ export default function NationWideRatingv2() {
                     }
                     alt=""
                   />
-                  <Title align="center" lineClamp={1} c={"gray.8"} order={3}>
+                  <Title align="center" lineClamp={1} 
+                  // c={"gray.8"} 
+                  order={3}>
                     {_.upperCase(
                       listCandidate.find((v) => v.id == selectedCandidate2)
                         ?.name
@@ -164,7 +170,9 @@ export default function NationWideRatingv2() {
                 </Stack>
               </Flex>
             </Paper>
-            <Paper p={"md"} bg={"blue.1"} shadow="md">
+            <Paper p={"md"} 
+            // bg={"blue.1"} 
+            shadow="md">
               <NationWideRatingV2Chart data={selectedData} />
             </Paper>
           </Stack>
@@ -183,7 +191,9 @@ export default function NationWideRatingv2() {
                     </Stack>
                   </Paper>
                 </SimpleGrid>
-                <Paper bg={"dark.2"} p={"xs"} w={"100%"} shadow="md">
+                <Paper 
+                bg={"dark.2"} 
+                p={"xs"} w={"100%"} shadow="md">
                   <ScrollArea h={500} c={"white"}>
                     {selectedData && selectedData.text && (
                       <TextAnimation

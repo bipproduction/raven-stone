@@ -580,7 +580,7 @@ function TableView() {
       <Paper p={"xs"} mt={"xs"}>
         <Group position="apart">
           <Pagination
-            total={_.ceil(sListKabupaten.value.length / 10)}
+            total={_.ceil(sListKabupaten.value.length / 15)}
             onChange={onPageChange}
           />
         </Group>
