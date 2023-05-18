@@ -91,7 +91,7 @@ export function MapControllCityValueEditor() {
                 position: "sticky",
                 top: 0,
                 zIndex: 100,
-                backgroundColor: "white",
+                // backgroundColor: "white",
               }}
             >
               <th>{""}</th>
@@ -111,7 +111,7 @@ export function MapControllCityValueEditor() {
               <tr
                 key={i}
                 style={{
-                  backgroundColor: v.isSelected ? "lightgray" : "white",
+                  backgroundColor: v.isSelected ? "lightgray" : "",
                 }}
               >
                 <td>

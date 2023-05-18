@@ -38,7 +38,9 @@ export function DevStepAndSwotAnalisys() {
   return (
     <>
       <Stack spacing={"lg"}>
-        <Box p={"xs"} bg={"dark"} pos={"sticky"} top={0} sx={{
+        <Box p={"xs"} 
+        // bg={"dark"} 
+        pos={"sticky"} top={0} sx={{
             zIndex: 100
         }} >
           <Button.Group>
