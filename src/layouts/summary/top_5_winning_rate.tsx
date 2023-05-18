@@ -51,7 +51,7 @@ export function Top5WinningRate() {
                             radius={8}
                             width={100}
                             height={100}
-                            src={v.candidate1.img??""}
+                            src={v.candidate1!.img??""}
                             alt={""}
                           />
                           <Title align="center" lineClamp={1} order={5}>
@@ -65,7 +65,7 @@ export function Top5WinningRate() {
                             radius={8}
                             width={100}
                             height={100}
-                            src={v.candidate2.img??""}
+                            src={v.candidate2!.img??""}
                             alt={""}
                           />
                           <Title align="center" lineClamp={1} order={5}>
