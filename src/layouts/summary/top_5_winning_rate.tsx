@@ -37,7 +37,7 @@ export function Top5WinningRate() {
     <>
       <Paper p={"md"}>
         <Stack>
-        {JSON.stringify(listTop5)}
+
           <PageTitle title={"TOP 5 NATIONAL WINNING RATES PREDICTION"} />
           <SimpleGrid cols={3}>
             {listTop5.map((v, i) => (
@@ -47,13 +47,13 @@ export function Top5WinningRate() {
                     <SimpleGrid cols={2}>
                       <Center>
                         <Stack align="center" justify="center" spacing={"lg"}>
-                          {/* <Image
+                          <Image
                             radius={8}
                             width={100}
                             height={100}
-                            src={v.candidate1!.img??""}
+                            src={v.candidate1.img}
                             alt={""}
-                          /> */}
+                          />
                           <Title align="center" lineClamp={1} order={5}>
                             {v.candidate1.name}
                           </Title>
@@ -61,13 +61,13 @@ export function Top5WinningRate() {
                       </Center>
                       <Center>
                         <Stack align="center" justify="center" spacing={"lg"}>
-                          {/* <Image
+                          <Image
                             radius={8}
                             width={100}
                             height={100}
-                            src={v.candidate2!.img??""}
+                            src={v.candidate2.img}
                             alt={""}
-                          /> */}
+                          />
                           <Title align="center" lineClamp={1} order={5}>
                             {v.candidate2.name}
                           </Title>
