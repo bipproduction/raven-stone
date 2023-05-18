@@ -146,7 +146,9 @@ function SwotAnalisysCreateTitle() {
 
   return (
     <>
-      <Paper bg={"cyan.1"}>
+      <Paper 
+      // bg={"cyan.1"}
+      >
         <Stack p={"md"}>
           <Group position="right">
             <Stack>
@@ -185,7 +187,9 @@ function SwotAnalisysCreateTitle() {
               </Button>
             </Stack>
           </Group>
-          <Stack p={"md"} bg={"white"}>
+          <Stack p={"md"} 
+          // bg={"white"}
+          >
             {_listTitle.value &&
               _listTitle.value.map((v, i) => (
                 <Stack key={i}>
@@ -312,7 +316,9 @@ function CreateSwot() {
 
   return (
     <>
-      <Paper p={"md"} bg={selectedEmotion == "positive" ? "green.1" : "red.1"}>
+      <Paper p={"md"} 
+      // bg={selectedEmotion == "positive" ? "green.1" : "red.1"}
+      >
         <Stack spacing={"lg"}>
           <Group position="right">
             <Stack>
@@ -408,7 +414,9 @@ function SwotListView() {
   }
 
   return (
-    <Stack p={"md"} bg={"teal.1"} spacing={"lg"}>
+    <Stack p={"md"} 
+    // bg={"teal.1"} 
+    spacing={"lg"}>
       <Group>
         <Stack>
           <Stack spacing={0}>
@@ -436,7 +444,9 @@ function SwotListView() {
         </Stack>
       </Group>
 
-      <Table bg={"white"}>
+      <Table 
+      // bg={"white"}
+      >
         <thead>
           <tr>
             <th>
