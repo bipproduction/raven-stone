@@ -7,7 +7,7 @@ export default async function top5WinningRate(req: any, res: any) {
     const data: any[] = (await client.nationWideRatingV2.findUnique({where: {id: 1}}))?.data as []
     const candidate = await client.candidate.findMany()
 
-    const data2 = data.map((v) => ({
+    const data2 = data.map(async(v) => ({
         ..._.omit(v, [
             'candidate_1_id',
             'candidate_2_id',
@@ -24,8 +24,8 @@ export default async function top5WinningRate(req: any, res: any) {
             'candidate_2_name'
         ]),
         persen: Number(v.rate??"0")??0,
-        candidate1: _.find(candidate, { id: v.candidate_1_id }),
-        candidate2: _.find(candidate, { id: v.candidate_2_id }),
+        candidate1: await client.candidate.findUnique({where: {id: v.candidate_1_id}}),
+        candidate2: await client.candidate.findUnique({where: {id: v.candidate_2_id}}),
 
     }))
 
