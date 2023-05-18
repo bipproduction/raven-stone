@@ -16,6 +16,7 @@ import Sambutan from "../sambutan";
 import SummaryDataChart from "./summary_data_chart";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { SummaryTrenSentiment } from "./summary_tren_sentiment";
+import { Top5WinningRate } from "./top_5_winning_rate";
 
 const MainSummary = () => {
   return (
@@ -51,6 +52,7 @@ const MainSummary = () => {
         </Grid>
         <Top10ProvinceByConversation />
         <Top10DistrictbyConversation />
+        <Top5WinningRate  />
       </Stack>
     </>
   );

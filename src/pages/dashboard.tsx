@@ -56,6 +56,9 @@ import {
   MdAssignment,
   MdBarChart,
   MdDarkMode,
+  MdFace,
+  MdFreeCancellation,
+  MdGrading,
   MdGridView,
   MdInfo,
   MdJoinLeft,
@@ -69,6 +72,7 @@ import {
   MdStackedBarChart,
   MdStorage,
   MdTimer,
+  MdWorkHistory,
 } from "react-icons/md";
 import toast from "react-simple-toasts";
 import NationWideRatingv2 from "../layouts/prodictive_ai/nation_wide_rating_v2";
@@ -169,21 +173,22 @@ const listView = [
     ],
   },
   {
+
     id: 3,
     name: "STEP & SWOT",
-    icon: MdMessage,
+    icon: MdFace,
     child: [
       {
         id: 1,
-        name: "Step Analisys",
+        name: "Step Analysis",
         view: StepAnalisys,
-        icon: MdOutlineStarBorderPurple500,
+        icon: MdFreeCancellation,
       },
       {
         id: 2,
         name: "SWOT Analysis",
         view: SwotAnalisys,
-        icon: MdOutlineStarBorderPurple500,
+        icon: MdGrading,
       },
     ],
   },

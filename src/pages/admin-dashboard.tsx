@@ -105,48 +105,48 @@ const listMenu = [
       },
     ],
   },
-  {
-    id: "4",
-    name: "Test Iframe",
-    isOpen: false,
-    // view: DevTestIframe,
-    children: [
-      {
-        id: "1",
-        name: "Test Iframe",
-        view: DevTestIframe,
-      },
-    ],
-  },
-  {
-    id: "5",
-    name: "Test Iframe Boma",
-    isOpen: false,
-    // view: DevTestIframeBoma,
-    children: [
-      {
-        id: "1",
-        name: "Test Iframe Boma",
-        view: DevTestIframeBoma,
-      },
-    ],
-  },
-  {
-    id: "6",
-    name: "Time Machine",
-    isOpen: false,
-    // view: DevTimeMachine,
-    children: [
-      {
-        id: "1",
-        name: "Time Machine",
-        view: DevTimeMachine,
-      },
-    ],
-  },
+  // {
+  //   id: "4",
+  //   name: "Test Iframe",
+  //   isOpen: false,
+  //   // view: DevTestIframe,
+  //   children: [
+  //     {
+  //       id: "1",
+  //       name: "Test Iframe",
+  //       view: DevTestIframe,
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: "5",
+  //   name: "Test Iframe Boma",
+  //   isOpen: false,
+  //   // view: DevTestIframeBoma,
+  //   children: [
+  //     {
+  //       id: "1",
+  //       name: "Test Iframe Boma",
+  //       view: DevTestIframeBoma,
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: "6",
+  //   name: "Time Machine",
+  //   isOpen: false,
+  //   // view: DevTimeMachine,
+  //   children: [
+  //     {
+  //       id: "1",
+  //       name: "Time Machine",
+  //       view: DevTimeMachine,
+  //     },
+  //   ],
+  // },
   {
     id: "7",
-    name: "Step And Swot Analisys",
+    name: "Step And Swot Analysis",
     isOpen: false,
     // view: DevStepAndSwotAnalisys,
     children: [
@@ -215,12 +215,14 @@ const AdminDashboard = (props: any) => {
       <AppShell
         padding={0}
         // padding="md"
-        bg={"gray.2"}
+        // bg={"gray.2"}
         navbar={
           isSmall ? (
             <></>
           ) : (
-            <Navbar width={{ base: 300 }} bg={"gray.1"}>
+            <Navbar width={{ base: 300 }} 
+            // bg={"gray.1"}
+            >
               <Navbar.Section h={200}>
                 <Image
                   src={"/dev-icon.png"}
@@ -239,16 +241,18 @@ const AdminDashboard = (props: any) => {
                     key={item.id}
                     fw={"bold"}
                     label={
-                      <Title c={"gray.8"} order={5}>
+                      <Title 
+                      // c={"gray.8"} 
+                      order={5}>
                         {_.upperCase(item.name)}
                       </Title>
                     }
                   >
                     {item.children.map((v) => (
                       <NavLink
-                        bg={
+                        c={
                           `${item.id}_${v.id}` == selectedDashboard
-                            ? "white"
+                            ? "blue"
                             : ""
                         }
                         key={v.id}
@@ -262,13 +266,15 @@ const AdminDashboard = (props: any) => {
                   </NavLink>
                 ))}
               </Navbar.Section>
-              <Navbar.Section bg={"dark"}>
+              <Navbar.Section 
+              // bg={"dark"}
+              >
                 <Group position="apart" p={"xs"}>
                   <ButtonLogout />
                   <ActionIcon
                     variant="white"
                     radius={100}
-                    bg={"blue"}
+                    // bg={"blue"}
                     onClick={() => {
                       // localStorage.setItem("is_small", "true");
                       // s_is_small.value = true;
@@ -309,7 +315,7 @@ const AdminDashboard = (props: any) => {
           <ActionIcon
             variant="white"
             radius={100}
-            bg={"blue"}
+            // bg={"blue"}
             size={32}
             pos={"fixed"}
             bottom={20}
@@ -323,7 +329,9 @@ const AdminDashboard = (props: any) => {
             }}
           >
             <Center>
-              <MdArrowForwardIos size={26} color="white" />
+              <MdArrowForwardIos size={26} 
+              // color="white"
+               />
             </Center>
           </ActionIcon>
         )}
