@@ -24,8 +24,8 @@ export default async function top5WinningRate(req: any, res: any) {
             'candidate_2_name'
         ]),
         persen: Number(v.rate??"0")??0,
-        candidate1: await client.candidate.findUnique({where: {id: v.candidate_1_id}}),
-        candidate2: await client.candidate.findUnique({where: {id: v.candidate_2_id}}),
+        candidate1: await client.candidate.findUnique({where: {id: Number(v.candidate_1_id)}}),
+        candidate2: await client.candidate.findUnique({where: {id: Number(v.candidate_2_id)}}),
 
     }))
 
