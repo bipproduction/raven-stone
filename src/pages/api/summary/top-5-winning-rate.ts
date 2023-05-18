@@ -7,7 +7,7 @@ export default async function top5WinningRate(req: any, res: any) {
     const data: any[] = (await client.nationWideRatingV2.findUnique({where: {id: 1}}))?.data as []
     const candidate = await client.candidate.findMany()
 
-    const data2 = data.map(async(v) => ({
+    const data2 = data.map((v) => ({
         ..._.omit(v, [
             'candidate_1_id',
             'candidate_2_id',
@@ -36,7 +36,7 @@ export default async function top5WinningRate(req: any, res: any) {
     console.log(data3)
 
     // console.log(data3)
-    res.status(200).json(null)
+    res.status(200).json(data3)
 
     // const candidate1 = await client.candidate.findMany()
     // const candidate2 = await client.candidate.findMany()
