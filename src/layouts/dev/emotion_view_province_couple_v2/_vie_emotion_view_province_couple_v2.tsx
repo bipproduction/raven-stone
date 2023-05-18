@@ -72,7 +72,7 @@ export default function Vie_emotion_view_province_couple_v2() {
         p={"xs"}
         shadow={"sm"}
         radius={"md"}
-        bg={"gray.1"}
+        // bg={"gray.1"}
         pos={"sticky"}
         top={0}
         sx={{
@@ -123,7 +123,7 @@ export default function Vie_emotion_view_province_couple_v2() {
       </Paper>
       {/* {JSON.stringify(listEmotion)} */}
       <Paper
-        bg={"gray.1"}
+        // bg={"gray.1"}
         shadow={"sm"}
         radius={"md"}
         p={"xs"}
