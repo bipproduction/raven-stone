@@ -399,68 +399,68 @@ function ModalEditData() {
             >
               <Title order={3}>EMOTION</Title>
               <SimpleGrid cols={2}>
-                <NumberInput
+                <TextInput
                   label={"trust"}
                   min={0}
                   placeholder={targetData.trust}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, trust: e });
+                    setTargetData({ ...targetData, trust: e.target.value });
                   }}
                 />
-                <NumberInput
+                <TextInput
                   label={"joy"}
                   min={0}
                   placeholder={targetData.joy}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, joy: e });
+                    setTargetData({ ...targetData, joy: e.target.value });
                   }}
                 />
-                <NumberInput
+                <TextInput
                   label={"surprise"}
                   min={0}
                   placeholder={targetData.surprise}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, surprise: e });
+                    setTargetData({ ...targetData, surprise: e.target.value });
                   }}
                 />
-                <NumberInput
+                <TextInput
                   label={"anticipation"}
                   min={0}
                   placeholder={targetData.anticipation}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, anticipation: e });
+                    setTargetData({ ...targetData, anticipation: e.target.value });
                   }}
                 />
-                <NumberInput
+                <TextInput
                   label={"sadness"}
                   min={0}
                   placeholder={targetData.sadness}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, sadness: e });
+                    setTargetData({ ...targetData, sadness: e.target.value });
                   }}
                 />
-                <NumberInput
+                <TextInput
                   label={"fear"}
                   min={0}
                   placeholder={targetData.fear}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, fear: e });
+                    setTargetData({ ...targetData, fear: e.target.value });
                   }}
                 />
-                <NumberInput
+                <TextInput
                   label={"anger"}
                   min={0}
                   placeholder={targetData.anger}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, anger: e });
+                    setTargetData({ ...targetData, anger: e.target.value });
                   }}
                 />
-                <NumberInput
+                <TextInput
                   label={"disgust"}
                   min={0}
                   placeholder={targetData.disgust}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, disgust: e });
+                    setTargetData({ ...targetData, disgust: e.target.value });
                   }}
                 />
               </SimpleGrid>

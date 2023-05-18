@@ -37,6 +37,7 @@ export function Top5WinningRate() {
     <>
       <Paper p={"md"}>
         <Stack>
+
           <PageTitle title={"TOP 5 NATIONAL WINNING RATES PREDICTION"} />
           <SimpleGrid cols={3}>
             {listTop5.map((v, i) => (
@@ -75,7 +76,7 @@ export function Top5WinningRate() {
                     </SimpleGrid>
                   </Stack>
                   <Divider w={"100%"} />
-                  <Title c={"green"} size={72} align="center">{v.persen}</Title>
+                  <Title c={"green"} size={72} align="center">{v.persen} %</Title>
                 </Stack>
               </Card>
             ))}
