@@ -122,7 +122,9 @@ const SummarySelectCandidate = () => {
               ))}
             </Flex>
             <Flex justify="center" align={"center"} >
-              <Title align="center" color={"white"} order={3}>
+              <Title align="center" 
+              // color={"white"} 
+              order={3}>
                 {_.upperCase(
                   sCandidate.value.find(
                     (v) => v.id == Number(sSelectedCandidate.value)
@@ -141,7 +143,9 @@ const SummarySelectCandidate = () => {
                 }}
               >
                 <Center>
-                  <Text c={"white"} fw={"bold"}>
+                  <Text 
+                  // c={"white"} 
+                  fw={"bold"}>
                     {prosentase.positive} %
                   </Text>
                 </Center>
@@ -155,7 +159,9 @@ const SummarySelectCandidate = () => {
                 }}
               >
                 <Center>
-                  <Text c={"white"} fw={"bold"}>
+                  <Text 
+                  // c={"white"}
+                   fw={"bold"}>
                     {prosentase.neutral} %
                   </Text>
                 </Center>
@@ -169,7 +175,9 @@ const SummarySelectCandidate = () => {
                 }}
               >
                 <Center>
-                  <Text c={"white"} fw={"bold"}>
+                  <Text 
+                  // c={"white"} 
+                  fw={"bold"}>
                     {prosentase.negative} %
                   </Text>
                 </Center>
