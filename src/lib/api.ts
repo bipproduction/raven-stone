@@ -27,6 +27,7 @@ export const api = {
   "apiUtilEnvIsDevGet": "/api/util/env-is-dev-get",
   "apiUtilCityContextDirectionUpdate": "/api/util/city-context-direction-update",
   "apiSwotSwotContentGet": "/api/swot/swot-content-get",
+  "apiSummaryTop5WinningRate": "/api/summary/top-5-winning-rate",
   "apiSummarySummaryTrenSentiment": "/api/summary/summary-tren-sentiment",
   "apiSummarySummaryTop10ProvinceGet": "/api/summary/summary-top-10-province-get",
   "apiSummarySummaryTop10DistrictGet": "/api/summary/summary-top-10-district-get",
@@ -107,10 +108,10 @@ export const api = {
   "apiDevDevCityValueUpdate": "/api/dev/dev-city-value-update",
   "apiDevDevCityValueGet": "/api/dev/dev-city-value-get",
   "apiDevCityValueUpdate": "/api/dev/city-value-update",
+  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
+  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get",
   "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",
-  "apiAuthGetUserById": "/api/auth/get-user-by-id",
-  "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
-  "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get"
+  "apiAuthGetUserById": "/api/auth/get-user-by-id"
 }
