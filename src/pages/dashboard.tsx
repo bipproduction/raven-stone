@@ -371,19 +371,13 @@ const Dashboard = () => {
         }
       >
         {/* //todo: 2023-05-19 */}
-        {/* {listView.map((v) =>
-        v.child.map((vv) => (
-          <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
-            {<vv.view />}
-          </Box>
-        ))
-      )} */}
-        <MainSummary />
-        <MentionbyCategory />
-        <StepAnalisys />
-        <SwotAnalisys />
-        <ContextualContent />
-        
+        {listView.map((v) =>
+          v.child.map((vv) => (
+            <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
+              {<vv.view />}
+            </Box>
+          ))
+        )}
       </AppShell>
     </>
   );
