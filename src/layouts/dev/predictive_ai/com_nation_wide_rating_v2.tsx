@@ -196,12 +196,12 @@ export function DevNationWideRatingv2() {
                   }}
                 >
                   <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
-                    <Avatar
+                    {/* <Avatar
                       src={
                         listCandidate?.find((v2) => v2.id == v.candidate_1_id)
                           .img
                       }
-                    ></Avatar>
+                    ></Avatar> */}
                     <Text lineClamp={1}>{v["candidate_1_name"]}</Text>
                   </Flex>
                 </td>
@@ -214,12 +214,12 @@ export function DevNationWideRatingv2() {
                   }}
                 >
                   <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
-                    <Avatar
+                    {/* <Avatar
                       src={
                         listCandidate?.find((v2) => v2.id == v.candidate_2_id)
                           .img
                       }
-                    ></Avatar>{" "}
+                    ></Avatar>{" "} */}
                     <Text lineClamp={1}>{v["candidate_2_name"]}</Text>
                   </Flex>
                 </td>
