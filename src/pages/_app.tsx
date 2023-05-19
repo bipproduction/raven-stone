@@ -54,7 +54,6 @@ export default function App(props: AppProps) {
   }, []);
 
   useShallowEffect(() => {
-    LoadCandidate();
     funcLoadCandidate();
   }, []);
 
