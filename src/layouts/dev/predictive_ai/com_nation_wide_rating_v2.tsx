@@ -369,7 +369,7 @@ function ModalEditData() {
             <Stack align="center" p={"md"}>
               <Title order={3}>
                 {
-                  listCandidate?.find((v) => v.id == targetData.candidate_1_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_1_id))
                     .name
                 }
               </Title>
@@ -378,7 +378,7 @@ function ModalEditData() {
                 width={100}
                 height={100}
                 src={
-                  listCandidate?.find((v) => v.id == targetData.candidate_1_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_1_id))
                     .img
                 }
                 alt=""
@@ -387,7 +387,7 @@ function ModalEditData() {
             <Stack align="center" p={"md"}>
               <Title order={3}>
                 {
-                  listCandidate?.find((v) => v.id == targetData.candidate_2_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_2_id))
                     .name
                 }
               </Title>
@@ -396,7 +396,7 @@ function ModalEditData() {
                 width={100}
                 height={100}
                 src={
-                  listCandidate?.find((v) => v.id == targetData.candidate_2_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_2_id))
                     .img
                 }
                 alt=""
