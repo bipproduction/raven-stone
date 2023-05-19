@@ -208,24 +208,25 @@ const listView = [
       //   name: "Emotional View Via Region",
       //   view: EmotionalViewViaRegion,
       // },
-      {
-        id: 3,
-        name: "Emotional View Via Province",
-        view: EmotionalViewViaProvince,
-        icon: MdOutlineStars,
-      },
-      {
-        id: 4,
-        name: "Emotional View Via Province Couple",
-        view: EmotionViewProvinceCoupleV2,
-        icon: MdJoinLeft,
-      },
-      {
-        id: 5,
-        name: "Contextual Content",
-        view: ContextualContent,
-        icon: MdStackedBarChart,
-      },
+      // todo: 2023-05-19
+      // {
+      //   id: 3,
+      //   name: "Emotional View Via Province",
+      //   view: EmotionalViewViaProvince,
+      //   icon: MdOutlineStars,
+      // },
+      // {
+      //   id: 4,
+      //   name: "Emotional View Via Province Couple",
+      //   view: EmotionViewProvinceCoupleV2,
+      //   icon: MdJoinLeft,
+      // },
+      // {
+      //   id: 5,
+      //   name: "Contextual Content",
+      //   view: ContextualContent,
+      //   icon: MdStackedBarChart,
+      // },
     ],
   },
 ];
