@@ -1,5 +1,6 @@
 import client from "@/lib/prisma_db"
 import _ from "lodash"
+import 'colors'
 
 export default async function top5WinningRate(req: any, res: any) {
 
@@ -20,15 +21,19 @@ export default async function top5WinningRate(req: any, res: any) {
             'anger',
             'disgust',
             'candidate_1_name',
-            'candidate_2_name'
+            'candidate_2_name',
+            'rate'
         ]),
         persen: Number(v.rate??"0")??0,
-        candidate1: _.find(candidate, { id: v.candidate_1_id }),
-        candidate2: _.find(candidate, { id: v.candidate_2_id }),
+        candidate1: candidate.find((c) => c.id === Number(v.candidate_1_id)),
+        candidate2: candidate.find((c) => c.id === Number(v.candidate_2_id)),
 
     }))
 
     const data3 = _.take(_.orderBy(data2, ['persen'], ['desc']), 5)
+
+    console.log("ini  data winning rate".yellow)
+    console.log(data3)
 
     // console.log(data3)
     res.status(200).json(data3)
