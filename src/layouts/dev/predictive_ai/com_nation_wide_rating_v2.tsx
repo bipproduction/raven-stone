@@ -340,6 +340,13 @@ function ModalEditData() {
   const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
   const [listNationWideRating, setListNationWideRating] =
     useAtom(_val_listNation);
+
+  function loadCandidate() {
+    fetch(api.apiGetCandidate)
+      .then((v) => v.json())
+      .then(setListCandidate);
+  }
+
   if (!targetData) return <></>;
   return (
     <>
@@ -428,7 +435,10 @@ function ModalEditData() {
                   min={0}
                   placeholder={targetData.anticipation}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, anticipation: e.target.value });
+                    setTargetData({
+                      ...targetData,
+                      anticipation: e.target.value,
+                    });
                   }}
                 />
                 <TextInput
