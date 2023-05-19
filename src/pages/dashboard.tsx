@@ -91,12 +91,13 @@ const listView = [
       //     name: "Nation Wide Chart",
       //     view: NationWideChart,
       //   },
-      {
-        id: 2,
-        name: "Top 10 Rating By Emotions",
-        view: MainSummary,
-        icon: MdStorage,
-      },
+      // todo: 2023-05-19
+      // {
+      //   id: 2,
+      //   name: "Top 10 Rating By Emotions",
+      //   view: MainSummary,
+      //   icon: MdStorage,
+      // },
       // {
       //   id: 3,
       //   name: "Top 10 District by Emotions",
