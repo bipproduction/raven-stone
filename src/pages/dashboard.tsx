@@ -215,12 +215,12 @@ const listView = [
         view: EmotionalViewViaProvince,
         icon: MdOutlineStars,
       },
-      // {
-      //   id: 4,
-      //   name: "Emotional View Via Province Couple",
-      //   view: EmotionViewProvinceCoupleV2,
-      //   icon: MdJoinLeft,
-      // },
+      {
+        id: 4,
+        name: "Emotional View Via Province Couple",
+        view: EmotionViewProvinceCoupleV2,
+        icon: MdJoinLeft,
+      },
       // {
       //   id: 5,
       //   name: "Contextual Content",
