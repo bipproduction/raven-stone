@@ -341,6 +341,10 @@ function ModalEditData() {
   const [listNationWideRating, setListNationWideRating] =
     useAtom(_val_listNation);
 
+  useShallowEffect(() => {
+    loadCandidate();
+  }, []);
+
   function loadCandidate() {
     fetch(api.apiGetCandidate)
       .then((v) => v.json())
