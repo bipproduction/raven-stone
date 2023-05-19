@@ -92,13 +92,12 @@ const listView = [
       //     view: NationWideChart,
       //   },
       // todo: 2023-05-19
-      
-      // {
-      //   id: 2,
-      //   name: "Top 10 Rating By Emotions",
-      //   view: MainSummary,
-      //   icon: MdStorage,
-      // },
+      {
+        id: 2,
+        name: "Top 10 Rating By Emotions",
+        view: MainSummary,
+        icon: MdStorage,
+      },
       // {
       //   id: 3,
       //   name: "Top 10 District by Emotions",
@@ -370,13 +369,14 @@ const Dashboard = () => {
         </Header>
       }
     >
-      {listView.map((v) =>
+      {/* //todo: 2023-05-19 */}
+      {/* {listView.map((v) =>
         v.child.map((vv) => (
           <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
             {<vv.view />}
           </Box>
         ))
-      )}
+      )} */}
       <LoadFirstData />
     </AppShell>
   );
