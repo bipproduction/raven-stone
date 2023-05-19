@@ -44,7 +44,7 @@ import LoadCandidate from "@/load_data/load_candidate";
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   const [isDarkMode, setIsDarkMode] = useAtom(_is_dark_mode);
-  const [listCandidate, setListCandidate] = useAtom(mc_list_candidate)
+  const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
 
   useShallowEffect(() => {
     const local = localStorage.getItem("is_local");
@@ -54,16 +54,17 @@ export default function App(props: AppProps) {
   }, []);
 
   useShallowEffect(() => {
-    LoadCandidate()
-  }, [])
+    LoadCandidate();
+    funcLoadCandidate();
+  }, []);
 
-  const funcLoadCandidate = () => fetch(api.apiUtilGetCandidate)
-    .then((v) => v.json())
-    .then(v => {
-        sCandidate.value = v
-        setListCandidate(v)
-        
-    });
+  const funcLoadCandidate = () =>
+    fetch(api.apiUtilGetCandidate)
+      .then((v) => v.json())
+      .then((v) => {
+        sCandidate.value = v;
+        setListCandidate(v);
+      });
 
   useShallowEffect(() => {
     funcLoadCandidate();
