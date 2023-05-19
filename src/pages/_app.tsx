@@ -39,7 +39,6 @@ import { useAtom } from "jotai";
 import { _is_dark_mode } from "@/g_state/atom_util_state";
 import { sCandidate } from "@/s_state/s_candidate";
 import { mc_list_candidate } from "@/layouts/map_controll/map_controll_state";
-import LoadCandidate from "@/load_data/load_candidate";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
