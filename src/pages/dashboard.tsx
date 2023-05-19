@@ -91,6 +91,7 @@ const listView = [
       //     name: "Nation Wide Chart",
       //     view: NationWideChart,
       //   },
+      // todo: 2023-05-19
       {
         id: 2,
         name: "Top 10 Rating By Emotions",
@@ -173,7 +174,6 @@ const listView = [
     ],
   },
   {
-
     id: 3,
     name: "STEP & SWOT",
     icon: MdFace,
@@ -208,6 +208,7 @@ const listView = [
       //   name: "Emotional View Via Region",
       //   view: EmotionalViewViaRegion,
       // },
+      // todo: 2023-05-19
       {
         id: 3,
         name: "Emotional View Via Province",
@@ -253,59 +254,61 @@ const Dashboard = () => {
       sSelectedView.value = page;
     }
   }, []);
-  
-  return (
-    <AppShell
-      // bg={"gray.2"}
-      styles={{
-        main: {
-          background:
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[8]
-              : theme.colors.gray[0],
-        },
-      }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      navbar={<MyNavbar />}
-      header={
-        <Header
-          height={{ base: 50, md: 50 }}
-          p="md"
-          // bg={"blue.4"}
-          sx={{
-            boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
-          }}
-        >
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={sNavbarOpen.value}
-                onClick={() => {
-                  sNavbarOpen.value = !sNavbarOpen.value;
-                }}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
 
-            <Flex
-              direction={"row"}
-              justify={"space-between"}
-              w={"100%"}
-              align={"center"}
+  return (
+    <>
+      <LoadFirstData />
+      <AppShell
+        // bg={"gray.2"}
+        styles={{
+          main: {
+            background:
+              theme.colorScheme === "dark"
+                ? theme.colors.dark[8]
+                : theme.colors.gray[0],
+          },
+        }}
+        navbarOffsetBreakpoint="sm"
+        asideOffsetBreakpoint="sm"
+        navbar={<MyNavbar />}
+        header={
+          <Header
+            height={{ base: 50, md: 50 }}
+            p="md"
+            // bg={"blue.4"}
+            sx={{
+              boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
+            }}
+          >
+            <div
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
             >
-              <Group align={"center"}>
-                <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
-                  <Group>
-                    {/* <Box w={{ sm: 200, lg: 300 }}>
+              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <Burger
+                  opened={sNavbarOpen.value}
+                  onClick={() => {
+                    sNavbarOpen.value = !sNavbarOpen.value;
+                  }}
+                  size="sm"
+                  color={theme.colors.gray[6]}
+                  mr="xl"
+                />
+              </MediaQuery>
+
+              <Flex
+                direction={"row"}
+                justify={"space-between"}
+                w={"100%"}
+                align={"center"}
+              >
+                <Group align={"center"}>
+                  <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
+                    <Group>
+                      {/* <Box w={{ sm: 200, lg: 300 }}>
                       <Image width={150} src={"/logo-2.png"} alt={"logo"} />
                     </Box> */}
-                    {/* <Text>{gSelectedView.value}</Text> */}
-                    {/* {(gSelectedView.value == "Top 10 Province By Emotions" ||
+                      {/* <Text>{gSelectedView.value}</Text> */}
+                      {/* {(gSelectedView.value == "Top 10 Province By Emotions" ||
                       gSelectedView.value == "Top 10 District by Emotions") && (
                       <Stack p={"xs"} spacing={0}>
                         <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
@@ -315,17 +318,17 @@ const Dashboard = () => {
                         </Text>
                       </Stack>
                     )} */}
-                    {/* <Title order={3} color={"blue.8"}>Eagle Eye Project</Title> */}
-                  </Group>
-                </MediaQuery>
-                {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
-              </Group>
+                      {/* <Title order={3} color={"blue.8"}>Eagle Eye Project</Title> */}
+                    </Group>
+                  </MediaQuery>
+                  {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
+                </Group>
 
-              <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
-                <Group>
-                  <MyNotivication />
-                  <Menu>
-                    {/* <Menu.Target>
+                <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
+                  <Group>
+                    <MyNotivication />
+                    <Menu>
+                      {/* <Menu.Target>
                       <NavLink
                         p={0}
                         m={0}
@@ -335,48 +338,49 @@ const Dashboard = () => {
 
                     </Menu.Target> */}
 
-                    <Menu.Target>
-                      <ActionIcon
-                        radius={100}
-                        size={42}
-                        // bg={"blue.1"}
-                        variant={"filled"}
+                      <Menu.Target>
+                        <ActionIcon
+                          radius={100}
+                          size={42}
+                          // bg={"blue.1"}
+                          variant={"filled"}
+                        >
+                          <MdAccountCircle size={42} color={"babyblue"} />
+                        </ActionIcon>
+                      </Menu.Target>
+                      <Menu.Dropdown
+                      // bg={"blue"}
                       >
-                        <MdAccountCircle size={42} color={"babyblue"} />
-                      </ActionIcon>
-                    </Menu.Target>
-                    <Menu.Dropdown 
-                    // bg={"blue"}
-                    >
-                      <Menu.Item
-                        // bg={"red"}
-                        // c={"white"}
-                        onClick={() => {
-                          localStorage.removeItem("user_id");
-                          // gUser.set({});
-                          sUser.value = {};
-                        }}
-                      >
-                        Logout
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
-                </Group>
-              </MediaQuery>
-            </Flex>
-          </div>
-        </Header>
-      }
-    >
-      {listView.map((v) =>
-        v.child.map((vv) => (
-          <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
-            {<vv.view />}
-          </Box>
-        ))
-      )}
-      <LoadFirstData />
-    </AppShell>
+                        <Menu.Item
+                          // bg={"red"}
+                          // c={"white"}
+                          onClick={() => {
+                            localStorage.removeItem("user_id");
+                            // gUser.set({});
+                            sUser.value = {};
+                          }}
+                        >
+                          Logout
+                        </Menu.Item>
+                      </Menu.Dropdown>
+                    </Menu>
+                  </Group>
+                </MediaQuery>
+              </Flex>
+            </div>
+          </Header>
+        }
+      >
+        {/* //todo: 2023-05-19 */}
+        {listView.map((v) =>
+          v.child.map((vv) => (
+            <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
+              {<vv.view />}
+            </Box>
+          ))
+        )}
+      </AppShell>
+    </>
   );
 };
 
@@ -477,8 +481,9 @@ const NotificationDisplay = () => {
                   </Text>
                   <Group position="right">
                     <MdTimer color="gray" />
-                    <Text size={12} 
-                    // c={"blue"}
+                    <Text
+                      size={12}
+                      // c={"blue"}
                     >
                       {moment(v.createdAt).fromNow()}
                     </Text>
@@ -545,7 +550,7 @@ const MyNavbar = () => {
                 )}
               </Stack>
             </Navbar.Section>
-            <Navbar.Section 
+            <Navbar.Section
             // bg={"dark"}
             >
               <ActionIcon
@@ -604,8 +609,10 @@ const MyNavbar = () => {
               // defaultOpened
             >
               {v.child.map((vv, i) => (
-                <Paper key={`${v.id}${i}`} mb={"xs"} 
-                // bg={"blue.1"}
+                <Paper
+                  key={`${v.id}${i}`}
+                  mb={"xs"}
+                  // bg={"blue.1"}
                 >
                   <NavLink
                     c={sSelectedView.value == vv.name ? "blue.8" : ""}
@@ -659,20 +666,22 @@ const MyNavbar = () => {
               </Menu.Item>
             </Menu.Dropdown>
           </Menu> */}
-          <Flex 
+          <Flex
           // bg={"dark"}
           >
             <Stack spacing={0} p={"xs"} w={"100%"}>
               {/* <Text fz={9} c={"gray"}>
                 Bip Production @2023
               </Text> */}
-              <Text fz={9} 
-              // c={"gray"}
+              <Text
+                fz={9}
+                // c={"gray"}
               >
                 Version: 3.0.1
               </Text>
-              <Text fz={9} 
-              // c={"gray"}
+              <Text
+                fz={9}
+                // c={"gray"}
               >
                 build: 20993
               </Text>
