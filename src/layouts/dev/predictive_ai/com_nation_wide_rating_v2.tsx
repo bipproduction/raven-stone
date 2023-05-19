@@ -346,12 +346,12 @@ function ModalEditData() {
   }, []);
 
   function loadCandidate() {
-    fetch(api.apiGetCandidate)
+    fetch(api.apiUtilGetCandidate)
       .then((v) => v.json())
       .then(setListCandidate);
   }
 
-  if (!targetData) return <></>;
+  if (!targetData || !listCandidate) return <></>;
   return (
     <>
       <Modal
