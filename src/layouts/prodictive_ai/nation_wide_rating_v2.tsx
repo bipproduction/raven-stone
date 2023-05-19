@@ -5,6 +5,7 @@ import {
   Group,
   Image,
   Loader,
+  Modal,
   Paper,
   ScrollArea,
   Select,
@@ -26,6 +27,7 @@ import _ from "lodash";
 import TextAnimation from "react-typing-dynamics";
 import prs from "html-react-parser";
 import { NationWideRatingV2Chart } from "./nation_wide_rating_v2_chart";
+import { atomWithStorage } from "jotai/utils";
 
 export default function NationWideRatingv2() {
   const [listNation, setListNationWideRating] = useAtom(_val_listNation);
@@ -68,17 +70,21 @@ export default function NationWideRatingv2() {
 
   return (
     <>
-      {/* {JSON.stringify(listNation[0])} */}
-      {/* {JSON.stringify(selectedData)}
-      {JSON.stringify(listCandidate)} */}
       <Stack>
         <PageTitle
           title="NATION WIDE RATING"
           text="EMOTIONAL METERS BRAND MERGER SIMULATION"
         />
-        <Paper bg={"blue.1"} p={"xs"} shadow={"md"} pos={"sticky"} top={60} style={{
-          zIndex: 100
-        }}>
+        <Paper
+          // bg={"blue.1"}
+          p={"xs"}
+          shadow={"md"}
+          pos={"sticky"}
+          top={60}
+          style={{
+            zIndex: 100,
+          }}
+        >
           <Group position="right" spacing={"md"}>
             <Select
               placeholder={
@@ -121,7 +127,9 @@ export default function NationWideRatingv2() {
         </Paper>
         <Flex gap={"md"}>
           <Stack w={"100%"} spacing={"md"}>
-            <Paper p={"md"} bg={"yellow.2"} shadow="md">
+            <Paper p={"md"} 
+            // bg={"yellow.2"} 
+            shadow="md">
               <Flex align={"center"} justify={"center"} gap={"lg"}>
                 <Stack align="center" w={200}>
                   <Image
@@ -132,7 +140,9 @@ export default function NationWideRatingv2() {
                     }
                     alt=""
                   />
-                  <Title align="center" lineClamp={1} c={"gray.8"} order={3}>
+                  <Title align="center" lineClamp={1} 
+                  // c={"gray.8"} 
+                  order={3}>
                     {_.upperCase(
                       listCandidate.find((v) => v.id == selectedCandidate1)
                         ?.name
@@ -149,7 +159,9 @@ export default function NationWideRatingv2() {
                     }
                     alt=""
                   />
-                  <Title align="center" lineClamp={1} c={"gray.8"} order={3}>
+                  <Title align="center" lineClamp={1} 
+                  // c={"gray.8"} 
+                  order={3}>
                     {_.upperCase(
                       listCandidate.find((v) => v.id == selectedCandidate2)
                         ?.name
@@ -158,7 +170,9 @@ export default function NationWideRatingv2() {
                 </Stack>
               </Flex>
             </Paper>
-            <Paper p={"md"} bg={"blue.1"} shadow="md">
+            <Paper p={"md"} 
+            // bg={"blue.1"} 
+            shadow="md">
               <NationWideRatingV2Chart data={selectedData} />
             </Paper>
           </Stack>
@@ -169,15 +183,17 @@ export default function NationWideRatingv2() {
                   <Title align="end" c={"gray.2"}>
                     WINNING RATES PREDICTION
                   </Title>
-                  <Paper p={"xs"} bg={"dark.2"} shadow="md">
+                  <Paper p={"xs"} bg={"dark.4"} shadow="md">
                     <Stack justify="center" align="center" h={100}>
-                      <Text c={"green"} size={32} fw={"bold"}>
+                      <Title c={"green"} fz={64}>
                         {selectedData?.rate}%
-                      </Text>
+                      </Title>
                     </Stack>
                   </Paper>
                 </SimpleGrid>
-                <Paper bg={"dark.2"} p={"xs"} w={"100%"} shadow="md">
+                <Paper 
+                bg={"dark.2"} 
+                p={"xs"} w={"100%"} shadow="md">
                   <ScrollArea h={500} c={"white"}>
                     {selectedData && selectedData.text && (
                       <TextAnimation
@@ -200,3 +216,5 @@ export default function NationWideRatingv2() {
     </>
   );
 }
+
+

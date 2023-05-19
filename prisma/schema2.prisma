@@ -1,0 +1,11 @@
+model User {
+  id             Int     @id @default(autoincrement())
+  likedVideos    Video[] @relation(name: "UserLikedVideos")
+  dislikedVideos Video[] @relation(name: "UserDislikedVideos")
+}
+
+model Video {
+  id        Int    @id @default(autoincrement())
+  likers    User[] @relation(name: "UserLikedVideos")
+  dislikers User[] @relation(name: "UserDislikedVideos")
+}

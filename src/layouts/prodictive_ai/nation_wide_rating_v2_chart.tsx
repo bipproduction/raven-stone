@@ -1,4 +1,5 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
+import { Box, Text } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
@@ -12,10 +13,14 @@ import _ from "lodash";
 // disgust
 export function NationWideRatingV2Chart({ data }: { data: any }) {
   const option: EChartsOption = {
+    title: {
+      top: 0,
+      text: "100 %",
+    },
     tooltip: {
-        formatter: (a: any) => {
-            return `<h1>${a.value} %</h1>`;
-        }
+      formatter: (a: any) => {
+        return `<h1>${a.value} %</h1>`;
+      },
     },
     xAxis: {
       type: "category",
@@ -31,13 +36,25 @@ export function NationWideRatingV2Chart({ data }: { data: any }) {
       ],
     },
     yAxis: {
-      type: "value",
-      max: 100,
+      axisLabel: {
+        formatter: (a: any) => {
+          return `${a} %`;
+        },
+      },
+      // type: "category",
+      // data: ["10", "50", "100"],
     },
     series: [
       {
         itemStyle: {
           borderRadius: 100,
+        },
+        label: {
+          show: true,
+          position: "inside",
+          formatter: (a: any) => {
+            return `${a.value} %`;
+          }
         },
         data: [
           { name: "trust", value: data ? data.trust : 0 },
@@ -66,12 +83,16 @@ export function NationWideRatingV2Chart({ data }: { data: any }) {
   };
   return (
     <>
-      <EChartsReact
-        style={{
-          height: 460,
-        }}
-        option={option}
-      />
+      <Box>
+        {/* <Text>100 %</Text> */}
+        <EChartsReact
+          style={{
+            height: 460,
+            margin: 0,
+          }}
+          option={option}
+        />
+      </Box>
     </>
   );
 }

@@ -107,7 +107,9 @@ const ContextualContent = () => {
               <Box key={v.data.title} pb={70}>
                 <Stack>
                   <Group>
-                    <Title order={3} c={"dark"}>
+                    <Title order={3} 
+                    // c={"dark"}
+                    >
                       {v.data.title}
                     </Title>
                     <Flex direction={"row"}>

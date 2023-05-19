@@ -74,14 +74,16 @@ export function MapControllEmotionDownload() {
                       <MdDownload size={32} color="green" />
                     </ActionIcon>
                   ) : (
-                    <MdThumbDown color="gray" />
+                    <MdThumbDown 
+                    // color="gray" 
+                    />
                   )}
                 </Title>
                 <Title
                   h={30}
                   align="center"
                   order={3}
-                  color={v.count > 0 ? "green.8" : "gray"}
+                  color={v.count > 0 ? "green.8" : ""}
                   lineClamp={2}
                   w={70}
                   size={12}
