@@ -377,6 +377,8 @@ const Dashboard = () => {
           </Box>
         ))
       )} */}
+      <ContextualContent />
+
       <LoadFirstData />
     </AppShell>
   );
