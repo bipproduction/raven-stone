@@ -35,9 +35,12 @@ import { sUser } from "@/s_state/s_user";
 import "animate.css";
 import { funcLoadCandidateValue } from "@/fun_load/func_load_candidate_value";
 import { httpCityValueTotal } from "@/http/http_city_value_total_get";
+import { useAtom } from "jotai";
+import { _is_dark_mode } from "@/g_state/atom_util_state";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
+  const [isDarkMode, setIsDarkMode] = useAtom(_is_dark_mode);
 
   useShallowEffect(() => {
     const local = localStorage.getItem("is_local");
@@ -84,7 +87,7 @@ export default function App(props: AppProps) {
           fontFamily: "Geneva",
           fontFamilyMonospace: "Monaco, Courier, monospace",
           headings: { fontFamily: "Impact" },
-          colorScheme: "light",
+          colorScheme: `${isDarkMode ? "dark" : "light"}`,
         }}
       >
         <FirebaseProvider>
@@ -107,7 +110,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       .then((v) => v.json())
       .then((v) => (sUser.value = v));
   }, []);
-  
+
   if (sUser.value == undefined) return <>{JSON.stringify(sUser.value)} </>;
   if (_.isEmpty(sUser.value))
     return (

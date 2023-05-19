@@ -78,7 +78,9 @@ export default function StepAnalisys() {
               <Stack key={i} spacing={"lg"}>
                 <Title color={"blue"}>{_.upperCase(v)}</Title>
                 <SimpleGrid cols={2} p={"md"} w={"100%"}>
-                  <Paper p={"xs"} w={"100%"} h={500} bg={"#343541"} shadow="sm">
+                  <Paper p={"xs"} w={"100%"} h={500} 
+                  // bg={"#343541"} 
+                  shadow="sm">
                     <Stack spacing={"lg"}>
                       <Text color="green" fw={"bold"} fz={24}>
                         POSITIVE
@@ -96,9 +98,9 @@ export default function StepAnalisys() {
                             <ScrollArea
                               p={"xs"}
                               h={400}
-                              bg={"#434654"}
+                              // bg={"#434654"}
                               w={"100%"}
-                              c={"white"}
+                              // c={"white"}
                             >
                               {/* <AIWriter {...{ delay: 200 }}>
                                 {parse(
@@ -122,7 +124,9 @@ export default function StepAnalisys() {
                       })()}
                     </Stack>
                   </Paper>
-                  <Paper p={"xs"} w={"100%"} bg={"#343541"} shadow="sm">
+                  <Paper p={"xs"} w={"100%"} 
+                  // bg={"#343541"} 
+                  shadow="sm">
                     <Stack spacing={"lg"}>
                       <Text color="red" fw={"bold"} fz={24}>
                         NEGATIVE
@@ -140,9 +144,9 @@ export default function StepAnalisys() {
                             <ScrollArea
                               p={"xs"}
                               h={400}
-                              bg={"#434654"}
+                              // bg={"gray"}
                               w={"100%"}
-                              c={"white"}
+                              // c={"white"}
                             >
                                <TextAnimation
                                 phrases={[

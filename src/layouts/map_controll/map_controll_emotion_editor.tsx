@@ -170,9 +170,7 @@ const listToolMenus = [
 export function MapControllEmotionEditor() {
   const [selectedTool, setSelectedTool] = useAtom(mc_selected_tool);
 
-  const step: TourProps['steps'] = [
-
-  ]
+  const step: TourProps["steps"] = [];
 
   useShallowEffect(() => {
     if (sListKabupaten.value) {
@@ -228,18 +226,24 @@ export function MapControllEmotionEditor() {
           p={"xs"}
           pos={"sticky"}
           top={0}
-          bg={"dark"}
+          // bg={"dark"}
           style={{
             zIndex: 200,
           }}
         >
           <Flex gap={"lg"}>
-            <Text c={"white"} fw={"bold"}>
+            <Text
+              // c={"white"}
+              fw={"bold"}
+            >
               Map Controll
             </Text>
             <Menu>
               <Menu.Target>
-                <Button bg={"dark"} compact>
+                <Button
+                  // bg={"dark"}
+                  compact
+                >
                   Tools
                 </Button>
               </Menu.Target>
@@ -255,13 +259,16 @@ export function MapControllEmotionEditor() {
                 </Stack> */}
               </Menu.Dropdown>
             </Menu>
-            <MapControllInjectData bg="dark" />
+            <MapControllInjectData bg="" />
           </Flex>
         </Box>
         <MapControllCopyData />
         <MapControllRandomEmotion listKab={sListKabupaten.value} />
         <Stack>
-          <Paper p={"md"} bg={stylesGradient1}>
+          <Paper
+            p={"md"}
+            // bg={stylesGradient1}
+          >
             <Stack>
               <Flex>
                 <Stack>
@@ -269,7 +276,7 @@ export function MapControllEmotionEditor() {
                     <Paper
                       radius={8}
                       p={"xs"}
-                      bg={stylesRadial.out_cyan}
+                      // bg={stylesRadial.out_cyan}
                       shadow="md"
                     >
                       <DatePicker
@@ -291,7 +298,12 @@ export function MapControllEmotionEditor() {
                         }}
                       />
                     </Paper>
-                    <Paper shadow="md" radius={8} p={"xs"} bg={"cyan.2"}>
+                    <Paper
+                      shadow="md"
+                      radius={8}
+                      p={"xs"}
+                      // bg={"cyan.2"}
+                    >
                       <Stack>
                         <SelectCandidate />
                         <Autocomplete
@@ -367,11 +379,11 @@ function TableView() {
   const id = useId("table-view");
   return (
     <>
-      <Table w={"100%"}>
+      <Table w={"100%"} highlightOnHover withBorder withColumnBorders>
         <thead>
           <tr
             style={{
-              backgroundColor: "white",
+              // backgroundColor: "white",
               position: "sticky",
               top: 0,
               zIndex: 100,
@@ -394,59 +406,75 @@ function TableView() {
             </th>
             <th
               style={{
-                backgroundColor: colors.green,
+                backgroundColor: "green",
               }}
             >
-              <Title order={5}>trust</Title>
+              <Title c={"white"} order={5}>
+                trust
+              </Title>
             </th>
             <th
               style={{
-                backgroundColor: colors.green,
+                backgroundColor: "green",
               }}
             >
-              <Title order={5}>joy</Title>
+              <Title c={"white"} order={5}>
+                joy
+              </Title>
             </th>
             <th
               style={{
-                backgroundColor: colors.green,
+                backgroundColor: "green",
               }}
             >
-              <Title order={5}>surprise</Title>
+              <Title c={"white"} order={5}>
+                surprise
+              </Title>
             </th>
             <th
               style={{
-                backgroundColor: colors.gray,
+                backgroundColor: "gray",
               }}
             >
-              <Title order={5}>anticipation</Title>
+              <Title c={"white"} order={5}>
+                anticipation
+              </Title>
             </th>
             <th
               style={{
-                backgroundColor: colors.pink,
+                backgroundColor: "red",
               }}
             >
-              <Title order={5}>sadness</Title>
+              <Title c={"white"} order={5}>
+                sadness
+              </Title>
             </th>
             <th
               style={{
-                backgroundColor: colors.pink,
+                backgroundColor: "red",
               }}
             >
-              <Title order={5}>fear</Title>
+              <Title c={"white"} order={5}>
+                fear
+              </Title>
             </th>
             <th
               style={{
-                backgroundColor: colors.pink,
+                backgroundColor: "red",
               }}
             >
-              <Title order={5}>anger</Title>
+              <Title c={"white"} order={5}>
+                anger
+              </Title>
             </th>
             <th
               style={{
-                backgroundColor: colors.pink,
+                backgroundColor: "red",
               }}
             >
-              <Title order={5}>disgust</Title>
+              <Title c={"white"} order={5}>
+                disgust
+              </Title>
             </th>
           </tr>
         </thead>
@@ -454,13 +482,13 @@ function TableView() {
           {listTable.value.map((v, i) => (
             <tr
               key={i}
-              style={{
-                backgroundColor:
-                  sMapControllEditorVal.value &&
-                  sMapControllEditorVal.value.id == v.id
-                    ? "lightblue"
-                    : "white",
-              }}
+              // style={{
+              //   backgroundColor:
+              //     sMapControllEditorVal.value &&
+              //     sMapControllEditorVal.value.id == v.id
+              //       ? "lightblue"
+              //       : "white",
+              // }}
             >
               <td>
                 <Flex>
@@ -519,56 +547,65 @@ function TableView() {
               {/* // todo : edit table disini */}
               <td
                 style={{
-                  backgroundColor: colors.green,
+                  backgroundColor: "green",
                 }}
               >
-                <Text>{Intl.NumberFormat("id-ID").format(v.trust)}</Text>
+                <Text c={"white"}>
+                  {Intl.NumberFormat("id-ID").format(v.trust)}
+                </Text>
               </td>
               <td
                 style={{
-                  backgroundColor: colors.green,
+                  backgroundColor: "green",
+                  color: "white",
                 }}
               >
                 <Text>{Intl.NumberFormat("id-ID").format(v.joy)}</Text>
               </td>
               <td
                 style={{
-                  backgroundColor: colors.green,
+                  backgroundColor: "green",
+                  color: "white",
                 }}
               >
                 <Text>{Intl.NumberFormat("id-ID").format(v.surprise)}</Text>
               </td>
               <td
                 style={{
-                  backgroundColor: colors.gray,
+                  backgroundColor: "gray",
+                  color: "white",
                 }}
               >
                 <Text>{Intl.NumberFormat("id-ID").format(v.anticipation)}</Text>
               </td>
               <td
                 style={{
-                  backgroundColor: colors.pink,
+                  backgroundColor: "red",
+                  color: "white",
                 }}
               >
                 <Text>{Intl.NumberFormat("id-ID").format(v.sadness)}</Text>
               </td>
               <td
                 style={{
-                  backgroundColor: colors.pink,
+                  backgroundColor: "red",
+                  color: "white",
                 }}
               >
                 <Text>{Intl.NumberFormat("id-ID").format(v.fear)}</Text>
               </td>
               <td
                 style={{
-                  backgroundColor: colors.pink,
+                  backgroundColor: "red",
+                  color: "white",
                 }}
               >
                 <Text>{Intl.NumberFormat("id-ID").format(v.anger)}</Text>
               </td>
               <td
                 style={{
-                  backgroundColor: colors.pink,
+                  backgroundColor: "red",
+                  color: "white",
                 }}
               >
                 <Text>{Intl.NumberFormat("id-ID").format(v.disgust)}</Text>
@@ -580,7 +617,7 @@ function TableView() {
       <Paper p={"xs"} mt={"xs"}>
         <Group position="apart">
           <Pagination
-            total={_.ceil(sListKabupaten.value.length / 10)}
+            total={_.ceil(sListKabupaten.value.length / 15)}
             onChange={onPageChange}
           />
         </Group>
@@ -638,7 +675,12 @@ function EditorActionView() {
         </ActionIcon> */}
         <Title>{sMapControllEditorVal.value.City.name}</Title>
       </Flex>
-      <Paper p={"md"} m={"md"} bg={"blue.1"} shadow="md">
+      <Paper
+        p={"md"}
+        m={"md"}
+        // bg={"blue.1"}
+        shadow="md"
+      >
         <Stack>
           <Title>EMOTION EDITOR</Title>
           <Group spacing={"md"}>

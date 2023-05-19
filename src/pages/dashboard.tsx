@@ -4,32 +4,19 @@ import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_ratin
 import MentionbyCategory from "@/layouts/media_listener/mention_by_category";
 import ContextualContent from "@/layouts/prodictive_ai/contextual_content";
 import EmotionalViewViaProvince from "@/layouts/prodictive_ai/emotional_view_via_province";
-import EmotionalViewViaProvinceCouple from "@/layouts/prodictive_ai/emotional_view_via_province_couple";
-import EmotionalViewViaRegion from "@/layouts/prodictive_ai/emotional_view_via_region";
-import NationWideRating from "@/layouts/prodictive_ai/nation_wide_rating";
-import Top10DistrictbyConversation from "@/layouts/summary/top_10_district_by_conversation";
-import Top10ProvinceByConversation from "@/layouts/summary/top_10_province_by_conversation";
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { styleGradientLinierBlue } from "@/styles/styles_gradient_linear_blue";
-import { stylesGradientMixYellowRed } from "@/styles/styles_gradient_mix_yellow_red";
-import { stylesGradientRed } from "@/styles/styles_gradient_red";
 import { sIsLocal } from "@/s_state/is_local";
 import { sSelectedView } from "@/s_state/s_selected_view";
 import { sUser } from "@/s_state/s_user";
-import { useHookstate } from "@hookstate/core";
 import {
   ActionIcon,
   AppShell,
   Avatar,
   Box,
   Burger,
-  Center,
-  Chip,
   Drawer,
   Flex,
-  Grid,
   Group,
   Header,
   Image,
@@ -40,20 +27,27 @@ import {
   NavLink,
   Paper,
   ScrollArea,
-  SimpleGrid,
   Stack,
   Text,
   Title,
   Tooltip,
   useMantineTheme,
 } from "@mantine/core";
-import { useId, useShallowEffect } from "@mantine/hooks";
+import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 
-import { onChildChanged, onValue, ref } from "firebase/database";
+import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_view_province_couple_v2";
+import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
+import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
+import MainSummary from "@/layouts/summary/main_summary";
+import { sNavbarIsSmall } from "@/s_state/s_navbar_is_small";
+import { sNavbarOpen } from "@/s_state/s_navbar_open";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import AnimateCssReact from "animate-css-reactjs";
+import { onChildChanged, ref } from "firebase/database";
 import _ from "lodash";
 import moment from "moment";
-import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import {
   MdAccountCircle,
@@ -61,10 +55,14 @@ import {
   MdArrowForwardIos,
   MdAssignment,
   MdBarChart,
-  MdCircle,
+  MdDarkMode,
+  MdFace,
+  MdFreeCancellation,
+  MdGrading,
   MdGridView,
   MdInfo,
   MdJoinLeft,
+  MdLightMode,
   MdMessage,
   MdNotifications,
   MdNotificationsActive,
@@ -74,20 +72,12 @@ import {
   MdStackedBarChart,
   MdStorage,
   MdTimer,
-  MdWatch,
+  MdWorkHistory,
 } from "react-icons/md";
 import toast from "react-simple-toasts";
-import useSound from "use-sound";
-import { sNavbarOpen } from "@/s_state/s_navbar_open";
-import { sNavbarIsSmall } from "@/s_state/s_navbar_is_small";
-import AnimateCssReact from "animate-css-reactjs";
-import MainSummary from "@/layouts/summary/main_summary";
-import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
-import { useRouter } from "next/router";
-import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
-import { sSelectedDate } from "@/s_state/s_selectedDate";
-import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
 import NationWideRatingv2 from "../layouts/prodictive_ai/nation_wide_rating_v2";
+import { useAtom } from "jotai";
+import { _is_dark_mode } from "@/g_state/atom_util_state";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -183,21 +173,22 @@ const listView = [
     ],
   },
   {
+
     id: 3,
     name: "STEP & SWOT",
-    icon: MdMessage,
+    icon: MdFace,
     child: [
       {
         id: 1,
-        name: "Step Analisys",
+        name: "Step Analysis",
         view: StepAnalisys,
-        icon: MdOutlineStarBorderPurple500,
+        icon: MdFreeCancellation,
       },
       {
         id: 2,
         name: "SWOT Analysis",
         view: SwotAnalisys,
-        icon: MdOutlineStarBorderPurple500,
+        icon: MdGrading,
       },
     ],
   },
@@ -226,7 +217,7 @@ const listView = [
       {
         id: 4,
         name: "Emotional View Via Province Couple",
-        view: EmotionalViewViaProvinceCouple,
+        view: EmotionViewProvinceCoupleV2,
         icon: MdJoinLeft,
       },
       {
@@ -262,10 +253,10 @@ const Dashboard = () => {
       sSelectedView.value = page;
     }
   }, []);
-
+  
   return (
     <AppShell
-      bg={"gray.2"}
+      // bg={"gray.2"}
       styles={{
         main: {
           background:
@@ -281,7 +272,7 @@ const Dashboard = () => {
         <Header
           height={{ base: 50, md: 50 }}
           p="md"
-          bg={"blue.4"}
+          // bg={"blue.4"}
           sx={{
             boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
           }}
@@ -348,16 +339,18 @@ const Dashboard = () => {
                       <ActionIcon
                         radius={100}
                         size={42}
-                        bg={"blue.1"}
+                        // bg={"blue.1"}
                         variant={"filled"}
                       >
                         <MdAccountCircle size={42} color={"babyblue"} />
                       </ActionIcon>
                     </Menu.Target>
-                    <Menu.Dropdown bg={"blue"}>
+                    <Menu.Dropdown 
+                    // bg={"blue"}
+                    >
                       <Menu.Item
-                        bg={"red"}
-                        c={"white"}
+                        // bg={"red"}
+                        // c={"white"}
                         onClick={() => {
                           localStorage.removeItem("user_id");
                           // gUser.set({});
@@ -484,7 +477,9 @@ const NotificationDisplay = () => {
                   </Text>
                   <Group position="right">
                     <MdTimer color="gray" />
-                    <Text size={12} c={"blue"}>
+                    <Text size={12} 
+                    // c={"blue"}
+                    >
                       {moment(v.createdAt).fromNow()}
                     </Text>
                   </Group>
@@ -500,6 +495,7 @@ const NotificationDisplay = () => {
 
 const MyNavbar = () => {
   const router = useRouter();
+  const [isDarkMode, setisDarkMode] = useAtom(_is_dark_mode);
 
   function onSelectedPage(page: string) {
     localStorage.setItem("dashboard_selected_page", page);
@@ -523,7 +519,7 @@ const MyNavbar = () => {
       <>
         <AnimateCssReact animation="fadeIn">
           <Navbar
-            bg={"blue.2"}
+            // bg={"blue.2"}
             hiddenBreakpoint="sm"
             hidden={!sNavbarOpen.value}
             width={{ sm: 64, lg: 64 }}
@@ -549,7 +545,9 @@ const MyNavbar = () => {
                 )}
               </Stack>
             </Navbar.Section>
-            <Navbar.Section bg={"dark"}>
+            <Navbar.Section 
+            // bg={"dark"}
+            >
               <ActionIcon
                 onClick={() => (sNavbarIsSmall.value = false)}
                 m={"md"}
@@ -566,7 +564,7 @@ const MyNavbar = () => {
   return (
     <>
       <Navbar
-        bg={"blue.0"}
+        // bg={"blue.0"}
         hiddenBreakpoint="sm"
         hidden={!sNavbarOpen.value}
         width={{ sm: 200, lg: 300 }}
@@ -591,7 +589,7 @@ const MyNavbar = () => {
           {listView.map((v) => (
             <NavLink
               defaultOpened={true}
-              bg={"blue.2"}
+              // bg={"blue.2"}
               // sx={{
               //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
               // }}
@@ -602,13 +600,15 @@ const MyNavbar = () => {
                 </Avatar>
               }
               key={v.id.toString()}
-              c={"dark"}
+              // c={"dark"}
               // defaultOpened
             >
               {v.child.map((vv, i) => (
-                <Paper key={`${v.id}${i}`} mb={"xs"} bg={"blue.1"}>
+                <Paper key={`${v.id}${i}`} mb={"xs"} 
+                // bg={"blue.1"}
+                >
                   <NavLink
-                    c={sSelectedView.value == vv.name ? "blue.8" : "blue.4"}
+                    c={sSelectedView.value == vv.name ? "blue.8" : ""}
                     icon={<vv.icon color="orange" />}
                     variant={"filled"}
                     // fw={sSelectedView.value == vv.name ? "bold" : "light"}
@@ -630,21 +630,51 @@ const MyNavbar = () => {
         </Navbar.Section>
         <Navbar.Section>
           <NavLink
-            bg={"gray"}
-            c={"dark"}
+            // bg={"gray"}
+            // c={"dark"}
             icon={<MdSettings />}
             label={"setting"}
-          />
-          <Flex bg={"dark"}>
+          >
+            <NavLink
+              icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
+              label={isDarkMode ? "Light" : "Dark"}
+              onClick={() => setisDarkMode(!isDarkMode)}
+            />
+          </NavLink>
+          {/* <Menu>
+            <Menu.Target>
+              <NavLink
+                bg={"gray"}
+                c={"dark"}
+                icon={<MdSettings />}
+                label={"setting"}
+              />
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item onClick={() => setisDarkMode(!isDarkMode)}>
+                <Flex gap={"md"}>
+                  <MdDarkMode size={24} />
+                  <Text>{isDarkMode? "Light" : "Dark"}</Text>
+                </Flex>
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu> */}
+          <Flex 
+          // bg={"dark"}
+          >
             <Stack spacing={0} p={"xs"} w={"100%"}>
               {/* <Text fz={9} c={"gray"}>
                 Bip Production @2023
               </Text> */}
-              <Text fz={9} c={"gray"}>
-                Version: 2.0.1
+              <Text fz={9} 
+              // c={"gray"}
+              >
+                Version: 3.0.1
               </Text>
-              <Text fz={9} c={"gray"}>
-                build: 10993
+              <Text fz={9} 
+              // c={"gray"}
+              >
+                build: 20993
               </Text>
             </Stack>
             <ActionIcon

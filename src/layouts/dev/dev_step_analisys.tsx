@@ -65,7 +65,9 @@ export function DevStepAnalisys() {
   return (
     <Stack spacing={"lg"}>
       <Title>Dev Step</Title>
-      <Flex p={"xs"} bg={"gray.2"}>
+      <Flex p={"xs"} 
+      // bg={"gray.2"}
+      >
         <Button.Group>
           {listmenu.map((v) => (
             <Button
@@ -114,7 +116,9 @@ function InjectStepAnalisys() {
     <Stack>
       <Paper p={"md"}>
         <Stack>
-          <Flex justify={"space-between"} bg={"gray.1"} p={"xs"}>
+          <Flex justify={"space-between"} 
+          // bg={"gray.1"} 
+          p={"xs"}>
             <Stack spacing={0}>
               <Text>Available List </Text>
               <Text fz={12} color="gray">
