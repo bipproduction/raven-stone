@@ -101,7 +101,13 @@ export default function EmotionViewProvinceCoupleV2() {
     await loadData();
   }
 
-  if (!listEmotion)
+  function onLoadCandidate() {
+    fetch(api.apiGetCandidate)
+      .then((val) => val.json())
+      .then(setListCandidate);
+  }
+
+  if (!listEmotion || !listCandidate)
     return (
       <>
         <Center>
@@ -203,8 +209,10 @@ export default function EmotionViewProvinceCoupleV2() {
           </Group>
         </Paper>
         <Flex justify={"center"} align={"center"} p={"md"} gap={"lg"}>
-          <Paper p={"xs"} shadow={"md"} 
-          // bg={stylesRadial.out_cyan}
+          <Paper
+            p={"xs"}
+            shadow={"md"}
+            // bg={stylesRadial.out_cyan}
           >
             <Stack w={200} align="center">
               <Image
@@ -221,8 +229,10 @@ export default function EmotionViewProvinceCoupleV2() {
               </Title>
             </Stack>
           </Paper>
-          <Paper p={"xs"} shadow={"md"} 
-          // bg={stylesRadial.out_blue}
+          <Paper
+            p={"xs"}
+            shadow={"md"}
+            // bg={stylesRadial.out_blue}
           >
             <Stack w={200} align="center">
               <Image
@@ -341,15 +351,15 @@ const EmotionItemChart = ({
   return (
     <>
       {/* {JSON.stringify(lsData)} */}
-      <Paper p="md" 
-      // bg={stylesRadial.out_cyan}
-       m={"xs"}>
+      <Paper
+        p="md"
+        // bg={stylesRadial.out_cyan}
+        m={"xs"}
+      >
         <Stack align="center">
           <Flex gap="md">
             <Title c={"gray"}>{no}</Title>
-            <Title order={1} >
-              {provinceName}
-            </Title>
+            <Title order={1}>{provinceName}</Title>
           </Flex>
           <EChartsReact style={{ width: 400 }} option={option} />
         </Stack>
