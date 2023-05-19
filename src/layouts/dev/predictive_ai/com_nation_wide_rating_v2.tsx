@@ -351,7 +351,7 @@ function ModalEditData() {
       .then(setListCandidate);
   }
 
-  if (!targetData || !listCandidate) return <></>;
+  if (!targetData || !listCandidate) return <>empty data</>;
   return (
     <>
       <Modal
@@ -373,7 +373,7 @@ function ModalEditData() {
                     .name
                 }
               </Title>
-              <Image
+              {/* <Image
                 radius={10}
                 width={100}
                 height={100}
@@ -382,7 +382,7 @@ function ModalEditData() {
                     .img
                 }
                 alt=""
-              />
+              /> */}
             </Stack>
             <Stack align="center" p={"md"}>
               <Title order={3}>
@@ -391,7 +391,7 @@ function ModalEditData() {
                     .name
                 }
               </Title>
-              <Image
+              {/* <Image
                 radius={10}
                 width={100}
                 height={100}
@@ -400,7 +400,7 @@ function ModalEditData() {
                     .img
                 }
                 alt=""
-              />
+              /> */}
             </Stack>
           </Flex>
           <Flex gap={"md"}>
