@@ -100,7 +100,7 @@ export default function StepAnalisys() {
                               h={400}
                               // bg={"#434654"}
                               w={"100%"}
-                              c={"white"}
+                              // c={"white"}
                             >
                               {/* <AIWriter {...{ delay: 200 }}>
                                 {parse(
@@ -144,9 +144,9 @@ export default function StepAnalisys() {
                             <ScrollArea
                               p={"xs"}
                               h={400}
-                              // bg={"#434654"}
+                              // bg={"gray"}
                               w={"100%"}
-                              c={"white"}
+                              // c={"white"}
                             >
                                <TextAnimation
                                 phrases={[
