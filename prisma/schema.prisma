@@ -348,6 +348,7 @@ model City {
   CityWordCloud               CityWordCloud[]
   CityLeaderPersonaPrediction CityLeaderPersonaPrediction[]
   // EmotionViewProvinceCoupleV2 EmotionViewProvinceCoupleV2[]
+  V3NationWideRating          V3NationWideRating[]
 }
 
 model CityWordCloud {
@@ -465,6 +466,29 @@ model NationWideRatingV2 {
   data      Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+// dibuat untuk menggantikan v2 yang menngunakan json sebagai datanya
+model V3NationWideRating {
+  id           Int       @id @default(autoincrement())
+  candidate1Id Int
+  candidate2Id Int
+  City         City?     @relation(fields: [cityId], references: [id])
+  trust        String?
+  joy          String?
+  surprise     String?
+  anticipation String?
+  sadness      String?
+  fear         String?
+  anger        String?
+  disgust      String?
+  date         DateTime? @db.Date
+  rate         String?
+  text         String?   @db.LongText
+  time         DateTime? @db.Time
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+  cityId       Int?
 }
 
 model EmotionViewProvinceCoupleV2 {

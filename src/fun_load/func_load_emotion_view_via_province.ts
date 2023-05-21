@@ -7,4 +7,6 @@ import { gEmotionalViewViaProvince } from './../g_state/predictive_ai/g_emotiona
 import { api } from "@/lib/api";
 // import { gSelectedCandidate1 } from '@/g_state/nation_wide_rating/g_selected_candidate1';
 
-export const funcLoadEmotionalViwViaProvinceByDate = () => fetch(api.apiPredictiveAiEmotionalViewViaProvinceByDateCandidate + `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate1.value}`).then(v => v.json()).then(gEmotionalViewViaProvince.set)
+export const funcLoadEmotionalViwViaProvinceByDate = () => {
+    fetch(api.apiPredictiveAiEmotionalViewViaProvinceByDateCandidate + `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate1.value}`).then(v => v.json()).then(gEmotionalViewViaProvince.set)
+}
