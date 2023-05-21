@@ -36,7 +36,9 @@ import {
 import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 
-import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_view_province_couple_v2";
+import { _is_dark_mode } from "@/g_state/atom_util_state";
+import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_couple/view/emotion_view_province_couple_v2";
+import { NationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/nation_wide_rating";
 import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
 import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
 import MainSummary from "@/layouts/summary/main_summary";
@@ -45,6 +47,7 @@ import { sNavbarOpen } from "@/s_state/s_navbar_open";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import AnimateCssReact from "animate-css-reactjs";
 import { onChildChanged, ref } from "firebase/database";
+import { useAtom } from "jotai";
 import _ from "lodash";
 import moment from "moment";
 import { useRouter } from "next/router";
@@ -71,13 +74,9 @@ import {
   MdSettings,
   MdStackedBarChart,
   MdStorage,
-  MdTimer,
-  MdWorkHistory,
+  MdTimer
 } from "react-icons/md";
 import toast from "react-simple-toasts";
-import NationWideRatingv2 from "../layouts/prodictive_ai/nation_wide_rating_v2";
-import { useAtom } from "jotai";
-import { _is_dark_mode } from "@/g_state/atom_util_state";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -200,7 +199,7 @@ const listView = [
       {
         id: 1,
         name: "Nation Wide Rating",
-        view: NationWideRatingv2,
+        view: NationWideRating,
         icon: MdOutlineStarBorderPurple500,
       },
       // {
@@ -231,7 +230,7 @@ const listView = [
   },
 ];
 
-const Dashboard = () => {
+const Dashboard = (props: any) => {
   const theme = useMantineTheme();
   // const [opened, setOpened] = useState(false);
   // const selectedView = useHookstate(gSelectedView);
