@@ -50,7 +50,7 @@ import {
 } from "react-icons/md";
 import { MapControllMapView } from "./map_controll_map_view";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { MapControllCopyData } from "./map_controll_copy_data";
+import { MapControllCopyData } from "./component/map_controll_copy_data";
 import { signal } from "@preact/signals-react";
 import MapControllContextDirection from "./map_controll_context_direction";
 import { stylesRadial } from "@/styles/styles_radial";
@@ -70,7 +70,7 @@ import {
 } from "./map_controll_state";
 import MapControllDownloadContent from "./map_controll_download_content";
 import Link from "next/link";
-import MapControllInjectData from "./map_controll_inject_data";
+import MapControllInjectData from "./component/map_controll_inject_data";
 import { MapControllEmotionDownload } from "./map_controll_emotion_download";
 
 const colors = {

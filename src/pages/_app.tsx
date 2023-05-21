@@ -37,10 +37,13 @@ import { funcLoadCandidateValue } from "@/fun_load/func_load_candidate_value";
 import { httpCityValueTotal } from "@/http/http_city_value_total_get";
 import { useAtom } from "jotai";
 import { _is_dark_mode } from "@/g_state/atom_util_state";
+import { sCandidate } from "@/s_state/s_candidate";
+import { mc_list_candidate } from "@/layouts/map_controll/map_controll_state";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   const [isDarkMode, setIsDarkMode] = useAtom(_is_dark_mode);
+  const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
 
   useShallowEffect(() => {
     const local = localStorage.getItem("is_local");
@@ -48,6 +51,18 @@ export default function App(props: AppProps) {
       sIsLocal.value = local === "true";
     }
   }, []);
+
+  useShallowEffect(() => {
+    funcLoadCandidate();
+  }, []);
+
+  const funcLoadCandidate = () =>
+    fetch(api.apiUtilGetCandidate)
+      .then((v) => v.json())
+      .then((v) => {
+        sCandidate.value = v;
+        setListCandidate(v);
+      });
 
   useShallowEffect(() => {
     funcLoadCandidate();

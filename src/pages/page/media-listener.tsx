@@ -11,7 +11,7 @@ const Medialistener = ({ data }: any) => {
 
   return (
     <>
-      <Stack h={"100vh"} ref={ref}>
+      {/* <Stack h={"100vh"} ref={ref}>
         <Flex p={"md"}>
           <ActionIcon onClick={() => router.push("/dashboard")}>
             <MdArrowBackIos size={24} />
@@ -24,7 +24,7 @@ const Medialistener = ({ data }: any) => {
           width={"100%"}
           src="https://analytics.bomasatu.com"
         />
-      </Stack>
+      </Stack> */}
     </>
   );
 };
