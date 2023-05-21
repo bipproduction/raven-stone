@@ -93,6 +93,7 @@
     "rsuite": "^5.28.3",
     "scheduler": "^0.23.0",
     "simple-json-db": "^2.0.0",
+    "spreadsheet-to-json": "^2.0.0",
     "store2": "^2.14.2",
     "sweetalert2": "^11.7.3",
     "tsv-json": "^2.0.0",
