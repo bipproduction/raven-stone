@@ -37,7 +37,7 @@ import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 
 import { _is_dark_mode } from "@/g_state/atom_util_state";
-import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_couple/view/emotion_view_province_couple_v2";
+import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_couple/front/emotion_view_province_couple_v2";
 import { NationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/nation_wide_rating";
 import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
 import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
