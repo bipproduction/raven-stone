@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import { v3_val_nation_wide_rating_list_candidate } from "../../val/v3_nation_wide_rating_list_candidate";
 import { v3_fun_nation_wide_rating_load_list_candidate } from "../../fun/v3_fun_nation_wide_rating_load_list_candidate";
 import { v3_val_nation_wide_rating_selected_candidate } from "../../val/v3_nation_wide_rating_selected_candidate";
+import _ from "lodash";
 
 export function V3ComNationWideRatingSelectCandidate({
   onProccess,
@@ -35,7 +36,7 @@ export function V3ComNationWideRatingSelectCandidate({
       }}>
         <Group align="end" position="right">
           <Select
-            key={Math.random()}
+            key={_.random(1, 100)}
             placeholder={
               listCandidate.find(
                 (v) => Number(v.id) == Number(selctedCandidate.candidate1Id)
@@ -57,6 +58,7 @@ export function V3ComNationWideRatingSelectCandidate({
             // placeholder="select candidate"
           />
           <Select
+          key={_.random(1, 100)}
             data={
               listCandidate?.map((v) => ({
                 label: v.name,

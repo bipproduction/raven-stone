@@ -25,6 +25,9 @@ import TextAnimation from "react-typing-dynamics";
 import prs from "html-react-parser";
 import { v3_val_nation_wide_rating_list_data } from "../val/v3_nation_wide_rating_list_data";
 import EChartsReact from "echarts-for-react";
+import { v3_fun_load_chart_data } from "../fun/v3_fun_load_chart_data";
+import moment from "moment";
+import { v3_val_data_line_chart } from "../val/v3_val_data_line_chart";
 
 export function V3FrontNationWideRating() {
   const [listData, setListData] = useAtom(v3_val_nation_wide_rating_list_data);
@@ -32,6 +35,8 @@ export function V3FrontNationWideRating() {
     v3_val_nation_wide_rating_selected_candidate
   );
 
+  const [dateChart, setDataChart] = useAtom(v3_val_data_line_chart)
+ 
   useShallowEffect(() => {
     v3_fun_nation_wide_rating_load_list_data({
       setListData,
@@ -61,6 +66,13 @@ export function V3FrontNationWideRating() {
               candidate1Id: selectedCandidate.candidate1Id,
               candidate2Id: selectedCandidate.candidate2Id,
               setListData,
+            });
+
+            v3_fun_load_chart_data({
+              start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
+              end: moment().format("YYYY-MM-DD"),
+              selectedCandidate: selectedCandidate,
+              setDataChart: setDataChart,
             });
           }}
         />
