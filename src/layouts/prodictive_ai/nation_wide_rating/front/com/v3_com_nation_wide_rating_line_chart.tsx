@@ -13,7 +13,7 @@ import {
 import { DateInput, DatePicker, DateTimePicker } from "@mantine/dates";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import _, { subtract } from "lodash";
 import moment from "moment";
 import { v3_val_nation_wide_rating_selected_date } from "../../val/v3_val_nation_wide_rating_selected_date";
@@ -22,6 +22,8 @@ import { v3_val_nation_wide_rating_selected_candidate } from "../../val/v3_natio
 import { useShallowEffect } from "@mantine/hooks";
 import { useState } from "react";
 import toast from "react-simple-toasts";
+import { v3_fun_load_chart_data } from "../../fun/v3_fun_load_chart_data";
+import { v3_val_data_line_chart } from "../../val/v3_val_data_line_chart";
 
 type DataChart = {
   trust: string;
@@ -43,7 +45,7 @@ export function V3ComNationWideRatingLineChart() {
     v3_val_nation_wide_rating_selected_candidate
   );
 
-  const [dataChart, setDataChart] = useState<DataChart[]>([]);
+  const [dataChart, setDataChart] = useAtom(v3_val_data_line_chart);
 
   // trust
   // joy
@@ -63,15 +65,15 @@ export function V3ComNationWideRatingLineChart() {
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        type: 'cross',
+        type: "cross",
         label: {
-          backgroundColor: '#6a7985'
-        }
+          backgroundColor: "#6a7985",
+        },
       },
       formatter: (a: any, b: any) => {
-        const d: any[] = a
-        return `${d.map((v) => v.value)} %`
-      }
+        const d: any[] = a;
+        return `${d.map((v) => v.value)} %`;
+      },
     },
     xAxis: {
       type: "category",
@@ -118,7 +120,7 @@ export function V3ComNationWideRatingLineChart() {
         data: [...dataChart.map((v) => v.surprise)],
         name: "surprise",
         type: "line",
-        
+
         areaStyle: {},
         emphasis: {
           focus: "series",
@@ -131,7 +133,7 @@ export function V3ComNationWideRatingLineChart() {
         data: [...dataChart.map((v) => v.anticipation)],
         name: "anticipation",
         type: "line",
-        
+
         areaStyle: {},
         emphasis: {
           focus: "series",
@@ -144,7 +146,7 @@ export function V3ComNationWideRatingLineChart() {
         data: [...dataChart.map((v) => v.sadness)],
         name: "sadness",
         type: "line",
-        
+
         areaStyle: {},
         emphasis: {
           focus: "series",
@@ -157,7 +159,7 @@ export function V3ComNationWideRatingLineChart() {
         data: [...dataChart.map((v) => v.fear)],
         name: "fear",
         type: "line",
-        
+
         areaStyle: {},
         emphasis: {
           focus: "series",
@@ -170,7 +172,7 @@ export function V3ComNationWideRatingLineChart() {
         data: [...dataChart.map((v) => v.anger)],
         name: "anger",
         type: "line",
-        
+
         areaStyle: {},
         emphasis: {
           focus: "series",
@@ -183,7 +185,7 @@ export function V3ComNationWideRatingLineChart() {
         data: [...dataChart.map((v) => v.disgust)],
         name: "disgust",
         type: "line",
-        
+
         areaStyle: {},
         emphasis: {
           focus: "series",
@@ -195,22 +197,13 @@ export function V3ComNationWideRatingLineChart() {
     ],
   };
 
-  async function loadData({ start, end }: { start: string; end: string }) {
-    fetch(
-      api.apiV3NationWideRatingChartDataGet +
-        `?candidate1Id=${selectedCandidate.candidate1Id}&candidate2Id=${selectedCandidate.candidate2Id}&start=${start}&end=${end}`
-    ).then(async (res) => {
-      if (res.status != 200) {
-        return toast("empty data");
-      }
-
-      const data = await res.json();
-      setDataChart(data);
-    });
-  }
-
   useShallowEffect(() => {
-    loadData(selectedDate);
+    v3_fun_load_chart_data({
+      start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
+      end: moment().format("YYYY-MM-DD"),
+      selectedCandidate: selectedCandidate,
+      setDataChart: setDataChart,
+    });
   }, []);
 
   return (
@@ -232,7 +225,12 @@ export function V3ComNationWideRatingLineChart() {
                     end: moment().format("YYYY-MM-DD"),
                   };
                   setSelectedDate(dates);
-                  loadData(dates);
+                  v3_fun_load_chart_data({
+                    start: dates.start,
+                    end: dates.end,
+                    selectedCandidate: selectedCandidate,
+                    setDataChart: setDataChart,
+                  });
                 }}
               >
                 week
@@ -244,7 +242,12 @@ export function V3ComNationWideRatingLineChart() {
                     end: moment().format("YYYY-MM-DD"),
                   };
                   setSelectedDate(dates);
-                  loadData(dates);
+                  v3_fun_load_chart_data({
+                    start: dates.start,
+                    end: dates.end,
+                    selectedCandidate: selectedCandidate,
+                    setDataChart: setDataChart,
+                  });
                 }}
               >
                 month
@@ -266,13 +269,15 @@ export function V3ComNationWideRatingLineChart() {
                           };
 
                           setSelectedDate(dates);
-                          loadData(dates);
+                          v3_fun_load_chart_data({
+                            start: dates.start,
+                            end: dates.end,
+                            selectedCandidate: selectedCandidate,
+                            setDataChart: setDataChart,
+                          });
                         }
                       }}
                     />
-                    <Group position="right">
-                      <Button>Proccess</Button>
-                    </Group>
                   </Stack>
                 </HoverCard.Dropdown>
               </HoverCard>
