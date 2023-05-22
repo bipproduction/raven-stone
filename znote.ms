@@ -53,4 +53,38 @@ const data = [{
 
   please convert to sql string insert,  use javascript 
 
-  
+
+const data = [
+  {
+    trust: '33',
+    joy: '71',
+    surprise: '87',
+    anticipation: '57',
+    sadness: '4',
+    fear: '52',
+    anger: '93',
+    disgust: '42'
+  },
+  {
+    trust: '3',
+    joy: '1',
+    surprise: '7',
+    anticipation: '57',
+    sadness: '4',
+    fear: '2',
+    anger: '3',
+    disgust: '42'
+  }
+]
+
+how to sum every item use lodash , and each item is prosentase and create new object
+const result =  {
+    trust: 6,
+    joy: 1,
+    surprise: 7,
+    anticipation: 57,
+    sadness: 4,
+    fear: 2,
+    anger: 3,
+    disgust: 42
+  }
