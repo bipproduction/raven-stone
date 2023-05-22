@@ -58,6 +58,7 @@ import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { stylesRadial } from "@/styles/styles_radial";
 import { atomWithStorage } from "jotai/utils";
 import Vie_emotion_view_province_couple_v2 from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
+import { V3BackNationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/back/v3_back_nation_wide_rating";
 
 
 const listMenu = [
@@ -165,8 +166,8 @@ const listMenu = [
     children: [
       {
         id: "1",
-        name: "Nation Wide Rating v2",
-        view: DevNationWideRatingv2,
+        name: "Nation Wide Rating v3",
+        view: V3BackNationWideRating,
       },
       {
         id: "2",

@@ -7,6 +7,7 @@ import { v3_fun_data_chack_availble } from "../fun/v3_fun_data_check_availble";
 import moment from "moment";
 import _ from "lodash";
 import toast from "react-simple-toasts";
+import { api } from "@/lib/api";
 
 export function V3CopyData() {
   const [open, setOpen] = useAtom(v3_val_open_copy_data);
@@ -57,14 +58,14 @@ export function V3CopyData() {
                   v3_fun_data_chack_availble({
                     date: moment(val).format("YYYY-MM-DD"),
                   }).then((res) => {
-                    if (_.isEmpty(res)) {
+                    if (!_.isEmpty(res)) {
                       const data = {
                         from: copyData.from,
                         to: null,
                       };
 
                       setCopyData(data as any);
-                      return toast("empty data");
+                      return toast("target berisi data");
                     }
 
                     const data = {
@@ -79,7 +80,20 @@ export function V3CopyData() {
             )}
           </Group>
           <Group position="right">
-            {copyData.to && <Button>Proccess</Button>}
+            {copyData.to && (
+              <Button
+                onClick={() => {
+                  fetch(`${api.apiV3NationWideRatingDataCopy}?from=${copyData.from}&to=${copyData.to}`).then((res) => {
+                    if (res.status != 201) {
+                      return toast("error");
+                    }
+                    toast("success");
+                  });
+                }}
+              >
+                Proccess
+              </Button>
+            )}
           </Group>
         </Stack>
       </Modal>

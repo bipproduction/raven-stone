@@ -6,7 +6,7 @@ export function NationWideRating() {
   return (
     <>
       <V3FrontNationWideRating />
-      <V3BackNationWideRating />
+      {/* <V3BackNationWideRating /> */}
     </>
   );
 }
