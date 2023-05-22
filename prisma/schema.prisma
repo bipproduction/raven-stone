@@ -473,6 +473,7 @@ model V3NationWideRating {
   id           Int       @id @default(autoincrement())
   candidate1Id Int
   candidate2Id Int
+  // gak dipake kesalahan perhitungan
   City         City?     @relation(fields: [cityId], references: [id])
   trust        String?
   joy          String?
@@ -488,6 +489,7 @@ model V3NationWideRating {
   time         DateTime? @db.Time
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @default(now()) @updatedAt
+  // gak dipake kesalahan perhitungan
   cityId       Int?
 }
 

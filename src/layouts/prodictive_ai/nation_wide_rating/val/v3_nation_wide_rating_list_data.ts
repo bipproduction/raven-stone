@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const _val_v3_nation_wide_rating_list_data = atom<any[] | undefined>(undefined)
+export const v3_val_nation_wide_rating_list_data = atom<any[] | null>(null)
