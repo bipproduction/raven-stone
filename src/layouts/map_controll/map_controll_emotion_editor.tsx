@@ -83,6 +83,7 @@ const colors = {
 const listTable = signal<any[]>([]);
 const currentPage = signal<number>(1);
 var perPage = 15;
+var awal=0;
 
 const SelectCandidate = () => {
   //   useShallowEffect(() => {
@@ -151,6 +152,7 @@ function onPageChange(val: number) {
   const first = (val - 1) * perPage;
   const end = val * perPage;
   const listData = listKab.slice(first, end);
+  awal=first;
 
   // setlistTable(listData);
   listTable.value = listData;
@@ -515,7 +517,7 @@ function TableView() {
                   )}
                 </Flex>
               </td>
-              <td>{i + 1}</td>
+              <td>{awal + i + 1}</td>
               {/* <td>{v.id}</td> */}
               <td width={200}>{v.City.name}</td>
               <td>

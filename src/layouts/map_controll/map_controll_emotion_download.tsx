@@ -100,7 +100,7 @@ export function MapControllEmotionDownload() {
 
         <Modal opened={open} onClose={() => setOpen(false)}>
           <Stack>
-            <Title order={3}>PORPOSE</Title>
+            <Title order={3}>PURPOSE</Title>
             <SimpleGrid cols={2}>
               <Stack bg={"gray.1"} justify="space-between" p={"xs"}>
                 <Stack spacing={0}>
