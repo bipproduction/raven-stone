@@ -28,7 +28,7 @@ import TextAnimation from "react-typing-dynamics";
 import prs from "html-react-parser";
 import { NationWideRatingV2Chart } from "./nation_wide_rating_v2_chart";
 import { atomWithStorage } from "jotai/utils";
-import { NationWideRatingLineChart } from "./component/v3_front_nation_wide_rating_line_chart";
+import { V3ComNationWideRatingLineChart } from "./com/v3_com_nation_wide_rating_line_chart";
 
 export default function NationWideRatingv2() {
   const [listNation, setListNationWideRating] = useAtom(_val_listNation);
@@ -128,9 +128,11 @@ export default function NationWideRatingv2() {
         </Paper>
         <Flex gap={"md"}>
           <Stack w={"100%"} spacing={"md"}>
-            <Paper p={"md"} 
-            // bg={"yellow.2"} 
-            shadow="md">
+            <Paper
+              p={"md"}
+              // bg={"yellow.2"}
+              shadow="md"
+            >
               <Flex align={"center"} justify={"center"} gap={"lg"}>
                 <Stack align="center" w={200}>
                   <Image
@@ -141,9 +143,12 @@ export default function NationWideRatingv2() {
                     }
                     alt=""
                   />
-                  <Title align="center" lineClamp={1} 
-                  // c={"gray.8"} 
-                  order={3}>
+                  <Title
+                    align="center"
+                    lineClamp={1}
+                    // c={"gray.8"}
+                    order={3}
+                  >
                     {_.upperCase(
                       listCandidate.find((v) => v.id == selectedCandidate1)
                         ?.name
@@ -160,9 +165,12 @@ export default function NationWideRatingv2() {
                     }
                     alt=""
                   />
-                  <Title align="center" lineClamp={1} 
-                  // c={"gray.8"} 
-                  order={3}>
+                  <Title
+                    align="center"
+                    lineClamp={1}
+                    // c={"gray.8"}
+                    order={3}
+                  >
                     {_.upperCase(
                       listCandidate.find((v) => v.id == selectedCandidate2)
                         ?.name
@@ -171,14 +179,15 @@ export default function NationWideRatingv2() {
                 </Stack>
               </Flex>
             </Paper>
-            <Paper p={"md"} 
-            // bg={"blue.1"} 
-            shadow="md">
+            <Paper
+              p={"md"}
+              // bg={"blue.1"}
+              shadow="md"
+            >
               <NationWideRatingV2Chart data={selectedData} />
-              
             </Paper>
             <Paper p={"md"}>
-            <NationWideRatingLineChart  data={selectedData} />
+              <V3ComNationWideRatingLineChart  />
             </Paper>
           </Stack>
           <Stack w={600} spacing={"md"}>
@@ -196,9 +205,7 @@ export default function NationWideRatingv2() {
                     </Stack>
                   </Paper>
                 </SimpleGrid>
-                <Paper 
-                bg={"dark.6"} 
-                p={"xs"} w={"100%"} shadow="md">
+                <Paper bg={"dark.6"} p={"xs"} w={"100%"} shadow="md">
                   <ScrollArea h={500} c={"white"}>
                     {selectedData && selectedData.text && (
                       <TextAnimation
@@ -221,5 +228,3 @@ export default function NationWideRatingv2() {
     </>
   );
 }
-
-
