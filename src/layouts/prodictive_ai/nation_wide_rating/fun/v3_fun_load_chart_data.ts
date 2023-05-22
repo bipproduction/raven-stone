@@ -4,8 +4,8 @@ import toast from "react-simple-toasts";
 
 export async function v3_fun_load_chart_data({ selectedCandidate, start, end, setDataChart }: { selectedCandidate: any, start: string; end: string, setDataChart: any }) {
     fetch(
-        api.apiV3NationWideRatingChartDataGet +
-        `?candidate1Id=${selectedCandidate.candidate1Id}&candidate2Id=${selectedCandidate.candidate2Id}&start=${start}&end=${end}`
+        api.apiV3NationWideRatingChartListDataGet +
+        `?candidate1Id=${selectedCandidate.candidate1Id}&&candidate2Id=${selectedCandidate.candidate2Id}&&dateStart=${start}&&dateEnd=${end}`
     ).then(async (res) => {
         if (res.status != 200) {
             return toast("empty data");
@@ -14,4 +14,5 @@ export async function v3_fun_load_chart_data({ selectedCandidate, start, end, se
         const data = await res.json();
         setDataChart(data);
     });
+
 }

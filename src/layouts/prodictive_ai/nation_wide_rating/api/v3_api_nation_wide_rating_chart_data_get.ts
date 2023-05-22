@@ -2,10 +2,9 @@ import client from "@/lib/prisma_db";
 import _ from "lodash";
 
 export async function api_v3_nation_wide_rating_chart_data_get(req: any, res: any) {
-    const { candidate1Id, candidate2Id, start, end } = req.query
+    const { candidate1Id, candidate2Id, dateStart, dateEnd } = req.query
 
-    console.log(candidate1Id, candidate2Id, start, end)
-    if (!candidate1Id || !candidate2Id || !start || !end) {
+    if (!candidate1Id || !candidate2Id || !dateStart || !dateEnd) {
         return res.status(400).json({ message: "Bad Request" })
     }
     const data = await client.v3NationWideRating.findMany({
@@ -13,8 +12,8 @@ export async function api_v3_nation_wide_rating_chart_data_get(req: any, res: an
             candidate1Id: +candidate1Id,
             candidate2Id: +candidate2Id,
             date: {
-                lte: new Date(end),
-                gte: new Date(start)
+                lte: new Date(dateEnd),
+                gte: new Date(dateStart)
             }
         },
         select: {
@@ -31,7 +30,7 @@ export async function api_v3_nation_wide_rating_chart_data_get(req: any, res: an
     })
 
     if (_.isEmpty(data)) {
-        return res.status(404).end()
+        return res.status(400).end()
     }
 
     // const result = _.reduce(data, (acc: any, obj: any) => {

@@ -11,13 +11,13 @@ async function main() {
     const candidate2 = await client.candidate.findMany()
     const city = await client.city.findMany()
 
-    await client.v3NationWideRating.deleteMany({
-        where: {
-            id: {
-                gte: 0
-            }
-        }
-    })
+    // await client.v3NationWideRating.deleteMany({
+    //     where: {
+    //         id: {
+    //             gte: 0
+    //         }
+    //     }
+    // })
 
     const listResult = []
     const date = ["2023-05-19", "2023-05-20", "2023-05-21", "2023-05-22", "2023-05-23", "2023-05-24", "2023-05-25"]
@@ -31,7 +31,7 @@ async function main() {
                         id: id,
                         candidate1Id: c1.id,
                         candidate2Id: c2.id,
-                        text: `To create a new array with a specific number of elements using lodash, you can use the times function. This function takes two arguments: the number of iterations and the function that should be executed for each iteration. The function receives the current iteration index and returns the value to be included in the resulting array.`,
+                        text: `text`,
                         rate: `${_.random(1, 100)}`,
                         trust: _.random(1, 100).toString(),
                         joy: _.random(1, 100).toString(),

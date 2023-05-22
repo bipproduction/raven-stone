@@ -11,6 +11,7 @@ import {
   Table,
   Text,
   Title,
+  UnstyledButton,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { V3CopyData } from "./com/v3_com_copy_data";
@@ -23,10 +24,16 @@ import { v3_val_list_data_candidate } from "./val/v3_val_list_data_candidate";
 import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { v3_val_nation_wide_rating_list_candidate } from "../val/v3_nation_wide_rating_list_candidate";
-import { MdEdit } from "react-icons/md";
+import { MdDownload, MdEdit, MdUpload } from "react-icons/md";
 import { V3ModalEdit } from "./com/v3_com_modal_edit";
 import { v3_val_data_edit } from "./val/v3_val_data_edit";
 import { v3_val_open_modal_edit } from "./val/v3_val_open_modal_edit";
+import Link from "next/link";
+import { api } from "@/lib/api";
+import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
+import toast from "react-simple-toasts";
+import Papa from "papaparse";
+import { V3ComUploadCsv } from "./com/v3_com_upload_csv";
 
 export function V3BackNationWideRating() {
   const [selectedDate, setSelectedDate] = useAtom(v3_selected_date);
@@ -67,36 +74,30 @@ export function V3BackNationWideRating() {
                 />
               </Grid.Col>
               <Grid.Col span={"auto"}>
-                <Flex
-                  wrap={"wrap"}
-                  h={300}
-                  sx={{
-                    overflow: "scroll",
-                  }}
-                >
-                  {/* {listData.map((v: any, i) => (
-                    <Box key={i} p={"xs"}>
-                      <Card w={150}>
-                        <Stack spacing={0}>
-                          <Text lineClamp={1}>
-                            {
-                              listCandidate?.find(
-                                (c: any) => c.id === v.candidate1Id
-                              )?.name
-                            }
-                          </Text>
-                          <Text lineClamp={1}>
-                            {
-                              listCandidate?.find(
-                                (c: any) => c.id === v.candidate2Id
-                              )?.name
-                            }
-                          </Text>
-                        </Stack>
-                      </Card>
-                    </Box>
-                  ))} */}
-                </Flex>
+                {!_.isEmpty(listData) && (
+                  <Group spacing="xl">
+                    <Card w={150} h={120}>
+                      <Box
+                        sx={{
+                          border: "1px dashed gray",
+                        }}
+                      >
+                        <Link
+                          href={
+                            api.apiV3NationWideRatingDataDownload +
+                            `?date=${selectedDate}`
+                          }
+                        >
+                          <Stack align="center" justify="center">
+                            <Title order={3}>DOWNLOAD</Title>
+                            <Text>download csv</Text>
+                          </Stack>
+                        </Link>
+                      </Box>
+                    </Card>
+                    <V3ComUploadCsv />
+                  </Group>
+                )}
               </Grid.Col>
             </Grid>
           </Stack>
