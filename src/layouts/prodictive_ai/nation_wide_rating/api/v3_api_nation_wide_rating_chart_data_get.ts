@@ -17,15 +17,16 @@ export async function api_v3_nation_wide_rating_chart_data_get(req: any, res: an
             }
         },
         select: {
-            trust: true,
-            joy: true,
-            surprise: true,
-            anticipation: true,
-            sadness: true,
-            fear: true,
-            anger: true,
-            disgust: true,
-            date: true
+            // trust: true,
+            // joy: true,
+            // surprise: true,
+            // anticipation: true,
+            // sadness: true,
+            // fear: true,
+            // anger: true,
+            // disgust: true,
+            date: true,
+            rate: true,
         }
     })
 
