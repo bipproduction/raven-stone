@@ -119,18 +119,13 @@ export function V3BackNationWideRating() {
                         * UPDATE, tidak berpengaruh pada tanggal yang dipilih
                       </Text>
                       <Text size={"xs"}>
-                        * REPLACE, akan menghapus data yang sudah ada
+                        * REPLACE, akan menghapus data yang sudah ada di tanggal yag dipilih
                       </Text>
                     </Stack>
                   </Card>
                 </Stack>
               </Grid.Col>
             </Grid>
-            <Card>
-              <Stack>
-                <Text></Text>
-              </Stack>
-            </Card>
           </Stack>
         </Paper>
         <Paper p={"md"}>
