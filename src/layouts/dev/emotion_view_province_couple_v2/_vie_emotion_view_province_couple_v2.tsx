@@ -29,7 +29,7 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { Vie_emotion_view_province_couple_v2_upload } from "./_vie_emotion_view_province_couple_v2_upload";
 
-export default function Vie_emotion_view_province_couple_v2() {
+export  function Vie_emotion_view_province_couple_v2() {
   const [listEmotion, setListEmotion] = useAtom(
     _val_list_emotion_view_province_couple
   );
