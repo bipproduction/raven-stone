@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Avatar,
   Box,
   Card,
   Flex,
@@ -34,11 +35,12 @@ import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import toast from "react-simple-toasts";
 import Papa from "papaparse";
 import { V3ComUploadCsv } from "./com/v3_com_upload_csv";
+import { v3_fun_nation_wide_rating_load_list_candidate } from "../fun/v3_fun_nation_wide_rating_load_list_candidate";
 
 export function V3BackNationWideRating() {
   const [selectedDate, setSelectedDate] = useAtom(v3_selected_date);
   const [listData, setData] = useAtom(v3_val_list_data_candidate);
-  const [listCandidate, sertListCandidate] = useAtom(
+  const [listCandidate, setListCandidate] = useAtom(
     v3_val_nation_wide_rating_list_candidate
   );
   const [openModal, setOpenModal] = useAtom(v3_val_open_modal_edit);
@@ -49,6 +51,10 @@ export function V3BackNationWideRating() {
       date: selectedDate,
       setData,
     });
+
+    v3_fun_nation_wide_rating_load_list_candidate({
+      setListCandidate,
+    })
   }, []);
 
   return (
@@ -102,52 +108,83 @@ export function V3BackNationWideRating() {
             </Grid>
           </Stack>
         </Paper>
-        <Paper
-          h={500}
-          sx={{
-            overflow: "scroll",
-          }}
-        >
+        <Paper p={"md"}>
           {listData && (
-            <Table>
-              <thead>
-                <tr
-                  style={{
-                    position: "sticky",
-                    top: 0,
-                    backgroundColor: "white",
-                  }}
-                >
-                  <th>Action</th>
-                  {_.keys(listData[0]).map((v, i) => (
-                    <th key={i}>
-                      <Title order={5}>{v}</Title>
+            <Box h={400} sx={{ overflow: "scroll" }}>
+              <Table>
+                <thead>
+                  <tr
+                    style={{
+                      position: "sticky",
+                      top: 0,
+                      backgroundColor: "white",
+                      zIndex: 100,
+                    }}
+                  >
+                    <th>Action</th>
+                    <th>
+                      <Title order={5}>candidate 1 name</Title>
                     </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {listData.map((v, i) => (
-                  <tr key={i}>
-                    <td>
-                      <ActionIcon
-                        onClick={() => {
-                          setOpenModal(true);
-                          setDataEdit(v);
-                        }}
-                      >
-                        <MdEdit />
-                      </ActionIcon>
-                    </td>
-                    {_.values(v).map((v2: any, i) => (
-                      <td key={i}>
-                        <Text lineClamp={2}>{v2}</Text>
-                      </td>
+                    <th>
+                      <Title order={5}>candidate 2 name</Title>
+                    </th>
+                    {_.keys(
+                      _.omit(listData[0], [
+                        // "id",
+                        "candidate1Id",
+                        "candidate2Id",
+                        "candidate1Name",
+                        "candidate2Name",
+                      ])
+                    ).map((v, i) => (
+                      <th key={i}>
+                        <Title order={5}>{v}</Title>
+                      </th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {listData
+                    .map((v: any) => ({
+                      candidate1Name: v.candidate1Name,
+                      candidate2Name: v.candidate2Name,
+                      ..._.omit(v, [
+                        // "id",
+                        "candidate1Id",
+                        "candidate2Id",
+                        "candidate1Name",
+                        "candidate2Name",
+                      ]),
+                    }))
+                    .map((v: any, i) => (
+                      <tr key={i}>
+                        <td>
+                          <Flex>
+                            <ActionIcon
+                              onClick={() => {
+                                setOpenModal(true);
+                                setDataEdit(v);
+                              }}
+                            >
+                              <MdEdit />
+                            </ActionIcon>
+
+                            <Avatar.Group spacing={"sm"}>
+                              <Avatar radius={"xl"} src={listCandidate?.find((x) => x.name == v.candidate1Name)?.img} />
+                              <Avatar radius={"xl"} src={listCandidate?.find((x) => x.name == v.candidate2Name)?.img} />
+                            </Avatar.Group>
+                          </Flex>
+                        </td>
+                        {_.keys(v).map((v2: any, i) => (
+                          <td key={i}>
+                            <Text lineClamp={2}>{v[v2]}</Text>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </Box>
           )}
         </Paper>
         <V3ModalEdit />
