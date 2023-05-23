@@ -60,7 +60,7 @@ export function V3ComNationWideRatingLineChart() {
   const option: EChartsOption = {
     title: {
       top: 0,
-      // text: "100 %",
+      text: "100 %",
     },
     tooltip: {
       trigger: "axis",

@@ -31,7 +31,6 @@ export function V3ModalEdit() {
     <>
       <Modal size={"lg"} opened={openModal} onClose={() => setOpenModal(false)}>
         <Stack spacing={"xl"}>
-
           <SimpleGrid cols={2}>
             {_.keys(
               _.omit(dataEdit, [
@@ -48,11 +47,12 @@ export function V3ModalEdit() {
                 <TextInput
                   label={v}
                   value={dataEdit[v]}
-                  onChange={(val) => {
-                    const data = _.clone(dataEdit);
-                    data[v] = val;
-                    setDataEdit(data);
-                  }}
+                  onChange={(val) =>
+                    setDataEdit({
+                      ..._.clone(dataEdit),
+                      [v]: val.currentTarget.value,
+                    })
+                  }
                 />
               </Box>
             ))}
