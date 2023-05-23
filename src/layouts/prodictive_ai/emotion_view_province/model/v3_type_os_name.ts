@@ -1,2 +1,2 @@
-type OS_NAME = 'undetermined' | 'macos' | 'ios' | 'windows' | 'android' | 'linux';
+// type OS_NAME = 'undetermined' | 'macos' | 'ios' | 'windows' | 'android' | 'linux';
 
