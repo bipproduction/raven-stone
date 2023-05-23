@@ -3,7 +3,8 @@ import ButtonLogout from "@/layouts/dev/button_logout";
 import Dev from "@/layouts/dev/dev";
 import DevAuthProvider from "@/layouts/dev/dev_auth_provider";
 import { DevStepAndSwotAnalisys } from "@/layouts/dev/dev_step_and_swot_analisys";
-import Vie_emotion_view_province_couple_v2 from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
+import { Vie_emotion_view_province_couple_v2 } from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
+
 import { DevNationWideRatingv2 } from "@/layouts/dev/predictive_ai/com_nation_wide_rating_v2";
 import { MapControllCityValueEditor } from "@/layouts/map_controll/map_controll_city_value_editor";
 import { MapControllEmotionEditor } from "@/layouts/map_controll/map_controll_emotion_editor";
@@ -157,7 +158,7 @@ const listMenu = [
 ];
 
 const _is_small = atomWithStorage("admin_dashboard_is_small", false);
-export function LauyoutAdminDashboard({ children }: PropsWithChildren) {
+export default function LauyoutAdminDashboard({ children }: PropsWithChildren) {
   const update = useForceUpdate();
   const [selectedDashboard, setSelectedDashboard] = useAtom(
     jSelectedAdminDashboard
