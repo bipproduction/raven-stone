@@ -52,7 +52,7 @@ const MainSummary = () => {
         </Grid>
         <Top10ProvinceByConversation />
         <Top10DistrictbyConversation />
-        {/* <Top5WinningRate  /> */}
+        <Top5WinningRate  />
       </Stack>
     </>
   );
