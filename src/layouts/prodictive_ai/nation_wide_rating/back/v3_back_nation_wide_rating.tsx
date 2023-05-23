@@ -36,6 +36,7 @@ import toast from "react-simple-toasts";
 import Papa from "papaparse";
 import { V3ComUploadCsv } from "./com/v3_com_upload_csv";
 import { v3_fun_nation_wide_rating_load_list_candidate } from "../fun/v3_fun_nation_wide_rating_load_list_candidate";
+import { V3ComReplaceCsv } from "./com/v3_com_replace_csv";
 
 export function V3BackNationWideRating() {
   const [selectedDate, setSelectedDate] = useAtom(v3_selected_date);
@@ -54,7 +55,7 @@ export function V3BackNationWideRating() {
 
     v3_fun_nation_wide_rating_load_list_candidate({
       setListCandidate,
-    })
+    });
   }, []);
 
   return (
@@ -68,49 +69,73 @@ export function V3BackNationWideRating() {
           <Stack>
             <Grid>
               <Grid.Col span={"content"}>
-                <DatePicker
-                  value={selectedDate as any}
-                  onChange={(val) => {
-                    setSelectedDate(moment(val).format("YYYY-MM-DD"));
-                    v3_fun_check_data_candidate({
-                      date: moment(val).format("YYYY-MM-DD"),
-                      setData,
-                    });
-                  }}
-                />
+                <Card>
+                  <DatePicker
+                    value={selectedDate as any}
+                    onChange={(val) => {
+                      setSelectedDate(moment(val).format("YYYY-MM-DD"));
+                      v3_fun_check_data_candidate({
+                        date: moment(val).format("YYYY-MM-DD"),
+                        setData,
+                      });
+                    }}
+                  />
+                </Card>
               </Grid.Col>
               <Grid.Col span={"auto"}>
-                {!_.isEmpty(listData) && (
-                  <Group spacing="xl">
-                    <Card w={150} h={120}>
-                      <Box
-                        sx={{
-                          border: "1px dashed gray",
-                        }}
-                      >
-                        <Link
-                          href={
-                            api.apiV3NationWideRatingDataDownload +
-                            `?date=${selectedDate}`
-                          }
-                        >
-                          <Stack align="center" justify="center">
-                            <Title order={3}>DOWNLOAD</Title>
-                            <Text>download csv</Text>
-                          </Stack>
-                        </Link>
-                      </Box>
-                    </Card>
-                    <V3ComUploadCsv />
+                <Stack>
+                  <Group>
+                    {!_.isEmpty(listData) && (
+                      <Group spacing="xl">
+                        <Card w={150} h={120}>
+                          <Box
+                            sx={{
+                              border: "1px dashed gray",
+                            }}
+                          >
+                            <Link
+                              href={
+                                api.apiV3NationWideRatingDataDownload +
+                                `?date=${selectedDate}`
+                              }
+                            >
+                              <Stack align="center" justify="center">
+                                <Title order={3}>DOWNLOAD</Title>
+                                <Text>download csv</Text>
+                              </Stack>
+                            </Link>
+                          </Box>
+                        </Card>
+                      </Group>
+                    )}
+                    <Group>
+                      <V3ComUploadCsv />
+                      <V3ComReplaceCsv />
+                    </Group>
                   </Group>
-                )}
+                  <Card>
+                    <Stack spacing={0}>
+                      <Text size={"xs"}>
+                        * UPDATE, tidak berpengaruh pada tanggal yang dipilih
+                      </Text>
+                      <Text size={"xs"}>
+                        * REPLACE, akan menghapus data yang sudah ada
+                      </Text>
+                    </Stack>
+                  </Card>
+                </Stack>
               </Grid.Col>
             </Grid>
+            <Card>
+              <Stack>
+                <Text></Text>
+              </Stack>
+            </Card>
           </Stack>
         </Paper>
         <Paper p={"md"}>
           {listData && (
-            <Box h={400} sx={{ overflow: "scroll" }}>
+            <Box h={700} sx={{ overflow: "scroll" }}>
               <Table>
                 <thead>
                   <tr
@@ -170,8 +195,22 @@ export function V3BackNationWideRating() {
                             </ActionIcon>
 
                             <Avatar.Group spacing={"sm"}>
-                              <Avatar radius={"xl"} src={listCandidate?.find((x) => x.name == v.candidate1Name)?.img} />
-                              <Avatar radius={"xl"} src={listCandidate?.find((x) => x.name == v.candidate2Name)?.img} />
+                              <Avatar
+                                radius={"xl"}
+                                src={
+                                  listCandidate?.find(
+                                    (x) => x.name == v.candidate1Name
+                                  )?.img
+                                }
+                              />
+                              <Avatar
+                                radius={"xl"}
+                                src={
+                                  listCandidate?.find(
+                                    (x) => x.name == v.candidate2Name
+                                  )?.img
+                                }
+                              />
                             </Avatar.Group>
                           </Flex>
                         </td>

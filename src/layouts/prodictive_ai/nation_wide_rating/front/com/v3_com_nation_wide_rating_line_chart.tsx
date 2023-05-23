@@ -70,15 +70,25 @@ export function V3ComNationWideRatingLineChart() {
           backgroundColor: "#6a7985",
         },
       },
+      backgroundColor: "orange",
       formatter: (a: any, b: any) => {
+
         const d: any[] = a;
-        return `${d.map((v) => v.value)} %`;
+        return `
+        <div style="width: 300px; padding: 10px; ">
+          <div style="color: white;font-size: 1rem">${d.map((v) => v.name)} </div>
+          <div style="color: white; font-size: 2rem">${d.map((v) => v.value)} %</div>
+        </div>
+        `;
       },
     },
     xAxis: {
       type: "category",
       boundaryGap: false,
       data: [...dataChart.map((v) => moment(v.date).format("YYYY-MM-DD"))],
+      axisLabel: {
+        rotate: 45
+      }
     },
     yAxis: {
       type: "value",
@@ -91,110 +101,130 @@ export function V3ComNationWideRatingLineChart() {
     },
     series: [
       {
-        data: [...dataChart.map((v) => v.trust)],
+        data: [...dataChart.map((v) => v.rate)],
         name: "trust",
         type: "line",
-
-        areaStyle: {},
+        itemStyle: {
+          color: "yellow"
+        },
+        areaStyle: {
+          color: "green"
+        },
         emphasis: {
           focus: "series",
         },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Trust")?.color,
-        },
+        smooth: true
+        // itemStyle: {
+        //   color: listEmotionColor.find((v) => v.name === "Trust")?.color,
+        // },
       },
-      {
-        data: [...dataChart.map((v) => v.joy)],
-        name: "joy",
-        type: "line",
+    ]
+    // series: [
+    //   {
+    //     data: [...dataChart.map((v) => v.trust)],
+    //     name: "trust",
+    //     type: "line",
 
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Joy")?.color,
-        },
-      },
-      {
-        data: [...dataChart.map((v) => v.surprise)],
-        name: "surprise",
-        type: "line",
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Trust")?.color,
+    //     },
+    //   },
+    //   {
+    //     data: [...dataChart.map((v) => v.joy)],
+    //     name: "joy",
+    //     type: "line",
 
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Surprise")?.color,
-        },
-      },
-      {
-        data: [...dataChart.map((v) => v.anticipation)],
-        name: "anticipation",
-        type: "line",
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Joy")?.color,
+    //     },
+    //   },
+    //   {
+    //     data: [...dataChart.map((v) => v.surprise)],
+    //     name: "surprise",
+    //     type: "line",
 
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Anticipation")?.color,
-        },
-      },
-      {
-        data: [...dataChart.map((v) => v.sadness)],
-        name: "sadness",
-        type: "line",
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Surprise")?.color,
+    //     },
+    //   },
+    //   {
+    //     data: [...dataChart.map((v) => v.anticipation)],
+    //     name: "anticipation",
+    //     type: "line",
 
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Sadness")?.color,
-        },
-      },
-      {
-        data: [...dataChart.map((v) => v.fear)],
-        name: "fear",
-        type: "line",
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Anticipation")?.color,
+    //     },
+    //   },
+    //   {
+    //     data: [...dataChart.map((v) => v.sadness)],
+    //     name: "sadness",
+    //     type: "line",
 
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Fear")?.color,
-        },
-      },
-      {
-        data: [...dataChart.map((v) => v.anger)],
-        name: "anger",
-        type: "line",
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Sadness")?.color,
+    //     },
+    //   },
+    //   {
+    //     data: [...dataChart.map((v) => v.fear)],
+    //     name: "fear",
+    //     type: "line",
 
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Anger")?.color,
-        },
-      },
-      {
-        data: [...dataChart.map((v) => v.disgust)],
-        name: "disgust",
-        type: "line",
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Fear")?.color,
+    //     },
+    //   },
+    //   {
+    //     data: [...dataChart.map((v) => v.anger)],
+    //     name: "anger",
+    //     type: "line",
 
-        areaStyle: {},
-        emphasis: {
-          focus: "series",
-        },
-        itemStyle: {
-          color: listEmotionColor.find((v) => v.name === "Disgust")?.color,
-        },
-      },
-    ],
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Anger")?.color,
+    //     },
+    //   },
+    //   {
+    //     data: [...dataChart.map((v) => v.disgust)],
+    //     name: "disgust",
+    //     type: "line",
+
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: "series",
+    //     },
+    //     itemStyle: {
+    //       color: listEmotionColor.find((v) => v.name === "Disgust")?.color,
+    //     },
+    //   },
+    // ],
   };
 
   useShallowEffect(() => {
@@ -215,6 +245,7 @@ export function V3ComNationWideRatingLineChart() {
         }}
       >
         <Stack spacing={"lg"}>
+          {/* {JSON.stringify(dataChart)} */}
           {/* <Title order={3}>Nation Wide Rating Line Chart</Title> */}
           <Box>
             <Group spacing="xs" position="right">
