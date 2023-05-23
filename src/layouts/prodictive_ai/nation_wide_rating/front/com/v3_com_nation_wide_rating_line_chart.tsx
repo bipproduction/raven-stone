@@ -215,10 +215,11 @@ export function V3ComNationWideRatingLineChart() {
         }}
       >
         <Stack spacing={"lg"}>
-          <Title order={3}>Nation Wide Rating Line Chart</Title>
+          {/* <Title order={3}>Nation Wide Rating Line Chart</Title> */}
           <Box>
             <Group spacing="xs" position="right">
               <Button
+                bg={"green"}
                 onClick={() => {
                   const dates = {
                     start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
@@ -236,6 +237,7 @@ export function V3ComNationWideRatingLineChart() {
                 week
               </Button>
               <Button
+                bg={"blue"}
                 onClick={() => {
                   const dates = {
                     start: moment().subtract(1, "months").format("YYYY-MM-DD"),
@@ -254,7 +256,7 @@ export function V3ComNationWideRatingLineChart() {
               </Button>
               <HoverCard>
                 <HoverCard.Target>
-                  <Button>Custom</Button>
+                  <Button bg="orange">Custom</Button>
                 </HoverCard.Target>
                 <HoverCard.Dropdown>
                   <Stack>

@@ -36,7 +36,7 @@ export function V3ComNationWideRatingSelectCandidate({
       }}>
         <Group align="end" position="right">
           <Select
-            key={_.random(1, 100)}
+            key={Math.random()}
             placeholder={
               listCandidate.find(
                 (v) => Number(v.id) == Number(selctedCandidate.candidate1Id)
@@ -58,7 +58,7 @@ export function V3ComNationWideRatingSelectCandidate({
             // placeholder="select candidate"
           />
           <Select
-          key={_.random(1, 100)}
+          key={Math.random()}
             data={
               listCandidate?.map((v) => ({
                 label: v.name,

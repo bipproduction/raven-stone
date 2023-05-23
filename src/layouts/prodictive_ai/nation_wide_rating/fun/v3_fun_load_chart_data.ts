@@ -8,10 +8,12 @@ export async function v3_fun_load_chart_data({ selectedCandidate, start, end, se
         `?candidate1Id=${selectedCandidate.candidate1Id}&&candidate2Id=${selectedCandidate.candidate2Id}&&dateStart=${start}&&dateEnd=${end}`
     ).then(async (res) => {
         if (res.status != 200) {
+            setDataChart([]);
             return toast("empty data");
         }
 
         const data = await res.json();
+
         setDataChart(data);
     });
 

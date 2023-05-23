@@ -57,7 +57,7 @@ export function V3BackNationWideRating() {
         <Title>Back Nation Wide Rating</Title>
         {/* {JSON.stringify(listData)} */}
         <V3CopyData />
-        <V3SelectCandidate />
+        {/* <V3SelectCandidate /> */}
         <Paper p={"xs"}>
           <Stack>
             <Grid>

@@ -30,7 +30,7 @@ export function V3SelectCandidate() {
       <Paper p={"xs"}>
         <Group position="right" align="end">
           <Select
-            key={_.random(1, 100)}
+            // key={Math.random()}
             placeholder={
               "" +
               listCandidate?.find(
@@ -49,7 +49,7 @@ export function V3SelectCandidate() {
             }}
           />
           <Select
-            key={_.random(1, 100)}
+            // key={Math.random()}
             placeholder={
               "" +
               listCandidate?.find(
