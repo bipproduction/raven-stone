@@ -1,7 +1,10 @@
 import {
   Card,
   Center,
+  Flex,
   Grid,
+  Group,
+  Image,
   Loader,
   Paper,
   ScrollArea,
@@ -29,6 +32,7 @@ import { v3_fun_load_chart_data } from "../fun/v3_fun_load_chart_data";
 import moment from "moment";
 import { v3_val_data_line_chart } from "../val/v3_val_data_line_chart";
 import { V3ComChartBar } from "./com/v3_com_chart_bar";
+import { v3_val_back_selected_candidate } from "../back/val/v3_val_selected_candidate";
 
 export function V3FrontNationWideRating() {
   const [listData, setListData] = useAtom(v3_val_nation_wide_rating_list_data);
@@ -38,6 +42,9 @@ export function V3FrontNationWideRating() {
 
   const [dateChart, setDataChart] = useAtom(v3_val_data_line_chart);
   const { ref, width, height } = useElementSize();
+  const [listCandidate, setListCandidate] = useAtom(
+    v3_val_nation_wide_rating_list_candidate
+  );
 
   useShallowEffect(() => {
     v3_fun_nation_wide_rating_load_list_data({
@@ -62,6 +69,55 @@ export function V3FrontNationWideRating() {
           title="NATION WIDE RATING"
           text="EMOTIONAL METERS BRAND MERGER SIMULATION"
         />
+
+        <SimpleGrid cols={2}>
+          <Paper p={"md"}>
+            <Flex gap={"lg"} align={"end"}>
+              <Image
+                // key={Math.random()}
+                radius={"md"}
+                width={100}
+                height={100}
+                src={
+                  listCandidate?.find(
+                    (v) => v.id == selectedCandidate.candidate1Id
+                  ).img
+                }
+                alt=""
+              />
+              <Title>
+                {
+                  listCandidate?.find(
+                    (v) => v.id == selectedCandidate.candidate1Id
+                  ).name
+                }
+              </Title>
+            </Flex>
+          </Paper>
+          <Paper p={"md"}>
+            <Flex gap={"lg"} align={"end"} justify={"end"}>
+              <Title>
+                {
+                  listCandidate?.find(
+                    (v) => v.id == selectedCandidate.candidate2Id
+                  ).name
+                }
+              </Title>
+              <Image
+                // key={Math.random()}
+                radius={"md"}
+                width={100}
+                height={100}
+                src={
+                  listCandidate?.find(
+                    (v) => v.id == selectedCandidate.candidate2Id
+                  ).img
+                }
+                alt=""
+              />
+            </Flex>
+          </Paper>
+        </SimpleGrid>
         <V3ComNationWideRatingSelectCandidate
           onProccess={() => {
             v3_fun_nation_wide_rating_load_list_data({
@@ -112,7 +168,7 @@ export function V3FrontNationWideRating() {
                       <Text>Empty Data ...</Text>
                     </>
                   ) : (
-                    <ScrollArea c={"white"}>
+                    <ScrollArea>
                       {listData && listData![0] && (
                         <TextAnimation
                           key={listData![0].id}

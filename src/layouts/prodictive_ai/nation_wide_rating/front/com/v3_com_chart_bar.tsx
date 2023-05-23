@@ -66,6 +66,9 @@ export function V3ComChartBar() {
                 "createdAt",
                 "time",
                 "cityId",
+                "text",
+                "rate",
+                "date",
               ])
             )
               .map((v) => ({
@@ -90,8 +93,19 @@ export function V3ComChartBar() {
   };
   return (
     <>
-      <Paper p={"xs"}>
-        {/* {JSON.stringify(listData)} */}
+      <Paper p={"xs"} key={Math.random()}>
+        {/* {JSON.stringify(_.omit(listData![0], [
+                "id",
+                "candidate1Id",
+                "candidate2Id",
+                "updatedAt",
+                "createdAt",
+                "time",
+                "cityId",
+                "text",
+                "rate",
+                "date"
+              ]))} */}
         <EChartsReact
           style={{
             height: 460,
