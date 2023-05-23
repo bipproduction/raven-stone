@@ -1,10 +1,15 @@
 import client from "@/lib/prisma_db"
 import _ from "lodash"
 import 'colors'
+import moment from "moment"
 
 export default async function top5WinningRate(req: any, res: any) {
 
-    const data = await client.v3NationWideRating.findMany()
+    const data = await client.v3NationWideRating.findMany({
+        where: {
+            date: new Date(moment().format("YYYY-MM-DD"))
+        }
+    })
 
     // console.log(JSON.stringify(data))
     const candidate = await client.candidate.findMany()
