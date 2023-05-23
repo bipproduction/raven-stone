@@ -98,7 +98,7 @@ export function V3ComChartBar() {
   };
   return (
     <>
-      <Paper p={"xs"} key={Math.random()}>
+      <Paper p={"xs"}>
         {/* {JSON.stringify(_.omit(listData![0], [
                 "id",
                 "candidate1Id",
