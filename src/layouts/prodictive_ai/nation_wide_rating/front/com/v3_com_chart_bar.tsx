@@ -32,6 +32,11 @@ export function V3ComChartBar() {
         "anger",
         "disgust",
       ],
+      
+      axisLabel: {
+        verticalAlign: "middle",
+        rotate: 45,
+      }
     },
     yAxis: {
       axisLabel: {

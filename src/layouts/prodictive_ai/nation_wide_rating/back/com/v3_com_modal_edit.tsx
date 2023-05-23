@@ -26,18 +26,20 @@ export function V3ModalEdit() {
 
   const [listData, setData] = useAtom(v3_val_list_data_candidate);
   const [selectedDate, setSelectedDate] = useAtom(v3_selected_date);
-  
- 
+
   return (
     <>
       <Modal size={"lg"} opened={openModal} onClose={() => setOpenModal(false)}>
         <Stack spacing={"xl"}>
+
           <SimpleGrid cols={2}>
             {_.keys(
               _.omit(dataEdit, [
                 "id",
                 "candidate1Id",
                 "candidate2Id",
+                "candidate1Name",
+                "candidate2Name",
                 "date",
                 "text",
               ])
@@ -46,15 +48,17 @@ export function V3ModalEdit() {
                 <TextInput
                   label={v}
                   value={dataEdit[v]}
-                  onChange={(val) =>
-                    setDataEdit({ ...dataEdit, [v]: val.currentTarget.value })
-                  }
+                  onChange={(val) => {
+                    const data = _.clone(dataEdit);
+                    data[v] = val;
+                    setDataEdit(data);
+                  }}
                 />
               </Box>
             ))}
           </SimpleGrid>
           <V3ComTextEditor
-            content="<html></html>"
+            content=""
             onClick={() => {
               fetch(api.apiV3NationWideRatingDataUpdate, {
                 method: "POST",
@@ -67,7 +71,7 @@ export function V3ModalEdit() {
                   v3_fun_check_data_candidate({
                     date: selectedDate,
                     setData,
-                  })
+                  });
                   return toast("success");
                 }
                 toast("error");

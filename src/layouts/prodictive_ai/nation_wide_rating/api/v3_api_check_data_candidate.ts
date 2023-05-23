@@ -1,4 +1,6 @@
 import client from "@/lib/prisma_db"
+import _ from "lodash"
+import moment from "moment"
 
 export async function v3_api_check_data_candidate(req: any, res: any) {
     const { date } = req.query
@@ -24,5 +26,19 @@ export async function v3_api_check_data_candidate(req: any, res: any) {
             text: true
         }
     })
-    return res.status(200).json(data)
+
+
+
+    const result = data.map((v) => ({
+        ..._.omit(v, ['date']),
+        candidate1Name: candidate.find(
+            (c) => c.id === v.candidate1Id
+        )?.name,
+        candidate2Name: candidate.find(
+            (c) => c.id === v.candidate2Id
+        )?.name,
+        date: moment(v.date).format("YYYY-MM-DD")
+    }))
+
+    return res.status(200).json(result)
 }
