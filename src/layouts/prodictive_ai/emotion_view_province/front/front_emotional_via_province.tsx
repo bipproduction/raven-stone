@@ -20,6 +20,7 @@ export const FrontEmotionalViewViaProvince = () => {
   return (
     <>
       <Stack spacing={"lg"}>
+        {JSON.stringify(listEmotion)}
         <PageTitle title={"Emotion View Province"} />
         <ComSelectCandidate />
       </Stack>
