@@ -85,7 +85,8 @@ export function V3ComNationWideRatingLineChart() {
     xAxis: {
       type: "category",
       boundaryGap: false,
-      data: [...dataChart.map((v) => moment(v.date).format("YYYY-MM-DD"))],
+      data: _.orderBy(dataChart, ["date"], ["asc"]).map((v) => moment(v.date).format("YYYY-MM-DD")),
+      // data: [...(_.groupBy(dataChart, "date") as any).map((v: any) => v[0])],
       axisLabel: {
         rotate: 45
       }
@@ -101,7 +102,10 @@ export function V3ComNationWideRatingLineChart() {
     },
     series: [
       {
-        data: [...dataChart.map((v) => v.rate)],
+        data: dataChart.map((v) => ({
+          name: moment(v.date).format("YYYY-MM-DD"),
+          value: v.rate,
+        })),
         name: "trust",
         type: "line",
         itemStyle: {
@@ -247,6 +251,7 @@ export function V3ComNationWideRatingLineChart() {
         <Stack spacing={"lg"}>
           {/* {JSON.stringify(dataChart)} */}
           {/* <Title order={3}>Nation Wide Rating Line Chart</Title> */}
+
           <Box>
             <Group spacing="xs" position="right">
               <Button
