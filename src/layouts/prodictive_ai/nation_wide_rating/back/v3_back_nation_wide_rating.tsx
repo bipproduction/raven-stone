@@ -6,6 +6,7 @@ import {
   Flex,
   Grid,
   Group,
+  NativeSelect,
   Paper,
   SimpleGrid,
   Stack,
@@ -37,6 +38,7 @@ import Papa from "papaparse";
 import { V3ComUploadCsv } from "./com/v3_com_upload_csv";
 import { v3_fun_nation_wide_rating_load_list_candidate } from "../fun/v3_fun_nation_wide_rating_load_list_candidate";
 import { V3ComReplaceCsv } from "./com/v3_com_replace_csv";
+import { useState } from "react";
 
 export function V3BackNationWideRating() {
   const [selectedDate, setSelectedDate] = useAtom(v3_selected_date);
@@ -67,6 +69,7 @@ export function V3BackNationWideRating() {
         {/* <V3SelectCandidate /> */}
         <Paper p={"xs"}>
           <Stack>
+            
             <Grid>
               <Grid.Col span={"content"}>
                 <Card>
@@ -116,10 +119,10 @@ export function V3BackNationWideRating() {
                   <Card>
                     <Stack spacing={0}>
                       <Text size={"xs"}>
-                        * UPDATE, tidak berpengaruh pada tanggal yang dipilih
+                        * UPDATE, hanya merubah data sesuai dengan file csv, tidak menghapus data yang telah ada , hanya mengupdate data
                       </Text>
                       <Text size={"xs"}>
-                        * REPLACE, akan menghapus data yang sudah ada di tanggal yag dipilih
+                        * REPLACE, akan menghapus data yang sudah ada di tanggal yag dipilih, lalu ditimpa dengan data pada file csv
                       </Text>
                     </Stack>
                   </Card>
