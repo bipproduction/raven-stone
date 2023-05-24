@@ -657,8 +657,8 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
       .then((v) => v.json())
       .then((v) => {
         if (v) {
-          console.log(v);
-          setlistData(v.data.content);
+          console.log();
+          setlistData(_.orderBy(v.data.content, ["value"], ["asc"]));
         }
       });
   }, []);
@@ -692,7 +692,7 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
-      // max: 100,
+      max: 100,
       axisLabel: {
         formatter: (v: any) => {
           // console.log(JSON.stringify(v))
@@ -708,7 +708,7 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
       {
         // name: "2011",
         type: "bar",
-        data: _.sortBy(listData.map((v) => v.value)),
+        data: listData.map((v) => v.value),
       },
     ],
   };
