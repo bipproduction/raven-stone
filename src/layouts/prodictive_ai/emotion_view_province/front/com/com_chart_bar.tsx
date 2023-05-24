@@ -3,7 +3,7 @@ import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 
-export const ComChartBar = ({ lsData }: { [key: string]: any }) => {
+export const ComChartBar = ({ lsData }: { lsData: any }) => {
     const option: EChartsOption = {
       radiusAxis: {},
       polar: {},
@@ -47,7 +47,9 @@ export const ComChartBar = ({ lsData }: { [key: string]: any }) => {
     };
     return (
       <>
-        <EChartsReact option={option} />
+        <EChartsReact style={{
+          width: 300
+        }} option={option} />
       </>
     );
   };

@@ -10,5 +10,5 @@ export function fun_load_emotion_province({
     candidateId: number,
     setListEmotion: any
 }) {
-    fetch(api.apiPredictiveAiEmotionalViewViaProvinceByDateCandidate + `?date=${date}&candidateId=${candidateId}`).then(v => v.json()).then(setListEmotion)
+    fetch(api.apiEmotionalProvinceCompleteGet+ `?date=${date}&candidateId=${candidateId}`).then(v => v.json()).then(setListEmotion)
 }
