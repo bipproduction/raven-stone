@@ -6,6 +6,7 @@ import EChartsReact from "echarts-for-react";
 import randomColor from "randomcolor";
 import { useState } from "react";
 import { val_list_color } from "../val/val_list_color";
+import _ from "lodash";
 
 export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
   const [listData, setListData] = useState<any[]>([]);
@@ -35,7 +36,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
     yAxis: [
       {
         type: "category",
-        data: listData.map((v) => v.title),
+        data: _.sortBy(listData, 'value').map((v) => v.title),
         axisTick: {
           alignWithLabel: true,
         },
@@ -51,7 +52,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         name: "Direct",
         type: "bar",
         barWidth: "60%",
-        data: listData.map((v, i) => ({
+        data: _.sortBy(listData, 'value').map((v, i) => ({
           value: v.value,
           itemStyle: {
             color: val_list_color[i],
