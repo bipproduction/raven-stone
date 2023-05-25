@@ -725,50 +725,50 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
   );
 };
 
-const ChartPie = ({ data, name }: { data: any; name: string }) => {
-  const option2: EChartsOption = {
-    title: {
-      text: name,
-    },
-    tooltip: {
-      trigger: "item",
-    },
-    // legend: {
-    //   top: "5%",
-    //   left: "center",
-    // },
-    series: [
-      {
-        name: "Access From",
-        type: "pie",
-        radius: ["40%", "80%"],
-        // avoidLabelOverlap: true,
-        label: {
-          show: true,
-          position: "inner",
-        },
-        // emphasis: {
-        //   label: {
-        //     show: true,
-        //     fontSize: 40,
-        //     fontWeight: "bold",
-        //   },
-        // },
-        // labelLine: {
-        //   show: false,
-        // },
-        data: Object.keys(data).map((v) => ({
-          name: v,
-          value: data[v],
-        })),
-      },
-    ],
-  };
-  return (
-    <>
-      <EChartsReact option={option2} />
-    </>
-  );
-};
+// const ChartPie = ({ data, name }: { data: any; name: string }) => {
+//   const option2: EChartsOption = {
+//     title: {
+//       text: name,
+//     },
+//     tooltip: {
+//       trigger: "item",
+//     },
+//     // legend: {
+//     //   top: "5%",
+//     //   left: "center",
+//     // },
+//     series: [
+//       {
+//         name: "Access From",
+//         type: "pie",
+//         radius: ["40%", "80%"],
+//         // avoidLabelOverlap: true,
+//         label: {
+//           show: true,
+//           position: "inner",
+//         },
+//         // emphasis: {
+//         //   label: {
+//         //     show: true,
+//         //     fontSize: 40,
+//         //     fontWeight: "bold",
+//         //   },
+//         // },
+//         // labelLine: {
+//         //   show: false,
+//         // },
+//         data: Object.keys(data).map((v) => ({
+//           name: v,
+//           value: data[v],
+//         })),
+//       },
+//     ],
+//   };
+//   return (
+//     <>
+//       <EChartsReact option={option2} />
+//     </>
+//   );
+// };
 
 export default EmotionalViewViaProvince;

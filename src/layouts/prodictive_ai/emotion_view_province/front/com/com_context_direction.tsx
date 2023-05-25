@@ -30,7 +30,7 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
     yAxis: [
       {
         type: "category",
-        data: listContextDirection.map((v) => v.name),
+        data: _.sortBy(listContextDirection, 'value').map((v) => v.name),
         axisTick: {
           alignWithLabel: true,
         },
@@ -46,7 +46,7 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
         name: "Direct",
         type: "bar",
         barWidth: "60%",
-        data: listContextDirection.map((v, i) => ({
+        data: _.sortBy(listContextDirection, 'value').map((v, i) => ({
           value: v.value,
           itemStyle: {
             color: val_list_color[i],
