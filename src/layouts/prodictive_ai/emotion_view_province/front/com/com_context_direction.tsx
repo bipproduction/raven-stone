@@ -34,11 +34,17 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
         axisTick: {
           alignWithLabel: true,
         },
+        // axisLabel: {
+        //   rotate: 45
+        // }
       },
     ],
     xAxis: [
       {
         type: "value",
+        axisLabel: {
+          rotate: 45
+        }
       },
     ],
     series: [
@@ -65,11 +71,11 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
     <>
       {/* <pre>{JSON.stringify(listContextDirection, null, 2)}</pre> */}
       <Card p={"xs"}>
-        <Title>Context Direction</Title>
+        <Title c={"blue"}>Context Direction</Title>
         <Stack>
           <EChartsReact
             style={{
-              width: 600,
+              width: "100%",
             }}
             option={option}
           />

@@ -19,8 +19,11 @@ export async function api_emotional_province_kabupaten_get(req: any, res: any) {
             fear: true,
             anger: true,
             disgust: true,
+
             City: {
                 select: {
+                    id: true,
+                    name: true,
                     CityContextDirection: {
                         select: {
                             content: true
@@ -30,8 +33,14 @@ export async function api_emotional_province_kabupaten_get(req: any, res: any) {
                         select: {
                             data: true
                         }
+                    },
+                    CityValue: {
+                        select: {
+                            value: true
+                        }
                     }
-                }
+                },
+
             }
         }
     })

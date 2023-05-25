@@ -30,6 +30,7 @@ import { ComLeaderPersona } from "./com/com_leader_persona";
 import _ from "lodash";
 import { useState } from "react";
 import { val_selected_menu_id } from "./val/val_selected_menu_id";
+import { val_selected_province_id } from "./val/val_selected_province_id";
 
 export const FrontEmotionalViewViaProvince = () => {
   const [candidateId, setCandidateId] = useAtom(val_selected_candidate);
@@ -37,6 +38,7 @@ export const FrontEmotionalViewViaProvince = () => {
   const { ref, width, height } = useElementSize();
   const [search, setSearch] = useDebouncedState("", 300);
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id)
+  const [provinceId, setProvinceId] = useAtom(val_selected_province_id);
 
   useShallowEffect(() => {
     loadData();
@@ -62,7 +64,7 @@ export const FrontEmotionalViewViaProvince = () => {
                   <Stack>
                     <Card h={height} sx={{ overflow: "scroll" }}>
                       <Stack spacing={"lg"}>
-                        <Title>{v.name}</Title>
+                        <Title c={"teal"}>{v.name}</Title>
                         <Center>
                           <ComChartBar lsData={v.emotion} />
                         </Center>
@@ -79,11 +81,14 @@ export const FrontEmotionalViewViaProvince = () => {
                                 _.sum(_.values(v.emotion))
                               )}
                             </Title>
-                            <Text>LOCKED AUDIENCES</Text>
+                            <Text>FILTERED AUDIENCE</Text>
                           </Stack>
                         </Group>
                         <Center>
-                          <Button onClick={() => setSelectedMenu("2")}>DETAIL</Button>
+                          <Button onClick={() => {
+                            setProvinceId(v.id);
+                            setSelectedMenu("2")
+                          }}>DETAIL</Button>
                         </Center>
                       </Stack>
                     </Card>

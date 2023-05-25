@@ -34,7 +34,9 @@ export function ComSelectCandidate({
   }
   return (
     <>
-      <Paper shadow="md" withBorder p={"xs"}>
+      <Paper shadow="md" withBorder p={"xs"} pos={"sticky"} top={0} sx={{
+        zIndex: 100
+      }}>
         <Group position="right" spacing={"lg"} align="end">
           <TextInput
             onChange={(val) => onSearch?.(val.target.value)}

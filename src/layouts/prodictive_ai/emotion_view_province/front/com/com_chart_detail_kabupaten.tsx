@@ -1,36 +1,40 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
+import { Group, Stack, Text, Title } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 
-export const ComChartBar = ({ lsData }: { lsData: any }) => {
+export function ComChartDetailKabupaten({ data }: { data: any }) {
   const option: EChartsOption = {
     radiusAxis: {},
     polar: {},
     angleAxis: {
       type: "category",
-      data: !lsData ? [] : _.keys(lsData),
+      data: !data ? [] : _.keys(data),
       startAngle: 75,
+      // axisLabel: {
+      //   rotate: 45
+      // }
     },
     tooltip: {
       show: true,
       formatter: (a: any, b) => {
         return `
-          <i>${_.upperCase(a.data.name)}</i>
-          <h1>${Intl.NumberFormat("id-ID").format(a.value)}</h1>`;
+              <i>${_.upperCase(a.data.name)}</i>
+              <h1>${Intl.NumberFormat("id-ID").format(a.value)}</h1>`;
       },
     },
     series: [
       {
         type: "bar",
         coordinateSystem: "polar",
-        data: !lsData
+        data: !data
           ? []
-          : Object.keys(lsData).map(
+          : Object.keys(data).map(
               (v) =>
                 ({
                   name: v,
-                  value: lsData[v],
+                  value: data[v],
                   itemStyle: {
                     color:
                       listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
@@ -49,12 +53,9 @@ export const ComChartBar = ({ lsData }: { lsData: any }) => {
   };
   return (
     <>
-      <EChartsReact
-        style={{
-          width: "100%",
-        }}
-        option={option}
-      />
+      <Stack w={"100%"}>
+        <EChartsReact style={{ width: "100%" }} option={option} />
+      </Stack>
     </>
   );
-};
+}
