@@ -166,15 +166,14 @@ const MapControllLeaderPersonaPrediction = () => {
                           }}
                           placeholder={v.title}
                         />
-                        <NumberInput
+                        <TextInput
                           // value={v.value}
                           label={"value"}
                           onChange={(val) => {
-                            listData.value[i].value = val;
+                            listData.value[i].value = val.target.value;
                             listData.value = [...listData.value];
                           }}
                           placeholder={v.value}
-                          min={0}
                         />
                       </Stack>
                       <ActionIcon
