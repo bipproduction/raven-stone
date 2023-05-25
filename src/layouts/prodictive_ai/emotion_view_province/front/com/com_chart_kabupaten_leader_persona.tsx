@@ -5,6 +5,7 @@ import { Stack } from "@mantine/core";
 import { EChartsOption } from "echarts";
 
 export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
+  
   const option: EChartsOption = {
     tooltip: {
       trigger: "axis",
@@ -13,8 +14,7 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
       },
       formatter: function (params: any) {
         return params[0].name + " : " + params[0].value + " %";
-      }
-      
+      },
     },
     grid: {
       left: "3%",
@@ -37,12 +37,12 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
     xAxis: [
       {
         type: "value",
-        axisLabel:{
+        axisLabel: {
           formatter: function (params: any) {
             return params + "%";
           },
-          rotate: 45
-        }
+          rotate: 45,
+        },
       },
     ],
     series: [
@@ -61,15 +61,14 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
   };
   return (
     <>
-
       <Stack>
         {/* <pre>{JSON.stringify(data)}</pre> */}
-      <EChartsReact
-        style={{
-          width: "100%",
-        }}
-        option={option}
-      />
+        <EChartsReact
+          style={{
+            width: "100%",
+          }}
+          option={option}
+        />
       </Stack>
     </>
   );

@@ -4,6 +4,7 @@ import {
   CloseButton,
   Flex,
   Group,
+  Paper,
   SimpleGrid,
   Stack,
   Text,
@@ -33,6 +34,7 @@ export function FrontDetailKabupaten() {
     ModelEmotionKabupaten[]
   >([]);
   const [listProvince, setListProvince] = useState<any[]>([]);
+  const [isLoading, setisLoading] = useState(false);
 
   useShallowEffect(() => {
     if (provinceId) {
@@ -57,14 +59,26 @@ export function FrontDetailKabupaten() {
   return (
     <>
       <Stack>
-        <Card p={"sm"}>
+        <Paper shadow="md" p={"sm"} pos={"sticky"} top={50} sx={{ zIndex: 100 }}>
           <Flex justify="space-between">
             <Title>
               {listProvince.find((val) => val.id === provinceId)?.name}
             </Title>
-            <CloseButton size={"lg"} onClick={() => setSelectedMenu("1")} />
+            <CloseButton
+              loading={isLoading}
+              size={"lg"}
+              onClick={async () => {
+                setisLoading(true);
+                new Promise(() =>
+                  setTimeout(() => {
+                    setisLoading(false);
+                    setSelectedMenu("1");
+                  }, 1000)
+                );
+              }}
+            />
           </Flex>
-        </Card>
+        </Paper>
         <Stack spacing={"lg"}>
           {listEmotionKabupaten.map((v, i) => (
             <Stack key={i}>
@@ -129,7 +143,7 @@ export function FrontDetailKabupaten() {
                   </Card>
                   <Card>
                     <Stack>
-                      <Title c={"cyan"}>Persona Liader</Title>
+                      <Title c={"cyan"}>Leader Persona Prediction</Title>
                       <ComChartKabupatenLeaderPersona
                         data={
                           v.City.CityLeaderPersonaPrediction[0]

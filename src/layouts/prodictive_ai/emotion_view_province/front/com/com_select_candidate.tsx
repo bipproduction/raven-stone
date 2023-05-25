@@ -34,7 +34,7 @@ export function ComSelectCandidate({
   }
   return (
     <>
-      <Paper shadow="md" withBorder p={"xs"} pos={"sticky"} top={0} sx={{
+      <Paper p={"xs"} shadow="md" pos={"sticky"} top={50} sx={{
         zIndex: 100
       }}>
         <Group position="right" spacing={"lg"} align="end">

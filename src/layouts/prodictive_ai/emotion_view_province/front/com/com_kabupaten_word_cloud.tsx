@@ -41,7 +41,7 @@ export function ComKabupatenWordCloud({ cityId }: { cityId: any }) {
                   c={colors()}
                   m={0}
                   p={0}
-                  size={Math.floor(v.value / 2)}
+                  size={Math.floor(v.value / 3)}
                 >
                   {v.title}
                 </Text>
