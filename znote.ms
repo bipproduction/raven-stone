@@ -24,7 +24,6 @@ const data = [{
     candidate1Id: 1,
     candidate2Id: 1,
     cityId: 89,
-    text: 'To create a new array with a specific number of elements using lodash, you can use the times function. This function takes two arguments: the number of iterations and the function that should be executed for each iteration. The function receives the current iteration index and returns the value to be included in the resulting array.',
     rate: '55',
     trust: '9',
     joy: '72',
@@ -39,7 +38,6 @@ const data = [{
     candidate1Id: 1,
     candidate2Id: 1,
     cityId: 88,
-    text: 'To create a new array with a specific number of elements using lodash, you can use the times function. This function takes two arguments: the number of iterations and the function that should be executed for each iteration. The function receives the current iteration index and returns the value to be included in the resulting array.',
     rate: '51',
     trust: '84',
     joy: '12',
@@ -55,105 +53,121 @@ const data = [{
 
 
 const data = [
-  {
-    trust: '33',
-    joy: '71',
-    surprise: '87',
-    anticipation: '57',
-    sadness: '4',
-    fear: '52',
-    anger: '93',
-    disgust: '42'
-  },
-  {
-    trust: '3',
-    joy: '1',
-    surprise: '7',
-    anticipation: '57',
-    sadness: '4',
-    fear: '2',
-    anger: '3',
-    disgust: '42'
-  }
+  [
+    {
+      "title": "Pekerja Keras",
+      "value": 87
+    },
+    {
+      "title": "Cerdas",
+      "value": 11
+    },
+    {
+      "title": "Jujur",
+      "value": 88
+    },
+    {
+      "title": "Merakyat",
+      "value": 92
+    },
+    {
+      "title": "Tegas",
+      "value": 21
+    },
+    {
+      "title": "Berpengalaman Memimpin",
+      "value": 0
+    },
+    {
+      "title": "Berprestasi",
+      "value": 0
+    },
+    {
+      "title": "Latar Belakang Militer",
+      "value": 0
+    },
+    {
+      "title": "Agamis",
+      "value": 0
+    }
+  ],
+  [
+    {
+      "title": "Pekerja Keras",
+      "value": 13
+    },
+    {
+      "title": "Cerdas",
+      "value": 1
+    },
+    {
+      "title": "Jujur",
+      "value": 2
+    },
+    {
+      "title": "Merakyat",
+      "value": 10
+    },
+    {
+      "title": "Tegas",
+      "value": 2
+    },
+    {
+      "title": "Berpengalaman Memimpin",
+      "value": 0
+    },
+    {
+      "title": "Berprestasi",
+      "value": 0
+    },
+    {
+      "title": "Latar Belakang Militer",
+      "value": 0
+    },
+    {
+      "title": "Agamis",
+      "value": 0
+    }
+  ],
+  [
+    {
+      "title": "Pekerja Keras",
+      "value": 33
+    },
+    {
+      "title": "Cerdas",
+      "value": 6
+    },
+    {
+      "title": "Jujur",
+      "value": 11
+    },
+    {
+      "title": "Merakyat",
+      "value": 11
+    },
+    {
+      "title": "Tegas",
+      "value": 7
+    },
+    {
+      "title": "Berpengalaman Memimpin",
+      "value": 0
+    },
+    {
+      "title": "Berprestasi",
+      "value": 0
+    },
+    {
+      "title": "Latar Belakang Militer",
+      "value": 0
+    },
+    {
+      "title": "Agamis",
+      "value": 0
+    }
+  ]
 ]
 
-how to sum every item use lodash , and each item is prosentase and create new object
-const result =  {
-    trust: 6,
-    joy: 1,
-    surprise: 7,
-    anticipation: 57,
-    sadness: 4,
-    fear: 2,
-    anger: 3,
-    disgust: 42
-  }
 
-  const data = [
-  {
-    "CityContextDirection": [
-      {
-        "content": [
-          {
-            "name": "pendidikan",
-            "value": 10155
-          },
-          {
-            "name": "infrastruktur",
-            "value": 24591
-          },
-          {
-            "name": "layanan_kesehatan",
-            "value": 377
-          },
-          {
-            "name": "kemiskinan",
-            "value": 193460
-          },
-          {
-            "name": "lapangan_pekerjaan",
-            "value": 50741
-          },
-          {
-            "name": "keadilan_sosial",
-            "value": 9941
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "CityContextDirection": [
-      {
-        "content": [
-          {
-            "name": "pendidikan",
-            "value": 66602
-          },
-          {
-            "name": "infrastruktur",
-            "value": 66961
-          },
-          {
-            "name": "layanan_kesehatan",
-            "value": 3170
-          },
-          {
-            "name": "kemiskinan",
-            "value": 599207
-          },
-          {
-            "name": "lapangan_pekerjaan",
-            "value": 189896
-          },
-          {
-            "name": "keadilan_sosial",
-            "value": 135993
-          }
-        ]
-      }
-    ]
-  }
-]
-
-please merge name and sum value and create new object result
+carilah hasil prosentase masing masing item setelah di jumblahkan sesuai nama itemnya gunakan lodash
