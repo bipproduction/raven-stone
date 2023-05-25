@@ -170,4 +170,4 @@ const data = [
 ]
 
 
-carilah hasil prosentase masing masing item setelah di jumblahkan sesuai nama itemnya gunakan lodash
+carilah nilai rata rata masing masing item  sesuai nama itemnya dan gunakan lodash
