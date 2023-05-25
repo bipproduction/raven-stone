@@ -9,12 +9,14 @@ export const api = {
   "apiV3NationWideRatingChartListDataGet": "/api/v3-nation-wide-rating-chart-list-data-get",
   "apiUpdateContent": "/api/update-content",
   "apiNamaKabupaten": "/api/nama-kabupaten",
+  "apiLeaderPersonaByProvinceIdGet": "/api/leader-persona-by-province-id-get",
   "apiIndonesiaMap": "/api/indonesia-map",
   "apiGlobalApiListCandidateGet": "/api/global_api_list_candidate_get",
   "apiGetDataByCandidate": "/api/get-data-by-candidate",
   "apiGetCandidate": "/api/get-candidate",
   "apiEmotionalProvinceCompleteGet": "/api/emotional-province-complete-get",
   "apiCopyData": "/api/copy-data",
+  "apiContextDirectionByProvinceIdGet": "/api/context-direction-by-province-id-get",
   "apiXdevIndex": "/api/xdev/index",
   "apiXdevHtop": "/api/xdev/htop",
   "apiXdevAllBranchGet": "/api/xdev/all-branch-get",
@@ -122,8 +124,8 @@ export const api = {
   "apiDevCityValueUpdate": "/api/dev/city-value-update",
   "apiCandidateCandidateValueUpdate": "/api/candidate/candidate-value-update",
   "apiCandidateCandidateValueGet": "/api/candidate/candidate-value-get",
-  "apiB24B24Api": "/api/b24/b24-api",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",
-  "apiAuthGetUserById": "/api/auth/get-user-by-id"
+  "apiAuthGetUserById": "/api/auth/get-user-by-id",
+  "apiB24B24Api": "/api/b24/b24-api"
 }
