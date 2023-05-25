@@ -10,7 +10,7 @@ import _ from "lodash";
 
 export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
   const [listData, setListData] = useState<any[]>([]);
-  const [max, setMax] = useState(0);
+  // const [max, setMax] = useState(0);
 
   useShallowEffect(() => {
     loadData();
@@ -19,9 +19,9 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
     fetch(api.apiLeaderPersonaByProvinceIdGet + `?provinceId=${provinceId}`)
       .then((v) => v.json())
       .then((v: any) => {
-        const mx: number | undefined = _.max(v.map((v: any) => v.value));
-        setMax(mx! ?? 0);
-        setListData(v);
+        if (v) {
+          setListData(v);
+        }
       });
   }
 
@@ -50,9 +50,9 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         },
         axisLabel: {
           formatter: function (params: any) {
-            return _.upperCase(params)  ;
-          }
-        }
+            return _.upperCase(params);
+          },
+        },
       },
     ],
     xAxis: [
@@ -72,7 +72,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         type: "bar",
         barWidth: "60%",
         data: _.sortBy(listData, "value").map((v, i) => ({
-          value: _.round((v.value / max) * 100, 2),
+          value: _.round(v.value, 2),
           itemStyle: {
             color: val_list_color[i],
           },
