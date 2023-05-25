@@ -35,7 +35,7 @@ import { val_selected_province_id } from "./val/val_selected_province_id";
 export const FrontEmotionalViewViaProvince = () => {
   const [candidateId, setCandidateId] = useAtom(val_selected_candidate);
   const [listEmotion, setListEmotion] = useAtom(val_list_emotion);
-  const { ref, width, height } = useElementSize();
+  // const { ref, width, height } = useElementSize();
   const [search, setSearch] = useDebouncedState("", 300);
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
   const [provinceId, setProvinceId] = useAtom(val_selected_province_id);
@@ -61,7 +61,7 @@ export const FrontEmotionalViewViaProvince = () => {
             <Box key={i}>
               <SimpleGrid cols={2}>
                 <Stack>
-                  <Card h={height} sx={{ overflow: "scroll" }}>
+                  <Card h={760} sx={{ overflow: "scroll" }}>
                     <Stack spacing={"lg"}>
                       <Title c={"teal"}>{v.name}</Title>
                       <Center>
@@ -96,7 +96,7 @@ export const FrontEmotionalViewViaProvince = () => {
                     </Stack>
                   </Card>
                 </Stack>
-                <Stack ref={ref}>
+                <Stack >
                   <ComContextDirection provinceId={v.id} />
                   <ComLeaderPersona provinceId={v.id} />
                 </Stack>
