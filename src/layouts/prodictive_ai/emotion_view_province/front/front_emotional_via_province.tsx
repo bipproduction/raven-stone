@@ -37,7 +37,7 @@ export const FrontEmotionalViewViaProvince = () => {
   const [listEmotion, setListEmotion] = useAtom(val_list_emotion);
   const { ref, width, height } = useElementSize();
   const [search, setSearch] = useDebouncedState("", 300);
-  const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id)
+  const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
   const [provinceId, setProvinceId] = useAtom(val_selected_province_id);
 
   useShallowEffect(() => {
@@ -58,56 +58,49 @@ export const FrontEmotionalViewViaProvince = () => {
         {listEmotion
           .filter((v) => _.lowerCase(v.name).includes(_.lowerCase(search)))
           .map((v: ModelEmotionProvince, i) => (
-            <Box key={i} p={"md"}>
-              <Paper p={"md"} shadow="md">
-                <SimpleGrid cols={2}>
-                  <Stack>
-                    <Card h={height} sx={{ overflow: "scroll" }}>
-                      <Stack spacing={"lg"}>
-                        <Title c={"teal"}>{v.name}</Title>
-                        <Center>
-                          <ComChartBar lsData={v.emotion} />
-                        </Center>
-                        <Group position="center" spacing={"lg"}>
-                          <Stack align="center">
-                            <Title c={"orange"}>
-                              {Intl.NumberFormat("id-ID").format(v.total)}
-                            </Title>
-                            <Text>LOCKED AUDIENCES</Text>
-                          </Stack>
-                          <Stack align="center">
-                            <Title c={"green"}>
-                              {Intl.NumberFormat("id-ID").format(
-                                _.sum(_.values(v.emotion))
-                              )}
-                            </Title>
-                            <Text>FILTERED AUDIENCE</Text>
-                          </Stack>
-                        </Group>
-                        <Center>
-                          <Button onClick={() => {
+            <Box key={i}>
+              <SimpleGrid cols={2}>
+                <Stack>
+                  <Card h={height} sx={{ overflow: "scroll" }}>
+                    <Stack spacing={"lg"}>
+                      <Title c={"teal"}>{v.name}</Title>
+                      <Center>
+                        <ComChartBar lsData={v.emotion} />
+                      </Center>
+                      <Group position="center" spacing={"lg"}>
+                        <Stack align="center">
+                          <Title c={"orange"}>
+                            {Intl.NumberFormat("id-ID").format(v.total)}
+                          </Title>
+                          <Text>LOCKED AUDIENCES</Text>
+                        </Stack>
+                        <Stack align="center">
+                          <Title c={"green"}>
+                            {Intl.NumberFormat("id-ID").format(
+                              _.sum(_.values(v.emotion))
+                            )}
+                          </Title>
+                          <Text>FILTERED AUDIENCE</Text>
+                        </Stack>
+                      </Group>
+                      <Center>
+                        <Button
+                          onClick={() => {
                             setProvinceId(v.id);
-                            setSelectedMenu("2")
-                          }}>DETAIL</Button>
-                        </Center>
-                      </Stack>
-                    </Card>
-                  </Stack>
-                  <Stack ref={ref}>
-                    <ComContextDirection provinceId={v.id} />
-                    <ComLeaderPersona provinceId={v.id} />
-                  </Stack>
-                </SimpleGrid>
-
-                {/* <Grid>
-                <Grid.Col span={"content"}>
-                  <ComChartBar lsData={v.emotion} />
-                </Grid.Col>
-                <Grid.Col span={"auto"}>
-                    {JSON.stringify(v)}
-                </Grid.Col>
-              </Grid> */}
-              </Paper>
+                            setSelectedMenu("2");
+                          }}
+                        >
+                          DETAIL
+                        </Button>
+                      </Center>
+                    </Stack>
+                  </Card>
+                </Stack>
+                <Stack ref={ref}>
+                  <ComContextDirection provinceId={v.id} />
+                  <ComLeaderPersona provinceId={v.id} />
+                </Stack>
+              </SimpleGrid>
             </Box>
           ))}
       </Stack>

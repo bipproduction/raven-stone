@@ -29,9 +29,11 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
         axisTick: {
           alignWithLabel: true,
         },
-        // axisLabel: {
-        //     rotate: 45
-        // }
+        axisLabel: {
+            formatter: function (params: any) {
+                return _.upperCase(params)  ;
+            }
+          }
       },
     ],
     xAxis: [
