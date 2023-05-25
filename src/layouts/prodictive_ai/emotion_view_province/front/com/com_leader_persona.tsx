@@ -10,14 +10,19 @@ import _ from "lodash";
 
 export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
   const [listData, setListData] = useState<any[]>([]);
+  const [max, setMax] = useState(0);
 
   useShallowEffect(() => {
     loadData();
   }, []);
-  function loadData() {
+  async function loadData() {
     fetch(api.apiLeaderPersonaByProvinceIdGet + `?provinceId=${provinceId}`)
       .then((v) => v.json())
-      .then(setListData);
+      .then((v: any) => {
+        const mx: number | undefined = _.max(v.map((v: any) => v.value));
+        setMax(mx! ?? 0);
+        setListData(v);
+      });
   }
 
   const option: EChartsOption = {
@@ -28,7 +33,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
       },
       formatter: function (params: any) {
         return params[0].name + " : " + params[0].value + " %";
-      }
+      },
     },
     grid: {
       left: "3%",
@@ -39,14 +44,13 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
     yAxis: [
       {
         type: "category",
-        data: _.sortBy(listData, 'value').map((v) => v.title),
+        data: _.sortBy(listData, "value").map((v) => v.title),
         axisTick: {
           alignWithLabel: true,
         },
         // axisLabel: {
         //   rotate: 45
         // }
-       
       },
     ],
     xAxis: [
@@ -56,8 +60,8 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
           formatter: function (params: any) {
             return params + "%";
           },
-          rotate: 45
-        }
+          rotate: 45,
+        },
       },
     ],
     series: [
@@ -65,8 +69,8 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         name: "Direct",
         type: "bar",
         barWidth: "60%",
-        data: _.sortBy(listData, 'value').map((v, i) => ({
-          value: v.value,
+        data: _.sortBy(listData, "value").map((v, i) => ({
+          value: _.round((v.value / max) * 100, 2),
           itemStyle: {
             color: val_list_color[i],
           },
@@ -79,7 +83,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
       {/* <pre>{JSON.stringify(listData, null, 2)}</pre> */}
       <Card p={"xs"}>
         <Stack>
-          <Title c={"cyan"}>Leader Persona</Title>
+          <Title c={"cyan"}>Leader Persona Prediction</Title>
           <EChartsReact
             style={{
               width: "100%",
