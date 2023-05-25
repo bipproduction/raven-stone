@@ -74,9 +74,10 @@ import {
   MdSettings,
   MdStackedBarChart,
   MdStorage,
-  MdTimer
+  MdTimer,
 } from "react-icons/md";
 import toast from "react-simple-toasts";
+import { MainEmotionViewProvince } from "@/layouts/prodictive_ai/emotion_view_province/main_emotion_view_province";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -211,7 +212,7 @@ const listView = [
       {
         id: 3,
         name: "Emotional View Via Province",
-        view: EmotionalViewViaProvince,
+        view: MainEmotionViewProvince,
         icon: MdOutlineStars,
       },
       {

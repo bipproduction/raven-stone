@@ -26,6 +26,9 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
       axisPointer: {
         type: "shadow",
       },
+      formatter: function (params: any) {
+        return params[0].name + " : " + params[0].value + " %";
+      }
     },
     grid: {
       left: "3%",
@@ -40,11 +43,21 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         axisTick: {
           alignWithLabel: true,
         },
+        // axisLabel: {
+        //   rotate: 45
+        // }
+       
       },
     ],
     xAxis: [
       {
         type: "value",
+        axisLabel: {
+          formatter: function (params: any) {
+            return params + "%";
+          },
+          rotate: 45
+        }
       },
     ],
     series: [
@@ -66,10 +79,10 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
       {/* <pre>{JSON.stringify(listData, null, 2)}</pre> */}
       <Card p={"xs"}>
         <Stack>
-          <Title>Leader Persona</Title>
+          <Title c={"cyan"}>Leader Persona</Title>
           <EChartsReact
             style={{
-              width: 600,
+              width: "100%",
             }}
             option={option}
           />
