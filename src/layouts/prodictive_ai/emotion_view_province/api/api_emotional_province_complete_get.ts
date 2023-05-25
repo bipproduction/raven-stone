@@ -3,6 +3,7 @@ import _ from "lodash"
 
 export async function api_emotional_province_complete_get(req: any, res: any) {
     const { date, candidateId } = req.query
+
     const data = await client.dataByContent.findMany({
         where: {
             date: new Date(date!.toString()),
@@ -12,16 +13,7 @@ export async function api_emotional_province_complete_get(req: any, res: any) {
             Province: {
                 select: {
                     id: true,
-                    name: true,
-                    City: {
-                        select: {
-                            CityLeaderPersonaPrediction: {
-                                select: {
-                                    
-                                }
-                            }
-                        }
-                    }
+                    name: true
                 }
             },
             City: {
@@ -30,8 +22,7 @@ export async function api_emotional_province_complete_get(req: any, res: any) {
                         select: {
                             value: true
                         }
-                    },
-                   
+                    }
                 }
             },
             trust: true,
@@ -97,5 +88,5 @@ export async function api_emotional_province_complete_get(req: any, res: any) {
         ...v,
     }))
 
-    return res.status(200).json(hasil5)
+    res.status(200).json(hasil5)
 }

@@ -88,3 +88,72 @@ const result =  {
     anger: 3,
     disgust: 42
   }
+
+  const data = [
+  {
+    "CityContextDirection": [
+      {
+        "content": [
+          {
+            "name": "pendidikan",
+            "value": 10155
+          },
+          {
+            "name": "infrastruktur",
+            "value": 24591
+          },
+          {
+            "name": "layanan_kesehatan",
+            "value": 377
+          },
+          {
+            "name": "kemiskinan",
+            "value": 193460
+          },
+          {
+            "name": "lapangan_pekerjaan",
+            "value": 50741
+          },
+          {
+            "name": "keadilan_sosial",
+            "value": 9941
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "CityContextDirection": [
+      {
+        "content": [
+          {
+            "name": "pendidikan",
+            "value": 66602
+          },
+          {
+            "name": "infrastruktur",
+            "value": 66961
+          },
+          {
+            "name": "layanan_kesehatan",
+            "value": 3170
+          },
+          {
+            "name": "kemiskinan",
+            "value": 599207
+          },
+          {
+            "name": "lapangan_pekerjaan",
+            "value": 189896
+          },
+          {
+            "name": "keadilan_sosial",
+            "value": 135993
+          }
+        ]
+      }
+    ]
+  }
+]
+
+please merge name and sum value and create new object result

@@ -1,14 +1,16 @@
 import { api } from "@/lib/api";
 import moment from "moment";
 
-export function fun_load_emotion_province({
+export async function fun_load_emotion_province({
     date = moment().format("YYYY-MM-DD"),
     candidateId = 1,
     setListEmotion
 }: {
     date?: string,
     candidateId: number,
-    setListEmotion: any
+    setListEmotion: any,
 }) {
-    fetch(api.apiEmotionalProvinceCompleteGet+ `?date=${date}&candidateId=${candidateId}`).then(v => v.json()).then(setListEmotion)
+    const data = await fetch(api.apiEmotionalProvinceCompleteGet + `?date=${date}&candidateId=${candidateId}`).then(v => v.json());
+    setListEmotion(data);
+    return data
 }
