@@ -96,7 +96,7 @@ export const FrontEmotionalViewViaProvince = () => {
                     </Stack>
                   </Card>
                 </Stack>
-                <Stack >
+                <Stack key={Math.random()} >
                   <ComContextDirection provinceId={v.id} />
                   <ComLeaderPersona provinceId={v.id} />
                 </Stack>
