@@ -17,6 +17,7 @@ export async function api_leader_persona_by_province_id_get(req: any, res: any) 
     }
   })
 
+
   const hasil = []
   for (let itm of data) {
     const d: any = itm.CityLeaderPersonaPrediction[0] ? itm.CityLeaderPersonaPrediction[0].data : null
