@@ -25,6 +25,12 @@ export async function api_leader_persona_by_province_id_get(req: any, res: any) 
     }
   }
 
+  const count = await client.city.count({
+    where: {
+      provinceId: +provinceId
+    }
+  })
+
   let maka = {};
   if (!_.isEmpty(hasil)) {
     const flattenedData = _.flatten(hasil);
@@ -39,17 +45,33 @@ export async function api_leader_persona_by_province_id_get(req: any, res: any) 
       return result;
     }, {});
 
-    const totalValues = _.sum(_.values(totals));
+    // const totalValues = _.sum(_.values(totals));
 
     const percentages = _.mapValues(totals, (value) => {
-      return _.round((value / totalValues) * 100, 2);
+      return (value / (count * 100)) * 100;
     });
 
     maka = _.keys(percentages).map((v) => ({
       title: v,
-      value: percentages[v]
+      value: percentages[v].toFixed(2)
     }))
   }
+
+
+  // console.log(maka)
+
+  // average
+  // const flattenedData = _.flatten(data);
+
+  // const groupedData = _.groupBy(flattenedData, 'title');
+
+  // const averages = _.mapValues(groupedData, (items) => {
+  //   const totalValue = _.sumBy(items, 'value');
+  //   const count = items.length;
+  //   return totalValue / count;
+  // });
+
+  // console.log(maka)
 
 
   return res.status(200).json(maka)
