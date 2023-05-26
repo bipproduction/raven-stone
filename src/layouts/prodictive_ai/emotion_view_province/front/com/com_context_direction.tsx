@@ -21,7 +21,7 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
         type: "shadow",
       },
       formatter: function (params: any) {
-        return _.upperCase(params[0].name) + " : " + params[0].value + " %";
+        return _.upperCase(params[0].name) + " : " + params[0].value ;
       }
     },
     grid: {
