@@ -98,7 +98,7 @@ export const FrontEmotionalViewViaProvince = () => {
                     </Stack>
                   </Card>
                 </Stack>
-                <Stack key={kunci} >
+                <Stack key={`${kunci}${search}`} >
                   <ComContextDirection provinceId={v.id} />
                   <ComLeaderPersona provinceId={v.id} />
                 </Stack>

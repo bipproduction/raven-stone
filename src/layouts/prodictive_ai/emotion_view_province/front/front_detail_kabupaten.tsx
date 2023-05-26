@@ -146,10 +146,12 @@ export function FrontDetailKabupaten() {
                           <Text>FILTERED AUDIENCE</Text>
                         </Stack>
                       </Group>
+                      <Box key={search}>
                       <ComKabupatenWordCloud cityId={v.City.id} />
+                      </Box>
                     </Stack>
                   </Card>
-                  <Stack>
+                  <Stack key={search}>
                     <Card>
                       <Stack>
                         <Title c={"blue"}>Context Direction</Title>
