@@ -146,8 +146,8 @@ export function FrontDetailKabupaten() {
                           <Text>FILTERED AUDIENCE</Text>
                         </Stack>
                       </Group>
-                      <Box key={search}>
-                      <ComKabupatenWordCloud cityId={v.City.id} />
+                      <Box key={search} w={"100%"}>
+                        <ComKabupatenWordCloud cityId={v.City.id} />
                       </Box>
                     </Stack>
                   </Card>

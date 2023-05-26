@@ -32,7 +32,8 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         type: "shadow",
       },
       formatter: function (params: any) {
-        return params[0].name + " : " + params[0].value + " %";
+        
+        return _.upperCase(params[0].name) + " : " + params[0].value + " %";
       },
     },
     grid: {
@@ -83,7 +84,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
   return (
     <>
       {/* <pre>{JSON.stringify(listData, null, 2)}</pre> */}
-      <Card p={"xs"}>
+      <Paper p={"xs"}>
         <Stack>
           <Title c={"cyan"}>Leader Persona Prediction</Title>
           <EChartsReact
@@ -93,7 +94,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
             option={option}
           />
         </Stack>
-      </Card>
+      </Paper>
     </>
   );
 }
