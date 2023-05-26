@@ -31,6 +31,7 @@ import _ from "lodash";
 import { useState } from "react";
 import { val_selected_menu_id } from "./val/val_selected_menu_id";
 import { val_selected_province_id } from "./val/val_selected_province_id";
+import { val_kunci } from "./val/val_kunci";
 
 export const FrontEmotionalViewViaProvince = () => {
   const [candidateId, setCandidateId] = useAtom(val_selected_candidate);
@@ -39,6 +40,7 @@ export const FrontEmotionalViewViaProvince = () => {
   const [search, setSearch] = useDebouncedState("", 300);
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
   const [provinceId, setProvinceId] = useAtom(val_selected_province_id);
+  const [kunci, setKunci] = useAtom(val_kunci)
 
   useShallowEffect(() => {
     loadData();
@@ -96,7 +98,7 @@ export const FrontEmotionalViewViaProvince = () => {
                     </Stack>
                   </Card>
                 </Stack>
-                <Stack key={Math.random()} >
+                <Stack key={kunci} >
                   <ComContextDirection provinceId={v.id} />
                   <ComLeaderPersona provinceId={v.id} />
                 </Stack>

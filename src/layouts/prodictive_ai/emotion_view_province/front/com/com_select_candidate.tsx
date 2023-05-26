@@ -7,6 +7,7 @@ import { val_selected_candidate } from "../val/val_seleced_candidate";
 import { fun_load_emotion_province } from "../fun/fun_load_emotion_province";
 import moment from "moment";
 import { val_list_emotion } from "../val/val_list_emotion";
+import { val_kunci } from "../val/val_kunci";
 
 export function ComSelectCandidate({
   onSearch,
@@ -18,6 +19,8 @@ export function ComSelectCandidate({
   const [selectedCandidate, setSelectedCandidate] = useAtom(
     val_selected_candidate
   );
+
+  const [kunci, setKunci] = useAtom(val_kunci)
 
   useShallowEffect(() => {
     gloobal_fun_load_list_candidate({
@@ -31,6 +34,7 @@ export function ComSelectCandidate({
       setListEmotion,
       date: moment().format("YYYY-MM-DD"),
     });
+    setKunci(Math.random())
   }
   return (
     <>

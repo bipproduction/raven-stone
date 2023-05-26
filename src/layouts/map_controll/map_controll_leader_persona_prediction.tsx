@@ -170,7 +170,7 @@ const MapControllLeaderPersonaPrediction = () => {
                           // value={v.value}
                           label={"value"}
                           onChange={(val) => {
-                            listData.value[i].value = val.target.value;
+                            listData.value[i].value = +val.target.value;
                             listData.value = [...listData.value];
                           }}
                           placeholder={v.value}
