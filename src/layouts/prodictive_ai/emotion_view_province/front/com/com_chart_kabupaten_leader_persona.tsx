@@ -13,7 +13,7 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
         type: "shadow",
       },
       formatter: function (params: any) {
-        return params[0].name + " : " + params[0].value + " %";
+        return _.upperCase(params[0].name) + " : " + params[0].value + " %";
       },
     },
     grid: {

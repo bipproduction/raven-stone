@@ -20,6 +20,9 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
       axisPointer: {
         type: "shadow",
       },
+      formatter: function (params: any) {
+        return _.upperCase(params[0].name) + " : " + params[0].value + " %";
+      }
     },
     grid: {
       left: "3%",

@@ -31,7 +31,7 @@ export function ComKabupatenWordCloud({ cityId }: { cityId: any }) {
           Regions Hot Issue{" "}
         </Title>
         {/* {JSON.stringify(listData)} */}
-        <Box sx={{ overflow: "scroll" }}>
+        <Box sx={{ overflow: "scroll" }} w={"100%"}>
           <Group p={0} spacing={0} align={"center"} position={"center"}>
             {listData?.map((v, i) => (
               <Tooltip key={Math.random()} label={v.title}>
