@@ -3,4 +3,7 @@ import { sCandidate } from './../s_state/s_candidate';
 import { api } from '@/lib/api';
 export const funcLoadCandidate = () => fetch(api.apiUtilGetCandidate)
     .then((v) => v.json())
-    .then(v => (sCandidate.value = v));
+    .then(v => {
+        sCandidate.value = v
+        
+    });

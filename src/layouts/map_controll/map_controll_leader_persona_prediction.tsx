@@ -32,12 +32,15 @@ import { MdClose } from "react-icons/md";
 import toast from "react-simple-toasts";
 
 const listTemplate = [
-  { title: "Gagah", value: 0 },
-  { title: "Tegas", value: 0 },
-  { title: "Merakyat", value: 0 },
-  { title: "Jujur", value: 0 },
-  { title: "Cerdas", value: 0 },
   { title: "Pekerja Keras", value: 0 },
+  { title: "Cerdas", value: 0 },
+  { title: "Jujur", value: 0 },
+  { title: "Merakyat", value: 0 },
+  { title: "Tegas", value: 0 },
+  { title: "Berpengalaman Memimpin", value: 0 },
+  { title: "Berprestasi", value: 0 },
+  { title: "Latar Belakang Militer", value: 0 },
+  { title: "Agamis", value: 0 },
 ];
 const listData = signal<any[]>([]);
 
@@ -163,15 +166,14 @@ const MapControllLeaderPersonaPrediction = () => {
                           }}
                           placeholder={v.title}
                         />
-                        <NumberInput
+                        <TextInput
                           // value={v.value}
                           label={"value"}
                           onChange={(val) => {
-                            listData.value[i].value = val;
+                            listData.value[i].value = +val.target.value;
                             listData.value = [...listData.value];
                           }}
                           placeholder={v.value}
-                          min={0}
                         />
                       </Stack>
                       <ActionIcon

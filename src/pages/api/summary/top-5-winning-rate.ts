@@ -1,16 +1,23 @@
 import client from "@/lib/prisma_db"
 import _ from "lodash"
 import 'colors'
+import moment from "moment"
 
 export default async function top5WinningRate(req: any, res: any) {
 
-    const data: any[] = (await client.nationWideRatingV2.findUnique({where: {id: 1}}))?.data as []
+    const data = await client.v3NationWideRating.findMany({
+        where: {
+            date: new Date(moment().format("YYYY-MM-DD"))
+        }
+    })
+
+    // console.log(JSON.stringify(data))
     const candidate = await client.candidate.findMany()
 
-    const data2 = data.map((v) => ({
+    const data2 = data.map((v:any) => ({
         ..._.omit(v, [
-            'candidate_1_id',
-            'candidate_2_id',
+            'candidate1Id',
+            'candidate2Id',
             'text',
             'trust',
             'joy',
@@ -25,15 +32,14 @@ export default async function top5WinningRate(req: any, res: any) {
             'rate'
         ]),
         persen: Number(v.rate??"0")??0,
-        candidate1: candidate.find((c) => c.id === Number(v.candidate_1_id)),
-        candidate2: candidate.find((c) => c.id === Number(v.candidate_2_id)),
+        candidate1: candidate.find((c) => Number(c.id) == Number(v.candidate1Id)),
+        candidate2: candidate.find((c) => Number(c.id) == Number(v.candidate2Id)),
 
     }))
 
     const data3 = _.take(_.orderBy(data2, ['persen'], ['desc']), 5)
 
-    console.log("ini  data winning rate".yellow)
-    console.log(data3)
+    // console.log("ini  data winning rate".yellow)
 
     // console.log(data3)
     res.status(200).json(data3)
