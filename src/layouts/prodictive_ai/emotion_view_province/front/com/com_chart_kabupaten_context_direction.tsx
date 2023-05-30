@@ -11,7 +11,7 @@ export function ComChartKabupatenContextDirection({ data }: { data: any }) {
         type: "shadow",
       },
       formatter: function (params: any) {
-        return _.upperCase(params[0].name) + " : " + params[0].value ;
+        return _.upperCase(params[0].name) + " : " + Intl.NumberFormat("id-ID").format(params[0].value) ;
       }
     },
     grid: {

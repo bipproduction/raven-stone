@@ -21,8 +21,12 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
         type: "shadow",
       },
       formatter: function (params: any) {
-        return _.upperCase(params[0].name) + " : " + params[0].value ;
-      }
+        return (
+          _.upperCase(params[0].name) +
+          " : " +
+          Intl.NumberFormat().format(params[0].value)
+        );
+      },
     },
     grid: {
       left: "3%",
@@ -33,23 +37,23 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
     yAxis: [
       {
         type: "category",
-        data: _.sortBy(listContextDirection, 'value').map((v) => v.name),
+        data: _.sortBy(listContextDirection, "value").map((v) => v.name),
         axisTick: {
           alignWithLabel: true,
         },
         axisLabel: {
           formatter: function (params: any) {
-            return _.upperCase(params)  ;
-          }
-        }
+            return _.upperCase(params);
+          },
+        },
       },
     ],
     xAxis: [
       {
         type: "value",
         axisLabel: {
-          rotate: 45
-        }
+          rotate: 45,
+        },
       },
     ],
     series: [
@@ -57,7 +61,7 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
         name: "Direct",
         type: "bar",
         barWidth: "60%",
-        data: _.sortBy(listContextDirection, 'value').map((v, i) => ({
+        data: _.sortBy(listContextDirection, "value").map((v, i) => ({
           value: v.value,
           itemStyle: {
             color: val_list_color[i],
