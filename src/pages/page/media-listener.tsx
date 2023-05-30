@@ -1,9 +1,10 @@
-import { ActionIcon, Flex, Stack, Title } from "@mantine/core";
+import { ActionIcon, Box, Flex, Stack, Title } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import { MdArrowBackIos } from "react-icons/md";
 import Embed from "react-embed";
 import { NextRequest, NextResponse } from "next/server";
+import Iframe from "react-iframe";
 
 const Medialistener = ({ data }: any) => {
   const router = useRouter();
@@ -11,18 +12,26 @@ const Medialistener = ({ data }: any) => {
 
   return (
     <>
-      <Stack h={"100vh"} ref={ref}>
+      {/* <Stack h={"100vh"} ref={ref}>
         <Flex p={"md"}>
           <ActionIcon onClick={() => router.push("/dashboard")}>
             <MdArrowBackIos size={24} />
           </ActionIcon>
         </Flex>
 
-        <iframe
-          height={height}
+      </Stack> */}
+      <Stack h={"100vh"} ref={ref}>
+        <ActionIcon size={"xl"} onClick={() => router.push("/dashboard")} pos={"absolute"}>
+          <MdArrowBackIos size={24} />
+        </ActionIcon>
+        <Iframe
+          // height={height}
           frameBorder={0}
-          width={"100%"}
-          src="https://analytics.bomasatu.com"
+          styles={{
+            width: "100%",
+            height: height
+          }}
+          url="https://analytics.bomasatu.com"
         />
       </Stack>
     </>

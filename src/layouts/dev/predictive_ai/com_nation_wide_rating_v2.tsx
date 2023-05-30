@@ -196,12 +196,12 @@ export function DevNationWideRatingv2() {
                   }}
                 >
                   <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
-                    <Avatar
+                    {/* <Avatar
                       src={
                         listCandidate?.find((v2) => v2.id == v.candidate_1_id)
                           .img
                       }
-                    ></Avatar>
+                    ></Avatar> */}
                     <Text lineClamp={1}>{v["candidate_1_name"]}</Text>
                   </Flex>
                 </td>
@@ -214,12 +214,12 @@ export function DevNationWideRatingv2() {
                   }}
                 >
                   <Flex w={200} gap={"md"} direction={"row"} align={"end"}>
-                    <Avatar
+                    {/* <Avatar
                       src={
                         listCandidate?.find((v2) => v2.id == v.candidate_2_id)
                           .img
                       }
-                    ></Avatar>{" "}
+                    ></Avatar>{" "} */}
                     <Text lineClamp={1}>{v["candidate_2_name"]}</Text>
                   </Flex>
                 </td>
@@ -321,7 +321,7 @@ function ButtonModalUpload() {
           </Dropzone.Accept>
           <div>
             <Text size="xl" inline>
-              Drag images here or click to select files
+              Drag CSV here or click to select files
             </Text>
             <Text size="sm" color="dimmed" inline mt={7}>
               Attach as many files as you like, each file should not exceed 5mb
@@ -340,7 +340,18 @@ function ModalEditData() {
   const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
   const [listNationWideRating, setListNationWideRating] =
     useAtom(_val_listNation);
-  if (!targetData) return <></>;
+
+  useShallowEffect(() => {
+    loadCandidate();
+  }, []);
+
+  function loadCandidate() {
+    fetch(api.apiUtilGetCandidate)
+      .then((v) => v.json())
+      .then(setListCandidate);
+  }
+
+  if (!targetData || !listCandidate) return <>empty data</>;
   return (
     <>
       <Modal
@@ -358,38 +369,38 @@ function ModalEditData() {
             <Stack align="center" p={"md"}>
               <Title order={3}>
                 {
-                  listCandidate?.find((v) => v.id == targetData.candidate_1_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_1_id))
                     .name
                 }
               </Title>
-              <Image
+              {/* <Image
                 radius={10}
                 width={100}
                 height={100}
                 src={
-                  listCandidate?.find((v) => v.id == targetData.candidate_1_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_1_id))
                     .img
                 }
                 alt=""
-              />
+              /> */}
             </Stack>
             <Stack align="center" p={"md"}>
               <Title order={3}>
                 {
-                  listCandidate?.find((v) => v.id == targetData.candidate_2_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_2_id))
                     .name
                 }
               </Title>
-              <Image
+              {/* <Image
                 radius={10}
                 width={100}
                 height={100}
                 src={
-                  listCandidate?.find((v) => v.id == targetData.candidate_2_id)
+                  listCandidate?.find((v) => Number(v.id) == Number(targetData.candidate_2_id))
                     .img
                 }
                 alt=""
-              />
+              /> */}
             </Stack>
           </Flex>
           <Flex gap={"md"}>
@@ -428,7 +439,10 @@ function ModalEditData() {
                   min={0}
                   placeholder={targetData.anticipation}
                   onChange={(e) => {
-                    setTargetData({ ...targetData, anticipation: e.target.value });
+                    setTargetData({
+                      ...targetData,
+                      anticipation: e.target.value,
+                    });
                   }}
                 />
                 <TextInput

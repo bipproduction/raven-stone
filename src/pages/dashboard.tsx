@@ -36,7 +36,9 @@ import {
 import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 
-import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_view_province_couple_v2";
+import { _is_dark_mode } from "@/g_state/atom_util_state";
+import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_couple/front/emotion_view_province_couple_v2";
+import { NationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/nation_wide_rating";
 import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
 import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
 import MainSummary from "@/layouts/summary/main_summary";
@@ -45,6 +47,7 @@ import { sNavbarOpen } from "@/s_state/s_navbar_open";
 import { sSelectedDate } from "@/s_state/s_selectedDate";
 import AnimateCssReact from "animate-css-reactjs";
 import { onChildChanged, ref } from "firebase/database";
+import { useAtom } from "jotai";
 import _ from "lodash";
 import moment from "moment";
 import { useRouter } from "next/router";
@@ -72,12 +75,9 @@ import {
   MdStackedBarChart,
   MdStorage,
   MdTimer,
-  MdWorkHistory,
 } from "react-icons/md";
 import toast from "react-simple-toasts";
-import NationWideRatingv2 from "../layouts/prodictive_ai/nation_wide_rating_v2";
-import { useAtom } from "jotai";
-import { _is_dark_mode } from "@/g_state/atom_util_state";
+import { MainEmotionViewProvince } from "@/layouts/prodictive_ai/emotion_view_province/main_emotion_view_province";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -91,6 +91,7 @@ const listView = [
       //     name: "Nation Wide Chart",
       //     view: NationWideChart,
       //   },
+      // todo: 2023-05-19
       {
         id: 2,
         name: "Top 10 Rating By Emotions",
@@ -173,7 +174,6 @@ const listView = [
     ],
   },
   {
-
     id: 3,
     name: "STEP & SWOT",
     icon: MdFace,
@@ -200,7 +200,7 @@ const listView = [
       {
         id: 1,
         name: "Nation Wide Rating",
-        view: NationWideRatingv2,
+        view: NationWideRating,
         icon: MdOutlineStarBorderPurple500,
       },
       // {
@@ -208,10 +208,11 @@ const listView = [
       //   name: "Emotional View Via Region",
       //   view: EmotionalViewViaRegion,
       // },
+      // todo: 2023-05-19
       {
         id: 3,
         name: "Emotional View Via Province",
-        view: EmotionalViewViaProvince,
+        view: MainEmotionViewProvince,
         icon: MdOutlineStars,
       },
       {
@@ -230,7 +231,7 @@ const listView = [
   },
 ];
 
-const Dashboard = () => {
+const Dashboard = (props: any) => {
   const theme = useMantineTheme();
   // const [opened, setOpened] = useState(false);
   // const selectedView = useHookstate(gSelectedView);
@@ -253,59 +254,61 @@ const Dashboard = () => {
       sSelectedView.value = page;
     }
   }, []);
-  
-  return (
-    <AppShell
-      // bg={"gray.2"}
-      styles={{
-        main: {
-          background:
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[8]
-              : theme.colors.gray[0],
-        },
-      }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      navbar={<MyNavbar />}
-      header={
-        <Header
-          height={{ base: 50, md: 50 }}
-          p="md"
-          // bg={"blue.4"}
-          sx={{
-            boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
-          }}
-        >
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={sNavbarOpen.value}
-                onClick={() => {
-                  sNavbarOpen.value = !sNavbarOpen.value;
-                }}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
 
-            <Flex
-              direction={"row"}
-              justify={"space-between"}
-              w={"100%"}
-              align={"center"}
+  return (
+    <>
+      <LoadFirstData />
+      <AppShell
+        // bg={"gray.2"}
+        styles={{
+          main: {
+            background:
+              theme.colorScheme === "dark"
+                ? theme.colors.dark[8]
+                : theme.colors.gray[0],
+          },
+        }}
+        navbarOffsetBreakpoint="sm"
+        asideOffsetBreakpoint="sm"
+        navbar={<MyNavbar />}
+        header={
+          <Header
+            height={{ base: 50, md: 50 }}
+            p="md"
+            // bg={"blue.4"}
+            sx={{
+              boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
+            }}
+          >
+            <div
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
             >
-              <Group align={"center"}>
-                <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
-                  <Group>
-                    {/* <Box w={{ sm: 200, lg: 300 }}>
+              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <Burger
+                  opened={sNavbarOpen.value}
+                  onClick={() => {
+                    sNavbarOpen.value = !sNavbarOpen.value;
+                  }}
+                  size="sm"
+                  color={theme.colors.gray[6]}
+                  mr="xl"
+                />
+              </MediaQuery>
+
+              <Flex
+                direction={"row"}
+                justify={"space-between"}
+                w={"100%"}
+                align={"center"}
+              >
+                <Group align={"center"}>
+                  <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
+                    <Group>
+                      {/* <Box w={{ sm: 200, lg: 300 }}>
                       <Image width={150} src={"/logo-2.png"} alt={"logo"} />
                     </Box> */}
-                    {/* <Text>{gSelectedView.value}</Text> */}
-                    {/* {(gSelectedView.value == "Top 10 Province By Emotions" ||
+                      {/* <Text>{gSelectedView.value}</Text> */}
+                      {/* {(gSelectedView.value == "Top 10 Province By Emotions" ||
                       gSelectedView.value == "Top 10 District by Emotions") && (
                       <Stack p={"xs"} spacing={0}>
                         <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
@@ -315,17 +318,17 @@ const Dashboard = () => {
                         </Text>
                       </Stack>
                     )} */}
-                    {/* <Title order={3} color={"blue.8"}>Eagle Eye Project</Title> */}
-                  </Group>
-                </MediaQuery>
-                {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
-              </Group>
+                      {/* <Title order={3} color={"blue.8"}>Eagle Eye Project</Title> */}
+                    </Group>
+                  </MediaQuery>
+                  {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
+                </Group>
 
-              <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
-                <Group>
-                  <MyNotivication />
-                  <Menu>
-                    {/* <Menu.Target>
+                <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
+                  <Group>
+                    <MyNotivication />
+                    <Menu>
+                      {/* <Menu.Target>
                       <NavLink
                         p={0}
                         m={0}
@@ -335,48 +338,49 @@ const Dashboard = () => {
 
                     </Menu.Target> */}
 
-                    <Menu.Target>
-                      <ActionIcon
-                        radius={100}
-                        size={42}
-                        // bg={"blue.1"}
-                        variant={"filled"}
+                      <Menu.Target>
+                        <ActionIcon
+                          radius={100}
+                          size={42}
+                          // bg={"blue.1"}
+                          variant={"filled"}
+                        >
+                          <MdAccountCircle size={42} color={"babyblue"} />
+                        </ActionIcon>
+                      </Menu.Target>
+                      <Menu.Dropdown
+                      // bg={"blue"}
                       >
-                        <MdAccountCircle size={42} color={"babyblue"} />
-                      </ActionIcon>
-                    </Menu.Target>
-                    <Menu.Dropdown 
-                    // bg={"blue"}
-                    >
-                      <Menu.Item
-                        // bg={"red"}
-                        // c={"white"}
-                        onClick={() => {
-                          localStorage.removeItem("user_id");
-                          // gUser.set({});
-                          sUser.value = {};
-                        }}
-                      >
-                        Logout
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
-                </Group>
-              </MediaQuery>
-            </Flex>
-          </div>
-        </Header>
-      }
-    >
-      {listView.map((v) =>
-        v.child.map((vv) => (
-          <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
-            {<vv.view />}
-          </Box>
-        ))
-      )}
-      <LoadFirstData />
-    </AppShell>
+                        <Menu.Item
+                          // bg={"red"}
+                          // c={"white"}
+                          onClick={() => {
+                            localStorage.removeItem("user_id");
+                            // gUser.set({});
+                            sUser.value = {};
+                          }}
+                        >
+                          Logout
+                        </Menu.Item>
+                      </Menu.Dropdown>
+                    </Menu>
+                  </Group>
+                </MediaQuery>
+              </Flex>
+            </div>
+          </Header>
+        }
+      >
+        {/* //todo: 2023-05-19 */}
+        {listView.map((v) =>
+          v.child.map((vv) => (
+            <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
+              {<vv.view />}
+            </Box>
+          ))
+        )}
+      </AppShell>
+    </>
   );
 };
 
@@ -477,8 +481,9 @@ const NotificationDisplay = () => {
                   </Text>
                   <Group position="right">
                     <MdTimer color="gray" />
-                    <Text size={12} 
-                    // c={"blue"}
+                    <Text
+                      size={12}
+                      // c={"blue"}
                     >
                       {moment(v.createdAt).fromNow()}
                     </Text>
@@ -545,7 +550,7 @@ const MyNavbar = () => {
                 )}
               </Stack>
             </Navbar.Section>
-            <Navbar.Section 
+            <Navbar.Section
             // bg={"dark"}
             >
               <ActionIcon
@@ -604,8 +609,10 @@ const MyNavbar = () => {
               // defaultOpened
             >
               {v.child.map((vv, i) => (
-                <Paper key={`${v.id}${i}`} mb={"xs"} 
-                // bg={"blue.1"}
+                <Paper
+                  key={`${v.id}${i}`}
+                  mb={"xs"}
+                  // bg={"blue.1"}
                 >
                   <NavLink
                     c={sSelectedView.value == vv.name ? "blue.8" : ""}
@@ -659,20 +666,22 @@ const MyNavbar = () => {
               </Menu.Item>
             </Menu.Dropdown>
           </Menu> */}
-          <Flex 
+          <Flex
           // bg={"dark"}
           >
             <Stack spacing={0} p={"xs"} w={"100%"}>
               {/* <Text fz={9} c={"gray"}>
                 Bip Production @2023
               </Text> */}
-              <Text fz={9} 
-              // c={"gray"}
+              <Text
+                fz={9}
+                // c={"gray"}
               >
                 Version: 3.0.1
               </Text>
-              <Text fz={9} 
-              // c={"gray"}
+              <Text
+                fz={9}
+                // c={"gray"}
               >
                 build: 20993
               </Text>

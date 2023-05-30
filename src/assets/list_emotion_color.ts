@@ -37,6 +37,6 @@ export const listEmotionColor = [
     {
       id: "8",
       name: "Disgust",
-      color: "#414042",
+      color: "#515151",
     },
   ];

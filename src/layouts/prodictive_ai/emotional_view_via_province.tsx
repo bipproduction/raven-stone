@@ -49,6 +49,7 @@ import { MdSearch } from "react-icons/md";
 import PageTitle from "../page_title";
 import colors from "randomcolor";
 import { stylesRadial } from "@/styles/styles_radial";
+import { Grid } from "antd";
 
 const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
   const option: EChartsOption = {
@@ -73,15 +74,15 @@ const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
         coordinateSystem: "polar",
         data: Object.keys(lsData).map(
           (v) =>
-            ({
-              name: v,
-              value: lsData[v],
-              itemStyle: {
-                color:
-                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
-              },
-            } as any)
+          ({
+            name: v,
+            value: lsData[v],
+            itemStyle: {
+              color:
+                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                  ?.color ?? "gray",
+            },
+          } as any)
         ),
         itemStyle: {
           shadowBlur: 20,
@@ -179,10 +180,10 @@ const EmotionalViewViaProvince = () => {
                     align={"center"}
                     justify={"center"}
                     p={"md"}
-                    // sx={{
-                    //   border: "1px solid gray",
-                    //   borderRadius: 4,
-                    // }}
+                  // sx={{
+                  //   border: "1px solid gray",
+                  //   borderRadius: 4,
+                  // }}
                   >
                     <Flex justify={"space-between"} gap={"md"}>
                       <Stack justify={"center"} spacing={0} align="center">
@@ -264,15 +265,15 @@ const EmotionDetailChart = ({ lsData }: { [key: string]: any }) => {
         coordinateSystem: "polar",
         data: Object.keys(lsData).map(
           (v) =>
-            ({
-              name: v,
-              value: lsData[v],
-              itemStyle: {
-                color:
-                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
-              },
-            } as any)
+          ({
+            name: v,
+            value: lsData[v],
+            itemStyle: {
+              color:
+                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                  ?.color ?? "gray",
+            },
+          } as any)
         ),
         itemStyle: {
           shadowBlur: 20,
@@ -302,7 +303,7 @@ const EmotionViewDetail = () => {
   useShallowEffect(() => {
     fetch(
       api.apiPredictiveAiEmotionalViewViaProvinceByDateCandidateProvince +
-        `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate1.value}&provinceId=${sSelectedProvince.value}`
+      `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate1.value}&provinceId=${sSelectedProvince.value}`
     )
       .then((v) => v.json())
       .then(setListDetail);
@@ -333,7 +334,7 @@ const EmotionViewDetail = () => {
               <Stack justify={"center"} align={"center"}>
                 <Flex justify={"space-between"} gap={"md"}>
                   <Stack justify="center" align="center">
-                    <Title  order={3} fw={"bold"} color={"orange.8"}>
+                    <Title order={3} fw={"bold"} color={"orange.8"}>
                       {Intl.NumberFormat("id-ID").format(v.value)}
                     </Title>
                     <Text size={12} color="gray">LOCKED AUDIENCE</Text>
@@ -341,15 +342,15 @@ const EmotionViewDetail = () => {
                   <Stack justify="center" align="center">
                     <Title order={3} fw={"bold"} color={"green.8"}>
                       {Intl.NumberFormat("id-ID").format(_.sum([
-                              v.emotion.trust,
-                              v.emotion.joy,
-                              v.emotion.surprise,
-                              v.emotion.anticipation,
-                              v.emotion.sadness,
-                              v.emotion.fear,
-                              v.emotion.anger,
-                              v.emotion.disgust,
-                            ]))}
+                        v.emotion.trust,
+                        v.emotion.joy,
+                        v.emotion.surprise,
+                        v.emotion.anticipation,
+                        v.emotion.sadness,
+                        v.emotion.fear,
+                        v.emotion.anger,
+                        v.emotion.disgust,
+                      ]))}
                     </Title>
                     <Text size={12} color="gray">FILTERED AUDIENCE</Text>
                   </Stack>
@@ -399,15 +400,15 @@ const EmotionDetai2 = ({
         coordinateSystem: "polar",
         data: Object.keys(lsData).map(
           (v) =>
-            ({
-              name: v,
-              value: lsData[v],
-              itemStyle: {
-                color:
-                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
-              },
-            } as any)
+          ({
+            name: v,
+            value: lsData[v],
+            itemStyle: {
+              color:
+                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                  ?.color ?? "gray",
+            },
+          } as any)
         ),
         itemStyle: {
           shadowBlur: 20,
@@ -525,8 +526,8 @@ const EmotionDetai2 = ({
       data: !dataContextDirection
         ? []
         : Object.values(
-            dataContextDirection.content.map((v: any) => _.upperCase(v.name))
-          ),
+          dataContextDirection.content.map((v: any) => _.upperCase(v.name))
+        ),
     },
     series: [
       {
@@ -535,8 +536,8 @@ const EmotionDetai2 = ({
         data: !dataContextDirection
           ? []
           : Object.values(
-              dataContextDirection.content.map((v: any) => v.value)
-            ),
+            dataContextDirection.content.map((v: any) => v.value)
+          ),
       },
     ],
   };
@@ -560,21 +561,35 @@ const EmotionDetai2 = ({
           {/* {JSON.stringify(data)} */}
           <SimpleGrid cols={2}>
             {/* {JSON.stringify(dataKabupaten)} */}
-            <Paper p={"md"} shadow={"md"} 
+            <Paper p={"md"} shadow={"md"}
             // bg={stylesGradient1}
             >
               <Stack>
                 {/* {JSON.stringify(dataContextDirection)} */}
                 <EChartsReact option={option1} />
-                <Group position="center">
+                <Flex justify={"center"} gap={"md"}>
+                  <Stack justify="center" align="center">
+                    <Title order={3} fw={"bold"} color={"orange.8"}>
+                      {Intl.NumberFormat("id-ID").format(data.value)}
+                    </Title>
+                    <Text size={12} color="gray">LOCKED AUDIENCE</Text>
+                  </Stack>
+                  <Stack justify="center" align="center">
+                    <Title order={3} fw={"bold"} color={"green.8"}>
+                      {Intl.NumberFormat("id-ID").format(data.total)}
+                    </Title>
+                    <Text size={12} color="gray">FILTERED AUDIENCE</Text>
+                  </Stack>
+                </Flex>
+                {/* <Group position="center">
                   <Text fw={"bold"}>
                     {Intl.NumberFormat("id-ID").format(data.value)}
                   </Text>
                   <Text>DATA VOLUME</Text>
-                </Group>
+                </Group> */}
               </Stack>
             </Paper>
-            <Paper shadow={"md"} p={"md"} 
+            <Paper shadow={"md"} p={"md"}
             // bg={stylesGradient1}
             >
               <EChartsReact option={optionContextDirection} />
@@ -610,7 +625,7 @@ const WordCloud = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"} 
+      <Paper shadow={"md"} p={"md"}
       // bg={stylesGradient1}
       >
         <Title order={3}>Regions Hot Issue </Title>
@@ -642,8 +657,8 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
       .then((v) => v.json())
       .then((v) => {
         if (v) {
-          console.log(v);
-          setlistData(v.data.content);
+          console.log();
+          setlistData(_.orderBy(v.data.content, ["value"], ["asc"]));
         }
       });
   }, []);
@@ -661,8 +676,8 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
         // console.log(JSON.stringify(a));
         return `
         <div style="background:${stylesGradient1}; width: 300px; padding: 16px">
-        <i>${_.upperCase(a[0].title)}</i>
-        <h1>${Intl.NumberFormat("id-ID").format(a[0].value)} </h1>
+        <i>${_.upperCase(a[0].name)}</i>
+        <h1>${Intl.NumberFormat("id-ID").format(a[0].value)} %</h1>
         </div>
         `;
       },
@@ -677,11 +692,11 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
     xAxis: {
       type: "value",
       boundaryGap: [0, 0.01],
-      // max: 100,
+      max: 100,
       axisLabel: {
         formatter: (v: any) => {
           // console.log(JSON.stringify(v))
-          return `${v} `;
+          return `${v} %`;
         },
       },
     },
@@ -700,7 +715,7 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"} 
+      <Paper shadow={"md"} p={"md"}
       // bg={stylesGradient1}
       >
         <Title order={3}>Leader Persona Prediction </Title>
@@ -710,50 +725,50 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
   );
 };
 
-const ChartPie = ({ data, name }: { data: any; name: string }) => {
-  const option2: EChartsOption = {
-    title: {
-      text: name,
-    },
-    tooltip: {
-      trigger: "item",
-    },
-    // legend: {
-    //   top: "5%",
-    //   left: "center",
-    // },
-    series: [
-      {
-        name: "Access From",
-        type: "pie",
-        radius: ["40%", "80%"],
-        // avoidLabelOverlap: true,
-        label: {
-          show: true,
-          position: "inner",
-        },
-        // emphasis: {
-        //   label: {
-        //     show: true,
-        //     fontSize: 40,
-        //     fontWeight: "bold",
-        //   },
-        // },
-        // labelLine: {
-        //   show: false,
-        // },
-        data: Object.keys(data).map((v) => ({
-          name: v,
-          value: data[v],
-        })),
-      },
-    ],
-  };
-  return (
-    <>
-      <EChartsReact option={option2} />
-    </>
-  );
-};
+// const ChartPie = ({ data, name }: { data: any; name: string }) => {
+//   const option2: EChartsOption = {
+//     title: {
+//       text: name,
+//     },
+//     tooltip: {
+//       trigger: "item",
+//     },
+//     // legend: {
+//     //   top: "5%",
+//     //   left: "center",
+//     // },
+//     series: [
+//       {
+//         name: "Access From",
+//         type: "pie",
+//         radius: ["40%", "80%"],
+//         // avoidLabelOverlap: true,
+//         label: {
+//           show: true,
+//           position: "inner",
+//         },
+//         // emphasis: {
+//         //   label: {
+//         //     show: true,
+//         //     fontSize: 40,
+//         //     fontWeight: "bold",
+//         //   },
+//         // },
+//         // labelLine: {
+//         //   show: false,
+//         // },
+//         data: Object.keys(data).map((v) => ({
+//           name: v,
+//           value: data[v],
+//         })),
+//       },
+//     ],
+//   };
+//   return (
+//     <>
+//       <EChartsReact option={option2} />
+//     </>
+//   );
+// };
 
 export default EmotionalViewViaProvince;
