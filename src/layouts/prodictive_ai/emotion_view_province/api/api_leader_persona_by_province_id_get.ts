@@ -26,6 +26,8 @@ export async function api_leader_persona_by_province_id_get(req: any, res: any) 
     }
   }
 
+  console.log(hasil);
+
   const count = await client.city.count({
     where: {
       provinceId: +provinceId
@@ -49,7 +51,8 @@ export async function api_leader_persona_by_province_id_get(req: any, res: any) 
     // const totalValues = _.sum(_.values(totals));
 
     const percentages = _.mapValues(totals, (value) => {
-      return (value / (count * 100)) * 100;
+      //return (value / (count * 100)) * 100;
+      return value / count;
     });
 
     maka = _.keys(percentages).map((v) => ({
