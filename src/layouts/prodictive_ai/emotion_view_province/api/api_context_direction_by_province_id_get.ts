@@ -24,7 +24,7 @@ export async function api_context_direction_by_province_id_get(req: any, res: an
             hasil.push(d)
         }
     }
-    console.log(hasil);
+    // console.log(hasil);
 
     const count = await client.city.count({
         where: {
