@@ -95,7 +95,7 @@ const listView = [
       {
         id: 2,
         name: "Top 10 Rating By Emotions",
-        view: MainSummary,
+        view: () => <MainSummary />,
         icon: MdStorage,
       },
       // {
@@ -128,7 +128,7 @@ const listView = [
       {
         id: 2,
         name: "Media Summary",
-        view: MentionbyCategory,
+        view: () => <MentionbyCategory />,
         icon: MdAssignment,
       },
       // {
@@ -181,13 +181,13 @@ const listView = [
       {
         id: 1,
         name: "Step Analysis",
-        view: StepAnalisys,
+        view: () => <StepAnalisys />,
         icon: MdFreeCancellation,
       },
       {
         id: 2,
         name: "SWOT Analysis",
-        view: SwotAnalisys,
+        view: () => <SwotAnalisys/>,
         icon: MdGrading,
       },
     ],
@@ -200,7 +200,7 @@ const listView = [
       {
         id: 1,
         name: "Nation Wide Rating",
-        view: NationWideRating,
+        view: () => <NationWideRating />,
         icon: MdOutlineStarBorderPurple500,
       },
       // {
@@ -212,19 +212,19 @@ const listView = [
       {
         id: 3,
         name: "Emotional View Via Province",
-        view: MainEmotionViewProvince,
+        view: () => <MainEmotionViewProvince />,
         icon: MdOutlineStars,
       },
       {
         id: 4,
         name: "Emotional View Via Province Couple",
-        view: EmotionViewProvinceCoupleV2,
+        view: () => <EmotionViewProvinceCoupleV2 />,
         icon: MdJoinLeft,
       },
       {
         id: 5,
         name: "Contextual Content",
-        view: ContextualContent,
+        view: () => <ContextualContent />,
         icon: MdStackedBarChart,
       },
     ],
@@ -247,6 +247,10 @@ const Dashboard = (props: any) => {
         .then(setUserName);
     }
   }, []);
+
+  const v = listView
+    .flatMap((v) => v.child)
+    .find((v) => v.name === sSelectedView.value)?.view;
 
   useShallowEffect(() => {
     const page = localStorage.getItem("dashboard_selected_page");
@@ -374,11 +378,18 @@ const Dashboard = (props: any) => {
         {/* //todo: 2023-05-19 */}
         {listView.map((v) =>
           v.child.map((vv) => (
-            <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
-              {<vv.view />}
-            </Box>
+            vv.name ==  sSelectedView.value && vv.view()
+            // <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
+            //   {vv.view()}
+            // </Box>
           ))
         )}
+
+        {/* {listView.map((v, i) =>
+          <Box key={i}>
+            {v.child.find((vv) => vv.name === sSelectedView.value).view()}
+          </Box>
+        )} */}
       </AppShell>
     </>
   );
