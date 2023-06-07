@@ -18,12 +18,24 @@ model User {
   phone      String?   @unique
   UserRole   UserRole? @relation(fields: [userRoleId], references: [id])
   userRoleId Int       @default(1)
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now())
 }
 
 model UserRole {
-  id   Int     @id @default(autoincrement())
-  name String?
-  User User[]
+  id       Int     @id @default(autoincrement())
+  name     String?
+  User     User[]
+  isActive Boolean @default(true)
+}
+
+model ComponentAccess {
+  id           Int     @id @default(autoincrement())
+  name         String? @unique
+  isActive     Boolean @default(true)
+  listUserRole Json?
+  des          String? @db.Text
 }
 
 model StepAnalisys {
