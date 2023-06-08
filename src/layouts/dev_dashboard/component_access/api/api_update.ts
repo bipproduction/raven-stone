@@ -7,7 +7,7 @@ export async function api_component_access_update(req: any, res: any) {
 
     const data = req.body
 
-    console.log(data)
+    // console.log(data)
     const so = await client.componentAccess.update({
         where: {
             id: data.id

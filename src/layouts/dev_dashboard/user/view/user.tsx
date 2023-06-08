@@ -50,7 +50,9 @@ export function DevDashboardUser() {
   return (
     <>
       <Stack spacing={"lg"} pos={"relative"}>
-        <ViewGlobalAccessBlock name={DevDashboardUser.name} />
+        <ViewGlobalAccessBlock >
+          <Text>Ini</Text>
+        </ViewGlobalAccessBlock>
         <Group position="apart">
           <Title>User</Title>
           <ModalCreate />

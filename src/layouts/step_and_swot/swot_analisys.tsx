@@ -124,10 +124,11 @@ function Analisys() {
               </Title>
               {/* {JSON.stringify(v)} */}
               {!_.isEmpty(v.SwotAnalisys) && (
-                <ScrollArea p={"md"} 
-                // bg={"white"} 
-                h={300} 
-                // c={"gray"}
+                <ScrollArea
+                  p={"md"}
+                  // bg={"white"}
+                  h={300}
+                  // c={"gray"}
                 >
                   <TextAnimation
                     phrases={[
@@ -171,8 +172,9 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
           <Title c={"green"}>{v.name}</Title>
           {v.SwotAnalisys.length > 0 && (
             <Stack>
-              <Paper p={"md"} 
-              // bg={"green.2"}
+              <Paper
+                p={"md"}
+                // bg={"green.2"}
               >
                 <Flex>
                   <Box p={"md"}>

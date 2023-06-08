@@ -78,6 +78,7 @@ import {
 } from "react-icons/md";
 import toast from "react-simple-toasts";
 import { MainEmotionViewProvince } from "@/layouts/prodictive_ai/emotion_view_province/main_emotion_view_province";
+import { ViewGlobalAccessBlock } from "@/global/view/access_block";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -187,7 +188,7 @@ const listView = [
       {
         id: 2,
         name: "SWOT Analysis",
-        view: () => <SwotAnalisys/>,
+        view: () => <SwotAnalisys />,
         icon: MdGrading,
       },
     ],
@@ -376,9 +377,14 @@ const Dashboard = (props: any) => {
         }
       >
         {/* //todo: 2023-05-19 */}
-        {listView.map((v) =>
-          v.child.map((vv) => (
-            vv.name ==  sSelectedView.value && vv.view()
+        {listView.map((v, i) =>
+          v.child.map((vv, ii) => (
+            <Box key={ii}>
+              
+              {vv.name == sSelectedView.value && (
+                <ViewGlobalAccessBlock>{vv.view()}</ViewGlobalAccessBlock>
+              )}
+            </Box>
             // <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
             //   {vv.view()}
             // </Box>

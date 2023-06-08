@@ -28,9 +28,11 @@ import { sUser } from "@/s_state/s_user";
 import { val_global_component_access_user_role } from "@/global/val/val_list_user_role";
 import { val_hook_list_componet_role } from "@/global/val/val_hook_list_component_role";
 import { func_global_handle_component_role } from "@/global/fun/fun_handle_component_role";
+import { val_global_list_component_name } from "@/global/val/val_list_component_name";
+import { ViewComponentAccessModalInject } from "./view_modal_inject";
 
 export function ViewComponentAccess() {
-  const [listData, setListData] = useAtom(val_component_access_lsist);
+  const [listData, setListComponentAccess] = useAtom(val_component_access_lsist);
 
   const [openEdit, setOpenEdit] = useAtom(val_component_access_open_edit);
   const [dataEdit, setDataEdit] = useAtom(val_component_acces_data_edit);
@@ -38,25 +40,29 @@ export function ViewComponentAccess() {
     val_component_access_list_user_role
   );
   const [openDelete, setOpenDelete] = useAtom(val_componen_access_open_delete);
+  // const [listComponentName, setlssistComponentName] = useAtom(
+  //   val_global_list_component_name
+  // );
 
   useShallowEffect(() => {
-    fun_component_access_get_all().then(setListData);
+    fun_component_access_get_all({setListComponentAccess});
     fun_component_access_user_role_get({ setListUserRole });
   }, []);
 
   return (
     <>
       <Stack pos={"relative"}>
-
         {/* {JSON.stringify(listuserRole)} */}
 
         <Group position="apart">
           <Title>Component Access</Title>
-          {JSON.stringify(sUser.value)}
-          <Text>---</Text>
+          {/* {JSON.stringify(sUser.value)} */}
+          {/* <Text>---</Text> */}
           {/* {JSON.stringify(listComponent)} */}
           {/* <ViewModalComponentAccessCreate /> */}
-          {JSON.stringify(val_hook_list_componet_role.get())}
+          {/* {JSON.stringify(val_hook_list_componet_role.get())}
+          {JSON.stringify(listComponentName)} */}
+          <ViewComponentAccessModalInject />
         </Group>
         <Table>
           <thead>
@@ -141,10 +147,7 @@ export function ViewComponentAccess() {
         <ViewModalComponentAccessEdit />
         {/* modal delete data */}
         <ViewComponentAccessModalDelete />
-        
       </Stack>
     </>
   );
 }
-
-

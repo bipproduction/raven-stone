@@ -1,6 +1,6 @@
 import { sUser } from "@/s_state/s_user"
-import { val_hook_list_componet_role } from "../val/val_hook_list_component_role"
 import _ from "lodash"
+
 
 export function func_global_handle_component_role({ name, listComponent }: { name: string, listComponent: any[] }) {
     // const listComponent = val_hook_list_componet_role.get()
