@@ -17,6 +17,7 @@ import SummaryDataChart from "./summary_data_chart";
 import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { SummaryTrenSentiment } from "./summary_tren_sentiment";
 import { Top5WinningRate } from "./top_5_winning_rate";
+import { ViewGlobalAccessBlock } from "@/global/view/access_block";
 
 const MainSummary = () => {
   return (
@@ -43,16 +44,27 @@ const MainSummary = () => {
         <Grid align={"start"} w={"100%"}>
           <Grid.Col span={4}>
             <Box p={"xs"}>
-              <SummarySelectCandidate />
+              <ViewGlobalAccessBlock>
+                <SummarySelectCandidate />
+              </ViewGlobalAccessBlock>
             </Box>
           </Grid.Col>
           <Grid.Col span={8}>
-            <SummaryTrenSentiment />
+            <ViewGlobalAccessBlock>
+              <SummaryTrenSentiment />
+            </ViewGlobalAccessBlock>
           </Grid.Col>
         </Grid>
-        <Top10ProvinceByConversation />
-        <Top10DistrictbyConversation />
-        <Top5WinningRate  />
+        <ViewGlobalAccessBlock>
+          <Top10ProvinceByConversation />
+        </ViewGlobalAccessBlock>
+        <ViewGlobalAccessBlock>
+          <Top10DistrictbyConversation />
+        </ViewGlobalAccessBlock>
+
+        <ViewGlobalAccessBlock>
+          <Top5WinningRate />
+        </ViewGlobalAccessBlock>
       </Stack>
     </>
   );
