@@ -74,15 +74,15 @@ const EmotionItemChart = ({ lsData }: { [key: string]: any }) => {
         coordinateSystem: "polar",
         data: Object.keys(lsData).map(
           (v) =>
-          ({
-            name: v,
-            value: lsData[v],
-            itemStyle: {
-              color:
-                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                  ?.color ?? "gray",
-            },
-          } as any)
+            ({
+              name: v,
+              value: lsData[v],
+              itemStyle: {
+                color:
+                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
+              },
+            } as any)
         ),
         itemStyle: {
           shadowBlur: 20,
@@ -109,137 +109,137 @@ const EmotionalViewViaProvince = () => {
     return <>${sSelectedView.value}</>;
   return (
     <>
-      {/* <Text size={32} fw={"bold"} color={"cyan.8"}>
-        {_.upperCase(gSelectedView.value)}
-      </Text> */}
-      {/* {JSON.stringify(gEmotionalViewViaProvince.value[0])} */}
-      <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
-      <Paper
-        // bg={"blue.1"}
-        shadow={"md"}
-        pos={"sticky"}
-        p={"xs"}
-        sx={{
-          zIndex: 100,
-        }}
-        top={50}
-        mb={70}
-      >
-        <Group position="right">
-          <TextInput
-            radius={100}
-            variant="filled"
-            placeholder="search"
-            onChange={(val) => setSearch(val.currentTarget.value)}
-            icon={<MdSearch />}
-          />
-          <Select
-            radius={100}
-            shadow="md"
-            variant="filled"
-            placeholder={
-              sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
-                ?.name
-            }
-            data={
-              sCandidate.value.map((v) => ({
-                label: v.name,
-                value: v.id,
-              })) as any
-            }
-            onChange={async (val) => {
-              // gSelectedCandidate1.set(Number(val));
-              sSelectedCandidate1.value = Number(val);
-              await funcLoadEmotionalViwViaProvinceByDate();
-              update();
-            }}
-          />
-        </Group>
-      </Paper>
-      <Group position="center">
-        {gEmotionalViewViaProvince.value
-          .filter((v) => _.lowerCase(v.name).includes(_.lowerCase(search)))
-          .map((v: any) => (
-            <AnimationOnScroll
-              key={v.id}
-              animateIn={"animate__fadeInUp"}
-              initiallyVisible={true}
-            >
-              <Paper
-                shadow={"xs"}
-                key={v.id}
-                w={400}
-                p={"xs"}
-                style={{
-                  // background: stylesGradient1,
-                }}
-              >
-                <EmotionItemChart lsData={v.emotion} />
-                <Stack align={"center"}>
-                  <Stack
-                    align={"center"}
-                    justify={"center"}
-                    p={"md"}
-                  // sx={{
-                  //   border: "1px solid gray",
-                  //   borderRadius: 4,
-                  // }}
-                  >
-                    <Flex justify={"space-between"} gap={"md"}>
-                      <Stack justify={"center"} spacing={0} align="center">
-                        <Title order={3} color={"orange.8"} fw={"bold"}>
-                          {Intl.NumberFormat("id-id").format(v.total)}
-                        </Title>
-                        <Text fz={12} align={"center"} color={"gray"}>
-                          LOCKED AUDIENCES
-                        </Text>
-                      </Stack>
-                      <Stack justify={"center"} spacing={0} align="center">
-                        <Title order={3} color={"green.8"} fw={"bold"}>
-                          {Intl.NumberFormat("id-id").format(
-                            _.sum([
-                              v.emotion.trust,
-                              v.emotion.joy,
-                              v.emotion.surprise,
-                              v.emotion.anticipation,
-                              v.emotion.sadness,
-                              v.emotion.fear,
-                              v.emotion.anger,
-                              v.emotion.disgust,
-                            ])
-                          )}
-                        </Title>
-                        <Text fz={12} align={"center"} color={"gray"}>
-                          FILTERED AUDIENCE
-                        </Text>
-                      </Stack>
-                    </Flex>
-                    <Title color="blue.8" align={"center"}>
-                      {_.upperCase(v.name)}
-                    </Title>
-                  </Stack>
-                  <Button
-                    color="cyan"
-                    compact
-                    onClick={() => {
-                      // sSelectedProvince.set(v.id);
-                      sSelectedProvince.value = v.id;
-                      setOpenDetail.open();
-                    }}
-                    variant={"outline"}
-                  >
-                    DETAIL
-                  </Button>
-                </Stack>
-              </Paper>
-            </AnimationOnScroll>
-          ))}
-      </Group>
-      <Modal fullScreen opened={openDetain} onClose={setOpenDetail.close}>
-        <Paper p={"md"}>
-          {sSelectedProvince.value && <EmotionViewDetail />}
+      <Stack>
+        <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
+        <Paper
+          // bg={"blue.1"}
+          shadow={"md"}
+          pos={"sticky"}
+          p={"xs"}
+          sx={{
+            zIndex: 100,
+          }}
+          top={50}
+          mb={70}
+        >
+          <Group position="right">
+            <TextInput
+              radius={100}
+              variant="filled"
+              placeholder="search"
+              onChange={(val) => setSearch(val.currentTarget.value)}
+              icon={<MdSearch />}
+            />
+            <Select
+              radius={100}
+              shadow="md"
+              variant="filled"
+              placeholder={
+                sCandidate.value.find((v) => v.id == sSelectedCandidate1.value)
+                  ?.name
+              }
+              data={
+                sCandidate.value.map((v) => ({
+                  label: v.name,
+                  value: v.id,
+                })) as any
+              }
+              onChange={async (val) => {
+                // gSelectedCandidate1.set(Number(val));
+                sSelectedCandidate1.value = Number(val);
+                await funcLoadEmotionalViwViaProvinceByDate();
+                update();
+              }}
+            />
+          </Group>
         </Paper>
-      </Modal>
+        <Group position="center">
+          {gEmotionalViewViaProvince.value
+            .filter((v) => _.lowerCase(v.name).includes(_.lowerCase(search)))
+            .map((v: any) => (
+              <AnimationOnScroll
+                key={v.id}
+                animateIn={"animate__fadeInUp"}
+                initiallyVisible={true}
+              >
+                <Paper
+                  shadow={"xs"}
+                  key={v.id}
+                  w={400}
+                  p={"xs"}
+                  style={
+                    {
+                      // background: stylesGradient1,
+                    }
+                  }
+                >
+                  <EmotionItemChart lsData={v.emotion} />
+                  <Stack align={"center"}>
+                    <Stack
+                      align={"center"}
+                      justify={"center"}
+                      p={"md"}
+                      // sx={{
+                      //   border: "1px solid gray",
+                      //   borderRadius: 4,
+                      // }}
+                    >
+                      <Flex justify={"space-between"} gap={"md"}>
+                        <Stack justify={"center"} spacing={0} align="center">
+                          <Title order={3} color={"orange.8"} fw={"bold"}>
+                            {Intl.NumberFormat("id-id").format(v.total)}
+                          </Title>
+                          <Text fz={12} align={"center"} color={"gray"}>
+                            LOCKED AUDIENCES
+                          </Text>
+                        </Stack>
+                        <Stack justify={"center"} spacing={0} align="center">
+                          <Title order={3} color={"green.8"} fw={"bold"}>
+                            {Intl.NumberFormat("id-id").format(
+                              _.sum([
+                                v.emotion.trust,
+                                v.emotion.joy,
+                                v.emotion.surprise,
+                                v.emotion.anticipation,
+                                v.emotion.sadness,
+                                v.emotion.fear,
+                                v.emotion.anger,
+                                v.emotion.disgust,
+                              ])
+                            )}
+                          </Title>
+                          <Text fz={12} align={"center"} color={"gray"}>
+                            FILTERED AUDIENCE
+                          </Text>
+                        </Stack>
+                      </Flex>
+                      <Title color="blue.8" align={"center"}>
+                        {_.upperCase(v.name)}
+                      </Title>
+                    </Stack>
+                    <Button
+                      color="cyan"
+                      compact
+                      onClick={() => {
+                        // sSelectedProvince.set(v.id);
+                        sSelectedProvince.value = v.id;
+                        setOpenDetail.open();
+                      }}
+                      variant={"outline"}
+                    >
+                      DETAIL
+                    </Button>
+                  </Stack>
+                </Paper>
+              </AnimationOnScroll>
+            ))}
+        </Group>
+        <Modal fullScreen opened={openDetain} onClose={setOpenDetail.close}>
+          <Paper p={"md"}>
+            {sSelectedProvince.value && <EmotionViewDetail />}
+          </Paper>
+        </Modal>
+      </Stack>
     </>
   );
 };
@@ -265,15 +265,15 @@ const EmotionDetailChart = ({ lsData }: { [key: string]: any }) => {
         coordinateSystem: "polar",
         data: Object.keys(lsData).map(
           (v) =>
-          ({
-            name: v,
-            value: lsData[v],
-            itemStyle: {
-              color:
-                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                  ?.color ?? "gray",
-            },
-          } as any)
+            ({
+              name: v,
+              value: lsData[v],
+              itemStyle: {
+                color:
+                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
+              },
+            } as any)
         ),
         itemStyle: {
           shadowBlur: 20,
@@ -303,7 +303,7 @@ const EmotionViewDetail = () => {
   useShallowEffect(() => {
     fetch(
       api.apiPredictiveAiEmotionalViewViaProvinceByDateCandidateProvince +
-      `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate1.value}&provinceId=${sSelectedProvince.value}`
+        `?date=${sSelectedDate.value}&candidateId=${sSelectedCandidate1.value}&provinceId=${sSelectedProvince.value}`
     )
       .then((v) => v.json())
       .then(setListDetail);
@@ -337,22 +337,28 @@ const EmotionViewDetail = () => {
                     <Title order={3} fw={"bold"} color={"orange.8"}>
                       {Intl.NumberFormat("id-ID").format(v.value)}
                     </Title>
-                    <Text size={12} color="gray">LOCKED AUDIENCE</Text>
+                    <Text size={12} color="gray">
+                      LOCKED AUDIENCE
+                    </Text>
                   </Stack>
                   <Stack justify="center" align="center">
                     <Title order={3} fw={"bold"} color={"green.8"}>
-                      {Intl.NumberFormat("id-ID").format(_.sum([
-                        v.emotion.trust,
-                        v.emotion.joy,
-                        v.emotion.surprise,
-                        v.emotion.anticipation,
-                        v.emotion.sadness,
-                        v.emotion.fear,
-                        v.emotion.anger,
-                        v.emotion.disgust,
-                      ]))}
+                      {Intl.NumberFormat("id-ID").format(
+                        _.sum([
+                          v.emotion.trust,
+                          v.emotion.joy,
+                          v.emotion.surprise,
+                          v.emotion.anticipation,
+                          v.emotion.sadness,
+                          v.emotion.fear,
+                          v.emotion.anger,
+                          v.emotion.disgust,
+                        ])
+                      )}
                     </Title>
-                    <Text size={12} color="gray">FILTERED AUDIENCE</Text>
+                    <Text size={12} color="gray">
+                      FILTERED AUDIENCE
+                    </Text>
                   </Stack>
                 </Flex>
                 <Title order={5} color={"blue.8"}>
@@ -400,15 +406,15 @@ const EmotionDetai2 = ({
         coordinateSystem: "polar",
         data: Object.keys(lsData).map(
           (v) =>
-          ({
-            name: v,
-            value: lsData[v],
-            itemStyle: {
-              color:
-                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                  ?.color ?? "gray",
-            },
-          } as any)
+            ({
+              name: v,
+              value: lsData[v],
+              itemStyle: {
+                color:
+                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
+              },
+            } as any)
         ),
         itemStyle: {
           shadowBlur: 20,
@@ -526,8 +532,8 @@ const EmotionDetai2 = ({
       data: !dataContextDirection
         ? []
         : Object.values(
-          dataContextDirection.content.map((v: any) => _.upperCase(v.name))
-        ),
+            dataContextDirection.content.map((v: any) => _.upperCase(v.name))
+          ),
     },
     series: [
       {
@@ -536,8 +542,8 @@ const EmotionDetai2 = ({
         data: !dataContextDirection
           ? []
           : Object.values(
-            dataContextDirection.content.map((v: any) => v.value)
-          ),
+              dataContextDirection.content.map((v: any) => v.value)
+            ),
       },
     ],
   };
@@ -556,13 +562,15 @@ const EmotionDetai2 = ({
         DETAIL
       </Button>
 
-      <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen >
+      <Modal opened={openmodal} onClose={setOpenmodal.close} fullScreen>
         <Stack>
           {/* {JSON.stringify(data)} */}
           <SimpleGrid cols={2}>
             {/* {JSON.stringify(dataKabupaten)} */}
-            <Paper p={"md"} shadow={"md"}
-            // bg={stylesGradient1}
+            <Paper
+              p={"md"}
+              shadow={"md"}
+              // bg={stylesGradient1}
             >
               <Stack>
                 {/* {JSON.stringify(dataContextDirection)} */}
@@ -572,13 +580,17 @@ const EmotionDetai2 = ({
                     <Title order={3} fw={"bold"} color={"orange.8"}>
                       {Intl.NumberFormat("id-ID").format(data.value)}
                     </Title>
-                    <Text size={12} color="gray">LOCKED AUDIENCE</Text>
+                    <Text size={12} color="gray">
+                      LOCKED AUDIENCE
+                    </Text>
                   </Stack>
                   <Stack justify="center" align="center">
                     <Title order={3} fw={"bold"} color={"green.8"}>
                       {Intl.NumberFormat("id-ID").format(data.total)}
                     </Title>
-                    <Text size={12} color="gray">FILTERED AUDIENCE</Text>
+                    <Text size={12} color="gray">
+                      FILTERED AUDIENCE
+                    </Text>
                   </Stack>
                 </Flex>
                 {/* <Group position="center">
@@ -589,8 +601,10 @@ const EmotionDetai2 = ({
                 </Group> */}
               </Stack>
             </Paper>
-            <Paper shadow={"md"} p={"md"}
-            // bg={stylesGradient1}
+            <Paper
+              shadow={"md"}
+              p={"md"}
+              // bg={stylesGradient1}
             >
               <EChartsReact option={optionContextDirection} />
             </Paper>
@@ -625,8 +639,10 @@ const WordCloud = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"}
-      // bg={stylesGradient1}
+      <Paper
+        shadow={"md"}
+        p={"md"}
+        // bg={stylesGradient1}
       >
         <Title order={3}>Regions Hot Issue </Title>
         <Group p={0} spacing={0} align={"center"} position={"center"}>
@@ -715,8 +731,10 @@ const LeaderPersonaPredictionChart = ({ data }: { data: any }) => {
 
   return (
     <>
-      <Paper shadow={"md"} p={"md"}
-      // bg={stylesGradient1}
+      <Paper
+        shadow={"md"}
+        p={"md"}
+        // bg={stylesGradient1}
       >
         <Title order={3}>Leader Persona Prediction </Title>
         <EChartsReact option={option1} />

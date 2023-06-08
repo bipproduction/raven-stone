@@ -16,12 +16,12 @@ export function ViewModalComponentAccessCreate() {
   const [data, setData] = useState({
     name: "",
   });
-  const [listComponent, setListComponent] = useAtom(val_component_access_lsist);
+  const [listComponent, setListComponentAccess] = useAtom(val_component_access_lsist);
 
   async function onCreate() {
     if (_.values(data).includes("")) return toast("Nama tidak boleh kosong");
     fun_component_access_create({ body: data }).then(() => {
-      fun_component_access_get_all().then(setListComponent);
+      fun_component_access_get_all({setListComponentAccess});
       setOpen(false);
     });
   }

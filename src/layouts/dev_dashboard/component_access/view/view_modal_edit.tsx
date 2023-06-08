@@ -34,8 +34,8 @@ export function ViewModalComponentAccessEdit() {
     val_component_access_list_user_role
   );
 
-  const [listData, setListData] = useAtom(val_component_access_lsist);
-  const [listComponent, setLisComponentAccess] = useAtom(
+  const [listData, setListComponentAccess] = useAtom(val_component_access_lsist);
+  const [listComponentAccess, setLisComponentAccess] = useAtom(
     val_global_component_access_user_role
   );
 
@@ -50,7 +50,7 @@ export function ViewModalComponentAccessEdit() {
 
   async function onUpdate() {
     fun_component_access_update({ data: dataEdit }).then(() => {
-      fun_component_access_get_all().then(setListData);
+      fun_component_access_get_all({setListComponentAccess});
 
       // perbarui global list component access
       fun_global_component_access_role_get({ setLisComponentAccess });

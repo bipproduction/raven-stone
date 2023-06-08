@@ -1,5 +1,13 @@
 import { api } from "@/lib/api";
 
-export async function fun_component_access_get_all() {
-    return fetch(api.apiDevDashboardComponentAccessGetAll).then((res) => res.json())
+/**
+ * ### Template
+ * ```js
+ const [listData, setListComponentAccess] = useAtom(val_component_access_lsist);
+ *```
+ */
+export async function fun_component_access_get_all({setListComponentAccess}: {setListComponentAccess: any}) {
+    const data = fetch(api.apiDevDashboardComponentAccessGetAll).then((res) => res.json())
+    setListComponentAccess(data)
+    return data
 }

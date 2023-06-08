@@ -10,12 +10,12 @@ import { fun_component_access_get_all } from "../fun/fun_get_all";
 export function ViewComponentAccessModalDelete() {
   const [open, setOpen] = useAtom(val_componen_access_open_delete);
   const [dataEdit, setDataEdit] = useAtom(val_component_acces_data_edit);
-  const [listData, setListData] = useAtom(val_component_access_lsist);
+  const [listData, setListComponentAccess] = useAtom(val_component_access_lsist);
 
   async function onDelete() {
     fun_component_access_delete({ data: { id: dataEdit.id } }).then(() => {
       // reload list data
-      fun_component_access_get_all().then(setListData);
+      fun_component_access_get_all({setListComponentAccess});
       // tutup modal
       setOpen(false);
     });
