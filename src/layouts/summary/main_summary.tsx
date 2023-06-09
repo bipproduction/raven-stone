@@ -44,25 +44,25 @@ const MainSummary = () => {
         <Grid align={"start"} w={"100%"}>
           <Grid.Col span={4}>
             <Box p={"xs"}>
-              <ViewGlobalAccessBlock>
+              <ViewGlobalAccessBlock name="SummarySelectCandidate">
                 <SummarySelectCandidate />
               </ViewGlobalAccessBlock>
             </Box>
           </Grid.Col>
           <Grid.Col span={8}>
-            <ViewGlobalAccessBlock>
+            <ViewGlobalAccessBlock name="SummaryTrenSentiment">
               <SummaryTrenSentiment />
             </ViewGlobalAccessBlock>
           </Grid.Col>
         </Grid>
-        <ViewGlobalAccessBlock>
+        <ViewGlobalAccessBlock name={"Top10ProvinceByConversation"}>
           <Top10ProvinceByConversation />
         </ViewGlobalAccessBlock>
-        <ViewGlobalAccessBlock>
+        <ViewGlobalAccessBlock name="Top10DistrictbyConversation">
           <Top10DistrictbyConversation />
         </ViewGlobalAccessBlock>
 
-        <ViewGlobalAccessBlock>
+        <ViewGlobalAccessBlock name="Top5WinningRate">
           <Top5WinningRate />
         </ViewGlobalAccessBlock>
       </Stack>
