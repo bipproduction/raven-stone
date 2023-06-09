@@ -213,158 +213,157 @@ const AdminDashboard = (props: any) => {
   }, []);
 
   return (
-    <DevAuthProvider>
-      <AppShell
-        header={
-          <Header height={50}>
-            <Group spacing={"md"} p={"xs"} position="apart">
+    <AppShell
+      header={
+        <Header height={50}>
+          <Group spacing={"md"} p={"xs"} position="apart">
+            <Title c={"teal"} order={3}>
+              {"We'R Reignite"}
+            </Title>
+            <Flex align={"center"} gap={"md"}>
+              <IconUserCircle color="teal" />
               <Title c={"teal"} order={3}>
-                {"We'R Reignite"}
+                {sUser.value?.name}
               </Title>
-              <Flex align={"center"} gap={"md"}>
-                <IconUserCircle color="teal" />
-                <Title c={"teal"} order={3}>{sUser.value?.name}</Title>
-              </Flex>
-            </Group>
-          </Header>
-        }
-        padding={0}
-        // padding="md"
-        // bg={"gray.2"}
-        navbar={
-          isSmall ? (
-            <></>
-          ) : (
-            <Navbar
-              width={{ base: 300 }}
-              // bg={"gray.1"}
-            >
-              <Navbar.Section h={200}>
-                <Image
-                  src={"/dev-icon.png"}
-                  alt="gambar"
-                  width={"100%"}
-                  height={170}
-                />
-              </Navbar.Section>
-              <Navbar.Section grow component={ScrollArea}>
-                {listMenu.map((item) => (
-                  <NavLink
-                    defaultOpened={item.isOpen}
-                    // icon={<MdPlayCircle />}
-                    // bg={item.id == sAdminDashboardView.get() ? "blue.1" : ""}
-                    // onClick={() => sAdminDashboardView.set(item.id)}
-                    key={item.id}
-                    fw={"bold"}
-                    label={
-                      <Title
-                        // c={"gray.8"}
-                        order={5}
-                      >
-                        {_.upperCase(item.name)}
-                      </Title>
-                    }
-                  >
-                    {item.children.map((v) => (
-                      <NavLink
-                        c={
-                          `${item.id}_${v.id}` == selectedDashboard
-                            ? "blue"
-                            : ""
-                        }
-                        key={v.id}
-                        onClick={() => {
-                          setSelectedDashboard(`${item.id}_${v.id}`);
-                        }}
-                        label={_.upperCase(v.name)}
-                        icon={<MdCircle color="orange" />}
-                      />
-                    ))}
-                  </NavLink>
-                ))}
-              </Navbar.Section>
-              <Navbar.Section
-              // bg={"dark"}
-              >
-                <Group position="apart" p={"xs"}>
-                  <ButtonLogout />
-                  <ActionIcon
-                    variant="white"
-                    radius={100}
-                    // bg={"blue"}
-                    onClick={() => {
-                      // localStorage.setItem("is_small", "true");
-                      // s_is_small.value = true;
-                      setIsSmall(true);
-                      update();
-                    }}
-                  >
-                    <MdArrowBackIos />
-                  </ActionIcon>
-                </Group>
-              </Navbar.Section>
-            </Navbar>
-          )
-        }
-        // header={
-        //   <Header height={60} p="xs">
-        //     {/* Header content */}
-        //   </Header>
-        // }
-        styles={(theme) => ({
-          main: {
-            backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
-          },
-        })}
-      >
-        {listMenu.map((v) =>
-          v.children.map(
-            (v2) =>
-              `${v.id}_${v2.id}` == selectedDashboard && (
-                <Box key={`${v.id}_${v2.id}`}>
-                  {
-                    <ViewGlobalAccessBlock name={v2.name}>
-                      <v2.view />
-                    </ViewGlobalAccessBlock>
-                  }
-                </Box>
-              )
-          )
-        )}
-        {isSmall && (
-          <ActionIcon
-            variant="white"
-            radius={100}
-            // bg={"blue"}
-            size={32}
-            pos={"fixed"}
-            bottom={20}
-            left={20}
-            sx={{ zIndex: 102 }}
-            onClick={() => {
-              // localStorage.setItem("is_small", "false");
-              // s_is_small.value = false;
-              setIsSmall(false);
-              update();
-            }}
+            </Flex>
+          </Group>
+        </Header>
+      }
+      padding={0}
+      // padding="md"
+      // bg={"gray.2"}
+      navbar={
+        isSmall ? (
+          <></>
+        ) : (
+          <Navbar
+            width={{ base: 300 }}
+            // bg={"gray.1"}
           >
-            <Center>
-              <MdArrowForwardIos
-                size={26}
-                // color="white"
+            <Navbar.Section h={200}>
+              <Image
+                src={"/dev-icon.png"}
+                alt="gambar"
+                width={"100%"}
+                height={170}
               />
-            </Center>
-          </ActionIcon>
-        )}
-      </AppShell>
-    </DevAuthProvider>
+            </Navbar.Section>
+            <Navbar.Section grow component={ScrollArea}>
+              {listMenu.map((item) => (
+                <NavLink
+                  defaultOpened={item.isOpen}
+                  // icon={<MdPlayCircle />}
+                  // bg={item.id == sAdminDashboardView.get() ? "blue.1" : ""}
+                  // onClick={() => sAdminDashboardView.set(item.id)}
+                  key={item.id}
+                  fw={"bold"}
+                  label={
+                    <Title
+                      // c={"gray.8"}
+                      order={5}
+                    >
+                      {_.upperCase(item.name)}
+                    </Title>
+                  }
+                >
+                  {item.children.map((v) => (
+                    <NavLink
+                      c={
+                        `${item.id}_${v.id}` == selectedDashboard ? "blue" : ""
+                      }
+                      key={v.id}
+                      onClick={() => {
+                        setSelectedDashboard(`${item.id}_${v.id}`);
+                      }}
+                      label={_.upperCase(v.name)}
+                      icon={<MdCircle color="orange" />}
+                    />
+                  ))}
+                </NavLink>
+              ))}
+            </Navbar.Section>
+            <Navbar.Section
+            // bg={"dark"}
+            >
+              <Group position="apart" p={"xs"}>
+                <ButtonLogout />
+                <ActionIcon
+                  variant="white"
+                  radius={100}
+                  // bg={"blue"}
+                  onClick={() => {
+                    // localStorage.setItem("is_small", "true");
+                    // s_is_small.value = true;
+                    setIsSmall(true);
+                    update();
+                  }}
+                >
+                  <MdArrowBackIos />
+                </ActionIcon>
+              </Group>
+            </Navbar.Section>
+          </Navbar>
+        )
+      }
+      // header={
+      //   <Header height={60} p="xs">
+      //     {/* Header content */}
+      //   </Header>
+      // }
+      styles={(theme) => ({
+        main: {
+          backgroundColor:
+            theme.colorScheme === "dark"
+              ? theme.colors.dark[8]
+              : theme.colors.gray[0],
+        },
+      })}
+    >
+      {listMenu.map((v) =>
+        v.children.map(
+          (v2) =>
+            `${v.id}_${v2.id}` == selectedDashboard && (
+              <Box key={`${v.id}_${v2.id}`}>
+                {
+                  <ViewGlobalAccessBlock name={v2.name}>
+                    <v2.view />
+                  </ViewGlobalAccessBlock>
+                }
+              </Box>
+            )
+        )
+      )}
+      {isSmall && (
+        <ActionIcon
+          variant="white"
+          radius={100}
+          // bg={"blue"}
+          size={32}
+          pos={"fixed"}
+          bottom={20}
+          left={20}
+          sx={{ zIndex: 102 }}
+          onClick={() => {
+            // localStorage.setItem("is_small", "false");
+            // s_is_small.value = false;
+            setIsSmall(false);
+            update();
+          }}
+        >
+          <Center>
+            <MdArrowForwardIos
+              size={26}
+              // color="white"
+            />
+          </Center>
+        </ActionIcon>
+      )}
+    </AppShell>
   );
 };
 
 export default AdminDashboard;
+
 
 // export async function getStaticProps() {
 //   const data = await client.stepAnalisysName.findMany();
