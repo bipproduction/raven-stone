@@ -1,15 +1,3 @@
-import client from "@/lib/prisma_db";
+import { user_get_all } from "@/layouts/dev_dashboard/user/fun/user_get_all";
 
-export default async function handler(req: any, res: any) {
-    const data = await client.user.findMany({
-        select: {
-            id: true,
-            name: true,
-            email: true,
-            password: true,
-            phone: true,
-            userRoleId: true
-        }
-    })
-    return res.status(200).json(data)
-}
+export default user_get_all

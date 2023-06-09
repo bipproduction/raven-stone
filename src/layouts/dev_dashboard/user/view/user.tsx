@@ -43,16 +43,13 @@ export function DevDashboardUser() {
   const [listUserRole, setListUserRole] = useState<any[]>([]);
 
   useShallowEffect(() => {
-    user_role_get().then(setListUserRole);
+    user_role_get({ setUserRoleList: setListUserRole });
     user_get_all().then(setlistUser);
   }, []);
 
   return (
     <>
       <Stack spacing={"lg"} pos={"relative"}>
-        <ViewGlobalAccessBlock >
-          <Text>Ini</Text>
-        </ViewGlobalAccessBlock>
         <Group position="apart">
           <Title>User</Title>
           <ModalCreate />
@@ -65,67 +62,79 @@ export function DevDashboardUser() {
               overflow: "scroll",
             }}
           >
-            <Table>
-              <thead>
-                <tr>
-                  <th>{""}</th>
-                  <th>No</th>
-                  {_.keys(_.omit(listUser[0], ["id"])).map((v, i) => (
-                    <th key={i}>{v === "userRoleId" ? "User Role" : v}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {listUser
-                  .map((v) => ({ ..._.omit(v, ["id"]) }))
-                  .map((v, i) => (
-                    <tr key={i}>
-                      <td>
-                        <Menu>
-                          <Menu.Target>
-                            <ActionIcon>
-                              <MdMoreVert />
-                            </ActionIcon>
-                          </Menu.Target>
-                          <Menu.Dropdown>
-                            <Menu.Item
-                              onClick={() => {
-                                setDataEdit({ ...v, id: listUser[i].id });
-                                setOpenEdit(true);
-                              }}
-                            >
-                              Edit
-                            </Menu.Item>
-                            <Menu.Item
-                              onClick={() => {
-                                setDataEdit({ ...v, id: listUser[i].id });
-                                setOpenDelete(true);
-                              }}
-                            >
-                              Delete
-                            </Menu.Item>
-                          </Menu.Dropdown>
-                        </Menu>
-                      </td>
-                      <td>{i + 1}</td>
-                      {_.keys(v).map((v2, i2) => (
-                        <td key={i2}>
-                          {v2 === "userRoleId" ? (
-                            <Badge>
-                              {listUserRole &&
-                                listUserRole.find(
-                                  (v3) => Number(v3.id) === Number(v[v2])
-                                )?.name}
-                            </Badge>
-                          ) : (
-                            <Text>{v[v2]}</Text>
-                          )}
+            <Box w={"100%"} sx={{ overflow: "scroll" }}>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>{""}</th>
+                    <th>No</th>
+                    {_.keys(_.omit(listUser[0], ["id"])).map((v, i) => (
+                      <th key={i}>{v === "userRoleId" ? "User Role" : v === "isActive"? "Status": v}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {listUser
+                    .map((v) => ({ ..._.omit(v, ["id"]) }))
+                    .map((v, i) => (
+                      <tr key={i}>
+                        <td>
+                          <Menu>
+                            <Menu.Target>
+                              <ActionIcon>
+                                <MdMoreVert />
+                              </ActionIcon>
+                            </Menu.Target>
+                            <Menu.Dropdown>
+                              <Menu.Item
+                                onClick={() => {
+                                  setDataEdit({ ...v, id: listUser[i].id });
+                                  setOpenEdit(true);
+                                }}
+                              >
+                                Edit
+                              </Menu.Item>
+                              <Menu.Item
+                                onClick={() => {
+                                  setDataEdit({ ...v, id: listUser[i].id });
+                                  setOpenDelete(true);
+                                }}
+                              >
+                                Delete
+                              </Menu.Item>
+                            </Menu.Dropdown>
+                          </Menu>
                         </td>
-                      ))}
-                    </tr>
-                  ))}
-              </tbody>
-            </Table>
+                        <td>{i + 1}</td>
+                        {_.keys(v).map((v2, i2) => (
+                          <td key={i2}>
+                            {v2 === "userRoleId" ? (
+                              <Badge>
+                                {listUserRole &&
+                                  listUserRole.find(
+                                    (v3) => Number(v3.id) === Number(v[v2])
+                                  )?.name}
+                              </Badge>
+                            ) : v2 === "isActive" ? (
+                              <Box>
+                                {v[v2] ? (
+                                  <Badge color="green">Active</Badge>
+                                ) : (
+                                  <Badge color={"orange"}>Inactive</Badge>
+                                )}
+                              </Box>
+                            ) : v2 === "password" ? (
+                              <Text>*******</Text>
+                            ) : (
+                              <Text>{v[v2]}</Text>
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </Box>
           </Box>
         )}
 

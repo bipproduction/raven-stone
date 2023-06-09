@@ -1,8 +1,10 @@
 import { api } from "@/lib/api"
+import _ from "lodash"
 import toast from "react-simple-toasts"
+import { api_user_update } from "../api/api_user_update"
 
 export async function user_update({ body }: { body: any }) {
-    return await fetch(api.apiDevDashboardUserUpdate, {
+    return await fetch("/api/" + _.kebabCase(api_user_update.name), {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {

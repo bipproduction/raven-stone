@@ -33,7 +33,7 @@ export function ModalCreate() {
   });
 
   useShallowEffect(() => {
-    user_role_get().then(setlistUserRole);
+    user_role_get({setUserRoleList: setlistUserRole});
   }, []);
 
   function onCreate() {

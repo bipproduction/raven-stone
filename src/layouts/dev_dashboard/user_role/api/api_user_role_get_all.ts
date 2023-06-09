@@ -1,6 +1,5 @@
-import client from "@/lib/prisma_db"
-
-export async function api_user_user_role_get(req: any, res: any) {
+export async function api_user_role_get_all(req: any, res: any){
+    const client = (await import("@/lib/prisma_db")).default
     const data = await client.userRole.findMany({
         where: {
             isActive: true
