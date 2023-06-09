@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   Loader,
   Menu,
   Modal,
@@ -17,9 +18,9 @@ import { dev_dashboard_data_edit } from "../val/data_edit";
 import _ from "lodash";
 import { Editor } from "@tiptap/react";
 import { useShallowEffect } from "@mantine/hooks";
-import { user_role_get } from "../fun/user_role_get";
-import { user_update } from "../fun/user_update";
-import { user_get_all } from "../fun/user_get_all";
+import { user_role_get } from "../fun/fun_user_role_get";
+import { user_update } from "../fun/fun_user_update";
+import { user_get_all } from "../fun/fun_user_get_all";
 import { dev_dashboard_lsist_user } from "../val/list_user";
 
 /**
@@ -35,7 +36,7 @@ export function ModalEdit() {
 
   useShallowEffect(() => {
     // ambil data user role
-    user_role_get().then(setUserRole);
+    user_role_get({ setUserRoleList: setUserRole });
   }, []);
 
   // update data
@@ -60,19 +61,30 @@ export function ModalEdit() {
           {!dataEdit ? (
             <Loader />
           ) : (
-            <Stack>
+            <Stack spacing={"lg"}>
+              {/* {JSON.stringify(dataEdit)} */}
               <Title>{dataEdit.name}</Title>
-              {_.keys(_.omit(dataEdit, ["id", "userRoleId"])).map((v, i) => (
-                <Box key={i}>
-                  <TextInput
-                    label={v}
-                    value={dataEdit[v] ?? ""}
-                    onChange={(val) =>
-                      setDataEdit({ ...dataEdit, [v]: val.currentTarget.value })
-                    }
-                  />
-                </Box>
-              ))}
+              <Checkbox
+                label="isActive"
+                checked={dataEdit.isActive}
+                onChange={(val) => setDataEdit({ ...dataEdit, isActive: val.currentTarget.checked })}
+              />
+              {_.keys(_.omit(dataEdit, ["id", "userRoleId", "isActive"])).map(
+                (v, i) => (
+                  <Box key={i}>
+                    <TextInput
+                      label={v}
+                      value={dataEdit[v] ?? ""}
+                      onChange={(val) =>
+                        setDataEdit({
+                          ...dataEdit,
+                          [v]: val.currentTarget.value,
+                        })
+                      }
+                    />
+                  </Box>
+                )
+              )}
               <Select
                 placeholder={
                   userRole.find((v) => v.id === dataEdit.userRoleId)?.name

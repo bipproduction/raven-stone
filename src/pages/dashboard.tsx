@@ -79,6 +79,7 @@ import {
 import toast from "react-simple-toasts";
 import { MainEmotionViewProvince } from "@/layouts/prodictive_ai/emotion_view_province/main_emotion_view_province";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
+import { IconUser, IconUserCircle } from "@tabler/icons-react";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -333,35 +334,23 @@ const Dashboard = (props: any) => {
                   <Group>
                     <MyNotivication />
                     <Menu>
-                      {/* <Menu.Target>
-                      <NavLink
-                        p={0}
-                        m={0}
-                        icon={<Image src={'/logo-3.png'} w={24} alt={"logo"} />}
-                        label={userName?.name}
-                      />
-
-                    </Menu.Target> */}
-
                       <Menu.Target>
-                        <ActionIcon
-                          radius={100}
-                          size={42}
-                          // bg={"blue.1"}
-                          variant={"filled"}
-                        >
+                        <ActionIcon radius={100} size={42} variant={"filled"}>
                           <MdAccountCircle size={42} color={"babyblue"} />
                         </ActionIcon>
                       </Menu.Target>
-                      <Menu.Dropdown
-                      // bg={"blue"}
-                      >
+                      <Menu.Dropdown>
+                        <Stack p={"md"}>
+                          <Flex gap={"md"} align={"center"}>
+                            <IconUserCircle color="teal" />
+                            <Title color="teal" order={3}>
+                              {sUser.value?.name}
+                            </Title>
+                          </Flex>
+                        </Stack>
                         <Menu.Item
-                          // bg={"red"}
-                          // c={"white"}
                           onClick={() => {
                             localStorage.removeItem("user_id");
-                            // gUser.set({});
                             sUser.value = {};
                           }}
                         >
@@ -380,9 +369,10 @@ const Dashboard = (props: any) => {
         {listView.map((v, i) =>
           v.child.map((vv, ii) => (
             <Box key={ii}>
-              
               {vv.name == sSelectedView.value && (
-                <ViewGlobalAccessBlock>{vv.view()}</ViewGlobalAccessBlock>
+                <ViewGlobalAccessBlock name={vv.name}>
+                  {vv.view()}
+                </ViewGlobalAccessBlock>
               )}
             </Box>
             // <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
