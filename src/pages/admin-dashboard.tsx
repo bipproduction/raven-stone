@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   Center,
+  Flex,
   Group,
   Header,
   Image,
@@ -60,6 +61,8 @@ import { atomWithStorage } from "jotai/utils";
 import { Vie_emotion_view_province_couple_v2 } from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
 import { V3BackNationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/back/v3_back_nation_wide_rating";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
+import { IconUserCircle } from "@tabler/icons-react";
+import { sUser } from "@/s_state/s_user";
 
 const listMenu = [
   {
@@ -212,6 +215,19 @@ const AdminDashboard = (props: any) => {
   return (
     <DevAuthProvider>
       <AppShell
+        header={
+          <Header height={50}>
+            <Group spacing={"md"} p={"xs"} position="apart">
+              <Title c={"teal"} order={3}>
+                {"We'R Reignite"}
+              </Title>
+              <Flex align={"center"} gap={"md"}>
+                <IconUserCircle color="teal" />
+                <Title c={"teal"} order={3}>{sUser.value?.name}</Title>
+              </Flex>
+            </Group>
+          </Header>
+        }
         padding={0}
         // padding="md"
         // bg={"gray.2"}

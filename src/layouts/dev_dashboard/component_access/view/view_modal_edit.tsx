@@ -34,13 +34,15 @@ export function ViewModalComponentAccessEdit() {
     val_component_access_list_user_role
   );
 
-  const [listData, setListComponentAccess] = useAtom(val_component_access_lsist);
+  const [listData, setListComponentAccess] = useAtom(
+    val_component_access_lsist
+  );
   const [listComponentAccess, setLisComponentAccess] = useAtom(
     val_global_component_access_user_role
   );
 
   useShallowEffect(() => {
-    user_role_get().then(setuserRoleList);
+    user_role_get({ setUserRoleList: setuserRoleList });
     // fun_componen_access_upsert({
     //   data: {
     //     name: ViewModalComponentAccessEdit.name,
@@ -50,7 +52,7 @@ export function ViewModalComponentAccessEdit() {
 
   async function onUpdate() {
     fun_component_access_update({ data: dataEdit }).then(() => {
-      fun_component_access_get_all({setListComponentAccess});
+      fun_component_access_get_all({ setListComponentAccess });
 
       // perbarui global list component access
       fun_global_component_access_role_get({ setLisComponentAccess });

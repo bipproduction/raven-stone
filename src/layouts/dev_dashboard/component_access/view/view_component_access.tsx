@@ -74,7 +74,7 @@ export function ViewComponentAccess() {
                   {v === "listUserRole"
                     ? "Role"
                     : v === "isActive"
-                    ? "Is Active"
+                    ? "Status"
                     : v}
                 </th>
               ))}
@@ -115,12 +115,12 @@ export function ViewComponentAccess() {
                   <td key={i2}>
                     {v2 === "isActive" ? (
                       v[v2] ? (
-                        <Badge>
-                          <MdCheck />
+                        <Badge color="green">
+                         <Text>Active</Text>
                         </Badge>
                       ) : (
-                        <Badge>
-                          <MdClose />
+                        <Badge color="red">
+                          <Text>Not Active</Text>
                         </Badge>
                       )
                     ) : v2 === "listUserRole" ? (

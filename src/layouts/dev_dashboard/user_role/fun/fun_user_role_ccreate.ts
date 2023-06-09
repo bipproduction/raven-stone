@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
 import toast from "react-simple-toasts";
 
-export async function user_role_create({ body }: { body: any }) {
+export async function fun_user_role_create({ body }: { body: any }) {
     return await fetch(api.apiDevDashboardUserRoleCreate, {
         method: 'POST',
         body: JSON.stringify(body),

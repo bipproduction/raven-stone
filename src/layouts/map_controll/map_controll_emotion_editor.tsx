@@ -327,7 +327,8 @@ export function MapControllEmotionEditor() {
                 <MapControllEmotionDownload />
                 <Stack w={"100%"}>
                   {/* <Title>Emotion Editor</Title> */}
-                  <MapControllMapView />
+                  {/* //todo: ini map controll view */}
+                  {/* <MapControllMapView /> */}
                 </Stack>
               </Flex>
 

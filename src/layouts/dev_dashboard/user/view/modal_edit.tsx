@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   Loader,
   Menu,
   Modal,
@@ -35,7 +36,7 @@ export function ModalEdit() {
 
   useShallowEffect(() => {
     // ambil data user role
-    user_role_get().then(setUserRole);
+    user_role_get({ setUserRoleList: setUserRole });
   }, []);
 
   // update data
@@ -60,19 +61,30 @@ export function ModalEdit() {
           {!dataEdit ? (
             <Loader />
           ) : (
-            <Stack>
+            <Stack spacing={"lg"}>
+              {/* {JSON.stringify(dataEdit)} */}
               <Title>{dataEdit.name}</Title>
-              {_.keys(_.omit(dataEdit, ["id", "userRoleId"])).map((v, i) => (
-                <Box key={i}>
-                  <TextInput
-                    label={v}
-                    value={dataEdit[v] ?? ""}
-                    onChange={(val) =>
-                      setDataEdit({ ...dataEdit, [v]: val.currentTarget.value })
-                    }
-                  />
-                </Box>
-              ))}
+              <Checkbox
+                label="isActive"
+                checked={dataEdit.isActive}
+                onChange={(val) => setDataEdit({ ...dataEdit, isActive: val.currentTarget.checked })}
+              />
+              {_.keys(_.omit(dataEdit, ["id", "userRoleId", "isActive"])).map(
+                (v, i) => (
+                  <Box key={i}>
+                    <TextInput
+                      label={v}
+                      value={dataEdit[v] ?? ""}
+                      onChange={(val) =>
+                        setDataEdit({
+                          ...dataEdit,
+                          [v]: val.currentTarget.value,
+                        })
+                      }
+                    />
+                  </Box>
+                )
+              )}
               <Select
                 placeholder={
                   userRole.find((v) => v.id === dataEdit.userRoleId)?.name

@@ -2,9 +2,14 @@ import { ViewComponentAccess } from "@/layouts/dev_dashboard/component_access/vi
 import { dev_dashboard_selected_menu } from "@/layouts/dev_dashboard/user/val/selected_menu";
 import { DevDashboardUser } from "@/layouts/dev_dashboard/user/view/user";
 import { ViewUserRole } from "@/layouts/dev_dashboard/user_role/view/user_role";
+import { sUser } from "@/s_state/s_user";
 import {
   AppShell,
+  Burger,
+  Flex,
+  Group,
   Header,
+  MediaQuery,
   NavLink,
   Navbar,
   ScrollArea,
@@ -12,7 +17,9 @@ import {
   Title,
 } from "@mantine/core";
 import { useHash, useShallowEffect } from "@mantine/hooks";
+import { IconUserCircle } from "@tabler/icons-react";
 import { useAtom } from "jotai";
+import { useState } from "react";
 
 const Apa2 = () => {
   return <>apa2</>;
@@ -43,6 +50,7 @@ const listMenu = [
 export default function DevDashboard(props: any) {
   const [selectedMenu, setSelectedmenu] = useAtom(dev_dashboard_selected_menu);
   const p = listMenu.find((v) => v.id === selectedMenu)?.view;
+  const [open, setOpen] = useState(false);
 
   //   useShallowEffect(() => {
   //     setSelectedmenu("1");
@@ -50,15 +58,34 @@ export default function DevDashboard(props: any) {
   return (
     <>
       <AppShell
+        navbarOffsetBreakpoint="sm"
         header={
           <Header height={60} p="xs">
-            <Title order={3} c={"teal"}>
-              {"We'R Reignite"}
-            </Title>
+            <Flex justify={"space-between"} w={"100%"} gap={"md"}>
+              <MediaQuery largerThan={"sm"} styles={{ display: "none" }}>
+                <Burger color="teal" onClick={() => setOpen((o) => !o)} opened={open} />
+              </MediaQuery>
+              <Flex justify={"space-between"} w={"100%"}>
+                <Title order={3} c={"teal"}>
+                  {"We'R Reignite"}
+                </Title>
+                <Flex align={"center"} gap={"md"}>
+                  <IconUserCircle color="teal" />
+                  <Title color="teal" order={3}>
+                    {sUser.value?.name}
+                  </Title>
+                </Flex>
+              </Flex>
+            </Flex>
           </Header>
         }
         navbar={
-          <Navbar width={{ base: 300 }} p="xs">
+          <Navbar
+            hiddenBreakpoint="sm"
+            width={{ base: 300 }}
+            p="xs"
+            hidden={!open}
+          >
             <Navbar.Section grow component={ScrollArea}>
               {listMenu.map((v) => (
                 <NavLink

@@ -2,12 +2,12 @@ import { Button, Modal, Stack, TextInput, Title } from "@mantine/core";
 import _ from "lodash";
 import { useState } from "react";
 import toast from "react-simple-toasts";
-import { user_role_create } from "../fun/user_role_ccreate";
+import { fun_user_role_create } from "../fun/fun_user_role_ccreate";
 import { useAtom } from "jotai";
 import { val_user_role_list } from "../val/user_role_list";
 import { user_role_get } from "../../user/fun/user_role_get";
 
-export function UserRoleCreate() {
+export function ModalUserRoleCreate() {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<any>({
     name: "",
@@ -17,9 +17,9 @@ export function UserRoleCreate() {
   async function onCreate() {
     if (_.values(data).includes("")) return toast("Nama tidak boleh kosong");
 
-    await user_role_create({ body: data }).then(() => {
+    await fun_user_role_create({ body: data }).then(() => {
       setOpen(false);
-      user_role_get().then(setListuserRole);
+      user_role_get({setUserRoleList: setListuserRole});
     });
   }
 
