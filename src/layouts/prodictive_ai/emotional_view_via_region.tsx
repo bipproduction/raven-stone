@@ -7,7 +7,7 @@ import { stylesGradientRed } from "@/styles/styles_gradient_red";
 import { sIndonesiaMap } from "@/s_state/s_indonesia_map";
 import { sListKabupaten } from "@/s_state/s_list_kabupaten";
 import { sSelectedView } from "@/s_state/s_selected_view";
-import { Paper } from "@mantine/core";
+import { Paper, Stack } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
 import { registerMap } from "echarts";
 import EChartsReact, { EChartsOption } from "echarts-for-react";
@@ -112,7 +112,9 @@ const EmotionalViewViaRegion = () => {
     return <>{sSelectedView.value}</>;
   return (
     <>
-      <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
+    <Stack>
+    <Stack>
+    <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
       <SelectCandidateView onProccess={() => {}} onUpdate={update} />
       <Paper h={550} 
       // bg={stylesGradient1}
@@ -126,7 +128,10 @@ const EmotionalViewViaRegion = () => {
           />
         )}
       </Paper>
-    </>
+    
+    </Stack>
+    </Stack>
+      </>
   );
 };
 

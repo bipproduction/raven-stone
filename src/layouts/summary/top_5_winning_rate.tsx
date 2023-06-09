@@ -14,6 +14,7 @@ import PageTitle from "../page_title";
 import { useShallowEffect } from "@mantine/hooks";
 import { api } from "@/lib/api";
 import { atom, useAtom } from "jotai";
+import { fun_componen_access_upsert } from "../dev_dashboard/component_access/fun/fun_upsert";
 
 const _val_list_top_5_winning_rate = atom<any[] | undefined>(undefined);
 
@@ -24,6 +25,16 @@ export function Top5WinningRate() {
       .then((v) => v.json())
       .then(setTop5);
   }, []);
+
+  // useShallowEffect(() => {
+  //   fun_componen_access_upsert({
+  //     data: {
+  //       name: Top5WinningRate.name,
+  //     },
+  //   });
+  // }, []);
+
+
 
   if (!listTop5)
     return (
@@ -37,7 +48,6 @@ export function Top5WinningRate() {
     <>
       <Paper p={"md"}>
         <Stack>
-
           <PageTitle title={"TOP 5 NATIONAL WINNING RATES PREDICTION"} />
           <SimpleGrid cols={3}>
             {listTop5.map((v, i) => (
@@ -76,7 +86,9 @@ export function Top5WinningRate() {
                     </SimpleGrid>
                   </Stack>
                   <Divider w={"100%"} />
-                  <Title c={"green"} size={72} align="center">{v.persen} %</Title>
+                  <Title c={"green"} size={72} align="center">
+                    {v.persen} %
+                  </Title>
                 </Stack>
               </Card>
             ))}
