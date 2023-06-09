@@ -78,6 +78,8 @@ import {
 } from "react-icons/md";
 import toast from "react-simple-toasts";
 import { MainEmotionViewProvince } from "@/layouts/prodictive_ai/emotion_view_province/main_emotion_view_province";
+import { ViewGlobalAccessBlock } from "@/global/view/access_block";
+import { IconUser, IconUserCircle } from "@tabler/icons-react";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -95,7 +97,7 @@ const listView = [
       {
         id: 2,
         name: "Top 10 Rating By Emotions",
-        view: MainSummary,
+        view: () => <MainSummary />,
         icon: MdStorage,
       },
       // {
@@ -128,7 +130,7 @@ const listView = [
       {
         id: 2,
         name: "Media Summary",
-        view: MentionbyCategory,
+        view: () => <MentionbyCategory />,
         icon: MdAssignment,
       },
       // {
@@ -181,13 +183,13 @@ const listView = [
       {
         id: 1,
         name: "Step Analysis",
-        view: StepAnalisys,
+        view: () => <StepAnalisys />,
         icon: MdFreeCancellation,
       },
       {
         id: 2,
         name: "SWOT Analysis",
-        view: SwotAnalisys,
+        view: () => <SwotAnalisys />,
         icon: MdGrading,
       },
     ],
@@ -200,7 +202,7 @@ const listView = [
       {
         id: 1,
         name: "Nation Wide Rating",
-        view: NationWideRating,
+        view: () => <NationWideRating />,
         icon: MdOutlineStarBorderPurple500,
       },
       // {
@@ -212,19 +214,19 @@ const listView = [
       {
         id: 3,
         name: "Emotional View Via Province",
-        view: MainEmotionViewProvince,
+        view: () => <MainEmotionViewProvince />,
         icon: MdOutlineStars,
       },
       {
         id: 4,
         name: "Emotional View Via Province Couple",
-        view: EmotionViewProvinceCoupleV2,
+        view: () => <EmotionViewProvinceCoupleV2 />,
         icon: MdJoinLeft,
       },
       {
         id: 5,
         name: "Contextual Content",
-        view: ContextualContent,
+        view: () => <ContextualContent />,
         icon: MdStackedBarChart,
       },
     ],
@@ -247,6 +249,10 @@ const Dashboard = (props: any) => {
         .then(setUserName);
     }
   }, []);
+
+  const v = listView
+    .flatMap((v) => v.child)
+    .find((v) => v.name === sSelectedView.value)?.view;
 
   useShallowEffect(() => {
     const page = localStorage.getItem("dashboard_selected_page");
@@ -328,35 +334,28 @@ const Dashboard = (props: any) => {
                   <Group>
                     <MyNotivication />
                     <Menu>
-                      {/* <Menu.Target>
-                      <NavLink
-                        p={0}
-                        m={0}
-                        icon={<Image src={'/logo-3.png'} w={24} alt={"logo"} />}
-                        label={userName?.name}
-                      />
-
-                    </Menu.Target> */}
+                    
 
                       <Menu.Target>
                         <ActionIcon
                           radius={100}
                           size={42}
-                          // bg={"blue.1"}
                           variant={"filled"}
                         >
                           <MdAccountCircle size={42} color={"babyblue"} />
                         </ActionIcon>
                       </Menu.Target>
                       <Menu.Dropdown
-                      // bg={"blue"}
                       >
+                        <Stack p={"md"}>
+                          <Flex gap={"md"} align={"center"}>
+                            <IconUserCircle color="teal" />
+                            <Title color="teal" order={3}>{sUser.value?.name}</Title>
+                          </Flex>
+                        </Stack>
                         <Menu.Item
-                          // bg={"red"}
-                          // c={"white"}
                           onClick={() => {
                             localStorage.removeItem("user_id");
-                            // gUser.set({});
                             sUser.value = {};
                           }}
                         >
@@ -372,13 +371,25 @@ const Dashboard = (props: any) => {
         }
       >
         {/* //todo: 2023-05-19 */}
-        {listView.map((v) =>
-          v.child.map((vv) => (
-            <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
-              {<vv.view />}
+        {listView.map((v, i) =>
+          v.child.map((vv, ii) => (
+            <Box key={ii}>
+
+              {vv.name == sSelectedView.value && (
+                <ViewGlobalAccessBlock>{vv.view()}</ViewGlobalAccessBlock>
+              )}
             </Box>
+            // <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
+            //   {vv.view()}
+            // </Box>
           ))
         )}
+
+        {/* {listView.map((v, i) =>
+          <Box key={i}>
+            {v.child.find((vv) => vv.name === sSelectedView.value).view()}
+          </Box>
+        )} */}
       </AppShell>
     </>
   );

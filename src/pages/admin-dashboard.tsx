@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   Center,
+  Flex,
   Group,
   Header,
   Image,
@@ -59,7 +60,9 @@ import { stylesRadial } from "@/styles/styles_radial";
 import { atomWithStorage } from "jotai/utils";
 import { Vie_emotion_view_province_couple_v2 } from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
 import { V3BackNationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/back/v3_back_nation_wide_rating";
-
+import { ViewGlobalAccessBlock } from "@/global/view/access_block";
+import { IconUserCircle } from "@tabler/icons-react";
+import { sUser } from "@/s_state/s_user";
 
 const listMenu = [
   {
@@ -173,7 +176,6 @@ const listMenu = [
         id: "2",
         name: "Emotion View Via Province Couple V2",
         view: Vie_emotion_view_province_couple_v2,
-        
       },
     ],
   },
@@ -209,11 +211,23 @@ const AdminDashboard = (props: any) => {
     //   s_is_small.value = false;
     // }
   }, []);
-  
 
   return (
     <DevAuthProvider>
       <AppShell
+        header={
+          <Header height={50}>
+            <Group spacing={"md"} p={"xs"} position="apart">
+              <Title c={"teal"} order={3}>
+                {"We'R Reignite"}
+              </Title>
+              <Flex align={"center"} gap={"md"}>
+                <IconUserCircle color="teal" />
+                <Title c={"teal"} order={3}>{sUser.value?.name}</Title>
+              </Flex>
+            </Group>
+          </Header>
+        }
         padding={0}
         // padding="md"
         // bg={"gray.2"}
@@ -221,8 +235,9 @@ const AdminDashboard = (props: any) => {
           isSmall ? (
             <></>
           ) : (
-            <Navbar width={{ base: 300 }} 
-            // bg={"gray.1"}
+            <Navbar
+              width={{ base: 300 }}
+              // bg={"gray.1"}
             >
               <Navbar.Section h={200}>
                 <Image
@@ -242,9 +257,10 @@ const AdminDashboard = (props: any) => {
                     key={item.id}
                     fw={"bold"}
                     label={
-                      <Title 
-                      // c={"gray.8"} 
-                      order={5}>
+                      <Title
+                        // c={"gray.8"}
+                        order={5}
+                      >
                         {_.upperCase(item.name)}
                       </Title>
                     }
@@ -267,7 +283,7 @@ const AdminDashboard = (props: any) => {
                   </NavLink>
                 ))}
               </Navbar.Section>
-              <Navbar.Section 
+              <Navbar.Section
               // bg={"dark"}
               >
                 <Group position="apart" p={"xs"}>
@@ -308,7 +324,13 @@ const AdminDashboard = (props: any) => {
           v.children.map(
             (v2) =>
               `${v.id}_${v2.id}` == selectedDashboard && (
-                <Box key={`${v.id}_${v2.id}`}>{<v2.view />}</Box>
+                <Box key={`${v.id}_${v2.id}`}>
+                  {
+                    <ViewGlobalAccessBlock>
+                      <v2.view />
+                    </ViewGlobalAccessBlock>
+                  }
+                </Box>
               )
           )
         )}
@@ -330,9 +352,10 @@ const AdminDashboard = (props: any) => {
             }}
           >
             <Center>
-              <MdArrowForwardIos size={26} 
-              // color="white"
-               />
+              <MdArrowForwardIos
+                size={26}
+                // color="white"
+              />
             </Center>
           </ActionIcon>
         )}

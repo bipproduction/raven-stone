@@ -39,17 +39,26 @@ import { useAtom } from "jotai";
 import { _is_dark_mode } from "@/g_state/atom_util_state";
 import { sCandidate } from "@/s_state/s_candidate";
 import { mc_list_candidate } from "@/layouts/map_controll/map_controll_state";
+import { val_global_component_access_user_role } from "@/global/val/val_list_user_role";
+import { fun_global_component_access_role_get } from "@/global/fun/fun_component_access_role_get";
 
-export default function App(props: AppProps) {
+export default function App(props: any) {
   const { Component, pageProps } = props;
   const [isDarkMode, setIsDarkMode] = useAtom(_is_dark_mode);
   const [listCandidate, setListCandidate] = useAtom(mc_list_candidate);
+  const [listComponentAccess, setLisComponentAccess] = useAtom(
+    val_global_component_access_user_role
+  );
 
   useShallowEffect(() => {
     const local = localStorage.getItem("is_local");
     if (local) {
       sIsLocal.value = local === "true";
     }
+  }, []);
+
+  useShallowEffect(() => {
+    fun_global_component_access_role_get({ setLisComponentAccess });
   }, []);
 
   useShallowEffect(() => {
