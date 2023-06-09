@@ -16,7 +16,7 @@ import {
 import { val_component_access_open_edit } from "../val/val_open_edit";
 import { val_component_acces_data_edit } from "../val/val_data_edit";
 import { useShallowEffect } from "@mantine/hooks";
-import { user_role_get } from "../../user/fun/user_role_get";
+import { user_role_get } from "../../user/fun/fun_user_role_get";
 import { val_component_access_list_user_role } from "../val/val_user_role";
 import _ from "lodash";
 import { useState } from "react";

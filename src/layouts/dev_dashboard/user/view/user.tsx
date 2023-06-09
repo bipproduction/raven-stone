@@ -12,7 +12,7 @@ import {
   Title,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
-import { user_get_all } from "../fun/user_get_all";
+import { user_get_all } from "../fun/fun_user_get_all";
 import { useAtom } from "jotai";
 import { dev_dashboard_lsist_user } from "../val/list_user";
 import _ from "lodash";
@@ -30,7 +30,7 @@ import { ModalEdit } from "./modal_edit";
 import { dev_dashboard_data_edit } from "../val/data_edit";
 import { dev_dashboard_modal_edit } from "../val/modal_edit";
 import { useState } from "react";
-import { user_role_get } from "../fun/user_role_get";
+import { user_role_get } from "../fun/fun_user_role_get";
 import { dev_dashboard_modal_delete } from "../val/modal_delete";
 import { ModalDelete } from "./model_delete";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
