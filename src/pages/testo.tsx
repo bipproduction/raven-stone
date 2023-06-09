@@ -2,6 +2,7 @@ import { Text } from "@mantine/core";
 import { useDidUpdate, useShallowEffect } from "@mantine/hooks";
 import { useState } from "react";
 import { QrReader } from "react-qr-reader";
+import toast from "react-simple-toasts";
 
 const Testo = () => {
   const [data, setData] = useState("No result");
@@ -32,11 +33,13 @@ const Testo = () => {
         onResult={(result, error) => {
           if (!!result) {
             console.log(result.getText());
-            // setData(result?.text);
+            setData(result?.getText());
+            toast(result?.getText());
           }
 
           if (!!error) {
             console.info(error);
+            toast(error.message)
           }
         }}
       />
