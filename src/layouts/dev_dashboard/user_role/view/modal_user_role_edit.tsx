@@ -9,7 +9,7 @@ import {
 import { atom, useAtom } from "jotai";
 
 import { fun_user_role_edit } from "../fun/fun_user_role_edit";
-import { user_role_get } from "../../user/fun/user_role_get";
+import { user_role_get } from "../../user/fun/fun_user_role_get";
 import { val_user_role_list } from "../val/user_role_list";
 // import { val_user_role_modal_open } from "../val/user_role_modal_open";
 
