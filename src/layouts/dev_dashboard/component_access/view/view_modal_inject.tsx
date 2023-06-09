@@ -40,7 +40,7 @@ export function ViewComponentAccessModalInject() {
   }
   return (
     <>
-      <Button onClick={() => setOpen(true)} bg={"teal"} leftIcon={<MdAdd />}>
+      <Button  onClick={() => setOpen(true)} color={"teal"} leftIcon={<MdAdd /> } compact>
         Inject Component
       </Button>
       <Modal
