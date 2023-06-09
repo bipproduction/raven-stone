@@ -30,6 +30,7 @@ import { val_hook_list_componet_role } from "@/global/val/val_hook_list_componen
 import { func_global_handle_component_role } from "@/global/fun/fun_handle_component_role";
 import { val_global_list_component_name } from "@/global/val/val_list_component_name";
 import { ViewComponentAccessModalInject } from "./view_modal_inject";
+import { ViewComponentAccessModalCrearAll } from "./view_modal_clear_all";
 
 export function ViewComponentAccess() {
   const [listData, setListComponentAccess] = useAtom(val_component_access_lsist);
@@ -62,7 +63,10 @@ export function ViewComponentAccess() {
           {/* <ViewModalComponentAccessCreate /> */}
           {/* {JSON.stringify(val_hook_list_componet_role.get())}
           {JSON.stringify(listComponentName)} */}
+          <Stack>
           <ViewComponentAccessModalInject />
+          <ViewComponentAccessModalCrearAll />
+          </Stack>
         </Group>
         <Table>
           <thead>
