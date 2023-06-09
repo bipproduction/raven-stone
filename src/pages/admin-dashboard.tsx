@@ -326,7 +326,7 @@ const AdminDashboard = (props: any) => {
               `${v.id}_${v2.id}` == selectedDashboard && (
                 <Box key={`${v.id}_${v2.id}`}>
                   {
-                    <ViewGlobalAccessBlock>
+                    <ViewGlobalAccessBlock name={v2.name}>
                       <v2.view />
                     </ViewGlobalAccessBlock>
                   }

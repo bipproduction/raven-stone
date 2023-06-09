@@ -17,13 +17,15 @@ import _ from "lodash";
  * ```
  */
 export function ViewGlobalAccessBlock({
+  name,
   children,
 }: //   name,
 {
+  name: string;
   children: React.ReactNode;
   //   name?: string;
 }) {
-  const name: any = (children as any)?.type.name;
+  //   const name: any = (children as any)?.type.name;
   const [listComponent, setComponent] = useAtom(
     val_global_component_access_user_role
   );
@@ -39,7 +41,7 @@ export function ViewGlobalAccessBlock({
 
   useShallowEffect(() => {
     if (name && !_.isEmpty(name) && !listCompanentName.includes(name)) {
-    //   console.log(name == null, _.isEmpty(name), name);
+      //   console.log(name == null, _.isEmpty(name), name);
       const data = _.clone(listCompanentName);
       data.push(name);
       setlistComponentname(data);
