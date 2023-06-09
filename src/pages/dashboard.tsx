@@ -334,23 +334,18 @@ const Dashboard = (props: any) => {
                   <Group>
                     <MyNotivication />
                     <Menu>
-                    
-
                       <Menu.Target>
-                        <ActionIcon
-                          radius={100}
-                          size={42}
-                          variant={"filled"}
-                        >
+                        <ActionIcon radius={100} size={42} variant={"filled"}>
                           <MdAccountCircle size={42} color={"babyblue"} />
                         </ActionIcon>
                       </Menu.Target>
-                      <Menu.Dropdown
-                      >
+                      <Menu.Dropdown>
                         <Stack p={"md"}>
                           <Flex gap={"md"} align={"center"}>
                             <IconUserCircle color="teal" />
-                            <Title color="teal" order={3}>{sUser.value?.name}</Title>
+                            <Title color="teal" order={3}>
+                              {sUser.value?.name}
+                            </Title>
                           </Flex>
                         </Stack>
                         <Menu.Item
@@ -374,9 +369,10 @@ const Dashboard = (props: any) => {
         {listView.map((v, i) =>
           v.child.map((vv, ii) => (
             <Box key={ii}>
-
               {vv.name == sSelectedView.value && (
-                <ViewGlobalAccessBlock>{vv.view()}</ViewGlobalAccessBlock>
+                <ViewGlobalAccessBlock name={vv.name}>
+                  {vv.view()}
+                </ViewGlobalAccessBlock>
               )}
             </Box>
             // <Box hidden={vv.name != sSelectedView.value} key={vv.name}>
