@@ -2,9 +2,9 @@ import { useAtom } from "jotai";
 import { dev_dashboard_modal_delete } from "../val/modal_delete";
 import { Button, Group, Modal, Stack, Text, Title } from "@mantine/core";
 import { dev_dashboard_data_edit } from "../val/data_edit";
-import { user_delete } from "../fun/user_delete";
+import { user_delete } from "../fun/fun_user_delete";
 import { dev_dashboard_lsist_user } from "../val/list_user";
-import { user_get_all } from "../fun/user_get_all";
+import { user_get_all } from "../fun/fun_user_get_all";
 
 export function ModalDelete() {
   const [openDelete, setOpenDelete] = useAtom(dev_dashboard_modal_delete);
