@@ -5,8 +5,7 @@ import _ from "lodash"
 
 const fun_user_role_edit = async ({ body }: { body: any }) => {
 
-
-    const res = await fetch("/api/" + _.kebabCase(api_user_role_edit.name), {
+    const res = await fetch("/api/api_user_role_edit" , {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {

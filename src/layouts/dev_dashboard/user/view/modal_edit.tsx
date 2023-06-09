@@ -18,9 +18,9 @@ import { dev_dashboard_data_edit } from "../val/data_edit";
 import _ from "lodash";
 import { Editor } from "@tiptap/react";
 import { useShallowEffect } from "@mantine/hooks";
-import { user_role_get } from "../fun/user_role_get";
-import { user_update } from "../fun/user_update";
-import { user_get_all } from "../fun/user_get_all";
+import { user_role_get } from "../fun/fun_user_role_get";
+import { user_update } from "../fun/fun_user_update";
+import { user_get_all } from "../fun/fun_user_get_all";
 import { dev_dashboard_lsist_user } from "../val/list_user";
 
 /**
