@@ -36,7 +36,7 @@ const Testo = () => {
 
   async function onKirimData(isinya: string) {
     set(ref(fDb, `eagle_2/auth/qr/${isinya}`), {
-      id: "ini adalah idnya",
+      id: sUser.value!.id,
     });
   }
 

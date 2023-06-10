@@ -5,6 +5,7 @@ import {
   Flex,
   Grid,
   Group,
+  Image,
   List,
   MediaQuery,
   Paper,
@@ -16,20 +17,26 @@ import {
 import { ListItem } from "@mantine/core/lib/List/ListItem/ListItem";
 import { useShallowEffect } from "@mantine/hooks";
 import { onChildChanged, ref } from "firebase/database";
+import _ from "lodash";
 import { useState } from "react";
 import { MdSwapVerticalCircle } from "react-icons/md";
 import Iframe from "react-iframe";
 import QRCode from "react-qr-code";
 import { v4 } from "uuid";
+const id = v4();
 
 export default function Landing() {
-  const id = v4();
   const [user, setUser] = useState("");
 
   useShallowEffect(() => {
-    return onChildChanged(ref(fDb, `eagle_2/auth/qr/${id}`), (snapshot) => {
-      console.log(snapshot.val());
-      setUser(snapshot.val());
+    return onChildChanged(ref(fDb, `eagle_2/auth/`), (snapshot: any) => {
+      if (snapshot) {
+        const _list = _.keys(snapshot.val());
+        if (_list.includes(id)) {
+          setUser(snapshot.val()[id]);
+          console.log(snapshot.val()[id]);
+        }
+      }
     });
   }, []);
 
@@ -72,7 +79,7 @@ export default function Landing() {
                           value={id}
                           viewBox={`0 0 256 256`}
                         />
-                        <Text>{user}</Text>
+                        <Text>{JSON.stringify(user)}</Text>
                       </Box>
                     </Flex>
                   </MediaQuery>
@@ -83,12 +90,11 @@ export default function Landing() {
                     Tutorial
                   </Title>
                   <Text c={"black"}>Perlu Bantuan Untuk Pemula</Text>
-                  <Iframe
-                    url="https://www.youtube.com/watch?v=k09ip9Z6TCk"
-                    frameBorder={0}
-                    width="300"
-                    height="300"
-                    allowFullScreen
+                  <Image
+                    src={"https://ebi.ai/wp-content/uploads/2022/05/QR1-1.png"}
+                    width={300}
+                    height={300}
+                    alt={"apa"}
                   />
                 </Stack>
               </Paper>
