@@ -35,7 +35,10 @@ const Testo = () => {
   };
 
   async function onKirimData(isinya: string) {
-    set(ref(fDb, `eagle_2/auth/qr/${isinya}`), sUser.value);
+    await set(ref(fDb, `eagle_2/auth/qr/${isinya}`), sUser.value);
+    setopen(false);
+    router.reload();
+    toast("Login Success");
   }
 
   return (
@@ -63,7 +66,6 @@ const Testo = () => {
                 if (result) {
                   setData(result.getText());
                   setLoginUser(result.getText());
-                  setopen(false);
                   onKirimData(result.getText());
                 }
 
