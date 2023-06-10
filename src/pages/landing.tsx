@@ -1,3 +1,4 @@
+import { fDb } from "@/lib/fbs";
 import {
   Box,
   Center,
@@ -13,12 +14,25 @@ import {
   Title,
 } from "@mantine/core";
 import { ListItem } from "@mantine/core/lib/List/ListItem/ListItem";
+import { useShallowEffect } from "@mantine/hooks";
+import { onChildChanged, ref } from "firebase/database";
+import { useState } from "react";
 import { MdSwapVerticalCircle } from "react-icons/md";
 import Iframe from "react-iframe";
 import QRCode from "react-qr-code";
 import { v4 } from "uuid";
 
 export default function Landing() {
+  const id = v4();
+  const [user, setUser] = useState("");
+
+  useShallowEffect(() => {
+    return onChildChanged(ref(fDb, `eagle_2/auth/qr/${id}`), (snapshot) => {
+      console.log(snapshot.val());
+      setUser(snapshot.val());
+    });
+  }, []);
+
   return (
     <>
       <Stack spacing={0}>
@@ -55,9 +69,10 @@ export default function Landing() {
                             maxWidth: "100%",
                             width: "100%",
                           }}
-                          value={v4()}
+                          value={id}
                           viewBox={`0 0 256 256`}
                         />
+                        <Text>{user}</Text>
                       </Box>
                     </Flex>
                   </MediaQuery>
