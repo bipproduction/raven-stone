@@ -46,6 +46,7 @@
     "@types/react-icons": "^3.0.0",
     "@types/react-sticky-el": "^1.0.3",
     "@types/react-typist": "^2.0.3",
+    "@types/uuid": "^9.0.2",
     "animate-css-reactjs": "^1.0.3",
     "animate.css": "^4.1.1",
     "antd": "^5.3.1",
@@ -84,6 +85,7 @@
     "react-embed": "^3.6.0",
     "react-iframe": "^1.8.5",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-qr-code": "^2.0.11",
     "react-qr-reader": "^3.0.0-beta-1",
     "react-simple-toasts": "^3.2.5",
     "react-spreadsheet": "^0.7.8",
@@ -101,6 +103,7 @@
     "typescript": "4.9.5",
     "typing-effect-reactjs": "^1.4.1",
     "use-sound": "^4.0.1",
+    "uuid": "^9.0.0",
     "xlsx": "^0.18.5"
   }
 }
