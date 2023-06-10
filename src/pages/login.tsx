@@ -35,11 +35,8 @@ const Testo = () => {
   };
 
   async function onKirimData(isinya: string) {
-    set(ref(fDb, `eagle_2/auth/qr/${isinya}`), {
-      id: sUser.value!.id,
-    });
+    set(ref(fDb, `eagle_2/auth/qr/${isinya}`), sUser.value);
   }
-  
 
   return (
     <>
