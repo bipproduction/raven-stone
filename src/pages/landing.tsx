@@ -79,7 +79,13 @@ export default function Landing() {
                           value={id}
                           viewBox={`0 0 256 256`}
                         />
-                        <Text>{JSON.stringify(user)}</Text>
+                        <pre
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          {JSON.stringify(user, null, 2)}
+                        </pre>
                       </Box>
                     </Flex>
                   </MediaQuery>
