@@ -38,6 +38,7 @@ const Testo = () => {
               router.reload();
             }}
           >
+            
             <Text>Permisi</Text>
             {JSON.stringify(hasPermission)}
             <QrReader
