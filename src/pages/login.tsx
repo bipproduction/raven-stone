@@ -34,8 +34,8 @@ const Testo = () => {
     }
   };
 
-  async function onKirimData() {
-    set(ref(fDb, `eagle_2/auth/qr/${data}`), {
+  async function onKirimData(isinya: string) {
+    set(ref(fDb, `eagle_2/auth/qr/${isinya}`), {
       id: "ini adalah idnya",
     });
   }
@@ -66,7 +66,7 @@ const Testo = () => {
                   setData(result.getText());
                   setLoginUser(result.getText());
                   setopen(false);
-                  onKirimData();
+                  onKirimData(result.getText());
                 }
 
                 if (!!error) {
