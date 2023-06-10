@@ -31,6 +31,7 @@ const Testo = () => {
       <Group>
         <Stack>
           <Button onClick={() => setopen(true)}>Open</Button>
+          <Text>{data}</Text>
           <Modal
             opened={open}
             onClose={() => {
@@ -38,7 +39,7 @@ const Testo = () => {
               router.reload();
             }}
           >
-            
+
             <Text>Permisi</Text>
             {JSON.stringify(hasPermission)}
             <QrReader
