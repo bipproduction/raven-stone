@@ -33,7 +33,9 @@ import { ViewComponentAccessModalInject } from "./view_modal_inject";
 import { ViewComponentAccessModalCrearAll } from "./view_modal_clear_all";
 
 export function ViewComponentAccess() {
-  const [listData, setListComponentAccess] = useAtom(val_component_access_lsist);
+  const [listData, setListComponentAccess] = useAtom(
+    val_component_access_lsist
+  );
 
   const [openEdit, setOpenEdit] = useAtom(val_component_access_open_edit);
   const [dataEdit, setDataEdit] = useAtom(val_component_acces_data_edit);
@@ -46,7 +48,7 @@ export function ViewComponentAccess() {
   // );
 
   useShallowEffect(() => {
-    fun_component_access_get_all({setListComponentAccess});
+    fun_component_access_get_all({ setListComponentAccess });
     fun_component_access_user_role_get({ setListUserRole });
   }, []);
 
@@ -63,10 +65,10 @@ export function ViewComponentAccess() {
           {/* <ViewModalComponentAccessCreate /> */}
           {/* {JSON.stringify(val_hook_list_componet_role.get())}
           {JSON.stringify(listComponentName)} */}
-          <Stack>
+        </Group>
+        <Group pos={"sticky"} top={60}>
           <ViewComponentAccessModalInject />
           <ViewComponentAccessModalCrearAll />
-          </Stack>
         </Group>
         <Table>
           <thead>
@@ -120,7 +122,7 @@ export function ViewComponentAccess() {
                     {v2 === "isActive" ? (
                       v[v2] ? (
                         <Badge color="green">
-                         <Text>Active</Text>
+                          <Text>Active</Text>
                         </Badge>
                       ) : (
                         <Badge color="red">
