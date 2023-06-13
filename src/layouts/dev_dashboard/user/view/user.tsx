@@ -62,14 +62,20 @@ export function DevDashboardUser() {
               overflow: "scroll",
             }}
           >
-            <Box w={"100%"} sx={{ overflow: "scroll" }}>
+            <Box sx={{ overflow: "scroll" }} pos={"relative"}>
               <Table>
                 <thead>
                   <tr>
                     <th>{""}</th>
                     <th>No</th>
                     {_.keys(_.omit(listUser[0], ["id"])).map((v, i) => (
-                      <th key={i}>{v === "userRoleId" ? "User Role" : v === "isActive"? "Status": v}</th>
+                      <th key={i}>
+                        {v === "userRoleId"
+                          ? "User Role"
+                          : v === "isActive"
+                          ? "Status"
+                          : v}
+                      </th>
                     ))}
                   </tr>
                 </thead>

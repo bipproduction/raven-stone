@@ -20,6 +20,7 @@ export function ViewComponentAccessModalCrearAll() {
   return (
     <>
       <Button
+        compact
         onClick={() => {
           setOpen(true);
         }}
