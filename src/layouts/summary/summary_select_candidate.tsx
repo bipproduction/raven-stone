@@ -89,10 +89,10 @@ const SummarySelectCandidate = () => {
       <Group position="apart" py={"lg"}>
         <Paper p={"md"}
           // bg={stylesRadial.in_cyan_dark} 
-          shadow={"md"} w={300}>
+          shadow={"md"} w={400}>
           <Stack>
             {/* {JSON.stringify(prosentase)} */}
-            <Flex>
+            <Flex align={"center"} justify={"center"}>
               {[
                 sCandidate.value.find((v) => v.id == 1),
                 sCandidate.value.find((v) => v.id == 2),
@@ -130,7 +130,7 @@ const SummarySelectCandidate = () => {
             </Flex>
             <Flex justify="center" align={"center"} >
               <Title align="center"
-                // color={"white"} 
+
                 order={3}>
                 {_.upperCase(
                   sCandidate.value.find(
@@ -138,11 +138,12 @@ const SummarySelectCandidate = () => {
                   )?.name
                 )}
               </Title>
-              {/* <SummaryHoverInfo text="klik untuk melihat data kandidat" /> */}
+
             </Flex>
-            <Flex py={"md"} justify={"space-between"}>
+            <Flex py={"md"} justify={"space-between"} gap={"sm"}>
+
               <Paper
-                w={70}
+                w={100}
                 radius={100}
                 bg={"green"}
                 sx={{
@@ -158,7 +159,7 @@ const SummarySelectCandidate = () => {
                 </Center>
               </Paper>
               <Paper
-                w={70}
+                w={100}
                 radius={100}
                 bg={"gray"}
                 sx={{
@@ -174,7 +175,7 @@ const SummarySelectCandidate = () => {
                 </Center>
               </Paper>
               <Paper
-                w={70}
+                w={100}
                 radius={100}
                 bg={"red"}
                 sx={{
@@ -183,7 +184,6 @@ const SummarySelectCandidate = () => {
               >
                 <Center>
                   <Text
-                    // c={"white"} 
                     fw={"bold"}>
                     {prosentase.negative} %
                   </Text>
