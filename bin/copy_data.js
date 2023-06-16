@@ -19,7 +19,7 @@ async function copy_data() {
         }
     })
 
-    console.log("ambil data ...")
+    console.log("ambil data dataByContent ...")
     const data = copyData.map(item => ({
         ..._.omit(item, ["id"]),
         date: new Date(sekarang)
@@ -32,8 +32,32 @@ async function copy_data() {
         }
     })
 
+    console.log("simpan data Winning Rate ...")
+    const dataWinningRate = await client.v3NationWideRating.findMany({
+        where: {
+            date: new Date(kemarin)
+        }
+    })
+
+    console.log("hapus data winning rate tanggal sekarang jika ada ...")
+    const resultDataWinningrate = dataWinningRate.map(item => ({
+        ..._.omit(item, ["id"]),
+        date: new Date(sekarang)
+    }))
+
+    console.log("hapus data winning rate ...")
+    await client.v3NationWideRating.deleteMany({
+        where: {
+            date: new Date(sekarang)
+        }
+    })
+
+    console.log("simpan data winning rate ...")
+    await client.v3NationWideRating.createMany({ data: resultDataWinningrate })
+
     console.log("memasukkan data dari tanggal kemarin ke tanggal sekarang!".yellow)
     await client.dataByContent.createMany({ data })
+    
     console.log("SUCCESS!".cyan)
     console.log(moment().format('YYYY-MM-DD'))
 }
