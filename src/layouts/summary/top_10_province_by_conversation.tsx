@@ -74,8 +74,9 @@ const Top10ProvinceByConversation = () => {
             />
           </Group>
           <Stack>
-            <Table verticalSpacing={"md"} 
-            // bg={stylesGradient1}
+            <Table
+              verticalSpacing={"md"}
+              // bg={stylesGradient1}
             >
               <thead>
                 <tr>
@@ -107,23 +108,28 @@ const Top10ProvinceByConversation = () => {
                 {sTop10ProvinceTake.value.map((v: any, i) => (
                   <tr key={i}>
                     <td style={{ padding: 0 }}>
-                      <Paper 
-                      // bg={"white"}
-                       p={"xs"}>
-                        <Text fw={"bold"} 
-                        // color={"gray"}
+                      <Paper
+                        // bg={"white"}
+                        p={"xs"}
+                      >
+                        <Text
+                          fw={"bold"}
+                          // color={"gray"}
                         >
                           {v.no}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper 
-                      // bg={"white"}
-                       p={"xs"}>
+                      <Paper
+                        // bg={"white"}
+                        p={"xs"}
+                      >
                         <Tooltip label={v.name}>
-                          <Text lineClamp={1} fw={"bold"} 
-                          // color={"gray"}
+                          <Text
+                            lineClamp={1}
+                            fw={"bold"}
+                            // color={"gray"}
                           >
                             {v.name}
                           </Text>
@@ -131,22 +137,19 @@ const Top10ProvinceByConversation = () => {
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper 
-                      // bg={"white"} 
-                      p={"xs"}>
-                        <Text fw={"bold"} 
-                        // color={"gray"}
-                        >
+                      <Paper radius={0} p={"xs"}>
+                        <Text fw={"bold"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.total)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper
-                      //  bg={"white"}
-                        p={"xs"}>
-                        <Text fw={"bold"} 
-                        // color={"gray"}
+                      <Paper radius={0} p={"xs"}>
+                        <Text
+                          fw={"bold"}
+                          sx={{
+                            textAlign: "right",
+                          }}
                         >
                           {Intl.NumberFormat("id-ID").format(
                             _.sum([
@@ -164,98 +167,61 @@ const Top10ProvinceByConversation = () => {
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"green.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"green.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.trust)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"green.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"green.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.joy)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"green.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"green.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.surprise)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"gray.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"gray.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.anticipation)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.sadness)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.fear)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.anger)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"}>
-                        <Text fw={"bold"} color={"gray"}>
+                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={"gray"} align="right">
                           {Intl.NumberFormat("id-ID").format(v.disgust)}
                         </Text>
                       </Paper>
                     </td>
-                    {/* {Object.keys(_.omit(v, "id")).map((v2, ii) => (
-                      <td
-                        style={{
-                          backgroundColor: [
-                            "trust",
-                            "joy",
-                            "surprise",
-                          ].includes(v2)
-                            ? "#8BD4A0"
-                            : v2 === "anticipation"
-                            ? "#BFBFBF"
-                            : ["sadness", "fear", "anger", "disgust"].includes(
-                                v2
-                              )
-                            ? "#D48B8B"
-                            : "",
-                        }}
-                        key={ii}
-                      >
-                        <Box>
-                          <Text
-                            fw={"bold"}
-                            color={
-                              v2 != "no" && v2 != "name" && v2 != "value"
-                                ? "white"
-                                : ""
-                            }
-                          >
-                            {_.isNaN(Number(v[v2]))
-                              ? v[v2]
-                              : Intl.NumberFormat("id-ID").format(
-                                  Number(v[v2])
-                                )}
-                          </Text>
-                        </Box>
-                      </td>
-                    ))} */}
                   </tr>
                 ))}
               </tbody>
