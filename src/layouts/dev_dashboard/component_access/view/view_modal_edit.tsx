@@ -27,6 +27,7 @@ import { fun_componen_access_upsert } from "../fun/fun_upsert";
 import { fun_global_component_access_role_get } from "@/global/fun/fun_component_access_role_get";
 import { val_global_component_access_user_role } from "@/global/val/val_list_user_role";
 
+
 export function ViewModalComponentAccessEdit() {
   const [open, setOpen] = useAtom(val_component_access_open_edit);
   const [dataEdit, setDataEdit] = useAtom(val_component_acces_data_edit);
@@ -86,6 +87,7 @@ export function ViewModalComponentAccessEdit() {
             />
             <Text>Is Active</Text>
           </Group>
+          {/* {JSON.stringify(dataEdit)} */}
           <MultiSelect
             label={"role"}
             value={
