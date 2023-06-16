@@ -223,12 +223,12 @@ const listView = [
         view: () => <EmotionViewProvinceCoupleV2 />,
         icon: MdJoinLeft,
       },
-      {
-        id: 5,
-        name: "Contextual Content",
-        view: () => <ContextualContent />,
-        icon: MdStackedBarChart,
-      },
+      // {
+      //   id: 5,
+      //   name: "Contextual Content",
+      //   view: () => <ContextualContent />,
+      //   icon: MdStackedBarChart,
+      // },
     ],
   },
 ];

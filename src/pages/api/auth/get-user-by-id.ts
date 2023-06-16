@@ -9,6 +9,7 @@ const getUserById = async (req: NextApiRequest, res: NextApiResponse) => {
 
         },
         select: {
+            id: true,
             name: true,
             userRoleId: true,
             isActive: true
