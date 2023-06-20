@@ -18,6 +18,7 @@ import { stylesGradient1 } from "@/styles/styles_gradient_1";
 import { SummaryTrenSentiment } from "./summary_tren_sentiment";
 import { Top5WinningRate } from "./top_5_winning_rate";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
+import { sUser } from "@/s_state/s_user";
 
 const MainSummary = () => {
   return (
@@ -32,7 +33,7 @@ const MainSummary = () => {
                 <Image src={"/icon_robot.svg"} alt={"icon"} width={54} />
               </Box> */}
               <Stack p={"xs"} spacing={0}>
-                <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
+                <Title c={"cyan.4"}>{sUser.value?.name}</Title>
                 <Text>
                   Welcome to Prabowo Subianto for President 2024 - Digital
                   Intelligence Winning Program.
