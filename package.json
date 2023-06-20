@@ -107,6 +107,7 @@
     "typing-effect-reactjs": "^1.4.1",
     "use-sound": "^4.0.1",
     "uuid": "^9.0.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "yargs": "^17.7.2"
   }
 }
