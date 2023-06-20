@@ -31,6 +31,7 @@ import { atom } from "jotai";
 import { MapControllSelectCandidate } from "../map_controll_select_candidate";
 import { api } from "@/lib/api";
 import { fun_check_copy_data_count } from "../fun/fun_check_copy_data_count";
+import { funUserLogWrite } from "@/layouts/dev_dashboard/user_log/fun/fun_write";
 
 // const sSelectedCopyCandidate = signal("");
 const l_isLoading = signal(false);
@@ -89,6 +90,11 @@ export function MapControllCopyData() {
       }
 
       return toast("data gagal di copy");
+    });
+
+    funUserLogWrite({
+      title: "copy data",
+      detail: "copy data",
     });
   }
 

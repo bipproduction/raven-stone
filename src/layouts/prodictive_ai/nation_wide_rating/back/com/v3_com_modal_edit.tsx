@@ -19,6 +19,7 @@ import toast from "react-simple-toasts";
 import { v3_fun_check_data_candidate } from "../fun/v3_fun_check_data_candidate";
 import { v3_val_list_data_candidate } from "../val/v3_val_list_data_candidate";
 import { v3_selected_date } from "../val/v3_val_selected_date";
+import { funUserLogWrite } from "@/layouts/dev_dashboard/user_log/fun/fun_write";
 
 export function V3ModalEdit() {
   const [openModal, setOpenModal] = useAtom(v3_val_open_modal_edit);
@@ -60,6 +61,11 @@ export function V3ModalEdit() {
           <V3ComTextEditor
             content=""
             onClick={() => {
+              funUserLogWrite({
+                title: "nation wide rating edit",
+                detail: "v3_com_modal_edit.tsx",
+              });
+              
               fetch(api.apiV3NationWideRatingDataUpdate, {
                 method: "POST",
                 body: JSON.stringify(dataEdit),

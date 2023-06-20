@@ -11,6 +11,7 @@ import { useDisclosure, useInputState } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
 import toast from "react-simple-toasts";
+import { funUserLogWrite } from "../dev_dashboard/user_log/fun/fun_write";
 
 const InjectData = () => {
   const [open, setOpen] = useDisclosure(false);
@@ -18,6 +19,7 @@ const InjectData = () => {
   const [isLoading, setisLoading] = useState(false);
 
   const onProccess = async () => {
+
     setisLoading(true);
     if (dataNya === undefined || !_.isArray(dataNya))
       return toast("data error");
@@ -38,6 +40,11 @@ const InjectData = () => {
         toast(`data server error: ${res.status}`);
       }
     });
+
+    funUserLogWrite({
+      title: "inject data",
+      detail: "indect data"
+    })
   };
 
   const onLoadData = () => {

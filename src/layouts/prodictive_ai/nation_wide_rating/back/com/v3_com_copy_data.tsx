@@ -8,6 +8,7 @@ import moment from "moment";
 import _ from "lodash";
 import toast from "react-simple-toasts";
 import { api } from "@/lib/api";
+import { funUserLogWrite } from "@/layouts/dev_dashboard/user_log/fun/fun_write";
 
 export function V3CopyData() {
   const [open, setOpen] = useAtom(v3_val_open_copy_data);
@@ -29,6 +30,11 @@ export function V3CopyData() {
             <DatePicker
               value={copyData.from}
               onChange={(val) => {
+                funUserLogWrite({
+                  title: "nation wide rating copy data",
+                  detail: "v3_com_copy_data.tsx",
+                });
+
                 v3_fun_data_chack_availble({
                   date: moment(val).format("YYYY-MM-DD"),
                 }).then((res) => {
@@ -83,7 +89,9 @@ export function V3CopyData() {
             {copyData.to && (
               <Button
                 onClick={() => {
-                  fetch(`${api.apiV3NationWideRatingDataCopy}?from=${copyData.from}&to=${copyData.to}`).then((res) => {
+                  fetch(
+                    `${api.apiV3NationWideRatingDataCopy}?from=${copyData.from}&to=${copyData.to}`
+                  ).then((res) => {
                     if (res.status != 201) {
                       return toast("error");
                     }

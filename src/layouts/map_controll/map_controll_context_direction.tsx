@@ -16,6 +16,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import toast from "react-simple-toasts";
+import { funUserLogWrite } from "../dev_dashboard/user_log/fun/fun_write";
 
 const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
   const hasilEdit = signal<any[]>([]);
@@ -42,6 +43,11 @@ const MapControllContextDirection = ({ dataKab }: { dataKab: any }) => {
         funcLoadCityContextDirection();
       }
     });
+
+    funUserLogWrite({
+      title: "save context direction",
+      detail: "map_controll_context_direction.tsx"
+    })
   };
   return (
     <>
