@@ -19,6 +19,7 @@ import { useState } from "react";
 import { MdDownload, MdThumbDown } from "react-icons/md";
 import { mc_list_candidate_count } from "./map_controll_state";
 import { _fun_mc_load_data } from "./map_controll_fun";
+import { funUserLogWrite } from "../dev_dashboard/user_log/fun/fun_write";
 
 const _openModal = atomWithStorage(
   "map_controll_download_emotion_modal",
@@ -69,6 +70,10 @@ export function MapControllEmotionDownload() {
                       onClick={() => {
                         setSelectedId(v.id);
                         setOpen(true);
+                        funUserLogWrite({
+                          title: "Download emotion",
+                          detail: "map_controll_emotion_download.tsx"
+                        })
                       }}
                     >
                       <MdDownload size={32} color="green" />

@@ -72,6 +72,7 @@ import MapControllDownloadContent from "./map_controll_download_content";
 import Link from "next/link";
 import MapControllInjectData from "./component/map_controll_inject_data";
 import { MapControllEmotionDownload } from "./map_controll_emotion_download";
+import { funUserLogWrite } from "../dev_dashboard/user_log/fun/fun_write";
 
 const colors = {
   green: "#bbe4b3",
@@ -83,7 +84,7 @@ const colors = {
 const listTable = signal<any[]>([]);
 const currentPage = signal<number>(1);
 var perPage = 15;
-var awal=0;
+var awal = 0;
 
 const SelectCandidate = () => {
   //   useShallowEffect(() => {
@@ -152,7 +153,7 @@ function onPageChange(val: number) {
   const first = (val - 1) * perPage;
   const end = val * perPage;
   const listData = listKab.slice(first, end);
-  awal=first;
+  awal = first;
 
   // setlistTable(listData);
   listTable.value = listData;
@@ -659,6 +660,12 @@ function EditorActionView() {
     toast("sussess");
     // setListSelectedEmotion(listHasilnya);
     await funLoadMapData();
+
+    // user log
+    funUserLogWrite({
+      title: "EMOTION EDITOR",
+      detail: "Save Data EMOTION EDITOR",
+    });
   }
   return (
     <>

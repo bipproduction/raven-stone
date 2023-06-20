@@ -9,6 +9,7 @@ import { useAtom } from "jotai";
 import { v3_selected_date } from "../val/v3_val_selected_date";
 import { v3_fun_check_data_candidate } from "../fun/v3_fun_check_data_candidate";
 import { v3_val_list_data_candidate } from "../val/v3_val_list_data_candidate";
+import { funUserLogWrite } from "@/layouts/dev_dashboard/user_log/fun/fun_write";
 
 export function V3ComReplaceCsv() {
   const [isLoading, setIsloading] = useState(false);
@@ -20,6 +21,12 @@ export function V3ComReplaceCsv() {
       <Card w={150} h={120}>
         <Dropzone
           onDrop={(files) => {
+
+            funUserLogWrite({
+              title: "nation wide rating replace",
+              detail: "v3_com_replace_csv.tsx"
+            })
+            
             setIsloading(true);
             const file = files[0];
             if (!file.name.includes("nation-wide-rating")) {
