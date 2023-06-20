@@ -28,6 +28,7 @@ import {
 import toast from "react-simple-toasts";
 import { _fun_mc_load_data } from "../map_controll_fun";
 import { fun_check_copy_data_count } from "../fun/fun_check_copy_data_count";
+import { funUserLogWrite } from "@/layouts/dev_dashboard/user_log/fun/fun_write";
 
 const openModal = atomWithStorage("map_controll_inject_data_modal", false);
 const _list_data = atomWithStorage<any[] | undefined>(
@@ -171,6 +172,11 @@ function TableView() {
 
       setLoading(false);
       return toast("error");
+    });
+
+    funUserLogWrite({
+      title: "update data",
+      detail: "map_controll_indect_data",
     });
   }
 

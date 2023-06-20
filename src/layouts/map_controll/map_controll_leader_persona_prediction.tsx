@@ -30,6 +30,7 @@ import _ from "lodash";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import toast from "react-simple-toasts";
+import { funUserLogWrite } from "../dev_dashboard/user_log/fun/fun_write";
 
 const listTemplate = [
   { title: "Pekerja Keras", value: 0 },
@@ -98,6 +99,11 @@ const MapControllLeaderPersonaPrediction = () => {
     // formData.insertListItem("data", data);
     listData.value.push(data);
     listData.value = [...listData.value];
+
+    funUserLogWrite({
+      title: "leader persona add word",
+      detail: "map_controll_leader_persona_prediction.tsx"
+    })
   };
 
   const onSave = async () => {
@@ -120,12 +126,22 @@ const MapControllLeaderPersonaPrediction = () => {
         toast("success");
       }
     });
+
+    funUserLogWrite({
+      title: "leader persona save",
+      detail: "map_controll_leader_persona_prediction.tsx"
+    })
   };
 
   const onDeleteItem = (item: number) => {
     // formData.removeListItem("data", item);
     listData.value.splice(item, 1);
     listData.value = [...listData.value];
+
+    funUserLogWrite({
+      title: "leader persona delete word",
+      detail: "map_controll_leader_persona_prediction.tsx"
+    })
   };
   return <ContentView />;
 
