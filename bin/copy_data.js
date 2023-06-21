@@ -1,10 +1,11 @@
 // /Users/bip/.nvm/versions/node/v18.16.0/bin/node
-var CronJob = require('cron').CronJob;
+
 const { PrismaClient } = require("@prisma/client")
 const client = new PrismaClient()
 const _ = require("lodash");
 const moment = require("moment");
 require("colors")
+const fetch = require('node-fetch2')
 
 // 04 15 * * * /Users/bip/Documents/projects/bip/eagle-v2/bin/copy_data.js >> /Users/bip/Documents/projects/bip/eagle-v2/bin/copy_data.log
 // /var/mail/bip
@@ -57,18 +58,18 @@ async function copy_data() {
 
     console.log("memasukkan data dari tanggal kemarin ke tanggal sekarang!".yellow)
     await client.dataByContent.createMany({ data })
-    
+
     console.log("SUCCESS!".cyan)
     console.log(moment().format('YYYY-MM-DD'))
+
+    await fetch(`https://wa-server.makurostudio.my.id/kirim?number=6289697338821&text=copy data ${moment().format('YYYY-MM-DD')} completed`).then(() => {
+        console.log("kirim ke malik success")
+    })
+
+    await fetch(`https://wa-server.makurostudio.my.id/kirim?number=628980185458&text=copy data ${moment().format('YYYY-MM-DD')} completed`).then(() => {
+        console.log("kirim ke dwi success")
+    })
 }
 
-var job = new CronJob(
-    '1 0 * * *',
-    function () {
-        copy_data()
-    },
-    null,
-    true
-);
 
-job.start();
+module.exports = { copy_data }
