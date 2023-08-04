@@ -392,7 +392,7 @@ const Dashboard = (props: any) => {
       </AppShell>
 
 
-      <Overlay pos={"fixed"} h={"100%"} w={"100%"} blur={4} display={sUser.value!.name === "fami" ? "block" : "none"} >
+      <Overlay pos={"fixed"} h={"100%"} w={"100%"} blur={4} display={sUser.value!.name === "fami" ? "none" : "block"} >
         <Center h={"100vh"}>
           <Paper p={"md"} bg={"yellow.0"} >
             <Stack justify="center" align="center">
