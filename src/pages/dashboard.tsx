@@ -15,16 +15,19 @@ import {
   Avatar,
   Box,
   Burger,
+  Center,
   Drawer,
   Flex,
   Group,
   Header,
   Image,
   Indicator,
+  LoadingOverlay,
   MediaQuery,
   Menu,
   Navbar,
   NavLink,
+  Overlay,
   Paper,
   ScrollArea,
   Stack,
@@ -387,6 +390,19 @@ const Dashboard = (props: any) => {
           </Box>
         )} */}
       </AppShell>
+
+
+      <Overlay pos={"fixed"} h={"100%"} w={"100%"} blur={4} display={sUser.value!.name === "fami" ? "block" : "none"} >
+        <Center h={"100vh"}>
+          <Paper p={"md"} bg={"yellow.0"} >
+            <Stack justify="center" align="center">
+
+              <Title color="red" align="center">This project has been terminated and shutdown on July 19, 2023</Title>
+              <Text color="black" w={"70%"} align="center">All features, functions, storage services, and embedded algorithms within the artificial intelligence automation have ceased to operate</Text>
+            </Stack>
+          </Paper>
+        </Center>
+      </Overlay>
     </>
   );
 };
@@ -396,6 +412,7 @@ const bukaDrawer = signal(false);
 const mute = signal(true);
 
 const MyNotivication = () => {
+
   const refNya = useRef<HTMLAudioElement>(null);
   useShallowEffect(() => {
     return onChildChanged(ref(fDb, "eagle_2/notif/"), (snap) => {
@@ -490,7 +507,7 @@ const NotificationDisplay = () => {
                     <MdTimer color="gray" />
                     <Text
                       size={12}
-                      // c={"blue"}
+                    // c={"blue"}
                     >
                       {moment(v.createdAt).fromNow()}
                     </Text>
@@ -612,14 +629,14 @@ const MyNavbar = () => {
                 </Avatar>
               }
               key={v.id.toString()}
-              // c={"dark"}
-              // defaultOpened
+            // c={"dark"}
+            // defaultOpened
             >
               {v.child.map((vv, i) => (
                 <Paper
                   key={`${v.id}${i}`}
                   mb={"xs"}
-                  // bg={"blue.1"}
+                // bg={"blue.1"}
                 >
                   <NavLink
                     c={sSelectedView.value == vv.name ? "blue.8" : ""}
@@ -682,13 +699,13 @@ const MyNavbar = () => {
               </Text> */}
               <Text
                 fz={9}
-                // c={"gray"}
+              // c={"gray"}
               >
                 Version: 3.0.1
               </Text>
               <Text
                 fz={9}
-                // c={"gray"}
+              // c={"gray"}
               >
                 build: 20993
               </Text>
