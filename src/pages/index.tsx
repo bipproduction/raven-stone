@@ -1,15 +1,20 @@
-import Head from "next/head";
+import { Button, Center, Container, Image, Stack, Text } from "@mantine/core";
+import { useShallowEffect } from "@mantine/hooks";
 import { Inter } from "next/font/google";
-import MyMain from "@/layouts/my_main";
-import { Box, Button, Center, Container, Image, Stack, Text } from "@mantine/core";
-import { gradient } from "@/styles/gradient";
-import { Router, useRouter } from "next/router";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 // import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
+  const [strToken, setStrToken] = useState("")
+
+  useShallowEffect(() => {
+    fetch('/api/str-token').then(v => v.text()).then(v => setStrToken(v))
+  }, [])
   return (
     <>
       <Head>
@@ -18,13 +23,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container bg={"gray"}>
+      <Container bg={"#1F1F1F"}>
         {/* <MyMain /> */}
         <Center h={"100vh"}>
           <Stack>
-            <Image src={'/logo-1.png'} alt={"logo"} />
+            <Image src={'https://str.wibudev.com/api/file/get/cllki3cuf00059uhkmaugrypc.png'} alt={"logo"} />
             <Text c={"white"} align="center">Bip Production</Text>
-            <Button onClick={() => router.replace("/dashboard")}>
+            {/* <Text>{strToken}</Text> */}
+            {/* <Image src={"https://str.wibudev.com/api/file/get/cllkhyumy00039uhkg4e428a3.png"} alt="apa" /> */}
+            <Button bg={"dark"} onClick={() => router.replace("/dashboard")}>
               Dashboard
             </Button>
           </Stack>
