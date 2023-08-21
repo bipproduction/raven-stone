@@ -84,11 +84,11 @@ const MyMain = () => {
   return (
     <>
       <Stack>
-        <BackgroundImage src="/bg-3.png">
+        <BackgroundImage src="https://str.wibudev.com/api/file/get/cllki3cuf00059uhkmaugrypc.png">
           <ScrollArea>
             <Center h={"100vh"}>
               <Stack justify={"center"}>
-                <Title c={"indigo"}>EAGLE EYE PROJECT</Title>
+                <Title c={"indigo"}>RAVEN STONE</Title>
                 <Paper p={"md"}>
                   <Stack>
                     <Title>LOGIN</Title>
