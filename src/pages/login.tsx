@@ -1,9 +1,8 @@
 import { fDb } from "@/lib/fbs";
 import { sUser } from "@/s_state/s_user";
 import { Button, Group, Modal, Stack, Text } from "@mantine/core";
-import { useDidUpdate, useShallowEffect } from "@mantine/hooks";
-import { Model } from "echarts";
-import { onChildChanged, onValue, ref, set } from "firebase/database";
+import { useDidUpdate } from "@mantine/hooks";
+import { ref, set } from "firebase/database";
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { useRouter } from "next/router";
