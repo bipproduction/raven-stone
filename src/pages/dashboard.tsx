@@ -2,8 +2,6 @@ import { funcLoadNationWideRating } from "@/fun_load/func_load_nation_wide_ratin
 // import { gUser } from "@/g_state/auth/g_user";
 // import { gSelectedView } from "@/g_state/g_selected_view";
 import MentionbyCategory from "@/layouts/media_listener/mention_by_category";
-import ContextualContent from "@/layouts/prodictive_ai/contextual_content";
-import EmotionalViewViaProvince from "@/layouts/prodictive_ai/emotional_view_via_province";
 import { api } from "@/lib/api";
 import { fDb } from "@/lib/fbs";
 import { sIsLocal } from "@/s_state/is_local";
@@ -15,17 +13,12 @@ import {
   Avatar,
   BackgroundImage,
   Box,
-  Burger,
   Center,
   Drawer,
   Flex,
   Group,
-  Header,
   Image,
   Indicator,
-  LoadingOverlay,
-  MediaQuery,
-  Menu,
   Navbar,
   NavLink,
   Overlay,
@@ -35,13 +28,15 @@ import {
   Text,
   Title,
   Tooltip,
-  useMantineTheme,
+  useMantineTheme
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 
 import { _is_dark_mode } from "@/g_state/atom_util_state";
+import { ViewGlobalAccessBlock } from "@/global/view/access_block";
 import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_couple/front/emotion_view_province_couple_v2";
+import { MainEmotionViewProvince } from "@/layouts/prodictive_ai/emotion_view_province/main_emotion_view_province";
 import { NationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/nation_wide_rating";
 import StepAnalisys from "@/layouts/step_and_swot/step_analisys";
 import SwotAnalisys from "@/layouts/step_and_swot/swot_analisys";
@@ -57,37 +52,27 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import {
-  MdAccountCircle,
-  MdArrowBackIos,
   MdArrowForwardIos,
   MdAssignment,
   MdBarChart,
   MdClose,
   MdDarkMode,
-  MdDelete,
   MdFace,
   MdFreeCancellation,
   MdGrading,
   MdGridView,
-  MdInfo,
   MdJoinLeft,
   MdLightMode,
-  MdMailOutline,
+  MdLogout,
   MdMessage,
   MdNotifications,
   MdNotificationsActive,
   MdOutlineStarBorderPurple500,
   MdOutlineStars,
-  MdRemove,
   MdSettings,
-  MdStackedBarChart,
   MdStorage,
-  MdTimer,
+  MdTimer
 } from "react-icons/md";
-import toast from "react-simple-toasts";
-import { MainEmotionViewProvince } from "@/layouts/prodictive_ai/emotion_view_province/main_emotion_view_province";
-import { ViewGlobalAccessBlock } from "@/global/view/access_block";
-import { IconUser, IconUserCircle } from "@tabler/icons-react";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 
 const listView = [
@@ -674,12 +659,20 @@ const MyNavbar = () => {
               icon={<MdSettings />}
               label={"setting"}
             >
-              <NavLink
+              {/* <NavLink
                 icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
                 label={isDarkMode ? "Light" : "Dark"}
                 onClick={() => setisDarkMode(!isDarkMode)}
-              />
+              /> */}
+              <NavLink
+                icon={<MdLogout />}
+                label="logout"
+                onClick={() => {
+                  localStorage.removeItem("user_id");
+                  sUser.value = {};
+                }} />
             </NavLink>
+
             {/* <Menu>
             <Menu.Target>
               <NavLink

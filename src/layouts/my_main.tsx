@@ -140,12 +140,12 @@ const MyMain = () => {
                 </Paper>
               </Stack>
             </Center>
-            <Flex pos={"absolute"} bottom={0} left={0} gap={"md"} p={"md"}>
+            {/* <Flex pos={"absolute"} bottom={0} left={0} gap={"md"} p={"md"}>
               <Text>Bip Production @2023</Text>
               <Text>Version: 2.0.1</Text>
               <Text>build: 10453</Text>
               <Link href={""}>Term Of Service</Link>
-            </Flex>
+            </Flex> */}
           </ScrollArea>
         </BackgroundImage>
       </Stack>
