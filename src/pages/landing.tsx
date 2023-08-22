@@ -1,36 +1,27 @@
 import { fDb } from "@/lib/fbs";
 import {
-  ActionIcon,
   Box,
   Button,
   Center,
   Flex,
-  Grid,
   Group,
   Image,
-  List,
-  LoadingOverlay,
   MediaQuery,
-  Overlay,
   Paper,
   Space,
   Stack,
   Text,
-  Title,
+  Title
 } from "@mantine/core";
-import { ListItem } from "@mantine/core/lib/List/ListItem/ListItem";
-import { useInterval, useShallowEffect, useTimeout } from "@mantine/hooks";
+import { useInterval, useShallowEffect } from "@mantine/hooks";
 import { onChildChanged, ref } from "firebase/database";
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import _ from "lodash";
-import { useState } from "react";
 import {
   MdAccountCircle,
-  MdSearch,
-  MdSwapVerticalCircle,
+  MdSwapVerticalCircle
 } from "react-icons/md";
-import Iframe from "react-iframe";
 import QRCode from "react-qr-code";
 import { v4 } from "uuid";
 // const id = v4();
