@@ -74,6 +74,7 @@ import {
   MdTimer
 } from "react-icons/md";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
+import translate from 'google-translate-api-x'
 
 const listView = [
   {

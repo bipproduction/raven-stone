@@ -62,7 +62,9 @@
     "eslint-config-next": "13.2.4",
     "firebase": "^9.18.0",
     "glob": "^9.3.0",
+    "google-translate-api-x": "^10.6.7",
     "html-react-parser": "^3.0.16",
+    "i18next": "^23.4.5",
     "ip": "^1.1.8",
     "jotai": "^2.1.0",
     "jquery": "^3.6.4",
@@ -70,7 +72,9 @@
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
     "next": "13.2.4",
+    "next-i18next": "^14.0.0",
     "next-pwa": "^5.6.0",
+    "next-translate": "^2.5.3",
     "node-fetch": "^3.3.1",
     "node-fetch2": "^1.6.3",
     "papaparse": "^5.4.1",
@@ -86,6 +90,7 @@
     "react-d3-cloud": "^1.0.6",
     "react-dom": "18.2.0",
     "react-embed": "^3.6.0",
+    "react-i18next": "^13.2.0",
     "react-iframe": "^1.8.5",
     "react-infinite-scroll-component": "^6.1.0",
     "react-qr-code": "^2.0.11",
@@ -109,5 +114,8 @@
     "uuid": "^9.0.0",
     "xlsx": "^0.18.5",
     "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "next-translate-plugin": "^2.5.3"
   }
 }
