@@ -1,25 +1,9 @@
+import { api } from "@/lib/api";
+import { sUser } from "@/s_state/s_user";
 import {
-  MdAllInbox,
-  MdBarChart,
-  MdChat,
-  MdGridView,
-  MdMessage,
-  MdSecurityUpdate,
-  MdSecurityUpdateGood,
-  MdShelves,
-  MdSystemSecurityUpdate,
-  MdVerifiedUser,
-  MdWifiProtectedSetup,
-} from "react-icons/md";
-import {} from "react-icons/fa";
-import toast from "react-simple-toasts";
-import {
-  ActionIcon,
   BackgroundImage,
-  Box,
   Button,
   Center,
-  Flex,
   Group,
   Paper,
   PasswordInput,
@@ -27,21 +11,24 @@ import {
   Stack,
   Text,
   TextInput,
-  Title,
-  Tooltip,
+  Title
 } from "@mantine/core";
+import { useInputState, useShallowEffect } from "@mantine/hooks";
 import { useState } from "react";
-import Summary from "./summary/summary_derecated";
+import { } from "react-icons/fa";
+import {
+  MdBarChart,
+  MdGridView,
+  MdMessage,
+  MdVerifiedUser
+} from "react-icons/md";
+import toast from "react-simple-toasts";
 import Medialistener from "./media_listener/media_listener";
 import PredictiveAi from "./prodictive_ai/prodictive_ai";
-import { gradient } from "@/styles/gradient";
-import Link from "next/link";
-import { useInputState } from "@mantine/hooks";
-import { api } from "@/lib/api";
-import { gIsUser } from "@/g_state/g_user_id";
-import { useHookstate } from "@hookstate/core";
-import { sUser } from "@/s_state/s_user";
+import Summary from "./summary/summary_derecated";
 // import { gUser } from "@/g_state/auth/g_user";
+import useTranslation from 'next-translate/useTranslation';
+import translate from 'google-translate-api-x'
 
 const listmenu = [
   {
@@ -80,7 +67,32 @@ const MyMain = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>("1");
   const [email, setEmail] = useInputState("");
   const [password, setPassword] = useInputState("");
-  // const user = useHookstate(gUser);
+  const { t, lang } = useTranslation();
+  const [dataTrans, setDataTrans] = useState("")
+
+  useShallowEffect(() => {
+    fetch('/api/translate', {
+      method: "POST",
+      body: JSON.stringify({
+        text: "ini adalah data yang harus di translate",
+        from: "id",
+        to: lang
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(async (res) => {
+      if (res.status == 201) {
+        const hasil = await res.json()
+        setDataTrans(hasil.text)
+        return
+      }
+
+      console.log("error translate my_main")
+    })
+  }, [])
+
+
   return (
     <>
       <Stack>
@@ -89,6 +101,7 @@ const MyMain = () => {
             <Center h={"100vh"}>
               <Stack justify={"center"}>
                 <Title c={"indigo"}>RAVEN STONE</Title>
+                {/* {dataTrans} */}
                 <Paper p={"md"}>
                   <Stack>
                     <Title>LOGIN</Title>
@@ -104,7 +117,7 @@ const MyMain = () => {
                     />
                     <Group>
                       <MdVerifiedUser color="green" />
-                      <Text color={"green"}>Secure Access</Text>
+                      <Text color={"green"}>{t('common:akses_aman')}</Text>
                     </Group>
                     <Button
                       bg={"indigo"}

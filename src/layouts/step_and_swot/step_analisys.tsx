@@ -112,6 +112,7 @@ export default function StepAnalisys() {
                                   datanya[_.random(0, datanya.length - 1)].data
                                 )}
                               </AIWriter> */}
+                              
                                 <TextAnimation
                                   key={Math.random()}
                                   phrases={[
@@ -151,6 +152,7 @@ export default function StepAnalisys() {
 
                           return (
                             <>
+
                               <ScrollArea
                                 p={"xs"}
                                 h={400}
