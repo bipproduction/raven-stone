@@ -1,4 +1,4 @@
-import { Button, Center, Container, Image, Stack, Text } from "@mantine/core";
+import { Button, Center, Container, Image, Loader, Stack, Text } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { Inter } from "next/font/google";
 import Head from "next/head";
@@ -17,8 +17,14 @@ export default function Home() {
   }, [])
 
   useShallowEffect(() => {
-    if (window) return router.replace("/dashboard")
+    if (window) {
+      setTimeout(() => {
+        return router.replace("/dashboard")
+      }, 100)
+    }
   }, [])
+
+  return <Center><Loader /></Center>
   return (
     <>
       <Head>
