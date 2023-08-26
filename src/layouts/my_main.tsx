@@ -28,7 +28,7 @@ import PredictiveAi from "./prodictive_ai/prodictive_ai";
 import Summary from "./summary/summary_derecated";
 // import { gUser } from "@/g_state/auth/g_user";
 import useTranslation from 'next-translate/useTranslation';
-import translate from 'google-translate-api-x'
+
 
 const listmenu = [
   {
@@ -102,6 +102,7 @@ const MyMain = () => {
               <Stack justify={"center"}>
                 <Title c={"indigo"}>RAVEN STONE</Title>
                 {/* {dataTrans} */}
+                {/* <Button>{t('common:simpan')}</Button> */}
                 <Paper p={"md"}>
                   <Stack>
                     <Title>LOGIN</Title>

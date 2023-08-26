@@ -15,6 +15,10 @@ export default function Home() {
   useShallowEffect(() => {
     fetch('/api/str-token').then(v => v.text()).then(v => setStrToken(v))
   }, [])
+
+  useShallowEffect(() => {
+    if (window) return router.replace("/dashboard")
+  }, [])
   return (
     <>
       <Head>
