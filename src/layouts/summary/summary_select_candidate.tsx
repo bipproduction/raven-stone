@@ -23,6 +23,7 @@ import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
 import { MdFace } from "react-icons/md";
+import useTranslate from 'next-translate/useTranslation'
 
 const SummarySelectCandidate = () => {
   const update = useForceUpdate();
@@ -84,6 +85,7 @@ const SummarySelectCandidate = () => {
       setProsentase(result);
     }
   }, [sTop10Province.value, prosentase]);
+  const { t, lang } = useTranslate()
   return (
     <>
       <Group position="apart" py={"lg"}>
@@ -192,14 +194,15 @@ const SummarySelectCandidate = () => {
             </Flex>
           </Stack>
           <Select
-            placeholder={sSelectedEmotion.value}
+            placeholder={t('common:' + _.lowerCase(sSelectedEmotion.value))}
             variant={"filled"}
             radius={100}
             searchable
             icon={<MdFace />}
             // label={"sort emotion"}
             data={sListEmotion.value.map((v) => ({
-              label: v.name,
+              // label: v.name,
+              label: t('common:' + _.lowerCase(v.name)),
               value: v.name,
             }))}
             onChange={async (val) => {

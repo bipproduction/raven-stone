@@ -4,6 +4,7 @@ import { Stack, Text } from "@mantine/core";
 import { FrontDetailKabupaten } from "./front/front_detail_kabupaten";
 import { useAtom } from "jotai";
 import { val_selected_menu_id } from "./front/val/val_selected_menu_id";
+import useTranslate from 'next-translate/useTranslation'
 
 const listMenu = [
   {
@@ -20,10 +21,11 @@ const listMenu = [
 
 export function MainEmotionViewProvince() {
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
+  const {t,lang} = useTranslate();
   return (
     <>
       <Stack spacing={"lg"}>
-        <PageTitle title={"Emotion View Province"} />
+        <PageTitle title={t('common:emotional_view_via_province')} />
         {(() => {
           const View = listMenu.find((v) => v.id === selectedMenu)!.view;
           return (

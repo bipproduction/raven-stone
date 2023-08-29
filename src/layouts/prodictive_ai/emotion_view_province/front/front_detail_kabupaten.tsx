@@ -27,6 +27,7 @@ import { ComChartKabupatenContextDirection } from "./com/com_chart_kabupaten_con
 import { ComChartKabupatenLeaderPersona } from "./com/com_chart_kabupaten_leader_persona";
 import { ComKabupatenWordCloud } from "./com/com_kabupaten_word_cloud";
 import { MdSearch } from "react-icons/md";
+import useTranslate from 'next-translate/useTranslation'
 
 export function FrontDetailKabupaten() {
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
@@ -38,6 +39,7 @@ export function FrontDetailKabupaten() {
   const [listProvince, setListProvince] = useState<any[]>([]);
   const [isLoading, setisLoading] = useState(false);
   const [search, setSearch] = useDebouncedState<string>("", 300);
+  const { t, lang } = useTranslate();
 
   useShallowEffect(() => {
     if (provinceId) {
@@ -79,7 +81,7 @@ export function FrontDetailKabupaten() {
                   setSearch(val.target.value);
                 }
               }}
-              placeholder="Search"
+              placeholder={t('common:search')}
               icon={<MdSearch />}
             />
             <CloseButton
@@ -126,7 +128,7 @@ export function FrontDetailKabupaten() {
                               v.City.CityValue[0].value
                             )}
                           </Title>
-                          <Text>LOCKED AUDIENCES</Text>
+                          <Text>{_.upperCase(t('common:locked_audience'))}</Text>
                         </Stack>
                         <Stack align="center">
                           <Title c={"green"}>
@@ -143,7 +145,7 @@ export function FrontDetailKabupaten() {
                               ])
                             )}
                           </Title>
-                          <Text>FILTERED AUDIENCE</Text>
+                          <Text>{_.upperCase(t('common:filtered_audience'))}</Text>
                         </Stack>
                       </Group>
                       <Box key={search} w={"100%"}>
@@ -154,7 +156,7 @@ export function FrontDetailKabupaten() {
                   <Stack key={search}>
                     <Card>
                       <Stack>
-                        <Title c={"blue"}>Context Direction</Title>
+                        <Title c={"blue"}>{t('common:context_direction')}</Title>
                         <ComChartKabupatenContextDirection
                           data={
                             v.City.CityContextDirection[0]
@@ -166,12 +168,12 @@ export function FrontDetailKabupaten() {
                     </Card>
                     <Card>
                       <Stack>
-                        <Title c={"cyan"}>Leader Persona Prediction</Title>
+                        <Title c={"cyan"}>{t('common:leader_persona_prediction')}</Title>
                         <ComChartKabupatenLeaderPersona
                           data={
                             v.City.CityLeaderPersonaPrediction[0]
                               ? v.City.CityLeaderPersonaPrediction[0].data
-                                  .content
+                                .content
                               : []
                           }
                         />

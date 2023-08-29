@@ -24,6 +24,8 @@ import { useState } from "react";
 import toast from "react-simple-toasts";
 import { v3_fun_load_chart_data } from "../../fun/v3_fun_load_chart_data";
 import { v3_val_data_line_chart } from "../../val/v3_val_data_line_chart";
+import useTranslate from 'next-translate/useTranslation'
+
 
 type DataChart = {
   trust: string;
@@ -240,6 +242,8 @@ export function V3ComNationWideRatingLineChart() {
     });
   }, []);
 
+  const { t, lang } = useTranslate();
+
   return (
     <>
       <Paper
@@ -270,7 +274,7 @@ export function V3ComNationWideRatingLineChart() {
                   });
                 }}
               >
-                week
+                {t('common:week')}
               </Button>
               <Button
                 bg={"blue"}
@@ -288,11 +292,11 @@ export function V3ComNationWideRatingLineChart() {
                   });
                 }}
               >
-                month
+                {t('common:month')}
               </Button>
               <HoverCard>
                 <HoverCard.Target>
-                  <Button bg="orange">Custom</Button>
+                  <Button bg="orange">{t('common:custom')}</Button>
                 </HoverCard.Target>
                 <HoverCard.Dropdown>
                   <Stack>

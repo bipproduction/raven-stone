@@ -39,6 +39,7 @@ import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { api } from "@/lib/api";
 // let pag = 1;
+import useTranslate from 'next-translate/useTranslation'
 
 export default function EmotionViewProvinceCoupleV2() {
   //   const [listEmotion, setListEmotion] = useAtom(
@@ -60,6 +61,7 @@ export default function EmotionViewProvinceCoupleV2() {
   const [listEmotion, setListEmotion] = useState<any[] | undefined>();
   const [count, setCount] = useState(0);
   const [hasMore, setHasmore] = useState(true);
+  const { t, lang } = useTranslate();
 
   useShallowEffect(() => {
     loadData();
@@ -68,7 +70,7 @@ export default function EmotionViewProvinceCoupleV2() {
   async function loadData() {
     fetch(
       api.apiPredictiveAiEmotionViewProvinceCoupleV2Get +
-        `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
+      `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
     )
       .then((val) => val.json())
       .then((v) => {
@@ -113,7 +115,7 @@ export default function EmotionViewProvinceCoupleV2() {
   return (
     <>
       <Stack spacing="xl">
-        <PageTitle text="EMOTIONAL METERS BRAND MERGER SIMULATION" />
+        <PageTitle text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))} />
         {/* {JSON.stringify(listEmotion)} */}
         <Paper
           p="xs"
@@ -136,7 +138,7 @@ export default function EmotionViewProvinceCoupleV2() {
                   setSearch(val.target.value);
                 }
               }}
-              placeholder="Search"
+              placeholder={t('common:search')}
               radius={100}
               sx={stylesRadial}
               icon={<MdSearch />}
@@ -196,7 +198,7 @@ export default function EmotionViewProvinceCoupleV2() {
               }}
               radius={100}
             >
-              PROCCESS
+              {_.upperCase(t('common:process'))}
             </Button>
           </Group>
         </Paper>
@@ -204,7 +206,7 @@ export default function EmotionViewProvinceCoupleV2() {
           <Paper
             p={"xs"}
             shadow={"md"}
-            // bg={stylesRadial.out_cyan}
+          // bg={stylesRadial.out_cyan}
           >
             <Stack w={200} align="center">
               <Image
@@ -224,7 +226,7 @@ export default function EmotionViewProvinceCoupleV2() {
           <Paper
             p={"xs"}
             shadow={"md"}
-            // bg={stylesRadial.out_blue}
+          // bg={stylesRadial.out_blue}
           >
             <Stack w={200} align="center">
               <Image
@@ -255,7 +257,7 @@ export default function EmotionViewProvinceCoupleV2() {
           dataLength={listEmotion.length}
           next={loadMore}
           hasMore={hasMore}
-          // endMessage={<Center></Center>}
+        // endMessage={<Center></Center>}
         >
           <Flex justify={"center"} align={"center"} wrap={"wrap"}>
             {listEmotion &&
@@ -318,19 +320,21 @@ const EmotionItemChart = ({
   provinceName: string;
   no: number;
 }) => {
+  const { t, lang } = useTranslate();
   const option: EChartsOption = {
     radiusAxis: {},
     polar: {},
     angleAxis: {
       type: "category",
-      data: _.keys(lsData ?? []),
+      // data: _.keys(lsData ?? []),
+      data: !lsData ? [] : [t('common:trust'), t('common:joy'), t('common:surprise'), t('common:anticipation'), t('common:sadness'), t('common:fear'), t('common:anger'), t('common:disgust')],
       startAngle: 75,
     },
     tooltip: {
       show: true,
       formatter: (a: any, b: any) => {
         return `
-        <i>${_.upperCase(a.data.name)}</i>
+        <i>${_.upperCase(t('common:' + a.data.name))}</i>
         <h1>${a.value} %</h1>
         `;
       },
@@ -341,15 +345,15 @@ const EmotionItemChart = ({
         coordinateSystem: "polar",
         data: Object.keys(lsData ?? []).map(
           (v) =>
-            ({
-              name: v,
-              value: lsData[v],
-              itemStyle: {
-                color:
-                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
-              },
-            } as any)
+          ({
+            name: v,
+            value: lsData[v],
+            itemStyle: {
+              color:
+                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                  ?.color ?? "gray",
+            },
+          } as any)
         ),
         itemStyle: {
           shadowBlur: 20,

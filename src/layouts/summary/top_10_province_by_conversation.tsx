@@ -28,12 +28,15 @@ import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { sSelectedEmotion } from "@/s_state/s_selected_emotion";
 import { sSearchDistrict } from "@/s_state/s_search_district";
+import Trs from "@/fun_load/trs";
+import useTranslate from 'next-translate/useTranslation'
 
 // text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours"
 const Top10ProvinceByConversation = () => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
   const update = useForceUpdate();
+  const {t, lang} = useTranslate();
 
   // useShallowEffect(() => {
   //   if (!_.isEmpty(sTop10Province.value)) return;
@@ -59,7 +62,10 @@ const Top10ProvinceByConversation = () => {
             overflow: "scroll",
           }}
         >
-          <PageTitle title="Top 10 Province By Emotion" />
+          {/* <Trs text="Top 10 Province By Emotion" lang={lang}>
+            {(val:any)=><PageTitle title={val} />}
+          </Trs> */}
+          <PageTitle title={t('common:top_10_rating_by_emotions')} />
           <Group>
             <TextInput
               variant="filled"
@@ -70,7 +76,7 @@ const Top10ProvinceByConversation = () => {
                 update();
               }}
               icon={<MdSearch />}
-              placeholder="search"
+              placeholder={t('common:search')}
             />
           </Group>
           <Stack>
@@ -81,17 +87,17 @@ const Top10ProvinceByConversation = () => {
               <thead>
                 <tr>
                   <th>NO</th>
-                  <th>PROVINCE</th>
-                  <th>LOCKED AUDIENCE</th>
-                  <th>FILTERED AUDIENCE</th>
-                  <th>TRUST</th>
-                  <th>JOY</th>
-                  <th>SURPRISE</th>
-                  <th>ANTICIPATION</th>
-                  <th>SADNESS</th>
-                  <th>FEAR</th>
-                  <th>ANGER</th>
-                  <th>DISGUST</th>
+                  <th>{_.upperCase(t('common:province'))}</th>
+                  <th>{_.upperCase(t('common:locked_audience'))}</th>
+                  <th>{_.upperCase(t('common:filtered_audience'))}</th>
+                  <th>{_.upperCase(t('common:trust'))}</th>
+                  <th>{_.upperCase(t('common:joy'))}</th>
+                  <th>{_.upperCase(t('common:surprise'))}</th>
+                  <th>{_.upperCase(t('common:anticipation'))}</th>
+                  <th>{_.upperCase(t('common:sadness'))}</th>
+                  <th>{_.upperCase(t('common:fear'))}</th>
+                  <th>{_.upperCase(t('common:anger'))}</th>
+                  <th>{_.upperCase(t('common:disgust'))}</th>
 
                   {/* {Object.keys(_.omit(sTop10ProvinceTake.value[0], "id")).map(
                     (v, i) => (
