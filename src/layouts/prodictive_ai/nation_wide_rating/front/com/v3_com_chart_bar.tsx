@@ -6,9 +6,11 @@ import { useAtom } from "jotai";
 import _ from "lodash";
 import { v3_val_data_line_chart } from "../../val/v3_val_data_line_chart";
 import { v3_val_nation_wide_rating_list_data } from "../../val/v3_nation_wide_rating_list_data";
+import useTranslate from 'next-translate/useTranslation'
 
 export function V3ComChartBar() {
   const [listData, setListData] = useAtom(v3_val_nation_wide_rating_list_data);
+  const { t, lang } = useTranslate();
 
   const option: EChartsOption = {
     title: {
@@ -23,16 +25,16 @@ export function V3ComChartBar() {
     xAxis: {
       type: "category",
       data: [
-        "trust",
-        "joy",
-        "surprise",
-        "anticipation",
-        "sadness",
-        "fear",
-        "anger",
-        "disgust",
+        t('common:trust'),
+        t('common:joy'),
+        t('common:surprise'),
+        t('common:anticipation'),
+        t('common:sadness'),
+        t('common:fear'),
+        t('common:anger'),
+        t('common:disgust'),
       ],
-      
+
       axisLabel: {
         verticalAlign: "middle",
         rotate: 45,
@@ -63,31 +65,31 @@ export function V3ComChartBar() {
         data: !listData![0]
           ? []
           : (_.keys(
-              _.omit(listData![0], [
-                "id",
-                "candidate1Id",
-                "candidate2Id",
-                "updatedAt",
-                "createdAt",
-                "time",
-                "cityId",
-                "text",
-                "rate",
-                "date",
-              ])
-            )
-              .map((v) => ({
-                name: v,
-                value: listData![0][v],
-              }))
-              .map((v) => ({
-                value: v.value,
-                itemStyle: {
-                  color: listEmotionColor.find(
-                    (c) => _.lowerCase(c.name) == _.lowerCase(v.name)
-                  )?.color,
-                },
-              })) as any),
+            _.omit(listData![0], [
+              "id",
+              "candidate1Id",
+              "candidate2Id",
+              "updatedAt",
+              "createdAt",
+              "time",
+              "cityId",
+              "text",
+              "rate",
+              "date",
+            ])
+          )
+            .map((v) => ({
+              name: v,
+              value: listData![0][v],
+            }))
+            .map((v) => ({
+              value: v.value,
+              itemStyle: {
+                color: listEmotionColor.find(
+                  (c) => _.lowerCase(c.name) == _.lowerCase(v.name)
+                )?.color,
+              },
+            })) as any),
         type: "bar",
         showBackground: true,
         backgroundStyle: {

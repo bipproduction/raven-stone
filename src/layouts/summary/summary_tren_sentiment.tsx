@@ -13,6 +13,7 @@ import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import moment from "moment";
 import toast from "react-simple-toasts";
+import useTranslate from 'next-translate/useTranslation'
 
 const sDateStart = signal(moment(new Date("2023-03-16")).format("YYYY-MM-DD"));
 const sDateEnd = signal(moment(new Date()).format("YYYY-MM-DD"));
@@ -85,7 +86,7 @@ export function SummaryTrenSentiment() {
       }
     });
   }
-
+  const { t, lang } = useTranslate()
   return (
     <>
       <Stack w={"100%"}>
@@ -99,7 +100,7 @@ export function SummaryTrenSentiment() {
               w={150}
               variant="outline"
             >
-              1 Week
+              1 {t('common:week')}
             </Button>
             <Button
               bg={sSelectedDateType.value == "2" ? "indigo.1" : ""}
@@ -108,7 +109,7 @@ export function SummaryTrenSentiment() {
               w={150}
               variant="outline"
             >
-              1 Month
+              1 {t('common:month')}
             </Button>
             <Menu opened={sShowPopDate.value}>
               <Menu.Target>
@@ -119,12 +120,12 @@ export function SummaryTrenSentiment() {
                   variant="outline"
                   onClick={() => (sShowPopDate.value = true)}
                 >
-                  Custom
+                  {t('common:custom')}
                 </Button>
               </Menu.Target>
               <Menu.Dropdown>
                 <Stack w={300} bg={stylesRadial.out_gray} p={"md"}>
-                  <Title order={3}>Custom</Title>
+                  <Title order={3}>{t('common:custom')}</Title>
                   <DatePicker
                     minDate={new Date("2023-03-16")}
                     maxDate={new Date()}
@@ -139,7 +140,7 @@ export function SummaryTrenSentiment() {
                         console.log(diferent);
                         if (diferent < 8)
                           return toast(
-                            "please select date more than 7 days, or user 1 week option button"
+                            t('common:select_7_days')
                           );
                         sDateStart.value = moment(v[0]).format("YYYY-MM-DD");
                         sDateEnd.value = moment(v[1]).format("YYYY-MM-DD");
@@ -156,7 +157,7 @@ export function SummaryTrenSentiment() {
                       w={100}
                       variant="outline"
                     >
-                      cancel
+                      {t('common:cancel')}
                     </Button>
                     {sShowDateOkButton.value && (
                       <Button
@@ -182,9 +183,12 @@ export function SummaryTrenSentiment() {
 }
 
 function ChartItem() {
+  const { t, lang } = useTranslate()
   const option: EChartsOption = {
     title: {
-      text: "Tren Sentiment",
+      // text: "Tren Sentiment",
+      text: t('common:tren_sentiment'),
+
     },
     tooltip: {
       trigger: "axis",
@@ -201,15 +205,15 @@ function ChartItem() {
             <div>
                 <div>
                     <h3 style="color: green">${a[0].data} %</h3>
-                    <div>POSITIVE</div>
+                    <div>${_.upperCase(t('common:positive'))}</div>
                 </div>
                 <div>
                     <h3 style="color: red">${a[1].data} %</h3>
-                    <div>NEGATIVE</div>
+                    <div>${_.upperCase(t('common:negative'))}</div>
                 </div>
                 <div>
                     <h3 style="color: gray">${a[2].data} %</h3>
-                    <div>NEUTRAL</div>
+                    <div>${_.upperCase(t('common:neutral'))}</div>
                 </div>
             </div>
         </div>
@@ -249,7 +253,7 @@ function ChartItem() {
     ],
     series: [
       {
-        name: "Positive",
+        name: t('common:positive'),
         type: "line",
         symbol: "none",
         sampling: "lttb",
@@ -273,7 +277,7 @@ function ChartItem() {
           : slistDataTrenSentiment.value!.map((v) => v.positive),
       },
       {
-        name: "Negative",
+        name: t('common:negative'),
         type: "line",
         symbol: "none",
         sampling: "lttb",
@@ -297,7 +301,7 @@ function ChartItem() {
           : slistDataTrenSentiment.value!.map((v) => v.negative),
       },
       {
-        name: "Neutral",
+        name: t('common:neutral'),
         type: "line",
         symbol: "none",
         sampling: "lttb",

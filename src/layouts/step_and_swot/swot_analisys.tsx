@@ -23,14 +23,17 @@ import { useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { sCandidate } from "@/s_state/s_candidate";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import Trs from "@/fun_load/trs";
+import useTranslate from 'next-translate/useTranslation'
 
 export default function SwotAnalisys() {
+  const { t, lang } = useTranslate()
   return (
     <>
       <Stack spacing={"lg"}>
         <PageTitle
-          text="STRENGTH WEAKNESS OPPORTUNITY THREAT"
-          title="SWOT ANALISYS"
+          text={_.upperCase(t('common:strength_weakness_opportunity_threat'))}
+          title={_.upperCase(t('common:swot_analysis'))}
         />
         {/* <Onprogress /> */}
         <Analisys />
@@ -88,12 +91,12 @@ function Analisys() {
   useShallowEffect(() => {
     loadData(candidateId);
   }, []);
-
+  const { t, lang } = useTranslate()
   return (
     <Stack spacing={"lg"}>
       <Group position="right">
         <Select
-          label={"select candidate"}
+          label={t('common:select_candidate')}
           size="xs"
           placeholder={
             sCandidate.value.find((v) => Number(v.id) == candidateId)?.name
@@ -115,12 +118,14 @@ function Analisys() {
           <Paper
             key={i}
             p={"md"}
-            // bg={v.sentiment == "positive" ? "green.1" : "red.1"}
+          // bg={v.sentiment == "positive" ? "green.1" : "red.1"}
           >
             <Stack>
               {/* {JSON.stringify(v)} */}
               <Title order={3} c={v.sentiment == "positive" ? "green" : "red"}>
-                {_.upperCase(v.name)}
+                <Trs text={_.upperCase(v.name)} lang={lang}>
+                  {(val: any) => <div>{val}</div>}
+                </Trs>
               </Title>
               {/* {JSON.stringify(v)} */}
               {!_.isEmpty(v.SwotAnalisys) && (
@@ -128,20 +133,25 @@ function Analisys() {
                   p={"md"}
                   // bg={"white"}
                   h={300}
-                  // c={"gray"}
+                // c={"gray"}
                 >
-                  <TextAnimation
-                    phrases={[
-                      v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
-                        .content,
-                    ]}
-                    typingSpeed={10}
-                    backspaceDelay={500}
-                    eraseDelay={0}
-                    errorProbability={0.1}
-                    eraseOnComplete={false}
-                    //   isSecure={true}
-                  />
+                  <Trs text={v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
+                    .content} lang={lang}>
+                    {(val: any) => <>
+                      {val && <TextAnimation
+                        phrases={[
+                          val,
+                        ]}
+                        typingSpeed={10}
+                        backspaceDelay={500}
+                        eraseDelay={0}
+                        errorProbability={0.1}
+                        eraseOnComplete={false}
+                      //   isSecure={true}
+                      />}
+
+                    </>}
+                  </Trs>
                 </ScrollArea>
               )}
             </Stack>
@@ -164,17 +174,21 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
       }
     }
   }, [listSingle]);
-
+  const { t, lang } = useTranslate()
   return (
     <>
       {listSingle?.map((v, i) => (
         <Stack key={i} spacing={0}>
-          <Title c={"green"}>{v.name}</Title>
+          <Title c={"green"}>
+            <Trs text={v.name} lang={lang}>
+              {(val: any) => <div>{val}</div>}
+            </Trs>
+          </Title>
           {v.SwotAnalisys.length > 0 && (
             <Stack>
               <Paper
                 p={"md"}
-                // bg={"green.2"}
+              // bg={"green.2"}
               >
                 <Flex>
                   <Box p={"md"}>
@@ -222,14 +236,31 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
                         <Text>...</Text>
                       </Stack>
                     ) : (
-                      <TextAnimation
-                        phrases={[text!]}
-                        typingSpeed={10}
-                        backspaceDelay={500}
-                        eraseDelay={0}
-                        errorProbability={0.1}
-                        eraseOnComplete={false}
-                      />
+                      <Trs text={text} lang={lang}>
+                        {(val: any) =>
+
+                          <>{val &&
+                            <TextAnimation
+                              phrases={[val]}
+                              typingSpeed={10}
+                              backspaceDelay={500}
+                              eraseDelay={0}
+                              errorProbability={0.1}
+                              eraseOnComplete={false}
+                            />
+                          }
+                          </>
+                        }
+                      </Trs>
+
+                      // <TextAnimation
+                      //   phrases={[text!]}
+                      //   typingSpeed={10}
+                      //   backspaceDelay={500}
+                      //   eraseDelay={0}
+                      //   errorProbability={0.1}
+                      //   eraseOnComplete={false}
+                      // />
                     )}
                   </ScrollArea>
                 </Flex>

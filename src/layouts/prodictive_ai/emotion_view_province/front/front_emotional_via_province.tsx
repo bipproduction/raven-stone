@@ -32,6 +32,7 @@ import { useState } from "react";
 import { val_selected_menu_id } from "./val/val_selected_menu_id";
 import { val_selected_province_id } from "./val/val_selected_province_id";
 import { val_kunci } from "./val/val_kunci";
+import useTranslate from 'next-translate/useTranslation'
 
 export const FrontEmotionalViewViaProvince = () => {
   const [candidateId, setCandidateId] = useAtom(val_selected_candidate);
@@ -41,6 +42,7 @@ export const FrontEmotionalViewViaProvince = () => {
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
   const [provinceId, setProvinceId] = useAtom(val_selected_province_id);
   const [kunci, setKunci] = useAtom(val_kunci)
+  const {t,lang} = useTranslate();
 
   useShallowEffect(() => {
     loadData();
@@ -74,7 +76,7 @@ export const FrontEmotionalViewViaProvince = () => {
                           <Title c={"orange"}>
                             {Intl.NumberFormat("id-ID").format(v.total)}
                           </Title>
-                          <Text>LOCKED AUDIENCES</Text>
+                          <Text>{_.upperCase(t('common:locked_audience'))}</Text>
                         </Stack>
                         <Stack align="center">
                           <Title c={"green"}>
@@ -82,7 +84,7 @@ export const FrontEmotionalViewViaProvince = () => {
                               _.sum(_.values(v.emotion))
                             )}
                           </Title>
-                          <Text>FILTERED AUDIENCE</Text>
+                          <Text>{_.upperCase(t('common:filtered_audience'))}</Text>
                         </Stack>
                       </Group>
                       <Center>

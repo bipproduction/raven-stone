@@ -33,8 +33,12 @@ import moment from "moment";
 import { v3_val_data_line_chart } from "../val/v3_val_data_line_chart";
 import { V3ComChartBar } from "./com/v3_com_chart_bar";
 import { v3_val_back_selected_candidate } from "../back/val/v3_val_selected_candidate";
+import useTranslate from 'next-translate/useTranslation'
+import _ from 'lodash';
+import Trs from "@/fun_load/trs";
 
 export function V3FrontNationWideRating() {
+  const { t, lang } = useTranslate();
   const [listData, setListData] = useAtom(v3_val_nation_wide_rating_list_data);
   const [selectedCandidate, setSelectedCandidate] = useAtom(
     v3_val_nation_wide_rating_selected_candidate
@@ -66,8 +70,8 @@ export function V3FrontNationWideRating() {
       {/* <Title>Front Nation Wide Rating</Title> */}
       <Stack spacing={"lg"}>
         <PageTitle
-          title="NATION WIDE RATING"
-          text="EMOTIONAL METERS BRAND MERGER SIMULATION"
+          title={_.upperCase(t('common:nation_wide_rating'))}
+          text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))}
         />
 
         <SimpleGrid cols={2}>
@@ -145,7 +149,7 @@ export function V3FrontNationWideRating() {
             <Paper p={"md"} h={height}>
               <Stack spacing={"lg"}>
                 <SimpleGrid cols={2}>
-                  <Title order={3}>WINNING RATES PREDICTION</Title>
+                  <Title order={3}>{_.upperCase(t('common:winning_rates_prediction'))}</Title>
                   <Card>
                     <Center h={80}>
                       {!listData ? (
@@ -170,15 +174,31 @@ export function V3FrontNationWideRating() {
                   ) : (
                     <ScrollArea>
                       {listData && listData![0] && (
-                        <TextAnimation
-                          key={listData![0].id}
-                          phrases={[listData![0].text]}
-                          typingSpeed={10}
-                          backspaceDelay={500}
-                          eraseDelay={0}
-                          errorProbability={0.1}
-                          eraseOnComplete={false}
-                        />
+                        <Trs text={listData![0].text} lang={lang}>
+                          {(val: any) =>
+                            <>
+                              {val && <TextAnimation
+                                key={listData![0].id}
+                                phrases={[val]}
+                                typingSpeed={10}
+                                backspaceDelay={500}
+                                eraseDelay={0}
+                                errorProbability={0.1}
+                                eraseOnComplete={false}
+                              />}
+                            </>
+
+                          }
+                        </Trs>
+                        // <TextAnimation
+                        //   key={listData![0].id}
+                        //   phrases={[listData![0].text]}
+                        //   typingSpeed={10}
+                        //   backspaceDelay={500}
+                        //   eraseDelay={0}
+                        //   errorProbability={0.1}
+                        //   eraseOnComplete={false}
+                        // />
                       )}
                     </ScrollArea>
                   )}

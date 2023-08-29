@@ -8,6 +8,7 @@ import { fun_load_emotion_province } from "../fun/fun_load_emotion_province";
 import moment from "moment";
 import { val_list_emotion } from "../val/val_list_emotion";
 import { val_kunci } from "../val/val_kunci";
+import useTranslate from 'next-translate/useTranslation'
 
 export function ComSelectCandidate({
   onSearch,
@@ -21,6 +22,7 @@ export function ComSelectCandidate({
   );
 
   const [kunci, setKunci] = useAtom(val_kunci)
+  const { t, lang } = useTranslate();
 
   useShallowEffect(() => {
     gloobal_fun_load_list_candidate({
@@ -44,14 +46,14 @@ export function ComSelectCandidate({
         <Group position="right" spacing={"lg"} align="end">
           <TextInput
             onChange={(val) => onSearch?.(val.target.value)}
-            label={"search"}
-            placeholder="search"
+            label={t('common:search')}
+            placeholder={t('common:search')}
           />
           <Select
             placeholder={
               listCandidate.find((v: any) => v.id === selectedCandidate)?.name
             }
-            label={"candidate"}
+            label={t('common:candidate')}
             data={listCandidate.map((v: any) => ({
               label: v.name,
               value: v.id,
@@ -60,7 +62,7 @@ export function ComSelectCandidate({
               setSelectedCandidate(Number(val));
             }}
           />
-          <Button onClick={onProccess}>process</Button>
+          <Button onClick={onProccess}>{t('common:process')}</Button>
         </Group>
       </Paper>
     </>

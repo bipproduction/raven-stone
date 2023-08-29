@@ -15,10 +15,14 @@ import { useShallowEffect } from "@mantine/hooks";
 import { api } from "@/lib/api";
 import { atom, useAtom } from "jotai";
 import { fun_componen_access_upsert } from "../dev_dashboard/component_access/fun/fun_upsert";
+import useTranslate from 'next-translate/useTranslation'
+import Trs from "@/fun_load/trs";
+import _ from "lodash";
 
 const _val_list_top_5_winning_rate = atom<any[] | undefined>(undefined);
 
 export function Top5WinningRate() {
+  const { t, lang } = useTranslate();
   const [listTop5, setTop5] = useAtom(_val_list_top_5_winning_rate);
   useShallowEffect(() => {
     fetch(api.apiSummaryTop5WinningRate)
@@ -44,11 +48,15 @@ export function Top5WinningRate() {
         </Center>
       </>
     );
+
   return (
     <>
       <Paper p={"md"}>
         <Stack>
-          <PageTitle title={"TOP 5 NATIONAL WINNING RATES PREDICTION"} />
+          {/* <Trs text="TOP 5 NATIONAL WINNING RATES PREDICTION" lang={lang}>
+            {(val: any) => <PageTitle title={val} />}
+          </Trs> */}
+          <PageTitle title={_.upperCase(t('common:top_5_national_winning_rates_prediction'))} />
           <SimpleGrid cols={3}>
             {listTop5.map((v, i) => (
               <Card key={i} shadow="md">

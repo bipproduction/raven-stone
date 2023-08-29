@@ -21,9 +21,13 @@ import _ from "lodash";
 import parse from "html-react-parser";
 import TextAnimation from "react-typing-dynamics";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
+import Trs from "@/fun_load/trs";
+import useTranslate from 'next-translate/useTranslation'
 
 export default function StepAnalisys() {
   const [stepDataList, setStepDataList] = useState<{ [key: string]: any }>();
+  const { t, lang } = useTranslate()
+
 
   useShallowEffect(() => {
     sSelectedCandidate.subscribe((v) => {
@@ -34,7 +38,7 @@ export default function StepAnalisys() {
   function loadData() {
     fetch(
       api.apiStepStepAnalisysDataGet +
-        `?candidateId=${sSelectedCandidate.value}`
+      `?candidateId=${sSelectedCandidate.value}`
     )
       .then((v) => v.json())
       .then(setStepDataList);
@@ -42,148 +46,160 @@ export default function StepAnalisys() {
 
   return (
     <Stack spacing={"md"}>
-        <PageTitle
-          text="SOSIAL TECHNOLOGY ECONOMIC POLITIC ANALISYS"
-          title="STEP ANALISYS"
-        />
-        <Group position="right">
-          <Text size={12}>CANDIDATE TO ANALYZE</Text>
-          <Select
-            placeholder={
-              sCandidate.value.find(
-                (v) => Number(v.id) == Number(sSelectedCandidate.value)
-              )?.name
+      <PageTitle
+        text={_.upperCase(t('common:social_technology_economic_politic_analysis'))}
+        title={_.upperCase(t('common:step_analysis'))}
+      />
+      <Group position="right">
+        <Text size={12}>{_.upperCase(t('common:candidate_to_analize'))}</Text>
+        <Select
+          placeholder={
+            sCandidate.value.find(
+              (v) => Number(v.id) == Number(sSelectedCandidate.value)
+            )?.name
+          }
+          size="xs"
+          data={sCandidate.value.map(
+            (v) =>
+            ({
+              label: v.name,
+              value: v.id,
+            } as any)
+          )}
+          onChange={(val) => {
+            if (val) {
+              sSelectedCandidate.value = val;
             }
-            size="xs"
-            data={sCandidate.value.map(
-              (v) =>
-                ({
-                  label: v.name,
-                  value: v.id,
-                } as any)
-            )}
-            onChange={(val) => {
-              if (val) {
-                sSelectedCandidate.value = val;
-              }
-            }}
-          />
-        </Group>
-        {/* {JSON.stringify(stepDataList)} */}
-        <Stack spacing={"lg"}>
-          {_.isEmpty(stepDataList) ? (
-            <Text color={"blue"}></Text>
-          ) : (
-            <Stack spacing={"lg"}>
-              {_.keys(stepDataList).map((v, i) => (
-                <Stack key={i} spacing={"lg"}>
-                  <Title color={"blue"}>{_.upperCase(v)}</Title>
-                  <SimpleGrid cols={2} p={"md"} w={"100%"}>
-                    <Paper
-                      p={"xs"}
-                      w={"100%"}
-                      h={500}
-                      // bg={"#343541"}
-                      shadow="sm"
-                    >
-                      <Stack spacing={"lg"}>
-                        <Text color="green" fw={"bold"} fz={24}>
-                          POSITIVE
-                        </Text>
-                        {(() => {
-                          const datanya = _.groupBy(
-                            stepDataList[v],
-                            (v3) => v3.sentiment
-                          )["positive"];
+          }}
+        />
+      </Group>
+      {/* {JSON.stringify(stepDataList)} */}
+      <Stack spacing={"lg"}>
+        {_.isEmpty(stepDataList) ? (
+          <Text color={"blue"}></Text>
+        ) : (
+          <Stack spacing={"lg"}>
+            {_.keys(stepDataList).map((v, i) => (
+              <Stack key={i} spacing={"lg"}>
+                <Title color={"blue"}>
+                  <Trs text={_.upperCase(v)} lang={lang} >
+                    {(val: any) => <div>{val}</div>}
+                  </Trs>
+                </Title>
+                <SimpleGrid cols={2} p={"md"} w={"100%"}>
+                  <Paper
+                    p={"xs"}
+                    w={"100%"}
+                    h={500}
+                    // bg={"#343541"}
+                    shadow="sm"
+                  >
+                    <Stack spacing={"lg"}>
+                      <Text color="green" fw={"bold"} fz={24}>
+                        {_.upperCase(t('common:positive'))}
+                      </Text>
+                      {(() => {
+                        const datanya = _.groupBy(
+                          stepDataList[v],
+                          (v3) => v3.sentiment
+                        )["positive"];
 
-                          if (!datanya) return <></>;
+                        if (!datanya) return <></>;
 
-                          return (
-                            <>
-                              <ScrollArea
-                                p={"xs"}
-                                h={400}
-                                // bg={"#434654"}
-                                w={"100%"}
-                                // c={"white"}
-                              >
-                                {/* <AIWriter {...{ delay: 200 }}>
+                        return (
+                          <>
+                            <ScrollArea
+                              p={"xs"}
+                              h={400}
+                              // bg={"#434654"}
+                              w={"100%"}
+                            // c={"white"}
+                            >
+                              {/* <AIWriter {...{ delay: 200 }}>
                                 {parse(
                                   datanya[_.random(0, datanya.length - 1)].data
                                 )}
                               </AIWriter> */}
-                              
-                                <TextAnimation
-                                  key={Math.random()}
-                                  phrases={[
-                                    datanya[_.random(0, datanya.length - 1)]
-                                      .data,
-                                  ]}
-                                  typingSpeed={10}
-                                  backspaceDelay={500}
-                                  eraseDelay={0}
-                                  errorProbability={0.1}
-                                  eraseOnComplete={false}
+
+                              <Trs text={datanya[_.random(0, datanya.length - 1)]
+                                .data} lang={lang} >
+                                {(val: any) =>
+                                  <TextAnimation
+                                    key={Math.random()}
+                                    phrases={[
+                                      val,
+                                    ]}
+                                    typingSpeed={10}
+                                    backspaceDelay={500}
+                                    eraseDelay={0}
+                                    errorProbability={0.1}
+                                    eraseOnComplete={false}
                                   //   isSecure={true}
-                                />
-                              </ScrollArea>
-                            </>
-                          );
-                        })()}
-                      </Stack>
-                    </Paper>
-                    <Paper
-                      p={"xs"}
-                      w={"100%"}
-                      // bg={"#343541"}
-                      shadow="sm"
-                    >
-                      <Stack spacing={"lg"}>
-                        <Text color="red" fw={"bold"} fz={24}>
-                          NEGATIVE
-                        </Text>
-                        {(() => {
-                          const datanya = _.groupBy(
-                            stepDataList[v],
-                            (v3) => v3.sentiment
-                          )["negative"];
+                                  />
+                                }
+                              </Trs>
+                            </ScrollArea>
+                          </>
+                        );
+                      })()}
+                    </Stack>
+                  </Paper>
+                  <Paper
+                    p={"xs"}
+                    w={"100%"}
+                    // bg={"#343541"}
+                    shadow="sm"
+                  >
+                    <Stack spacing={"lg"}>
+                      <Text color="red" fw={"bold"} fz={24}>
+                        {_.upperCase(t('common:negative'))}
+                      </Text>
+                      {(() => {
+                        const datanya = _.groupBy(
+                          stepDataList[v],
+                          (v3) => v3.sentiment
+                        )["negative"];
 
-                          if (!datanya) return <></>;
+                        if (!datanya) return <></>;
 
-                          return (
-                            <>
+                        return (
+                          <>
 
-                              <ScrollArea
-                                p={"xs"}
-                                h={400}
-                                // bg={"gray"}
-                                w={"100%"}
-                                // c={"white"}
-                              >
-                                <TextAnimation
-                                  key={Math.random()}
-                                  phrases={[
-                                    datanya[_.random(0, datanya.length - 1)]
-                                      .data,
-                                  ]}
-                                  typingSpeed={10}
-                                  backspaceDelay={100}
-                                  eraseDelay={0}
-                                  errorProbability={0.1}
-                                  eraseOnComplete={false}
-                                />
-                              </ScrollArea>
-                            </>
-                          );
-                        })()}
-                      </Stack>
-                    </Paper>
-                  </SimpleGrid>
-                </Stack>
-              ))}
-            </Stack>
-          )}
-        </Stack>
+                            <ScrollArea
+                              p={"xs"}
+                              h={400}
+                              // bg={"gray"}
+                              w={"100%"}
+                            // c={"white"}
+                            >
+                              <Trs text={datanya[_.random(0, datanya.length - 1)]
+                                .data} lang={lang}>
+                                {(val:any) =>
+                                  <TextAnimation
+                                    key={Math.random()}
+                                    phrases={[
+                                      val,
+                                    ]}
+                                    typingSpeed={10}
+                                    backspaceDelay={100}
+                                    eraseDelay={0}
+                                    errorProbability={0.1}
+                                    eraseOnComplete={false}
+                                  />
+                                }
+                              </Trs>
+                            </ScrollArea>
+                          </>
+                        );
+                      })()}
+                    </Stack>
+                  </Paper>
+                </SimpleGrid>
+              </Stack>
+            ))}
+          </Stack>
+        )}
       </Stack>
+    </Stack>
   );
 }
