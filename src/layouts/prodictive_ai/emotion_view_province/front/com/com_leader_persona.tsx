@@ -7,10 +7,12 @@ import randomColor from "randomcolor";
 import { useState } from "react";
 import { val_list_color } from "../val/val_list_color";
 import _ from "lodash";
+import useTranslate from 'next-translate/useTranslation'
 
 export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
   const [listData, setListData] = useState<any[]>([]);
   // const [max, setMax] = useState(0);
+  const { t, lang } = useTranslate();
 
   useShallowEffect(() => {
     loadData();
@@ -32,7 +34,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         type: "shadow",
       },
       formatter: function (params: any) {
-        
+
         return _.upperCase(params[0].name) + " : " + params[0].value + " %";
       },
     },
@@ -45,7 +47,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
     yAxis: [
       {
         type: "category",
-        data: _.sortBy(listData, "value").map((v) => v.title),
+        data: _.sortBy(listData, "value").map((v) => t('common:'+_.lowerCase(v.title))),
         axisTick: {
           alignWithLabel: true,
         },
@@ -86,7 +88,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
       {/* <pre>{JSON.stringify(listData, null, 2)}</pre> */}
       <Paper p={"xs"}>
         <Stack>
-          <Title c={"cyan"}>Leader Persona Prediction</Title>
+          <Title c={"cyan"}>{t('common:leader_persona_prediction')}</Title>
           <EChartsReact
             style={{
               width: "100%",

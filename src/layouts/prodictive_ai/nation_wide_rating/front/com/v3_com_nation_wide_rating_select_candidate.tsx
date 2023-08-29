@@ -5,6 +5,8 @@ import { v3_val_nation_wide_rating_list_candidate } from "../../val/v3_nation_wi
 import { v3_fun_nation_wide_rating_load_list_candidate } from "../../fun/v3_fun_nation_wide_rating_load_list_candidate";
 import { v3_val_nation_wide_rating_selected_candidate } from "../../val/v3_nation_wide_rating_selected_candidate";
 import _ from "lodash";
+import useTranslate from 'next-translate/useTranslation'
+
 
 export function V3ComNationWideRatingSelectCandidate({
   onProccess,
@@ -25,8 +27,8 @@ export function V3ComNationWideRatingSelectCandidate({
     v3_fun_nation_wide_rating_load_list_candidate({ setListCandidate });
   }, []);
 
-  
 
+  const { t, lang } = useTranslate();
   if (!listCandidate) return null;
 
   return (
@@ -54,11 +56,11 @@ export function V3ComNationWideRatingSelectCandidate({
                 value: v.id,
               })) as any
             }
-            label="candidate 1"
-            // placeholder="select candidate"
+            label={t('common:candidate')+" 1"}
+          // placeholder="select candidate"
           />
           <Select
-          key={Math.random()}
+            key={Math.random()}
             data={
               listCandidate?.map((v) => ({
                 label: v.name,
@@ -66,19 +68,19 @@ export function V3ComNationWideRatingSelectCandidate({
               })) as any
             }
             onChange={(val) => {
-                setSelectedCandidate({
-                  candidate2Id: Number(val),
-                  candidate1Id: selctedCandidate.candidate1Id,
-                });
-              }}
-            label="candidate 2"
+              setSelectedCandidate({
+                candidate2Id: Number(val),
+                candidate1Id: selctedCandidate.candidate1Id,
+              });
+            }}
+            label={t('common:candidate')+" 2"}
             placeholder={
               listCandidate.find(
                 (v) => Number(v.id) == Number(selctedCandidate.candidate2Id)
               ).name
             }
           />
-          <Button onClick={onProccess}>Proccess</Button>
+          <Button onClick={onProccess}>{t('common:process')}</Button>
         </Group>
       </Paper>
     </>

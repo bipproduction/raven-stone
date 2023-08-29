@@ -75,11 +75,13 @@ import {
 } from "react-icons/md";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 import translate from 'google-translate-api-x'
+import useTranslate from 'next-translate/useTranslation'
 
 const listView = [
   {
     id: 1,
     name: "Summary",
+    label: "summary",
     icon: MdGridView,
     child: [
       //   {
@@ -91,6 +93,7 @@ const listView = [
       {
         id: 2,
         name: "Top 10 Rating By Emotions",
+        label: "top_10_rating_by_emotions",
         view: () => <MainSummary />,
         icon: MdStorage,
       },
@@ -114,6 +117,7 @@ const listView = [
   {
     id: 2,
     name: "Media listener",
+    label: "media_listener",
     icon: MdMessage,
     child: [
       //   {
@@ -124,6 +128,7 @@ const listView = [
       {
         id: 2,
         name: "Media Summary",
+        label: "media_summary",
         view: () => <MentionbyCategory />,
         icon: MdAssignment,
       },
@@ -172,17 +177,20 @@ const listView = [
   {
     id: 3,
     name: "STEP & SWOT",
+    label: "step&swot",
     icon: MdFace,
     child: [
       {
         id: 1,
         name: "Step Analysis",
+        label: "step_analysis",
         view: () => <StepAnalisys />,
         icon: MdFreeCancellation,
       },
       {
         id: 2,
         name: "SWOT Analysis",
+        label: "swot_analysis",
         view: () => <SwotAnalisys />,
         icon: MdGrading,
       },
@@ -190,12 +198,14 @@ const listView = [
   },
   {
     id: 4,
-    name: "Predictive Ai",
+    name: "Predictive AI",
+    label: "predictive_ai",
     icon: MdBarChart,
     child: [
       {
         id: 1,
         name: "Nation Wide Rating",
+        label: "nation_wide_rating",
         view: () => <NationWideRating />,
         icon: MdOutlineStarBorderPurple500,
       },
@@ -208,12 +218,14 @@ const listView = [
       {
         id: 3,
         name: "Emotional View Via Province",
+        label: "emotional_view_via_province",
         view: () => <MainEmotionViewProvince />,
         icon: MdOutlineStars,
       },
       {
         id: 4,
         name: "Emotional View Via Province Couple",
+        label: "emotional_view_via_province_couple",
         view: () => <EmotionViewProvinceCoupleV2 />,
         icon: MdJoinLeft,
       },
@@ -228,6 +240,7 @@ const listView = [
 ];
 
 const Dashboard = (props: any) => {
+  const { t, lang } = useTranslate();
   const theme = useMantineTheme();
   // const [opened, setOpened] = useState(false);
   // const selectedView = useHookstate(gSelectedView);
@@ -377,7 +390,7 @@ const Dashboard = (props: any) => {
       </AppShell>
 
 
-      <Overlay pos={"fixed"} h={"100%"} w={"100%"} blur={4} display={sUser.value!.name === "fami" ? "none" : "block"} >
+      {/* <Overlay pos={"fixed"} h={"100%"} w={"100%"} blur={4} display={sUser.value!.name === "fami" ? "none" : "block"} >
         <Center h={"100vh"}>
           <Paper p={"md"} bg={"yellow.0"} >
             <Stack justify="center" align="center">
@@ -387,7 +400,7 @@ const Dashboard = (props: any) => {
             </Stack>
           </Paper>
         </Center>
-      </Overlay>
+      </Overlay> */}
     </>
   );
 };
@@ -510,6 +523,7 @@ const NotificationDisplay = () => {
 const MyNavbar = () => {
   const router = useRouter();
   const [isDarkMode, setisDarkMode] = useAtom(_is_dark_mode);
+  const { t, lang } = useTranslate();
 
   function onSelectedPage(page: string) {
     localStorage.setItem("dashboard_selected_page", page);
@@ -543,7 +557,7 @@ const MyNavbar = () => {
                 {listView.map((v) =>
                   v.child.map((vv, i) => (
                     <Box key={i}>
-                      <Tooltip label={vv.name}>
+                      <Tooltip label={t('common:' + vv.label)}>
                         <ActionIcon
                           bg={vv.name === sSelectedView.value ? "dark" : ""}
                           radius={100}
@@ -616,7 +630,7 @@ const MyNavbar = () => {
                 // sx={{
                 //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
                 // }}
-                label={v.name}
+                label={t('common:' + v.label)}
                 icon={
                   <Avatar radius={100}>
                     <v.icon size={24} color={"#BE2533"} />
@@ -640,9 +654,9 @@ const MyNavbar = () => {
                       // bg={selectedView.value == vv.name ? "blue.1" : ""}
                       label={
                         sSelectedView.value == vv.name ? (
-                          <Title order={5}>{_.lowerCase(vv.name)}</Title>
+                          <Title order={5}>{t('common:' + vv.label)}</Title>
                         ) : (
-                          <Text>{_.lowerCase(vv.name)}</Text>
+                          <Text>{t('common:' + vv.label)}</Text>
                         )
                       }
                       key={`${v.id}${i}`}
@@ -658,7 +672,7 @@ const MyNavbar = () => {
               // bg={"gray"}
               // c={"dark"}
               icon={<MdSettings />}
-              label={"setting"}
+              label={t('common:setting')}
             >
               {/* <NavLink
                 icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
@@ -667,7 +681,7 @@ const MyNavbar = () => {
               /> */}
               <NavLink
                 icon={<MdLogout />}
-                label="logout"
+                label={t('common:logout')}
                 onClick={() => {
                   localStorage.removeItem("user_id");
                   sUser.value = {};

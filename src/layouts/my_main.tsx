@@ -31,6 +31,7 @@ import Summary from "./summary/summary_derecated";
 // import { gUser } from "@/g_state/auth/g_user";
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from "next/router";
+import _ from "lodash";
 
 
 const listmenu = [
@@ -128,7 +129,7 @@ const MyMain = () => {
                 <Title c={"indigo"}>RAVEN STONE</Title>
                 <Paper p={"md"}>
                   <Stack>
-                    <Title>LOGIN</Title>
+                    <Title>{_.upperCase(t('common:login'))}</Title>
                     <TextInput
                       placeholder="email"
                       value={email}
@@ -141,6 +142,7 @@ const MyMain = () => {
                     />
                     <Group>
                       <MdVerifiedUser color="green" />
+                      <Text color={"green"}>{t('common:akses_aman')}</Text>
                       <Text color={"green"}>{t('common:akses_aman')}</Text>
                     </Group>
                     <Button
@@ -171,12 +173,13 @@ const MyMain = () => {
                         });
                       }}
                     >
-                      LOGIN
+                      {_.upperCase(t('common:login'))}
                     </Button>
                   </Stack>
                 </Paper>
               </Stack>
             </Center>
+            {/* <Flex pos={"absolute"} bottom={0} left={0} gap={"md"} p={"md"}>
             {/* <Flex pos={"absolute"} bottom={0} left={0} gap={"md"} p={"md"}>
               <Text>Bip Production @2023</Text>
               <Text>Version: 2.0.1</Text>
