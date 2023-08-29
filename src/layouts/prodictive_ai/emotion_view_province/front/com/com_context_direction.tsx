@@ -7,9 +7,11 @@ import _ from "lodash";
 import randomColor from "randomcolor";
 import { useState } from "react";
 import { val_list_color } from "../val/val_list_color";
+import useTranslate from 'next-translate/useTranslation'
 
 export function ComContextDirection({ provinceId }: { provinceId: any }) {
   const [listContextDirection, setListContextDirection] = useState<any[]>([]);
+  const { t, lang } = useTranslate();
   useShallowEffect(() => {
     loadData();
   }, []);
@@ -37,7 +39,7 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
     yAxis: [
       {
         type: "category",
-        data: _.sortBy(listContextDirection, "value").map((v) => v.name),
+        data: _.sortBy(listContextDirection, "value").map((v) => t('common:'+v.name)),
         axisTick: {
           alignWithLabel: true,
         },
@@ -80,7 +82,7 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
     <>
       {/* <pre>{JSON.stringify(listContextDirection, null, 2)}</pre> */}
       <Card p={"xs"}>
-        <Title c={"blue"}>Context Direction</Title>
+        <Title c={"blue"}>{t('common:context_direction')}</Title>
         <Stack>
           <EChartsReact
             style={{

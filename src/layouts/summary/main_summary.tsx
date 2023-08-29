@@ -19,8 +19,11 @@ import { SummaryTrenSentiment } from "./summary_tren_sentiment";
 import { Top5WinningRate } from "./top_5_winning_rate";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
 import { sUser } from "@/s_state/s_user";
+import Trs from "@/fun_load/trs";
+import useTranslate from 'next-translate/useTranslation'
 
 const MainSummary = () => {
+  const { t, lang } = useTranslate()
   return (
     <>
       <Stack spacing={32}>
@@ -35,8 +38,11 @@ const MainSummary = () => {
               <Stack p={"xs"} spacing={0}>
                 <Title c={"cyan.4"}>{sUser.value?.name}</Title>
                 <Text>
-                  Welcome to Prabowo Subianto for President 2024 - Digital
-                  Intelligence Winning Program.
+                  {t('common:greeting')}
+                  {/* <Trs text=" Welcome to Prabowo Subianto for President 2024 - Digital
+                  Intelligence Winning Program." lang={lang}>
+                    {(val:any) =><div>{val}</div>}
+                  </Trs> */}
                 </Text>
               </Stack>
             </Flex>

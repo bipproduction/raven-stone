@@ -1,9 +1,19 @@
+import { ViewGlobalAccessBlock } from "@/global/view/access_block";
+import CandidateControll from "@/layouts/candidate/candidate_controll";
+import ButtonLogout from "@/layouts/dev/button_logout";
+import Dev from "@/layouts/dev/dev";
+import { DevStepAndSwotAnalisys } from "@/layouts/dev/dev_step_and_swot_analisys";
+import { Vie_emotion_view_province_couple_v2 } from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
+import { MapControllCityValueEditor } from "@/layouts/map_controll/map_controll_city_value_editor";
+import { MapControllEmotionEditor } from "@/layouts/map_controll/map_controll_emotion_editor";
+import { V3BackNationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/back/v3_back_nation_wide_rating";
+import { jSelectedAdminDashboard } from "@/s_state/j_selected_admin_dashboard";
+import { sSelectedDate } from "@/s_state/s_selectedDate";
+import { sUser } from "@/s_state/s_user";
 import {
   ActionIcon,
   AppShell,
   Box,
-  Button,
-  Card,
   Center,
   Flex,
   Group,
@@ -11,58 +21,23 @@ import {
   Image,
   NavLink,
   Navbar,
-  Paper,
   ScrollArea,
-  Text,
-  Title,
+  Title
 } from "@mantine/core";
-import MapControll from "./map-controll";
-import { sAdminDashboardView } from "@/s_state/s_admin_dashboard_view";
-import LayoutMapControll from "@/layouts/map_controll/map_controll";
-import DevAuthProvider from "@/layouts/dev/dev_auth_provider";
-import CandidateControll from "@/layouts/candidate/candidate_controll";
-import ButtonLogout from "@/layouts/dev/button_logout";
+import {
+  useForceUpdate,
+  useShallowEffect
+} from "@mantine/hooks";
+import { IconUserCircle } from "@tabler/icons-react";
+import { useAtom } from "jotai/react";
+import { atomWithStorage } from "jotai/utils";
 import _ from "lodash";
+import moment from "moment";
 import {
   MdArrowBackIos,
   MdArrowForwardIos,
-  MdCheck,
-  MdCircle,
-  MdMenu,
-  MdPlayCircle,
-  MdRunCircle,
+  MdCircle
 } from "react-icons/md";
-import Dev from "@/layouts/dev/dev";
-import DevTestIframe from "@/layouts/dev/dev_test_iframe";
-import DevTestIframeBoma from "@/layouts/dev/dev_test_iframe_boma";
-import DevTimeMachine from "@/layouts/dev/dev_time_machine";
-import DevDataVolume from "@/layouts/dev/dev_data_volume";
-import { DevCandidateValue } from "@/layouts/dev/dev_candidate_value";
-import { useState } from "react";
-import {
-  useDisclosure,
-  useForceUpdate,
-  useShallowEffect,
-} from "@mantine/hooks";
-import { signal } from "@preact/signals-react";
-import AnimateCssReact from "animate-css-reactjs";
-import { DevStepAndSwotAnalisys } from "@/layouts/dev/dev_step_and_swot_analisys";
-import client from "@/lib/prisma_db";
-import { sSelectedDate } from "@/s_state/s_selectedDate";
-import moment from "moment";
-import { useAtom } from "jotai/react";
-import { jSelectedAdminDashboard } from "@/s_state/j_selected_admin_dashboard";
-import { MapControllEmotionEditor } from "@/layouts/map_controll/map_controll_emotion_editor";
-import { MapControllCityValueEditor } from "@/layouts/map_controll/map_controll_city_value_editor";
-import { DevNationWideRatingv2 } from "@/layouts/dev/predictive_ai/com_nation_wide_rating_v2";
-import { stylesGradient1 } from "@/styles/styles_gradient_1";
-import { stylesRadial } from "@/styles/styles_radial";
-import { atomWithStorage } from "jotai/utils";
-import { Vie_emotion_view_province_couple_v2 } from "@/layouts/dev/emotion_view_province_couple_v2/_vie_emotion_view_province_couple_v2";
-import { V3BackNationWideRating } from "@/layouts/prodictive_ai/nation_wide_rating/back/v3_back_nation_wide_rating";
-import { ViewGlobalAccessBlock } from "@/global/view/access_block";
-import { IconUserCircle } from "@tabler/icons-react";
-import { sUser } from "@/s_state/s_user";
 
 const listMenu = [
   {

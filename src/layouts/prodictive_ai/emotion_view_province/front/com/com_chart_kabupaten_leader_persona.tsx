@@ -3,9 +3,12 @@ import _ from "lodash";
 import { val_list_color } from "../val/val_list_color";
 import { Stack } from "@mantine/core";
 import { EChartsOption } from "echarts";
+import useTranslate from 'next-translate/useTranslation'
+
 
 export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
-  
+  const { t, lang } = useTranslate();
+
   const option: EChartsOption = {
     tooltip: {
       trigger: "axis",
@@ -25,15 +28,15 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
     yAxis: [
       {
         type: "category",
-        data: _.sortBy(data, "value").map((v) => v.title),
+        data: _.sortBy(data, "value").map((v) => t('common:' + _.lowerCase(v.title))),
         axisTick: {
           alignWithLabel: true,
         },
         axisLabel: {
-            formatter: function (params: any) {
-                return _.upperCase(params)  ;
-            }
+          formatter: function (params: any) {
+            return _.upperCase(params);
           }
+        }
       },
     ],
     xAxis: [

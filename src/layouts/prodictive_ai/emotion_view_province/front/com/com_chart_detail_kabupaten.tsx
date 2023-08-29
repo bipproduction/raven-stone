@@ -3,14 +3,17 @@ import { Group, Stack, Text, Title } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
+import useTranslate from 'next-translate/useTranslation'
 
 export function ComChartDetailKabupaten({ data }: { data: any }) {
+  const { t, lang } = useTranslate();
   const option: EChartsOption = {
     radiusAxis: {},
     polar: {},
     angleAxis: {
       type: "category",
-      data: !data ? [] : _.keys(data),
+      // data: !data ? [] : _.keys(data),
+      data: !data ? [] : [t('common:trust'), t('common:joy'), t('common:surprise'), t('common:anticipation'), t('common:sadness'), t('common:fear'), t('common:anger'), t('common:disgust')],
       startAngle: 75,
       // axisLabel: {
       //   rotate: 45
@@ -20,7 +23,7 @@ export function ComChartDetailKabupaten({ data }: { data: any }) {
       show: true,
       formatter: (a: any, b) => {
         return `
-              <i>${_.upperCase(a.data.name)}</i>
+              <i>${_.upperCase(t('common:' + a.data.name))}</i>
               <h1>${Intl.NumberFormat("id-ID").format(a.value)}</h1>`;
       },
     },
@@ -31,17 +34,17 @@ export function ComChartDetailKabupaten({ data }: { data: any }) {
         data: !data
           ? []
           : Object.keys(data).map(
-              (v) =>
-                ({
-                  name: v,
-                  value: data[v],
-                  itemStyle: {
-                    color:
-                      listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                        ?.color ?? "gray",
-                  },
-                } as any)
-            ),
+            (v) =>
+            ({
+              name: v,
+              value: data[v],
+              itemStyle: {
+                color:
+                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
+              },
+            } as any)
+          ),
         itemStyle: {
           shadowBlur: 20,
           shadowOffsetX: 0,
