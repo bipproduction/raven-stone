@@ -115,7 +115,10 @@ export default function EmotionViewProvinceCoupleV2() {
   return (
     <>
       <Stack spacing="xl">
-        <PageTitle text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))} />
+        <PageTitle
+          title={_.upperCase(t('common:emotional_view_via_province_couple'))}
+          text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))}
+        />
         {/* {JSON.stringify(listEmotion)} */}
         <Paper
           p="xs"
