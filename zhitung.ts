@@ -2,6 +2,7 @@ import client from "@/lib/prisma_db"
 import _ from "lodash"
 
 
+
 const main = () => {
     const kandidat_1: any = {
         anger: 30,
