@@ -121,7 +121,6 @@ const MyMain = () => {
   return (
     <>
       <Stack>
-
         <BackgroundImage src="https://str.wibudev.com/api/file/get/cllki3cuf00059uhkmaugrypc.png">
           <ScrollArea>
             <Center h={"100vh"}>

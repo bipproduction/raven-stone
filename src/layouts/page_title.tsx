@@ -6,6 +6,7 @@ import { Box, Flex, Paper, Space, Stack, Text, Title } from "@mantine/core";
 import _ from "lodash";
 import { MdCircle } from "react-icons/md";
 
+
 const PageTitle = ({ title, text }: { title?: string; text?: string }) => {
   return (
     <>

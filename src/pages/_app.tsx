@@ -108,13 +108,6 @@ export default function App(props: any) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          // colors: {
-          //   dark: [
-          //     '#1F1F1F',
-          //     '#1F1F1F',
-
-          //   ]
-          // },
           fontFamily: "Geneva",
           fontFamilyMonospace: "Monaco, Courier, monospace",
           headings: { fontFamily: "Impact" },
