@@ -114,66 +114,66 @@ const listView = [
       //   },
     ],
   },
-  {
-    id: 2,
-    name: "Media listener",
-    label: "media_listener",
-    icon: MdMessage,
-    child: [
-      //   {
-      //     id: 1,
-      //     name: "Statistic",
-      //     view: Statistict,
-      //   },
-      {
-        id: 2,
-        name: "Media Summary",
-        label: "media_summary",
-        view: () => <MentionbyCategory />,
-        icon: MdAssignment,
-      },
-      // {
-      //   id: 3,
-      //   name: "Media Hastag",
-      //   view: MediaHastag,
-      // },
-      // {
-      //   id: 4,
-      //   name: "Important Author",
-      //   view: ImportantAuthor,
-      // },
-      // {
-      //   id: 5,
-      //   name: "Active Author",
-      //   view: ActiveAuthor,
-      // },
-      // {
-      //   id: 6,
-      //   name: "Active url",
-      //   view: ActiveUrl,
-      // },
-      // {
-      //   id: 7,
-      //   name: "Important Url",
-      //   view: ImportantUrl,
-      // },
-      // {
-      //   id: 8,
-      //   name: "Media Link",
-      //   view: MediaLink,
-      // },
-      // {
-      //   id: 8,
-      //   name: "Sosial Media",
-      //   view: SosialMedia,
-      // },
-      // {
-      //   id: 10,
-      //   name: "Popular Author",
-      //   view: PopularAuthor,
-      // },
-    ],
-  },
+  // {
+  //   id: 2,
+  //   name: "Media listener",
+  //   label: "media_listener",
+  //   icon: MdMessage,
+  //   child: [
+  //     //   {
+  //     //     id: 1,
+  //     //     name: "Statistic",
+  //     //     view: Statistict,
+  //     //   },
+  //     {
+  //       id: 2,
+  //       name: "Media Summary",
+  //       label: "media_summary",
+  //       view: () => <MentionbyCategory />,
+  //       icon: MdAssignment,
+  //     },
+  //     // {
+  //     //   id: 3,
+  //     //   name: "Media Hastag",
+  //     //   view: MediaHastag,
+  //     // },
+  //     // {
+  //     //   id: 4,
+  //     //   name: "Important Author",
+  //     //   view: ImportantAuthor,
+  //     // },
+  //     // {
+  //     //   id: 5,
+  //     //   name: "Active Author",
+  //     //   view: ActiveAuthor,
+  //     // },
+  //     // {
+  //     //   id: 6,
+  //     //   name: "Active url",
+  //     //   view: ActiveUrl,
+  //     // },
+  //     // {
+  //     //   id: 7,
+  //     //   name: "Important Url",
+  //     //   view: ImportantUrl,
+  //     // },
+  //     // {
+  //     //   id: 8,
+  //     //   name: "Media Link",
+  //     //   view: MediaLink,
+  //     // },
+  //     // {
+  //     //   id: 8,
+  //     //   name: "Sosial Media",
+  //     //   view: SosialMedia,
+  //     // },
+  //     // {
+  //     //   id: 10,
+  //     //   name: "Popular Author",
+  //     //   view: PopularAuthor,
+  //     // },
+  //   ],
+  // },
   {
     id: 3,
     name: "STEP & SWOT",
