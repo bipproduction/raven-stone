@@ -125,7 +125,7 @@ const MyMain = () => {
           <ScrollArea>
             <Center h={"100vh"}>
               <Stack justify={"center"}>
-                <Title c={"indigo"}>RAVEN STONE</Title>
+                {/* <Title c={"indigo"}>RAVEN STONE</Title> */}
                 <Paper p={"md"}>
                   <Stack>
                     <Title>{_.upperCase(t('common:login'))}</Title>
