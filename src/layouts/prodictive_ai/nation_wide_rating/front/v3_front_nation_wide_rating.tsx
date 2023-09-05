@@ -164,7 +164,8 @@ export function V3FrontNationWideRating() {
                     </Center>
                   </Card>
                 </SimpleGrid>
-                <Card>
+                {/* DI HIDE SEMENTARA */}
+                {/* <Card>
                   {!listData ? (
                     <Loader />
                   ) : !listData[0] ? (
@@ -202,7 +203,7 @@ export function V3FrontNationWideRating() {
                       )}
                     </ScrollArea>
                   )}
-                </Card>
+                </Card> */}
               </Stack>
             </Paper>
           </Grid.Col>
