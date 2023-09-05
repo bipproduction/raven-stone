@@ -124,7 +124,7 @@ export default function App(props: any) {
   );
 }
 
-const AuthProvider = ({ children }: PropsWithChildren) => {
+function AuthProvider({ children }: PropsWithChildren) {
   // const isUser = useHookstate(gIsUser);
   // const user = useHookstate(gUser);
   useShallowEffect(() => {
