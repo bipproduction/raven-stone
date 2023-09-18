@@ -1,0 +1,32 @@
+{
+    "theme_color": "purple",
+    "background_color": "black",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Raven Stone",
+    "short_name": "ravenstone",
+    "description": "Raven Stone",
+    "icons": [
+        {
+            "src": "/raven.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/raven.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/raven.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/raven.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

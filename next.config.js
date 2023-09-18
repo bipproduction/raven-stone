@@ -1,6 +1,18 @@
+const nextTranslate = require('next-translate-plugin')
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = nextTranslate({
   reactStrictMode: true,
-}
+})
+const withPWA = require("next-pwa");
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    register: true,
+    disable: process.env.NODE_ENV === 'development',
+    skipWaiting: true,
+  },
+});
+
 
 module.exports = nextConfig

@@ -1,0 +1,26 @@
+[
+    {
+      "id": "1",
+      "name": "Pendidikan"
+    },
+    {
+      "id": "2",
+      "name": "Infrastruktur"
+    },
+    {
+      "id": "3",
+      "name": "Layanan Kesehatan"
+    },
+    {
+      "id": "4",
+      "name": "Keagamaan"
+    },
+    {
+      "id": "5",
+      "name": "Kemiskinan"
+    },
+    {
+      "id": "6",
+      "name": "Lapangan Pekerjaan"
+    }
+  ]

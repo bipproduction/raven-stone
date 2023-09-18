@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "value1": 90,
+        "value2": 30,
+        "candidateId": 1
+    },
+    {
+        "id": 2,
+        "value1": 60,
+        "value2": 40,
+        "candidateId": 2
+    },
+    {
+        "id": 3,
+        "value1": 80,
+        "value2": 50,
+        "candidateId": 3
+    },
+    {
+        "id": 4,
+        "value1": 20,
+        "value2": 50,
+        "candidateId": 4
+    },
+    {
+        "id": 5,
+        "value1": 40,
+        "value2": 70,
+        "candidateId": 5
+    },
+    {
+        "id": 6,
+        "value1": 90,
+        "value2": 30,
+        "candidateId": 6
+    },
+    {
+        "id": 7,
+        "value1": 10,
+        "value2": 80,
+        "candidateId": 7
+    }
+]

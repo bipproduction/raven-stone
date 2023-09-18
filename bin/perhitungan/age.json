@@ -1,0 +1,27 @@
+[
+    {
+      "id": "1",
+      "name": "Remaja Akhir",
+      "value": "18 - 25"
+    },
+    {
+      "id": "2",
+      "name": "Dewasa Awal",
+      "value": "26 - 35"
+    },
+    {
+      "id": "3",
+      "name": "Dewasa Akhir",
+      "value": "36 - 45"
+    },
+    {
+      "id": "4",
+      "name": "Lanjut Usia Awal",
+      "value": "46 - 55"
+    },
+    {
+      "id": "5",
+      "name": "Lanjut Usia Akhir",
+      "value": "56 - 65"
+    }
+  ]

@@ -1,0 +1,34 @@
+[
+    {
+      "id": "1",
+      "name": "Trust"
+    },
+    {
+      "id": "2",
+      "name": "Joy"
+    },
+    {
+      "id": "3",
+      "name": "Surprise"
+    },
+    {
+      "id": "4",
+      "name": "Anticipation"
+    },
+    {
+      "id": "5",
+      "name": "Sadness"
+    },
+    {
+      "id": "6",
+      "name": "Fear"
+    },
+    {
+      "id": "7",
+      "name": "Anger"
+    },
+    {
+      "id": "8",
+      "name": "Disgust"
+    }
+  ]

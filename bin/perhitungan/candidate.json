@@ -1,0 +1,57 @@
+[
+    {
+      "id": "1",
+      "name": "Prabowo Subianto",
+      "img": "/candidate/prabowo.png"
+    },
+    {
+      "id": "2",
+      "name": "Ganjar Pranowo",
+      "img": "/candidate/ganjar.png"
+    },
+    {
+      "id": "3",
+      "name": "Anies Baswedan",
+      "img": "/candidate/anies.png"
+    },
+    {
+      "id": "4",
+      "name": "Agus Harimurti Yudoyono",
+      "img": "/candidate/ahy.png"
+    },
+    {
+      "id": "5",
+      "name": "Muhaimin Iskandar",
+      "img": "/candidate/muhaimin.png"
+    },
+    {
+      "id": "6",
+      "name": "Khofifah",
+      "img": "/candidate/khofifah.png"
+    },
+    {
+      "id": "7",
+      "name": "Erick Thohir",
+      "img": "/candidate/eric.png"
+    },
+    {
+      "id": "8",
+      "name": "Mahfud MD",
+      "img": "/candidate/mahfud.png"
+    },
+    {
+      "id": "9",
+      "name": "Airlangga Hartarto",
+      "img": "/candidate/airlangga.png"
+    },
+    {
+      "id": "10",
+      "name": "Sandiaga Uno",
+      "img": "/candidate/sandiaga.png"
+    },
+    {
+      "id": "11",
+      "name": "Ridwan Kamil",
+      "img": "/candidate/ridwan.png"
+    }
+  ]
