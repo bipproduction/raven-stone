@@ -76,6 +76,8 @@ import {
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
 import translate from 'google-translate-api-x'
 import useTranslate from 'next-translate/useTranslation'
+import { COLOR } from "@/global/fun/color_global";
+import Mlai from "@/layouts/step_and_swot/ml_ai";
 
 const listView = [
   {
@@ -239,6 +241,58 @@ const listView = [
   },
 ];
 
+const listView2 = [
+  {
+    id: 1,
+    name: "Top 10 Rating By Emotions",
+    label: "summary",
+    view: () => <MainSummary />,
+    icon: MdStorage,
+  },
+  {
+    id: 5,
+    name: "Nation Wide Rating",
+    label: "national_popularity_metrics",
+    view: () => <NationWideRating />,
+    icon: MdOutlineStarBorderPurple500,
+  },
+  {
+    id: 6,
+    name: "Emotional View Via Province",
+    label: "regional_insights",
+    view: () => <MainEmotionViewProvince />,
+    icon: MdOutlineStars,
+  },
+  {
+    id: 7,
+    name: "Emotional View Via Province Couple",
+    label: "regional_data_pairing",
+    view: () => <EmotionViewProvinceCoupleV2 />,
+    icon: MdJoinLeft,
+  },
+  {
+    id: 4,
+    name: "SWOT Analysis",
+    label: "swot_evaluation",
+    view: () => <SwotAnalisys />,
+    icon: MdGrading,
+  },
+  {
+    id: 3,
+    name: "Step Analysis",
+    label: "step_assessment",
+    view: () => <StepAnalisys />,
+    icon: MdFreeCancellation,
+  },
+  {
+    id: 8,
+    name: "ML-AI",
+    label: "ml_ai",
+    view: () => <Mlai />,
+    icon: MdOutlineStarBorderPurple500,
+  },
+];
+
 const Dashboard = (props: any) => {
   const { t, lang } = useTranslate();
   const theme = useMantineTheme();
@@ -276,102 +330,13 @@ const Dashboard = (props: any) => {
         // bg={"gray.2"}
         styles={{
           main: {
-            background:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
+            background: COLOR.bgGradasi
+
           },
         }}
         navbarOffsetBreakpoint="sm"
         asideOffsetBreakpoint="sm"
         navbar={<MyNavbar />}
-      // header={
-      //   <Header
-      //     height={{ base: 50, md: 50 }}
-      //     p="md"
-      //     // bg={"blue.4"}
-      //     sx={{
-      //       boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)",
-      //     }}
-      //   >
-      //     <div
-      //       style={{ display: "flex", alignItems: "center", height: "100%" }}
-      //     >
-      //       <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-      //         <Burger
-      //           opened={sNavbarOpen.value}
-      //           onClick={() => {
-      //             sNavbarOpen.value = !sNavbarOpen.value;
-      //           }}
-      //           size="sm"
-      //           color={theme.colors.gray[6]}
-      //           mr="xl"
-      //         />
-      //       </MediaQuery>
-
-      //       <Flex
-      //         direction={"row"}
-      //         justify={"space-between"}
-      //         w={"100%"}
-      //         align={"center"}
-      //       >
-      //         <Group align={"center"}>
-      //           <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
-      //             <Group>
-      //               {/* <Box w={{ sm: 200, lg: 300 }}>
-      //               <Image width={150} src={"/logo-2.png"} alt={"logo"} />
-      //             </Box> */}
-      //               {/* <Text>{gSelectedView.value}</Text> */}
-      //               {/* {(gSelectedView.value == "Top 10 Province By Emotions" ||
-      //               gSelectedView.value == "Top 10 District by Emotions") && (
-      //               <Stack p={"xs"} spacing={0}>
-      //                 <Title c={"cyan.4"}>Hi Mr. Chusni</Title>
-      //                 <Text c={"gray"}>
-      //                   Welcome to Prabowo Subianto for President 2024 -
-      //                   Digital Intelligence Winning Program.
-      //                 </Text>
-      //               </Stack>
-      //             )} */}
-      //               {/* <Title order={3} color={"blue.8"}>Eagle Eye Project</Title> */}
-      //             </Group>
-      //           </MediaQuery>
-      //           {/* <Text c={"blue.8"} size={24} fw={"bold"}>EAGLE EYE PROJECT</Text> */}
-      //         </Group>
-
-      //         <MediaQuery smallerThan={"sm"} styles={{ display: "none" }}>
-      //           <Group>
-      //             <MyNotivication />
-      //             <Menu>
-      //               <Menu.Target>
-      //                 <ActionIcon radius={100} size={42} variant={"filled"}>
-      //                   <MdAccountCircle size={42} color={"babyblue"} />
-      //                 </ActionIcon>
-      //               </Menu.Target>
-      //               <Menu.Dropdown>
-      //                 <Stack p={"md"}>
-      //                   <Flex gap={"md"} align={"center"}>
-      //                     <IconUserCircle color="teal" />
-      //                     <Title color="teal" order={3}>
-      //                       {sUser.value?.name}
-      //                     </Title>
-      //                   </Flex>
-      //                 </Stack>
-      //                 <Menu.Item
-      //                   onClick={() => {
-      //                     localStorage.removeItem("user_id");
-      //                     sUser.value = {};
-      //                   }}
-      //                 >
-      //                   Logout
-      //                 </Menu.Item>
-      //               </Menu.Dropdown>
-      //             </Menu>
-      //           </Group>
-      //         </MediaQuery>
-      //       </Flex>
-      //     </div>
-      //   </Header>
-      // }
       >
         <BackgroundImage src="https://str.wibudev.com/api/file/get/cllkkd90p000h9uhkqir9ptq3.png">
           {/* //todo: 2023-05-19 */}
@@ -388,19 +353,6 @@ const Dashboard = (props: any) => {
           )}
         </BackgroundImage>
       </AppShell>
-
-
-      {/* <Overlay pos={"fixed"} h={"100%"} w={"100%"} blur={4} display={sUser.value!.name === "fami" ? "none" : "block"} >
-        <Center h={"100vh"}>
-          <Paper p={"md"} bg={"yellow.0"} >
-            <Stack justify="center" align="center">
-
-              <Title color="red" align="center">This project has been terminated and shutdown on July 19, 2023</Title>
-              <Text color="black" w={"70%"} align="center">All features, functions, storage services, and embedded algorithms within the artificial intelligence automation have ceased to operate</Text>
-            </Stack>
-          </Paper>
-        </Center>
-      </Overlay> */}
     </>
   );
 };
@@ -554,22 +506,20 @@ const MyNavbar = () => {
           >
             <Navbar.Section grow>
               <Stack align="center" p={"xs"}>
-                {listView.map((v) =>
-                  v.child.map((vv, i) => (
-                    <Box key={i}>
-                      <Tooltip label={t('common:' + vv.label)}>
-                        <ActionIcon
-                          bg={vv.name === sSelectedView.value ? "dark" : ""}
-                          radius={100}
-                          size={32}
-                          variant="light"
-                          onClick={() => ketikaCklik(v, vv)}
-                        >
-                          <vv.icon size={32} color="#BE2533" />
-                        </ActionIcon>
-                      </Tooltip>
-                    </Box>
-                  ))
+                {listView2.map((v, i) =>
+                  <Box key={i}>
+                    <Tooltip label={_.upperCase(t('common:' + v.label))}>
+                      <ActionIcon
+                        bg={v.name === sSelectedView.value ? "dark" : ""}
+                        radius={100}
+                        size={32}
+                        variant="light"
+                        onClick={() => ketikaCklik(v, v)}
+                      >
+                        <v.icon size={32} color="#BE2533" />
+                      </ActionIcon>
+                    </Tooltip>
+                  </Box>
                 )}
               </Stack>
             </Navbar.Section>
@@ -623,48 +573,28 @@ const MyNavbar = () => {
             </AnimateCssReact>
           </Navbar.Section>
           <Navbar.Section grow component={ScrollArea}>
-            {listView.map((v) => (
-              <NavLink
-                defaultOpened={true}
-                // bg={"blue.2"}
-                // sx={{
-                //   boxShadow: "-1px 2px 8px -4px rgba(0,0,0,0.75)"
-                // }}
-                label={t('common:' + v.label)}
-                icon={
-                  <Avatar radius={100}>
-                    <v.icon size={24} color={"#BE2533"} />
-                  </Avatar>
-                }
-                key={v.id.toString()}
-              // c={"dark"}
-              // defaultOpened
+            {listView2.map((vv, i) => (
+              <Box
+                key={`${vv.id}${i}`}
+                mb={"xs"}
               >
-                {v.child.map((vv, i) => (
-                  <Box
-                    key={`${v.id}${i}`}
-                    mb={"xs"}
-                  // bg={"blue.1"}
-                  >
-                    <NavLink
-                      c={sSelectedView.value == vv.name ? "blue.8" : ""}
-                      icon={<vv.icon color="orange" />}
-                      variant={"filled"}
-                      // fw={sSelectedView.value == vv.name ? "bold" : "light"}
-                      // bg={selectedView.value == vv.name ? "blue.1" : ""}
-                      label={
-                        sSelectedView.value == vv.name ? (
-                          <Title order={5}>{t('common:' + vv.label)}</Title>
-                        ) : (
-                          <Text>{t('common:' + vv.label)}</Text>
-                        )
-                      }
-                      key={`${v.id}${i}`}
-                      onClick={() => ketikaCklik(v, vv)}
-                    />
-                  </Box>
-                ))}
-              </NavLink>
+                <NavLink
+                  c={sSelectedView.value == vv.name ? "blue.8" : ""}
+                  icon={<vv.icon color="orange" />}
+                  variant={"filled"}
+                  // fw={sSelectedView.value == vv.name ? "bold" : "light"}
+                  // bg={selectedView.value == vv.name ? "blue.1" : ""}
+                  label={
+                    sSelectedView.value == vv.name ? (
+                      <Title order={5}>{_.upperCase(t('common:' + vv.label))}</Title>
+                    ) : (
+                      <Text>{_.upperCase(t('common:' + vv.label))}</Text>
+                    )
+                  }
+                  key={`${vv.id}${i}`}
+                  onClick={() => ketikaCklik(vv, vv)}
+                />
+              </Box>
             ))}
           </Navbar.Section>
           <Navbar.Section>
@@ -672,7 +602,7 @@ const MyNavbar = () => {
               // bg={"gray"}
               // c={"dark"}
               icon={<MdSettings />}
-              label={t('common:setting')}
+              label={_.upperCase(t('common:setting'))}
             >
               {/* <NavLink
                 icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
@@ -681,7 +611,7 @@ const MyNavbar = () => {
               /> */}
               <NavLink
                 icon={<MdLogout />}
-                label={t('common:logout')}
+                label={_.upperCase(t('common:logout'))}
                 onClick={() => {
                   localStorage.removeItem("user_id");
                   sUser.value = {};
