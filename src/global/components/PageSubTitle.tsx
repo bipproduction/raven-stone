@@ -1,7 +1,7 @@
 import { Box, Divider, Group, Text } from '@mantine/core';
 import React from 'react';
 
-export const PageHeader = ({text1, text2}: {text1: string, text2: string}) => {
+export const PageSubTitle = ({text1, text2}: {text1: string, text2: string}) => {
   return (
     <>
     <Box p={30}>
@@ -22,4 +22,4 @@ export const PageHeader = ({text1, text2}: {text1: string, text2: string}) => {
   );
 }
 
-export default PageHeader;
+export default PageSubTitle;
