@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "name": "Chusni",
+        "email": "chusni_03@gmail.com",
+        "password": "reignite_157",
+        "userRoleId": 1
+    },
+    {
+        "id": "2",
+        "name": "Admin",
+        "email": "admin@bip.com",
+        "password": "admin_123",
+        "userRoleId": 1
+    },
+    {
+        "id": "3",
+        "name": "wibu_dev",
+        "email": "wibu_dev@bip.com",
+        "password": "wibu_dev_123",
+        "userRoleId": 2
+    }
+]
