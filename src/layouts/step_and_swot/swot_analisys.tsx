@@ -25,7 +25,7 @@ import { sCandidate } from "@/s_state/s_candidate";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import Trs from "@/fun_load/trs";
 import useTranslate from 'next-translate/useTranslation'
-import PageHeader from "@/global/components/pageHeader";
+import  { PageSubTitle } from "@/global/components/PageSubTitle";
 
 export default function SwotAnalisys() {
   const { t, lang } = useTranslate()
@@ -36,7 +36,7 @@ export default function SwotAnalisys() {
           text={_.upperCase(t('common:strength_weakness_opportunity_threat'))}
           title={_.upperCase(t('common:swot_analysis'))}
         /> */}
-      <PageHeader text1="SWOT" text2="EVALUATION"/>
+      <PageSubTitle text1="SWOT" text2="EVALUATION"/>
 
         {/* <Onprogress /> */}
         <Analisys />

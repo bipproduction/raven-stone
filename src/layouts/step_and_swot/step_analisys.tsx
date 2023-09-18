@@ -23,7 +23,8 @@ import TextAnimation from "react-typing-dynamics";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
 import Trs from "@/fun_load/trs";
 import useTranslate from 'next-translate/useTranslation'
-import PageHeader from "@/global/components/pageHeader";
+import PageSubTitle from "@/global/components/PageSubTitle";
+
 
 export default function StepAnalisys() {
   const [stepDataList, setStepDataList] = useState<{ [key: string]: any }>();
@@ -51,7 +52,7 @@ export default function StepAnalisys() {
         text={_.upperCase(t('common:social_technology_economic_politic_analysis'))}
         title={_.upperCase(t('common:step_analysis'))}
       /> */}
-      <PageHeader text1="STEP" text2="ASSESEMENT"/>
+      <PageSubTitle text1="STEP" text2="ASSESEMENT"/>
       <Group position="right">
         <Text size={12}>{_.upperCase(t('common:candidate_to_analize'))}</Text>
         <Select
