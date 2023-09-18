@@ -64,5 +64,11 @@
     "berprestasi": "Achievement",
     "berpengalaman memimpin": "Leading Experience",
     "setting": "Setting",
-    "step&swot": "STEP & SWOT"
+    "step&swot": "STEP & SWOT",
+    "national_popularity_metrics": "National Popularity Metrics",
+    "regional_insights": "Regional Insights",
+    "regional_data_pairing": "Regional Data Pairing",
+    "swot_evaluation": "SWOT Evaluation",
+    "step_assessment": "STEP Assessment",
+    "ml_ai": "ML-AI"
 }
