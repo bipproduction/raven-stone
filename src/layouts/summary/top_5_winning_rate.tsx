@@ -51,6 +51,9 @@ export function Top5WinningRate() {
 
   return (
     <>
+   {/* <pre>
+   {JSON.stringify(listTop5, null,2)}
+   </pre> */}
       <Paper p={"md"}>
         <Stack>
           {/* <Trs text="TOP 5 NATIONAL WINNING RATES PREDICTION" lang={lang}>

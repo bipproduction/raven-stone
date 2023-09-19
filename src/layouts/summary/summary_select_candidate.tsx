@@ -17,13 +17,14 @@ import {
   Select,
   Stack,
   Text,
-  Title
+  Title,
 } from "@mantine/core";
 import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import _ from "lodash";
 import { useState } from "react";
 import { MdFace } from "react-icons/md";
-import useTranslate from 'next-translate/useTranslation'
+import useTranslate from "next-translate/useTranslation";
+import PageSubTitle from "@/global/components/PageSubTitle";
 
 const SummarySelectCandidate = () => {
   const update = useForceUpdate();
@@ -77,28 +78,79 @@ const SummarySelectCandidate = () => {
       positive: Number(((positive / totalEmotions) * 100).toFixed(2)),
       neutral: Number(((neutral / totalEmotions) * 100).toFixed(2)),
       negative: Number(((negative / totalEmotions) * 100).toFixed(2)),
-    }
-
+    };
 
     //console.log(result);
     if (!_.isEmpty(sTop10Province.value)) {
       setProsentase(result);
     }
   }, [sTop10Province.value, prosentase]);
-  const { t, lang } = useTranslate()
+  const { t, lang } = useTranslate();
   return (
     <>
-      <Group position="apart" py={"lg"}>
-        <Paper p={"md"}
-          // bg={stylesRadial.in_cyan_dark} 
-          shadow={"md"} w={400}>
+      {/* {JSON.stringify(sCandidate.value.find((e) => e.name))} */}
+
+      {/* New Design Rave Stone */}
+      <Flex gap={"md"}>
+        <Flex>
+          {[sCandidate.value.find((e) => e.id == 1)].map((v, i) => (
+            <Box key={i}>
+              <Box
+                sx={{
+                  borderStyle: "solid",
+                  borderColor: "white",
+                  borderRadius: "5px",
+                  borderWidth: "1px",
+                }}
+              >
+                <Avatar size={250} src={v?.img} />
+              </Box>
+              <Flex justify={"center"} pt={"sm"} align={"center"} gap={"xs"}>
+                <Title  order={2}>{v?.name}</Title>
+                {/* <Text fz={30}>{v?.name.split("Prabowo")}</Text> */}
+              </Flex>
+            </Box>
+          ))}
+        </Flex>
+        <Flex pt={"xs"}>
+          {[sCandidate.value.map((e) => e.id == 1)].map((v, i) => (
+            <Box key={i}>
+              <Stack>
+                <Paper h={60} w={150} bg={"green.6"} radius={"md"}>
+                  <Center h={60}>
+                    <Title c={"white"}>{prosentase.positive} %</Title>
+                  </Center>
+                </Paper>
+                <Paper h={60} w={150} bg={"white"} radius={"md"}>
+                  <Center h={60}>
+                    <Title c={"green.6"}>{prosentase.neutral} %</Title>
+                  </Center>
+                </Paper>
+                <Paper h={60} w={150} bg={"red.9"} radius={"md"}>
+                  <Center h={60}>
+                    <Title c={"white"}>{prosentase.negative} %</Title>
+                  </Center>
+                </Paper>
+              </Stack>
+            </Box>
+          ))}
+        </Flex>
+      </Flex>
+
+      {/* <Group position="apart" py={"lg"}>
+        <Paper
+          p={"md"}
+
+          shadow={"md"}
+          w={400}
+        >
           <Stack>
-            {/* {JSON.stringify(prosentase)} */}
+
             <Flex align={"center"} justify={"center"}>
               {[
                 sCandidate.value.find((v) => v.id == 1),
-                sCandidate.value.find((v) => v.id == 2),
-                sCandidate.value.find((v) => v.id == 3),
+                // sCandidate.value.find((v) => v.id == 2),
+                // sCandidate.value.find((v) => v.id == 3),
               ].map((v, i) => (
                 <Box key={i} p={"sm"}>
                   <ActionIcon
@@ -130,20 +182,16 @@ const SummarySelectCandidate = () => {
                 </Box>
               ))}
             </Flex>
-            <Flex justify="center" align={"center"} >
-              <Title align="center"
-
-                order={3}>
+            <Flex justify="center" align={"center"}>
+              <Title align="center" order={3}>
                 {_.upperCase(
                   sCandidate.value.find(
                     (v) => v.id == Number(sSelectedCandidate.value)
                   )?.name
                 )}
               </Title>
-
             </Flex>
             <Flex py={"md"} justify={"space-between"} gap={"sm"}>
-
               <Paper
                 w={100}
                 radius={100}
@@ -154,8 +202,9 @@ const SummarySelectCandidate = () => {
               >
                 <Center>
                   <Text
-                    // c={"white"} 
-                    fw={"bold"}>
+
+                    fw={"bold"}
+                  >
                     {prosentase.positive} %
                   </Text>
                 </Center>
@@ -170,8 +219,9 @@ const SummarySelectCandidate = () => {
               >
                 <Center>
                   <Text
-                    // c={"white"}
-                    fw={"bold"}>
+
+                    fw={"bold"}
+                  >
                     {prosentase.neutral} %
                   </Text>
                 </Center>
@@ -185,16 +235,13 @@ const SummarySelectCandidate = () => {
                 }}
               >
                 <Center>
-                  <Text
-                    fw={"bold"}>
-                    {prosentase.negative} %
-                  </Text>
+                  <Text fw={"bold"}>{prosentase.negative} %</Text>
                 </Center>
               </Paper>
             </Flex>
           </Stack>
           <Select
-            placeholder={t('common:' + _.lowerCase(sSelectedEmotion.value))}
+            placeholder={t("common:" + _.lowerCase(sSelectedEmotion.value))}
             variant={"filled"}
             radius={100}
             searchable
@@ -202,12 +249,11 @@ const SummarySelectCandidate = () => {
             // label={"sort emotion"}
             data={sListEmotion.value.map((v) => ({
               // label: v.name,
-              label: t('common:' + _.lowerCase(v.name)),
+              label: t("common:" + _.lowerCase(v.name)),
               value: v.name,
             }))}
             onChange={async (val) => {
               if (val) {
-
                 sSelectedEmotion.value = val;
                 await funcLoadTop10District();
                 await funcLoadTop10Province();
@@ -216,8 +262,8 @@ const SummarySelectCandidate = () => {
             }}
           />
         </Paper>
-        <Group position="right" align={"end"}>
-          {/* <Select
+        <Group position="right" align={"end"}> */}
+      {/* <Select
             placeholder={sSelectedEmotion.value}
             variant={"filled"}
             searchable
@@ -236,7 +282,7 @@ const SummarySelectCandidate = () => {
               }
             }}
           /> */}
-          {/* <HoverCard>
+      {/* <HoverCard>
             <HoverCard.Target>
               <ActionIcon
                 sx={{
@@ -258,8 +304,8 @@ const SummarySelectCandidate = () => {
               </Stack>
             </HoverCard.Dropdown>
           </HoverCard> */}
-        </Group>
-      </Group>
+      {/* </Group>
+      </Group> */}
     </>
   );
 };
