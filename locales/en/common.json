@@ -80,5 +80,9 @@
     "sentiment_analysis": "Sentiment Analysis",
     "leader_trait_assessment": "Leader Trait Assessment",
     "public_concerns_trends": "Public Concerns Trends",
-    "emotional_spectrum_chart": "Emotions Spectrum Chart"
+    "emotional_spectrum_chart": "Emotions Spectrum Chart",
+    "p_step": "STEP",
+    "p_assessment": "ASSESSMENT",
+    "p_swot": "SWOT",
+    "p_evaluation": "EVALUATION"
 }

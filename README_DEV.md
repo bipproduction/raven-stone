@@ -24,7 +24,8 @@ _________________________________
    - (=)12 :: Top 5 = src/layouts/summary/top_5_winning_rate.tsx
 
 - (B) Nation Wide Rating (National Popularity Metrics) :
-   - 13 :: Bagian photo dan persen = src/layouts/prodictive_ai/nation_wide_rating/front/v3_front_nation_wide_rating.tsx
+   - 13 :: Bagian photo = src/layouts/prodictive_ai/nation_wide_rating/front/v3_front_nation_wide_rating.tsx
+   - 13 :: Bagian select = src/layouts/prodictive_ai/nation_wide_rating/front/com/v3_com_nation_wide_rating_select_candidate.tsx
    - 13 :: Pie chart = src/layouts/prodictive_ai/nation_wide_rating/front/com/v3_com_chart_bar.tsx
    - 13 :: Line chart = src/layouts/prodictive_ai/nation_wide_rating/front/com/v3_com_nation_wide_rating_line_chart.tsx
 
