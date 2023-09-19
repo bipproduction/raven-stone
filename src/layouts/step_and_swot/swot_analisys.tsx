@@ -4,6 +4,7 @@ import {
   Button,
   Center,
   Flex,
+  Grid,
   Group,
   Image,
   Paper,
@@ -24,11 +25,14 @@ import _ from "lodash";
 import { sCandidate } from "@/s_state/s_candidate";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import Trs from "@/fun_load/trs";
-import useTranslate from 'next-translate/useTranslation'
-import  { PageSubTitle } from "@/global/components/PageSubTitle";
+import useTranslate from "next-translate/useTranslation";
+import { PageSubTitle } from "@/global/components/PageSubTitle";
+import { useAtom } from "jotai";
+import { v3_val_nation_wide_rating_selected_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_selected_candidate";
+import { v3_val_nation_wide_rating_list_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_list_candidate";
 
 export default function SwotAnalisys() {
-  const { t, lang } = useTranslate()
+  const { t, lang } = useTranslate();
   return (
     <>
       <Stack spacing={"lg"}>
@@ -36,7 +40,7 @@ export default function SwotAnalisys() {
           text={_.upperCase(t('common:strength_weakness_opportunity_threat'))}
           title={_.upperCase(t('common:swot_analysis'))}
         /> */}
-      <PageSubTitle text1="SWOT" text2="EVALUATION"/>
+        <PageSubTitle text1="SWOT" text2="EVALUATION" />
 
         {/* <Onprogress /> */}
         <Analisys />
@@ -69,6 +73,12 @@ function Analisys() {
   const [candidateId, setCandidateId] = useState(1);
   const [listSingle, setListSingle] = useState<any[]>();
   const [listDouble, setlistDouble] = useState<any[]>();
+  const [selectedCandidate, setSelectedCandidate] = useAtom(
+    v3_val_nation_wide_rating_selected_candidate
+  );
+  const [listCandidate, setListCandidate] = useAtom(
+    v3_val_nation_wide_rating_list_candidate
+  );
 
   function loadData(candidateId: number) {
     fetch(api.apiSwotSwotContentGet + `?candidateId=${candidateId}`)
@@ -94,74 +104,109 @@ function Analisys() {
   useShallowEffect(() => {
     loadData(candidateId);
   }, []);
-  const { t, lang } = useTranslate()
+  const { t, lang } = useTranslate();
   return (
-    <Stack spacing={"lg"}>
-      <Group position="right">
-        <Select
-          label={t('common:select_candidate')}
-          size="xs"
-          placeholder={
-            sCandidate.value.find((v) => Number(v.id) == candidateId)?.name
-          }
-          data={
-            sCandidate.value.map((v) => ({
-              label: v.name,
-              value: v.id,
-            })) as any
-          }
-          onChange={(val) => {
-            if (val) loadData(Number(val));
-          }}
-        />
-      </Group>
-
-      <SimpleGrid cols={2}>
-        {listDouble?.map((v, i) => (
-          <Paper
-            key={i}
-            p={"md"}
-          // bg={v.sentiment == "positive" ? "green.1" : "red.1"}
+    <Stack spacing={"lg"} pl={30} pr={30}>
+      <Grid gutter="lg">
+        <Grid.Col md={2} lg={2}>
+          <Box
+            sx={{
+              backgroundColor: "white",
+              padding: 3,
+              borderRadius: 10,
+            }}
           >
-            <Stack>
-              {/* {JSON.stringify(v)} */}
-              <Title order={3} c={v.sentiment == "positive" ? "green" : "red"}>
-                <Trs text={_.upperCase(v.name)} lang={lang}>
-                  {(val: any) => <div>{val}</div>}
-                </Trs>
-              </Title>
-              {/* {JSON.stringify(v)} */}
-              {!_.isEmpty(v.SwotAnalisys) && (
-                <ScrollArea
-                  p={"md"}
-                  // bg={"white"}
-                  h={300}
-                // c={"gray"}
+            <Image
+              alt="image"
+              src={
+                listCandidate?.find(
+                  (v) => v.id == selectedCandidate.candidate2Id
+                ).img
+              }
+              radius={10}
+            />
+          </Box>
+          <Group pt={20}>
+            <Select
+              label={
+                <Text fz={17} color="white">
+                  {t("common:select_candidate")}
+                </Text>
+              }
+              size="xs"
+              placeholder={
+                sCandidate.value.find((v) => Number(v.id) == candidateId)?.name
+              }
+              data={
+                sCandidate.value.map((v) => ({
+                  label: v.name,
+                  value: v.id,
+                })) as any
+              }
+              onChange={(val) => {
+                if (val) loadData(Number(val));
+              }}
+              w={350}
+            />
+          </Group>
+        </Grid.Col>
+        <Grid.Col md={10} lg={10}>
+          {listDouble?.map((v, i) => (
+            <Box key={i} pl={20}>
+              <Stack pb={30}>
+                {/* {JSON.stringify(v)} */}
+                <Title
+                  order={3}
+                  c={v.sentiment == "positive" ? "green" : "green"}
+                  pl={10}
                 >
-                  <Trs text={v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
-                    .content} lang={lang}>
-                    {(val: any) => <>
-                      {val && <TextAnimation
-                        phrases={[
-                          val,
-                        ]}
-                        typingSpeed={10}
-                        backspaceDelay={500}
-                        eraseDelay={0}
-                        errorProbability={0.1}
-                        eraseOnComplete={false}
-                      //   isSecure={true}
-                      />}
-
-                    </>}
+                  <Trs text={_.upperCase(v.name)} lang={lang}>
+                    {(val: any) => <div>{val}</div>}
                   </Trs>
-                </ScrollArea>
-              )}
-            </Stack>
-          </Paper>
-        ))}
-      </SimpleGrid>
-      <SingleView listSingle={listSingle} />
+                </Title>
+                {/* {JSON.stringify(v)} */}
+                {!_.isEmpty(v.SwotAnalisys) && (
+                  <ScrollArea
+                    p={"md"}
+                    // bg={"white"}
+                    h={300}
+                    // c={"gray"}
+                  >
+                    <Trs
+                      text={
+                        v.SwotAnalisys[_.random(0, v.SwotAnalisys.length - 1)]
+                          .content
+                      }
+                      lang={lang}
+                    >
+                      {(val: any) => (
+                        <>
+                          {val && (
+                            <TextAnimation
+                              phrases={[val]}
+                              typingSpeed={10}
+                              backspaceDelay={500}
+                              eraseDelay={0}
+                              errorProbability={0.1}
+                              eraseOnComplete={false}
+                              //   isSecure={true}
+                            />
+                          )}
+                        </>
+                      )}
+                    </Trs>
+                  </ScrollArea>
+                )}
+              </Stack>
+            </Box>
+          ))}
+        </Grid.Col>
+      </Grid>
+
+      {/* <SimpleGrid cols={1}> */}
+
+      {/* </SimpleGrid> */}
+      {/* <SingleView listSingle={listSingle} /> */}
     </Stack>
   );
 }
@@ -177,7 +222,7 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
       }
     }
   }, [listSingle]);
-  const { t, lang } = useTranslate()
+  const { t, lang } = useTranslate();
   return (
     <>
       {listSingle?.map((v, i) => (
@@ -191,7 +236,7 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
             <Stack>
               <Paper
                 p={"md"}
-              // bg={"green.2"}
+                // bg={"green.2"}
               >
                 <Flex>
                   <Box p={"md"}>
@@ -240,20 +285,20 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
                       </Stack>
                     ) : (
                       <Trs text={text} lang={lang}>
-                        {(val: any) =>
-
-                          <>{val &&
-                            <TextAnimation
-                              phrases={[val]}
-                              typingSpeed={10}
-                              backspaceDelay={500}
-                              eraseDelay={0}
-                              errorProbability={0.1}
-                              eraseOnComplete={false}
-                            />
-                          }
+                        {(val: any) => (
+                          <>
+                            {val && (
+                              <TextAnimation
+                                phrases={[val]}
+                                typingSpeed={10}
+                                backspaceDelay={500}
+                                eraseDelay={0}
+                                errorProbability={0.1}
+                                eraseOnComplete={false}
+                              />
+                            )}
                           </>
-                        }
+                        )}
                       </Trs>
 
                       // <TextAnimation
