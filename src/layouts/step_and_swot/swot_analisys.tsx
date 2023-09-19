@@ -28,8 +28,6 @@ import Trs from "@/fun_load/trs";
 import useTranslate from "next-translate/useTranslation";
 import { PageSubTitle } from "@/global/components/PageSubTitle";
 import { useAtom } from "jotai";
-import { v3_val_nation_wide_rating_selected_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_selected_candidate";
-import { v3_val_nation_wide_rating_list_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_list_candidate";
 
 export default function SwotAnalisys() {
   const { t, lang } = useTranslate();
@@ -40,7 +38,7 @@ export default function SwotAnalisys() {
           text={_.upperCase(t('common:strength_weakness_opportunity_threat'))}
           title={_.upperCase(t('common:swot_analysis'))}
         /> */}
-        <PageSubTitle text1="SWOT" text2="EVALUATION" />
+        <PageSubTitle text1={t('common:p_swot')} text2={t('common:p_evaluation')} />
 
         {/* <Onprogress /> */}
         <Analisys />
@@ -73,12 +71,6 @@ function Analisys() {
   const [candidateId, setCandidateId] = useState(1);
   const [listSingle, setListSingle] = useState<any[]>();
   const [listDouble, setlistDouble] = useState<any[]>();
-  const [selectedCandidate, setSelectedCandidate] = useAtom(
-    v3_val_nation_wide_rating_selected_candidate
-  );
-  const [listCandidate, setListCandidate] = useAtom(
-    v3_val_nation_wide_rating_list_candidate
-  );
 
   function loadData(candidateId: number) {
     fetch(api.apiSwotSwotContentGet + `?candidateId=${candidateId}`)
@@ -91,6 +83,7 @@ function Analisys() {
 
           setListSingle([]);
           setlistDouble([]);
+          setCandidateId(candidateId);
 
           // wait 1 second
           await new Promise((r) => setTimeout(r, 1));
@@ -119,9 +112,9 @@ function Analisys() {
             <Image
               alt="image"
               src={
-                listCandidate?.find(
-                  (v) => v.id == selectedCandidate.candidate2Id
-                ).img
+                sCandidate.value.find(
+                  (v) => Number(v.id) == Number(candidateId)
+                )?.img
               }
               radius={10}
             />
@@ -170,7 +163,7 @@ function Analisys() {
                     p={"md"}
                     // bg={"white"}
                     h={300}
-                    // c={"gray"}
+                  // c={"gray"}
                   >
                     <Trs
                       text={
@@ -189,7 +182,7 @@ function Analisys() {
                               eraseDelay={0}
                               errorProbability={0.1}
                               eraseOnComplete={false}
-                              //   isSecure={true}
+                            //   isSecure={true}
                             />
                           )}
                         </>
@@ -236,7 +229,7 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
             <Stack>
               <Paper
                 p={"md"}
-                // bg={"green.2"}
+              // bg={"green.2"}
               >
                 <Flex>
                   <Box p={"md"}>

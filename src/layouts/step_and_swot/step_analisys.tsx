@@ -27,18 +27,11 @@ import Trs from "@/fun_load/trs";
 import useTranslate from "next-translate/useTranslation";
 import PageSubTitle from "@/global/components/PageSubTitle";
 import { useAtom } from "jotai";
-import { v3_val_nation_wide_rating_selected_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_selected_candidate";
-import { v3_val_nation_wide_rating_list_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_list_candidate";
+
 
 export default function StepAnalisys() {
   const [stepDataList, setStepDataList] = useState<{ [key: string]: any }>();
   const { t, lang } = useTranslate();
-  const [selectedCandidate, setSelectedCandidate] = useAtom(
-    v3_val_nation_wide_rating_selected_candidate
-  );
-  const [listCandidate, setListCandidate] = useAtom(
-    v3_val_nation_wide_rating_list_candidate
-  );
 
   useShallowEffect(() => {
     sSelectedCandidate.subscribe((v) => {
@@ -57,7 +50,7 @@ export default function StepAnalisys() {
 
   return (
     <>
-      <PageSubTitle text1="STEP" text2="ASSESEMENT" />
+      <PageSubTitle text1={t('common:p_step')} text2={t('common:p_assessment')} />
       <Stack spacing={"md"} pl={30} pr={30}>
         {/* <PageTitle
         text={_.upperCase(t('common:social_technology_economic_politic_analysis'))}
@@ -76,9 +69,9 @@ export default function StepAnalisys() {
               <Image
                 alt="image"
                 src={
-                  listCandidate?.find(
-                    (v) => v.id == selectedCandidate.candidate2Id
-                  ).img
+                  sCandidate.value.find(
+                    (v) => Number(v.id) == Number(sSelectedCandidate.value)
+                  )?.img
                 }
                 radius={10}
               />
