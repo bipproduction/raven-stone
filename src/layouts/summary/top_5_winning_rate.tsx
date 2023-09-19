@@ -15,9 +15,10 @@ import { useShallowEffect } from "@mantine/hooks";
 import { api } from "@/lib/api";
 import { atom, useAtom } from "jotai";
 import { fun_componen_access_upsert } from "../dev_dashboard/component_access/fun/fun_upsert";
-import useTranslate from 'next-translate/useTranslation'
+import useTranslate from "next-translate/useTranslation";
 import Trs from "@/fun_load/trs";
 import _ from "lodash";
+import PageSubTitle from "@/global/components/PageSubTitle";
 
 const _val_list_top_5_winning_rate = atom<any[] | undefined>(undefined);
 
@@ -38,8 +39,6 @@ export function Top5WinningRate() {
   //   });
   // }, []);
 
-
-
   if (!listTop5)
     return (
       <>
@@ -51,15 +50,17 @@ export function Top5WinningRate() {
 
   return (
     <>
-   {/* <pre>
+      {/* <pre>
    {JSON.stringify(listTop5, null,2)}
    </pre> */}
-      <Paper p={"md"}>
-        <Stack>
+      <PageSubTitle text1="SUCCESS" text2="PROBABILITY PROJECTION (TOP 5)" />
+
+      <Paper p={"md"} >
+        <Stack px={"lg"}>
           {/* <Trs text="TOP 5 NATIONAL WINNING RATES PREDICTION" lang={lang}>
             {(val: any) => <PageTitle title={val} />}
           </Trs> */}
-          <PageTitle title={_.upperCase(t('common:top_5_national_winning_rates_prediction'))} />
+          {/* <PageTitle title={_.upperCase(t('common:top_5_national_winning_rates_prediction'))} /> */}
           <SimpleGrid cols={3}>
             {listTop5.map((v, i) => (
               <Card key={i} shadow="md">
