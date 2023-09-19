@@ -51,10 +51,11 @@ const Top10ProvinceByConversation = () => {
 
   return (
     <>
-      <Stack>
+      <Stack px={"xl"}>
         {/* <Button onClick={loadData}>Tekan Sini</Button> */}
         <Paper
-          h={780}
+        
+          h={560}
           shadow={"sm"}
           p={"md"}
           // bg={stylesGradient1}
@@ -65,8 +66,8 @@ const Top10ProvinceByConversation = () => {
           {/* <Trs text="Top 10 Province By Emotion" lang={lang}>
             {(val:any)=><PageTitle title={val} />}
           </Trs> */}
-          <PageTitle title={t('common:top_10_rating_by_emotions')} />
-          <Group>
+          {/* <PageTitle title={t('common:top_10_rating_by_emotions')} /> */}
+          {/* <Group>
             <TextInput
               variant="filled"
               radius={100}
@@ -78,7 +79,7 @@ const Top10ProvinceByConversation = () => {
               icon={<MdSearch />}
               placeholder={t('common:search')}
             />
-          </Group>
+          </Group> */}
           <Stack>
             <Table
               verticalSpacing={"md"}
