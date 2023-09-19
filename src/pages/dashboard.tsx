@@ -14,8 +14,11 @@ import {
   BackgroundImage,
   Box,
   Center,
+  createStyles,
+  Divider,
   Drawer,
   Flex,
+  Grid,
   Group,
   Image,
   Indicator,
@@ -23,16 +26,17 @@ import {
   NavLink,
   Overlay,
   Paper,
+  rem,
   ScrollArea,
   Stack,
   Text,
   Title,
   Tooltip,
-  useMantineTheme
+  useMantineTheme,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
-
+import { AiOutlineLine } from "react-icons/ai";
 import { _is_dark_mode } from "@/g_state/atom_util_state";
 import { ViewGlobalAccessBlock } from "@/global/view/access_block";
 import EmotionViewProvinceCoupleV2 from "@/layouts/prodictive_ai/emotion_couple/front/emotion_view_province_couple_v2";
@@ -47,7 +51,7 @@ import { sSelectedDate } from "@/s_state/s_selectedDate";
 import AnimateCssReact from "animate-css-reactjs";
 import { onChildChanged, ref } from "firebase/database";
 import { useAtom } from "jotai";
-import _ from "lodash";
+import _, { isPlainObject } from "lodash";
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -71,11 +75,11 @@ import {
   MdOutlineStars,
   MdSettings,
   MdStorage,
-  MdTimer
+  MdTimer,
 } from "react-icons/md";
 // import notifMp3 from "https://cdn.freesound.org/previews/680/680825_177850-lq.mp3";
-import translate from 'google-translate-api-x'
-import useTranslate from 'next-translate/useTranslation'
+import translate from "google-translate-api-x";
+import useTranslate from "next-translate/useTranslation";
 import { COLOR } from "@/global/fun/color_global";
 import Mlai from "@/layouts/step_and_swot/ml_ai";
 
@@ -326,12 +330,10 @@ const Dashboard = (props: any) => {
     <>
       <LoadFirstData />
       <AppShell
-
         // bg={"gray.2"}
         styles={{
           main: {
-            background: COLOR.bgGradasi
-
+            background: COLOR.bgGradasi,
           },
         }}
         navbarOffsetBreakpoint="sm"
@@ -362,7 +364,6 @@ const bukaDrawer = signal(false);
 const mute = signal(true);
 
 const MyNotivication = () => {
-
   const refNya = useRef<HTMLAudioElement>(null);
   useShallowEffect(() => {
     return onChildChanged(ref(fDb, "eagle_2/notif/"), (snap) => {
@@ -457,7 +458,7 @@ const NotificationDisplay = () => {
                     <MdTimer color="gray" />
                     <Text
                       size={12}
-                    // c={"blue"}
+                      // c={"blue"}
                     >
                       {moment(v.createdAt).fromNow()}
                     </Text>
@@ -500,15 +501,15 @@ const MyNavbar = () => {
         <AnimateCssReact animation="fadeIn">
           <Navbar
             // bg={"blue.2"}
-            hiddenBreakpoint="sm"
+            hiddenBreakpoint={30}
             hidden={!sNavbarOpen.value}
-            width={{ sm: 64, lg: 64 }}
+            width={{ sm: 100, lg: 100 }}
           >
             <Navbar.Section grow>
               <Stack align="center" p={"xs"}>
-                {listView2.map((v, i) =>
+                {listView2.map((v, i) => (
                   <Box key={i}>
-                    <Tooltip label={_.upperCase(t('common:' + v.label))}>
+                    <Tooltip label={_.upperCase(t("common:" + v.label))}>
                       <ActionIcon
                         bg={v.name === sSelectedView.value ? "dark" : ""}
                         radius={100}
@@ -516,15 +517,30 @@ const MyNavbar = () => {
                         variant="light"
                         onClick={() => ketikaCklik(v, v)}
                       >
-                        <v.icon size={32} color="#BE2533" />
+                        <v.icon size={32} color={"white"} />
                       </ActionIcon>
                     </Tooltip>
                   </Box>
-                )}
+                ))}
               </Stack>
             </Navbar.Section>
             <Navbar.Section
+              style={{
+                position: "absolute",
+                bottom: 40,
+              }}
+              pb={40}
+            >
+              <Box>
+                <Center pl={15}>
+                  <Image src={"../raven2.png"} width={70} alt="logo" />
+                </Center>
+              </Box>
+            </Navbar.Section>
+
+            <Navbar.Section
             // bg={"dark"}
+            pl={15}
             >
               <ActionIcon
                 onClick={() => (sNavbarIsSmall.value = false)}
@@ -545,6 +561,7 @@ const MyNavbar = () => {
         hiddenBreakpoint="sm"
         hidden={!sNavbarOpen.value}
         width={{ sm: 200, lg: 300 }}
+        pl={20}
       >
         <BackgroundImage src="https://str.wibudev.com/api/file/get/cllkjs9rs000b9uhk6r9t4oo5.png">
           <Navbar.Section mb={"lg"}>
@@ -574,21 +591,32 @@ const MyNavbar = () => {
           </Navbar.Section>
           <Navbar.Section grow component={ScrollArea}>
             {listView2.map((vv, i) => (
-              <Box
-                key={`${vv.id}${i}`}
-                mb={"xs"}
-              >
+              <Box key={`${vv.id}${i}`} mb={"xs"}>
                 <NavLink
-                  c={sSelectedView.value == vv.name ? "blue.8" : ""}
-                  icon={<vv.icon color="orange" />}
+                  c={sSelectedView.value == vv.name ? "white" : ""}
+                  // icon={<vv.icon color="orange" />}
                   variant={"filled"}
                   // fw={sSelectedView.value == vv.name ? "bold" : "light"}
                   // bg={selectedView.value == vv.name ? "blue.1" : ""}
                   label={
                     sSelectedView.value == vv.name ? (
-                      <Title order={5}>{_.upperCase(t('common:' + vv.label))}</Title>
+                      <Box>
+                        <Title order={5} color="white">
+                          {_.upperCase(t("common:" + vv.label))}
+                        </Title>
+                        <Grid pt={5}>
+                          <Grid.Col span={3}>
+                            <Divider color="red.9" size="lg" />
+                          </Grid.Col>
+                        </Grid>
+                      </Box>
                     ) : (
-                      <Text>{_.upperCase(t('common:' + vv.label))}</Text>
+                      <Box>
+                        <Text color="white">
+                          {_.upperCase(t("common:" + vv.label))}
+                        </Text>
+                        <></>
+                      </Box>
                     )
                   }
                   key={`${vv.id}${i}`}
@@ -602,7 +630,7 @@ const MyNavbar = () => {
               // bg={"gray"}
               // c={"dark"}
               icon={<MdSettings />}
-              label={_.upperCase(t('common:setting'))}
+              label={_.upperCase(t("common:setting"))}
             >
               {/* <NavLink
                 icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
@@ -611,12 +639,23 @@ const MyNavbar = () => {
               /> */}
               <NavLink
                 icon={<MdLogout />}
-                label={_.upperCase(t('common:logout'))}
+                label={_.upperCase(t("common:logout"))}
                 onClick={() => {
                   localStorage.removeItem("user_id");
                   sUser.value = {};
-                }} />
+                }}
+              />
             </NavLink>
+            <Box
+              style={{
+                position: "absolute",
+                bottom: 40,
+              }}
+            >
+              <Center pl={10}>
+                <Image src={"../raven1.png"} width={200} alt="logo" />
+              </Center>
+            </Box>
 
             {/* <Menu>
             <Menu.Target>
@@ -643,23 +682,14 @@ const MyNavbar = () => {
                 {/* <Text fz={9} c={"gray"}>
                 Bip Production @2023
               </Text> */}
-                <Image p={"lg"} src={"https://str.wibudev.com/api/file/get/cllkk1rea000f9uhkcck9f1jh.png"} alt="" />
-                <Flex>
-                  <Text
-                    fz={9}
-                  // c={"gray"}
-                  >
-                    Version: 3.0.1
-                  </Text>
-                  <Text
-                    fz={9}
-                  // c={"gray"}
-                  >
-                    build: 20993
-                  </Text>
-                </Flex>
+                <Image
+                  p={"lg"}
+                  src={
+                    "https://str.wibudev.com/api/file/get/cllkk1rea000f9uhkcck9f1jh.png"
+                  }
+                  alt=""
+                />
               </Stack>
-
             </Flex>
           </Navbar.Section>
         </BackgroundImage>
