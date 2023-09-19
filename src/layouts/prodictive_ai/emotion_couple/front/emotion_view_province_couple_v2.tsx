@@ -21,9 +21,12 @@ import {
 import { useAtom } from "jotai";
 import { _fun_emotion_view_province_couple } from "../../../dev/emotion_view_province_couple_v2/_fun_emotion_view_province_couple_v2";
 import {
+  BackgroundImage,
+  Box,
   Button,
   Center,
   Flex,
+  Grid,
   Group,
   Image,
   Loader,
@@ -39,7 +42,8 @@ import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { api } from "@/lib/api";
 // let pag = 1;
-import useTranslate from 'next-translate/useTranslation'
+import useTranslate from "next-translate/useTranslation";
+import PageSubTitle from "@/global/components/PageSubTitle";
 
 export default function EmotionViewProvinceCoupleV2() {
   //   const [listEmotion, setListEmotion] = useAtom(
@@ -62,6 +66,13 @@ export default function EmotionViewProvinceCoupleV2() {
   const [count, setCount] = useState(0);
   const [hasMore, setHasmore] = useState(true);
   const { t, lang } = useTranslate();
+  const styling = {
+    backgroundImage: `url('${
+      listCandidate?.find((v) => v.id === selectedCandidate1)?.img
+    }')`,
+    width: "200",
+    height: "200",
+  };
 
   useShallowEffect(() => {
     loadData();
@@ -70,7 +81,7 @@ export default function EmotionViewProvinceCoupleV2() {
   async function loadData() {
     fetch(
       api.apiPredictiveAiEmotionViewProvinceCoupleV2Get +
-      `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
+        `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
     )
       .then((val) => val.json())
       .then((v) => {
@@ -114,24 +125,23 @@ export default function EmotionViewProvinceCoupleV2() {
     );
   return (
     <>
-      <Stack spacing="xl">
-        <PageTitle
+      <PageSubTitle text1="REGIONAL" text2="DATA PAIRING" />
+      <Stack spacing="xl" pl={30} pr={30}>
+        {/* <PageTitle
           title={_.upperCase(t('common:emotional_view_via_province_couple'))}
           text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))}
-        />
+        /> */}
         {/* {JSON.stringify(listEmotion)} */}
-        <Paper
-          p="xs"
-          // bg={"blue.1"}
-          mx={"md"}
-          shadow="md"
+
+        {/* raven */}
+        <Box
           pos={"sticky"}
           top={60}
           sx={{
             zIndex: 100,
           }}
         >
-          <Group position="right" spacing={"md"}>
+          <Group spacing="xl">
             {/* <Text>{page}</Text>
             <Text>{count}</Text> */}
             <TextInput
@@ -141,13 +151,23 @@ export default function EmotionViewProvinceCoupleV2() {
                   setSearch(val.target.value);
                 }
               }}
-              placeholder={t('common:search')}
-              radius={100}
+              placeholder={t("common:search")}
+              label={
+                <Text fz={17} color="white">
+                  Select Regions
+                </Text>
+              }
+              radius={8}
               sx={stylesRadial}
               icon={<MdSearch />}
             />
             <Select
-              radius={100}
+              label={
+                <Text fz={17} color="white" fw={"bold"}>
+                  Candidate 1
+                </Text>
+              }
+              radius={8}
               value={
                 listCandidate?.find((v) => v.id === selectedCandidate1)?.name
               }
@@ -168,8 +188,12 @@ export default function EmotionViewProvinceCoupleV2() {
               }}
             />
             <Select
-              radius={100}
-              // label={"selectct candidate 1"}
+              radius={8}
+              label={
+                <Text fz={17} color="white" fw={"bold"}>
+                  Candidate 2
+                </Text>
+              }
               value={
                 listCandidate?.find((v) => v.id === selectedCandidate2)?.name
               }
@@ -189,102 +213,218 @@ export default function EmotionViewProvinceCoupleV2() {
                 }
               }}
             />
-            <Button
-              onClick={() => {
-                // _fun_emotion_view_province_couple({
-                //   setListEmotion,
-                //   selectedCandidate1: selectedCandidate1,
-                //   selectedCandidate2: selectedCandidate2,
-                // });
+            <Group spacing={50} pt={25}>
+              <Button
+                onClick={() => {
+                  // _fun_emotion_view_province_couple({
+                  //   setListEmotion,
+                  //   selectedCandidate1: selectedCandidate1,
+                  //   selectedCandidate2: selectedCandidate2,
+                  // });
 
-                loadData();
-              }}
-              radius={100}
-            >
-              {_.upperCase(t('common:process'))}
-            </Button>
+                  loadData();
+                }}
+                radius={100}
+                color="gray.0"
+              >
+                <Text color="dark" fz={17}>
+                  {_.upperCase(t("common:generate"))}
+                </Text>
+              </Button>
+            </Group>
           </Group>
-        </Paper>
-        <Flex justify={"center"} align={"center"} p={"md"} gap={"lg"}>
-          <Paper
-            p={"xs"}
-            shadow={"md"}
-          // bg={stylesRadial.out_cyan}
-          >
-            <Stack w={200} align="center">
-              <Image
-                radius={10}
-                width={100}
-                height={100}
-                src={
-                  listCandidate?.find((v) => v.id === selectedCandidate1)?.img
-                }
-                alt=""
-              />
-              <Title align="center" lineClamp={1} color="gray.7" order={3}>
-                {listCandidate?.find((v) => v.id === selectedCandidate1)?.name}
-              </Title>
-            </Stack>
-          </Paper>
-          <Paper
-            p={"xs"}
-            shadow={"md"}
-          // bg={stylesRadial.out_blue}
-          >
-            <Stack w={200} align="center">
-              <Image
-                radius={10}
-                width={100}
-                height={100}
-                src={
-                  listCandidate?.find((v) => v.id === selectedCandidate2)?.img
-                }
-                alt=""
-              />
-              <Title align="center" lineClamp={1} color="gray.7" order={3}>
-                {listCandidate?.find((v) => v.id === selectedCandidate2)?.name}
-              </Title>
-            </Stack>
-          </Paper>
-        </Flex>
-        {/* {JSON.stringify(listEmotion)} */}
-        <InfiniteScroll
-          loader={
-            <Center>
-              <Flex>
-                <Loader />
-                <Title>Loading...</Title>
-              </Flex>
-            </Center>
-          }
-          dataLength={listEmotion.length}
-          next={loadMore}
-          hasMore={hasMore}
-        // endMessage={<Center></Center>}
-        >
-          <Flex justify={"center"} align={"center"} wrap={"wrap"}>
-            {listEmotion &&
-              listEmotion.map((v, i) => (
-                <Stack key={i}>
-                  {/* <Text>{i + 1}</Text> */}
-                  <EmotionItemChart
-                    lsData={{
-                      trust: v.trust,
-                      joy: v.joy,
-                      surprise: v.surprise,
-                      anticipation: v.anticipation,
-                      sadness: v.sadness,
-                      fear: v.fear,
-                      anger: v.anger,
-                      disgust: v.disgust,
+        </Box>
+        {/* akhir raven */}
+
+        <Grid gutter="lg" pt={20}>
+          <Grid.Col md={5} lg={5}>
+            <Flex
+              justify={"center"}
+              pos={"sticky"}
+              top={165}
+              sx={{
+                zIndex: 100,
+              }}
+            >
+              <Box mr={20}>
+                <Stack w={200} align="center">
+                  <Box
+                    sx={{
+                      backgroundColor: "white",
+                      padding: 3,
+                      borderRadius: 10,
                     }}
-                    provinceId={v.provinceId}
-                    provinceName={v.provinceName}
-                    key={i}
-                    no={i + 1}
-                  />
-                  {/* // todo: hold sementara nunggu perhitungan dari fira */}
-                  {/* <Flex gap={"md"}>
+                  >
+                    {/* <Image
+                      radius={10}
+                      width={200}
+                      height={200}
+                      src={
+                        listCandidate?.find((v) => v.id === selectedCandidate1)
+                          ?.img
+                      }
+                      alt=""
+                      
+                    /> */}
+                    <BackgroundImage
+                      radius={10}
+                      style={{ width: 200, height: 200 }}
+                      src={
+                        listCandidate?.find((v) => v.id === selectedCandidate1)
+                          ?.img
+                      }
+                    >
+                      <Box pt={160}>
+                        <Grid>
+                          <Grid.Col md={7} lg={7}>
+                            <Box
+                              sx={{
+                                backgroundColor: "#343A40",
+                                borderRadius: " 0px  15px  15px  0px ",
+                                padding: 2,
+                              }}
+                            >
+                              <Text ml={30} fz={12} fw={700} color="white">
+                                PRESIDENT
+                              </Text>
+                            </Box>
+                          </Grid.Col>
+                        </Grid>
+                      </Box>
+                    </BackgroundImage>
+                  </Box>
+                  <Title align="center" lineClamp={1} color="white" order={3}>
+                    {
+                      listCandidate?.find((v) => v.id === selectedCandidate1)
+                        ?.name
+                    }
+                  </Title>
+                </Stack>
+              </Box>
+              <Box>
+                <Stack w={200} align="center">
+                  <Box
+                    sx={{
+                      backgroundColor: "white",
+                      padding: 3,
+                      borderRadius: 10,
+                    }}
+                  >
+                    {/* <Image
+                      radius={10}
+                      width={200}
+                      height={200}
+                      src={
+                        listCandidate?.find((v) => v.id === selectedCandidate2)
+                          ?.img
+                      }
+                      alt=""
+                    /> */}
+                    <BackgroundImage
+                      radius={10}
+                      style={{ width: 200, height: 200 }}
+                      src={
+                        listCandidate?.find((v) => v.id === selectedCandidate2)
+                          ?.img
+                      }
+                    >
+                      <Box pt={160}>
+                        <Grid>
+                          <Grid.Col md={4} lg={4}></Grid.Col>
+                          <Grid.Col md={8} lg={8}>
+                            <Box
+                              sx={{
+                                backgroundColor: "#343A40",
+                                borderRadius: " 15px 0px 0px 15px ",
+                                padding: 2,
+                              }}
+                            >
+                              <Text ml={10} fz={12} fw={700} color="white">
+                                VICE PRESIDENT
+                              </Text>
+                            </Box>
+                          </Grid.Col>
+                        </Grid>
+                      </Box>
+                    </BackgroundImage>
+                  </Box>
+                  <Title align="center" lineClamp={1} color="white" order={3}>
+                    {
+                      listCandidate?.find((v) => v.id === selectedCandidate2)
+                        ?.name
+                    }
+                  </Title>
+                </Stack>
+              </Box>
+            </Flex>
+            <Box pt={30} 
+              pos={"sticky"}
+              top={417}
+              sx={{
+                zIndex: 100,
+              }} >
+              <Box>
+                <Group spacing={8} position="center">
+                  <Text fz={23} fw={"bold"} color="green.9">
+                    SUCCESS PROBABILITY
+                  </Text>
+                  <Text fs="italic" fw={"bold"} color="green.9" fz={23}>
+                    PROJECTION
+                  </Text>
+                </Group>
+              </Box>
+              <Box pt={10}>
+                <Box
+                  sx={{
+                    backgroundColor: "#2F9E44",
+                    borderRadius: 10,
+                  }}
+                >
+                  <Text ta={"center"} fw={"bold"} fz={60}>
+                    49.86%
+                  </Text>
+                </Box>
+              </Box>
+            </Box>
+          </Grid.Col>
+          <Grid.Col md={7} lg={7}>
+            <InfiniteScroll
+              loader={
+                <Center>
+                  <Flex>
+                    <Loader />
+                    <Title>Loading...</Title>
+                  </Flex>
+                </Center>
+              }
+              dataLength={listEmotion.length}
+              next={loadMore}
+              hasMore={hasMore}
+              // endMessage={<Center></Center>}
+            >
+              <Flex justify={"center"} align={"center"} wrap={"wrap"}>
+                {listEmotion &&
+                  listEmotion.map((v, i) => (
+                    <Stack key={i}>
+                      {/* <Text>{i + 1}</Text> */}
+                      <EmotionItemChart
+                        lsData={{
+                          trust: v.trust,
+                          joy: v.joy,
+                          surprise: v.surprise,
+                          anticipation: v.anticipation,
+                          sadness: v.sadness,
+                          fear: v.fear,
+                          anger: v.anger,
+                          disgust: v.disgust,
+                        }}
+                        provinceId={v.provinceId}
+                        provinceName={v.provinceName}
+                        key={i}
+                        no={i + 1}
+                      />
+                      {/* // todo: hold sementara nunggu perhitungan dari fira */}
+                      {/* <Flex gap={"md"}>
                     <Paper p={"xs"}>
                       <Title>{_.sum(_.flatMapDeep(v.value))}</Title>
                     </Paper>
@@ -303,10 +443,14 @@ export default function EmotionViewProvinceCoupleV2() {
                       </Title>
                     </Paper>
                   </Flex> */}
-                </Stack>
-              ))}
-          </Flex>
-        </InfiniteScroll>
+                    </Stack>
+                  ))}
+              </Flex>
+            </InfiniteScroll>
+          </Grid.Col>
+        </Grid>
+
+        {/* {JSON.stringify(listEmotion)} */}
       </Stack>
     </>
   );
@@ -330,14 +474,25 @@ const EmotionItemChart = ({
     angleAxis: {
       type: "category",
       // data: _.keys(lsData ?? []),
-      data: !lsData ? [] : [t('common:trust'), t('common:joy'), t('common:surprise'), t('common:anticipation'), t('common:sadness'), t('common:fear'), t('common:anger'), t('common:disgust')],
+      data: !lsData
+        ? []
+        : [
+            t("common:trust"),
+            t("common:joy"),
+            t("common:surprise"),
+            t("common:anticipation"),
+            t("common:sadness"),
+            t("common:fear"),
+            t("common:anger"),
+            t("common:disgust"),
+          ],
       startAngle: 75,
     },
     tooltip: {
       show: true,
       formatter: (a: any, b: any) => {
         return `
-        <i>${_.upperCase(t('common:' + a.data.name))}</i>
+        <i>${_.upperCase(t("common:" + a.data.name))}</i>
         <h1>${a.value} %</h1>
         `;
       },
@@ -348,15 +503,15 @@ const EmotionItemChart = ({
         coordinateSystem: "polar",
         data: Object.keys(lsData ?? []).map(
           (v) =>
-          ({
-            name: v,
-            value: lsData[v],
-            itemStyle: {
-              color:
-                listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                  ?.color ?? "gray",
-            },
-          } as any)
+            ({
+              name: v,
+              value: lsData[v],
+              itemStyle: {
+                color:
+                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
+              },
+            } as any)
         ),
         itemStyle: {
           shadowBlur: 20,
@@ -370,19 +525,13 @@ const EmotionItemChart = ({
   return (
     <>
       {/* {JSON.stringify(lsData)} */}
-      <Paper
-        p="md"
-        // bg={stylesRadial.out_cyan}
-        m={"xs"}
-      >
-        <Stack align="center">
-          <Flex gap="md">
-            <Title c={"gray"}>{no}</Title>
-            <Title order={1}>{provinceName}</Title>
-          </Flex>
-          <EChartsReact style={{ width: 400 }} option={option} />
-        </Stack>
-      </Paper>
+      <Stack align="center" p={20}>
+        <Flex gap="md">
+          {/* <Title c={"gray"}>{no}</Title> */}
+          <Title order={1}>{provinceName}</Title>
+        </Flex>
+        <EChartsReact style={{ width: 400 }} option={option} />
+      </Stack>
     </>
   );
 };
