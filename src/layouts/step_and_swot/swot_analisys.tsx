@@ -105,7 +105,7 @@ function Analisys() {
           <Box
             sx={{
               backgroundColor: "white",
-              padding: 3,
+              padding: 1,
               borderRadius: 10,
             }}
           >
