@@ -44,6 +44,8 @@ import { api } from "@/lib/api";
 // let pag = 1;
 import useTranslate from "next-translate/useTranslation";
 import PageSubTitle from "@/global/components/PageSubTitle";
+import { listColorChart } from "@/global/fun/color_chart";
+import { COLOR } from "@/global/fun/color_global";
 
 export default function EmotionViewProvinceCoupleV2() {
   //   const [listEmotion, setListEmotion] = useAtom(
@@ -251,7 +253,7 @@ export default function EmotionViewProvinceCoupleV2() {
                   <Box
                     sx={{
                       backgroundColor: "white",
-                      padding: 3,
+                      padding: 1,
                       borderRadius: 10,
                     }}
                   >
@@ -306,7 +308,7 @@ export default function EmotionViewProvinceCoupleV2() {
                   <Box
                     sx={{
                       backgroundColor: "white",
-                      padding: 3,
+                      padding: 1,
                       borderRadius: 10,
                     }}
                   >
@@ -357,18 +359,20 @@ export default function EmotionViewProvinceCoupleV2() {
                 </Stack>
               </Box>
             </Flex>
-            <Box pt={30} 
+            <Box
+              pt={30}
               pos={"sticky"}
               top={417}
               sx={{
                 zIndex: 100,
-              }} >
+              }}
+            >
               <Box>
                 <Group spacing={8} position="center">
-                  <Text fz={23} fw={"bold"} color="green.9">
+                  <Text fz={23} fw={"bold"} color={COLOR.hijauTua}>
                     SUCCESS PROBABILITY
                   </Text>
-                  <Text fs="italic" fw={"bold"} color="green.9" fz={23}>
+                  <Text fs="italic" fw={"bold"} color={COLOR.hijauTua} fz={23}>
                     PROJECTION
                   </Text>
                 </Group>
@@ -376,11 +380,11 @@ export default function EmotionViewProvinceCoupleV2() {
               <Box pt={10}>
                 <Box
                   sx={{
-                    backgroundColor: "#2F9E44",
+                    backgroundColor: COLOR.hijauTua,
                     borderRadius: 10,
                   }}
                 >
-                  <Text ta={"center"} fw={"bold"} fz={60}>
+                  <Text ta={"center"} fw={"bold"} fz={60} color="white">
                     49.86%
                   </Text>
                 </Box>
@@ -402,7 +406,7 @@ export default function EmotionViewProvinceCoupleV2() {
               hasMore={hasMore}
               // endMessage={<Center></Center>}
             >
-              <Flex justify={"center"} align={"center"} wrap={"wrap"}>
+              <Group position="center">
                 {listEmotion &&
                   listEmotion.map((v, i) => (
                     <Stack key={i}>
@@ -445,7 +449,7 @@ export default function EmotionViewProvinceCoupleV2() {
                   </Flex> */}
                     </Stack>
                   ))}
-              </Flex>
+              </Group>
             </InfiniteScroll>
           </Grid.Col>
         </Grid>
@@ -469,69 +473,176 @@ const EmotionItemChart = ({
 }) => {
   const { t, lang } = useTranslate();
   const option: EChartsOption = {
-    radiusAxis: {},
-    polar: {},
-    angleAxis: {
-      type: "category",
-      // data: _.keys(lsData ?? []),
-      data: !lsData
-        ? []
-        : [
-            t("common:trust"),
-            t("common:joy"),
-            t("common:surprise"),
-            t("common:anticipation"),
-            t("common:sadness"),
-            t("common:fear"),
-            t("common:anger"),
-            t("common:disgust"),
-          ],
-      startAngle: 75,
-    },
+    // radiusAxis: {},
+    // polar: {},
+    // angleAxis: {
+    //   type: "category",
+    //   // data: _.keys(lsData ?? []),
+    //   data: !lsData
+    //     ? []
+    //     : [
+    //         t("common:trust"),
+    //         t("common:joy"),
+    //         t("common:surprise"),
+    //         t("common:anticipation"),
+    //         t("common:sadness"),
+    //         t("common:fear"),
+    //         t("common:anger"),
+    //         t("common:disgust"),
+    //       ],
+    //   startAngle: 75,
+    // },
+    // tooltip: {
+    //   show: true,
+    //   formatter: (a: any, b: any) => {
+    //     return `
+    //     <i>${_.upperCase(t("common:" + a.data.name))}</i>
+    //     <h1>${a.value} %</h1>
+    //     `;
+    //   },
+    // },
+    // series: [
+    //   {
+    //     type: "bar",
+    //     coordinateSystem: "polar",
+    //     data: Object.keys(lsData ?? []).map(
+    //       (v) =>
+    //         ({
+    //           name: v,
+    //           value: lsData[v],
+    //           itemStyle: {
+    //             color:
+    //               listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
+    //                 ?.color ?? "gray",
+    //           },
+    //         } as any)
+    //     ),
+    //     itemStyle: {
+    //       shadowBlur: 20,
+    //       shadowOffsetX: 0,
+    //       shadowColor: "rgba(0, 0, 0, 0.5)",
+    //     },
+    //     barWidth: 80,
+    //   },
+    // ],
     tooltip: {
-      show: true,
-      formatter: (a: any, b: any) => {
-        return `
-        <i>${_.upperCase(t("common:" + a.data.name))}</i>
-        <h1>${a.value} %</h1>
-        `;
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
       },
     },
+    grid: {
+      left: "3%",
+      right: "4%",
+      bottom: "3%",
+      containLabel: true,
+    },
+    xAxis: [
+      {
+        type: "category",
+        data: [
+          "Confidence",
+          "Supportive",
+          "Positive",
+          "Undecided",
+          "Unsupportive",
+          "Uncomfrotable",
+          "Negative",
+          "Disapproval",
+        ],
+        axisTick: {
+          alignWithLabel: true,
+        },
+      },
+    ],
+    yAxis: [
+      {
+        type: "value",
+      },
+    ],
     series: [
       {
+        // name: 'Direct',
         type: "bar",
-        coordinateSystem: "polar",
+        barWidth: "60%",
         data: Object.keys(lsData ?? []).map(
           (v) =>
             ({
               name: v,
               value: lsData[v],
               itemStyle: {
-                color:
-                  listEmotionColor.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
+                color: listColorChart.find((v2) => _.lowerCase(v2.name) == v)?.color ?? "gray",
               },
             } as any)
         ),
-        itemStyle: {
-          shadowBlur: 20,
-          shadowOffsetX: 0,
-          shadowColor: "rgba(0, 0, 0, 0.5)",
-        },
-        barWidth: 80,
+        //  data: [
+
+        //   {
+        //     value: 56,
+        //     itemStyle: {
+        //       color: '#6ABD45'
+        //     }
+        //   },
+        //   {
+        //     value: 86,
+        //     itemStyle: {
+        //       color: '#98CC6F'
+        //     }
+        //   },
+        //   {
+        //     value: 90,
+        //     itemStyle: {
+        //       color: '#C6E2B7'
+        //     }
+        //   },
+        //   {
+        //     value: 16,
+        //     itemStyle: {
+        //       color: '#FFFFFF'
+        //     }
+        //   },
+        //   {
+        //     value: 36,
+        //     itemStyle: {
+        //       color: '#F9BEBF'
+        //     }
+        //   },
+        //   {
+        //     value: 56,
+        //     itemStyle: {
+        //       color: '#F37D80'
+        //     }
+        //   },
+        //   {
+        //     value: 86,
+        //     itemStyle: {
+        //       color: '#ED2024'
+        //     }
+        //   },
+        //   {
+        //     value: 36,
+        //     itemStyle: {
+        //       color: '#8A171A'
+        //     }
+        //   },
+
+        // ],
       },
     ],
   };
   return (
     <>
       {/* {JSON.stringify(lsData)} */}
-      <Stack align="center" p={20}>
+      {/* <Title c={"gray"}>{no}</Title> */}
+      {/* <Stack align="center" p={20}>
         <Flex gap="md">
-          {/* <Title c={"gray"}>{no}</Title> */}
-          <Title order={1}>{provinceName}</Title>
         </Flex>
-        <EChartsReact style={{ width: 400 }} option={option} />
-      </Stack>
+      </Stack> */}
+      <Box  mb={25}>
+        <Title pl={15}>{provinceName}</Title>
+
+        <EChartsReact style={{ width: 600 }} option={option} />
+      </Box>
     </>
   );
 };
