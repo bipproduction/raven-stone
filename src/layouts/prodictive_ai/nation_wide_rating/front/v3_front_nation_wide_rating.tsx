@@ -33,9 +33,10 @@ import moment from "moment";
 import { v3_val_data_line_chart } from "../val/v3_val_data_line_chart";
 import { V3ComChartBar } from "./com/v3_com_chart_bar";
 import { v3_val_back_selected_candidate } from "../back/val/v3_val_selected_candidate";
-import useTranslate from 'next-translate/useTranslation'
-import _ from 'lodash';
+import useTranslate from "next-translate/useTranslation";
+import _ from "lodash";
 import Trs from "@/fun_load/trs";
+import PageSubTitle from "@/global/components/PageSubTitle";
 
 export function V3FrontNationWideRating() {
   const { t, lang } = useTranslate();
@@ -69,11 +70,31 @@ export function V3FrontNationWideRating() {
     <>
       {/* <Title>Front Nation Wide Rating</Title> */}
       <Stack spacing={"lg"}>
-        <PageTitle
+        {/* <PageTitle
           title={_.upperCase(t('common:nation_wide_rating'))}
           text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))}
+        /> */}
+        <PageSubTitle text1="NATIONAL" text2="POPULARITY METRICS" />
+
+        {/* Select candidate */}
+        <V3ComNationWideRatingSelectCandidate
+          onProccess={() => {
+            v3_fun_nation_wide_rating_load_list_data({
+              candidate1Id: selectedCandidate.candidate1Id,
+              candidate2Id: selectedCandidate.candidate2Id,
+              setListData,
+            });
+
+            v3_fun_load_chart_data({
+              start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
+              end: moment().format("YYYY-MM-DD"),
+              selectedCandidate: selectedCandidate,
+              setDataChart: setDataChart,
+            });
+          }}
         />
 
+        {/* Foto Kandidat */}
         <SimpleGrid cols={2}>
           <Paper p={"md"}>
             <Flex gap={"lg"} align={"end"}>
@@ -122,22 +143,7 @@ export function V3FrontNationWideRating() {
             </Flex>
           </Paper>
         </SimpleGrid>
-        <V3ComNationWideRatingSelectCandidate
-          onProccess={() => {
-            v3_fun_nation_wide_rating_load_list_data({
-              candidate1Id: selectedCandidate.candidate1Id,
-              candidate2Id: selectedCandidate.candidate2Id,
-              setListData,
-            });
 
-            v3_fun_load_chart_data({
-              start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
-              end: moment().format("YYYY-MM-DD"),
-              selectedCandidate: selectedCandidate,
-              setDataChart: setDataChart,
-            });
-          }}
-        />
         <Grid>
           <Grid.Col span={8}>
             <Stack spacing={"lg"} ref={ref}>
@@ -149,7 +155,9 @@ export function V3FrontNationWideRating() {
             <Paper p={"md"} h={height}>
               <Stack spacing={"lg"}>
                 <SimpleGrid cols={2}>
-                  <Title order={3}>{_.upperCase(t('common:winning_rates_prediction'))}</Title>
+                  <Title order={3}>
+                    {_.upperCase(t("common:winning_rates_prediction"))}
+                  </Title>
                   <Card>
                     <Center h={80}>
                       {!listData ? (

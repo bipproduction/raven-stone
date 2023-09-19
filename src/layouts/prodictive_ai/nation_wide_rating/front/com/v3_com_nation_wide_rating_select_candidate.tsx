@@ -1,12 +1,11 @@
-import { Button, Group, Paper, Select } from "@mantine/core";
+import { Button, Flex, Group, Paper, Select, Text } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { useAtom } from "jotai";
 import { v3_val_nation_wide_rating_list_candidate } from "../../val/v3_nation_wide_rating_list_candidate";
 import { v3_fun_nation_wide_rating_load_list_candidate } from "../../fun/v3_fun_nation_wide_rating_load_list_candidate";
 import { v3_val_nation_wide_rating_selected_candidate } from "../../val/v3_nation_wide_rating_selected_candidate";
 import _ from "lodash";
-import useTranslate from 'next-translate/useTranslation'
-
+import useTranslate from "next-translate/useTranslation";
 
 export function V3ComNationWideRatingSelectCandidate({
   onProccess,
@@ -27,16 +26,13 @@ export function V3ComNationWideRatingSelectCandidate({
     v3_fun_nation_wide_rating_load_list_candidate({ setListCandidate });
   }, []);
 
-
   const { t, lang } = useTranslate();
   if (!listCandidate) return null;
 
   return (
     <>
-      <Paper p={"xs"} pos={"sticky"} top={60} sx={{
-        zIndex: 100
-      }}>
-        <Group align="end" position="right">
+      
+        <Flex align="end" gap={"md"}>
           <Select
             key={Math.random()}
             placeholder={
@@ -56,8 +52,8 @@ export function V3ComNationWideRatingSelectCandidate({
                 value: v.id,
               })) as any
             }
-            label={t('common:candidate')+" 1"}
-          // placeholder="select candidate"
+            label={<Text fw={"bolder"}>{t("common:candidate") + " 1"}</Text>}
+            // placeholder="select candidate"
           />
           <Select
             key={Math.random()}
@@ -73,16 +69,17 @@ export function V3ComNationWideRatingSelectCandidate({
                 candidate1Id: selctedCandidate.candidate1Id,
               });
             }}
-            label={t('common:candidate')+" 2"}
+            label={<Text fw={"bolder"}>{t("common:candidate") + " 2"}</Text>}
+
             placeholder={
               listCandidate.find(
                 (v) => Number(v.id) == Number(selctedCandidate.candidate2Id)
               ).name
             }
           />
-          <Button onClick={onProccess}>{t('common:process')}</Button>
-        </Group>
-      </Paper>
+          <Button variant="white" compact radius={"xl"} onClick={onProccess}>{t("common:generate")}</Button>
+        </Flex>
+     
     </>
   );
 }
