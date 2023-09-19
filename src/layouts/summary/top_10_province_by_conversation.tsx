@@ -55,7 +55,7 @@ const Top10ProvinceByConversation = () => {
         {/* <Button onClick={loadData}>Tekan Sini</Button> */}
         <Paper
         
-          h={560}
+          h={600}
           shadow={"sm"}
           p={"md"}
           // bg={stylesGradient1}
