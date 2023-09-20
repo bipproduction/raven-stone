@@ -33,7 +33,7 @@ export default function Mlai() {
   return (
     <>
       <Stack spacing={"md"}>
-        <PageSubTitle text1="ML-AI" text2="PROMPT RECOMEDATIONS" />
+        <PageSubTitle text1="ML-AI" text2={_.upperCase(t('common:prompt_recomendations'))} />
         <Analisys />
       </Stack>
     </>
@@ -64,6 +64,7 @@ function Analisys() {
 
           setListSingle([]);
           setlistDouble([]);
+          setCandidateId(candidateId)
 
           // wait 1 second
           await new Promise((r) => setTimeout(r, 1));
@@ -92,9 +93,7 @@ function Analisys() {
             <Image
               alt="image"
               src={
-                listCandidate?.find(
-                  (v) => v.id == selectedCandidate.candidate2Id
-                ).img
+                sCandidate.value.find((v) => Number(v.id) == candidateId)?.img
               }
               radius={10}
             />
@@ -150,11 +149,11 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
             {/* <Trs text={v.name} lang={lang}>
               {(val: any) => <div>{val}</div>}
             </Trs> */}
-            STRENGTH ANALYSIS IMPROVEMENT
+            {t('common:strength_analysis_improvement')}
           </Title>
           {v.SwotAnalisys.length > 0 && (
             <Stack>
-                <Box>
+              <Box>
                 <ScrollArea
                   h={500}
                   p={"xs"}
@@ -194,8 +193,8 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
                     // />
                   )}
                 </ScrollArea>
-                </Box>
-                {/* <Flex>
+              </Box>
+              {/* <Flex>
                   <Box p={"md"}>
                     <Flex>
                       <ActionIcon
