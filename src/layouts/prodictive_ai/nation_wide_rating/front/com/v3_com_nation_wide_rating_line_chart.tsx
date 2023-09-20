@@ -9,6 +9,7 @@ import {
   Paper,
   Stack,
   Title,
+  createStyles,
 } from "@mantine/core";
 import { DateInput, DatePicker, DateTimePicker } from "@mantine/dates";
 import { EChartsOption } from "echarts";
@@ -24,8 +25,7 @@ import { useState } from "react";
 import toast from "react-simple-toasts";
 import { v3_fun_load_chart_data } from "../../fun/v3_fun_load_chart_data";
 import { v3_val_data_line_chart } from "../../val/v3_val_data_line_chart";
-import useTranslate from 'next-translate/useTranslation'
-
+import useTranslate from "next-translate/useTranslation";
 
 type DataChart = {
   trust: string;
@@ -63,6 +63,9 @@ export function V3ComNationWideRatingLineChart() {
     title: {
       top: 0,
       text: "100 %",
+      textStyle: {
+        color: "white",
+      },
     },
     tooltip: {
       trigger: "axis",
@@ -74,12 +77,15 @@ export function V3ComNationWideRatingLineChart() {
       },
       backgroundColor: "orange",
       formatter: (a: any, b: any) => {
-
         const d: any[] = a;
         return `
         <div style="width: 300px; padding: 10px; ">
-          <div style="color: white;font-size: 1rem">${d.map((v) => v.name)} </div>
-          <div style="color: white; font-size: 2rem">${d.map((v) => v.value)} %</div>
+          <div style="color: white;font-size: 1rem">${d.map(
+            (v) => v.name
+          )} </div>
+          <div style="color: white; font-size: 2rem">${d.map(
+            (v) => v.value
+          )} %</div>
         </div>
         `;
       },
@@ -87,16 +93,25 @@ export function V3ComNationWideRatingLineChart() {
     xAxis: {
       type: "category",
       boundaryGap: false,
-      data: _.orderBy(dataChart, ["date"], ["asc"]).map((v) => moment(v.date).format("YYYY-MM-DD")),
+      data: _.orderBy(dataChart, ["date"], ["asc"]).map((v) =>
+        moment(v.date).format("YYYY-MM-DD")
+      ),
       // data: [...(_.groupBy(dataChart, "date") as any).map((v: any) => v[0])],
       axisLabel: {
-        rotate: 45
-      }
+        rotate: 45,
+        color: "white",
+      },
+      axisLine: {
+        show: true,
+      },
     },
     yAxis: {
+      show: true,
       type: "value",
-      data: ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"],
+      max: 50,
+      // data: ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"],
       axisLabel: {
+        color: "white",
         formatter: (a: any) => {
           return `${a} %`;
         },
@@ -111,20 +126,26 @@ export function V3ComNationWideRatingLineChart() {
         name: "trust",
         type: "line",
         itemStyle: {
-          color: "yellow"
+          color: "yellow",
         },
         areaStyle: {
-          color: "green"
+          color: "green",
         },
         emphasis: {
           focus: "series",
         },
-        smooth: true
+        smooth: true,
+        // markLine: {
+        //   data: [{
+        //     type: "average"
+        //   }],
+        //   silent: true
+        // }
         // itemStyle: {
         //   color: listEmotionColor.find((v) => v.name === "Trust")?.color,
         // },
       },
-    ]
+    ],
     // series: [
     //   {
     //     data: [...dataChart.map((v) => v.trust)],
@@ -244,22 +265,29 @@ export function V3ComNationWideRatingLineChart() {
 
   const { t, lang } = useTranslate();
 
+  const useStyles = createStyles((theme) => ({
+    text_calender: {
+      color: "white",
+      borderRadius: 50,
+      borderWidth: 0,
+    },
+  }));
+
+  const { classes } = useStyles();
+
   return (
     <>
-      <Paper
-        p="md"
-        sx={{
-          overflow: "scroll",
-        }}
-      >
-        <Stack spacing={"lg"}>
+    {/* {JSON.stringify(dataChart)} */}
+      <Box >
+        <Stack spacing={0}>
           {/* {JSON.stringify(dataChart)} */}
           {/* <Title order={3}>Nation Wide Rating Line Chart</Title> */}
 
           <Box>
-            <Group spacing="xs" position="right">
+            <Group position="right" >
               <Button
-                bg={"green"}
+                className={classes.text_calender}
+                variant="subtle"
                 onClick={() => {
                   const dates = {
                     start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
@@ -274,10 +302,11 @@ export function V3ComNationWideRatingLineChart() {
                   });
                 }}
               >
-                {t('common:week')}
+                {t("common:week")}
               </Button>
               <Button
-                bg={"blue"}
+                className={classes.text_calender}
+                variant="outline"
                 onClick={() => {
                   const dates = {
                     start: moment().subtract(1, "months").format("YYYY-MM-DD"),
@@ -292,11 +321,13 @@ export function V3ComNationWideRatingLineChart() {
                   });
                 }}
               >
-                {t('common:month')}
+                {t("common:month")}
               </Button>
               <HoverCard>
                 <HoverCard.Target>
-                  <Button bg="orange">{t('common:custom')}</Button>
+                  <Button className={classes.text_calender} variant="outline">
+                    {t("common:custom")}
+                  </Button>
                 </HoverCard.Target>
                 <HoverCard.Dropdown>
                   <Stack>
@@ -326,14 +357,17 @@ export function V3ComNationWideRatingLineChart() {
             </Group>
           </Box>
           {/* {JSON.stringify(dataChart.map((a) => a.trust))} */}
-          <EChartsReact
+         <Box >
+         <EChartsReact
             style={{
-              height: "500px",
+              height: 310,
+              
             }}
             option={option}
           />
+         </Box>
         </Stack>
-      </Paper>
+      </Box>
     </>
   );
 }

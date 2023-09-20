@@ -1,4 +1,5 @@
 import {
+  BackgroundImage,
   Box,
   Card,
   Center,
@@ -96,84 +97,139 @@ export function V3FrontNationWideRating() {
             }}
           />
 
-          {/* Photo candidate */}
-          <Flex pt={50} gap={60} align={"center"}>
-            <Group spacing={"xl"}>
-              {/* Candidate 1 */}
-              <Box>
-                <Image
-                  // key={Math.random()}
-                  radius={"md"}
-                  width={160}
-                  height={160}
-                  src={
-                    listCandidate?.find(
-                      (v) => v.id == selectedCandidate.candidate1Id
-                    ).img
-                  }
-                  alt=""
-                />
-                <Center pt={"xs"}>
-                  <Title order={3}>
-                    {
+          <Grid pt={50} align={"center"}>
+            {/* Photo candidate */}
+            <Grid.Col span={"auto"}>
+              <Group spacing={"xl"}>
+                {/* Candidate 1 */}
+                <Box>
+                  <BackgroundImage
+                    // key={Math.random()}
+                    radius={"md"}
+                    w={150}
+                    h={150}
+                    src={
                       listCandidate?.find(
                         (v) => v.id == selectedCandidate.candidate1Id
-                      ).name
+                      ).img
                     }
-                  </Title>
-                </Center>
-              </Box>
-              {/* Candidate 2 */}
-              <Box>
-                <Image
-                  // key={Math.random()}
-                  radius={"md"}
-                  width={160}
-                  height={160}
-                  src={
-                    listCandidate?.find(
-                      (v) => v.id == selectedCandidate.candidate2Id
-                    ).img
-                  }
-                  alt=""
-                />
-                <Center pt={"xs"}>
-                  <Title order={3}>
-                    {
+                    // alt="Foto"
+                  >
+                    <Box
+                      bg="gray"
+                      sx={{
+                        borderTopRightRadius: 10,
+                        borderBottomRightRadius: 10,
+                        position: "relative",
+                        bottom: "-80%",
+                        width: 100,
+                        height: 20,
+                        marginLeft: 2,
+                      }}
+                    >
+                      <Center h={20}>
+                        <Text fw={"bold"} fz={"xs"} color="white">
+                          PRESIDENT
+                        </Text>
+                      </Center>
+                    </Box>
+                  </BackgroundImage>
+                  <Center pt={"xs"}>
+                    <Title order={3}>
+                      {
+                        listCandidate?.find(
+                          (v) => v.id == selectedCandidate.candidate1Id
+                        ).name
+                      }
+                    </Title>
+                  </Center>
+                </Box>
+                {/* Candidate 2 */}
+                <Box>
+                  <BackgroundImage
+                    // key={Math.random()}
+                    radius={"md"}
+                    w={150}
+                    h={150}
+                    src={
                       listCandidate?.find(
                         (v) => v.id == selectedCandidate.candidate2Id
-                      ).name
+                      ).img
                     }
-                  </Title>
-                </Center>
-              </Box>
-            </Group>
-            <Flex direction={"column"}>
-              <Text fz={40} c={"white"} fw={"bold"}>
-                SUCCESS{" "}
-              </Text>
-              <Text fz={40} c={"white"} fw={"bold"}>
-                PROBABILITY{" "}
-              </Text>
-              <Text fz={40} c={"white"} fs={"italic"} fw={"lighter"}>
-                PROJECTION{" "}
-              </Text>
-            </Flex>
+                  >
+                    <Group
+                      position="right"
+                      sx={{
+                        position: "relative",
+                        bottom: "-80%",
+                        marginRight: 2,
+                      }}
+                    >
+                      <Box
+                        bg="gray"
+                        sx={{
+                          borderTopLeftRadius: 10,
+                          borderBottomLeftRadius: 10,
 
-            <Box>
-              {!listData ? (
-                <Loader />
-              ) : !listData[0] ? (
-                <>
-                  <Title>0 %</Title>
-                </>
-              ) : (
-                <Title fz={120} c={"green"}>
-                  {listData![0].rate} %
-                </Title>
-              )}
-            </Box>
-          </Flex>
+                          width: 100,
+                          height: 20,
+                        }}
+                      >
+                        <Center h={20}>
+                          <Text fw={"bolder"} fz={10} color="white">
+                            VICE PRESIDENT
+                          </Text>
+                        </Center>
+                      </Box>
+                    </Group>
+                  </BackgroundImage>
+                  <Center pt={"xs"}>
+                    <Title order={3}>
+                      {
+                        listCandidate?.find(
+                          (v) => v.id == selectedCandidate.candidate2Id
+                        ).name
+                      }
+                    </Title>
+                  </Center>
+                </Box>
+              </Group>
+            </Grid.Col>
+            {/* Text Succes */}
+            <Grid.Col span={"auto"}>
+              <Flex direction={"column"}  align={"center"} wrap="wrap">
+                <Text fz={40} c={"white"} fw={"bold"}>
+                  SUCCESS{" "}
+                </Text>
+                <Text fz={40} c={"white"} fw={"bold"}>
+                  PROBABILITY{" "}
+                </Text>
+                <Text fz={40} c={"white"} fs={"italic"} fw={"lighter"}>
+                  PROJECTION{" "}
+                </Text>
+              </Flex>
+            </Grid.Col>
+
+            {/* Persen */}
+            <Grid.Col span={"auto"}>
+              <Center>
+                {" "}
+                <Box>
+                  {!listData ? (
+                    <Loader />
+                  ) : !listData[0] ? (
+                    <>
+                      <Title>0 %</Title>
+                    </>
+                  ) : (
+                    <Title fz={100} c={"green"}>
+                      {listData![0].rate} %
+                    </Title>
+                  )}
+                </Box>
+              </Center>
+            </Grid.Col>
+          </Grid>
 
           {/* Foto Kandidat */}
           {/* <SimpleGrid cols={2}>
@@ -222,17 +278,24 @@ export function V3FrontNationWideRating() {
           </Flex>
         </SimpleGrid> */}
 
-          <Grid pt={50}>
-            <Grid.Col span={6}>
-              <Stack spacing={"lg"} ref={ref}>
-                <V3ComChartBar />
-              </Stack>
+          {/* <Grid pt={100} gutter={"xl"}  justify="space-between" >
+            <Grid.Col span={6} >
+              <V3ComChartBar />
             </Grid.Col>
+
             <Grid.Col span={6}>
-              {" "}
               <V3ComNationWideRatingLineChart />
             </Grid.Col>
-          </Grid>
+          </Grid> */}
+
+          <Flex pt={"xl"} gap={100}   direction={{base: "row", lg: "row", md: "column", sm: "column"}}>
+            <Box style={{minWidth: 500}}>
+              <V3ComChartBar />
+            </Box>
+            <Box style={{minWidth: 500}}>
+              <V3ComNationWideRatingLineChart />
+            </Box>
+          </Flex>
         </Box>
       </Stack>
 
