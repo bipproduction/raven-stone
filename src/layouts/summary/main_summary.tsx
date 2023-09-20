@@ -22,6 +22,7 @@ import { sUser } from "@/s_state/s_user";
 import Trs from "@/fun_load/trs";
 import useTranslate from "next-translate/useTranslation";
 import PageSubTitle from "@/global/components/PageSubTitle";
+import { sCandidate } from "@/s_state/s_candidate";
 
 const MainSummary = () => {
   const { t, lang } = useTranslate();
@@ -29,29 +30,34 @@ const MainSummary = () => {
     <>
       <Stack spacing={32}>
         {/* <Sambutan /> */}
+        
 
-        <PageSubTitle text1="EMOTIONAL " text2="SPECTRUM CHART" />
+        <PageSubTitle text1={t('common:p_emotional')} text2={t('common:p_spectrum_chart')} />
 
-        <Grid align="center" w={"100%"} px={"xl"}>
-          <Grid.Col span={4}>
-            <Box p={"xs"}>
-              <ViewGlobalAccessBlock name="SummarySelectCandidate">
-                <SummarySelectCandidate />
-              </ViewGlobalAccessBlock>
-            </Box>
-          </Grid.Col>
-          <Grid.Col span={8}>
-            <ViewGlobalAccessBlock name="SummaryTrenSentiment">
-              <SummaryTrenSentiment />
+        {[sCandidate.value.find((v, i) => v.id == 1), sCandidate.value.find((v) => v.id == 2), sCandidate.value.find((v) => v.id == 3),].map((v, i) => (
+          <div key={i}>
+            <Grid align="center" w={"100%"} px={"xl"} key={v?.id}>
+              <Grid.Col span={4} key={v?.id + '2'}>
+                <Box p={"xs"} key={i}>
+                  <ViewGlobalAccessBlock name="SummarySelectCandidate" key={v?.id + '4'}>
+                    <SummarySelectCandidate id={v?.id} key={v?.id + '8'} />
+                  </ViewGlobalAccessBlock>
+                </Box>
+              </Grid.Col>
+              <Grid.Col span={7} key={v?.id} ml={80}>
+                <ViewGlobalAccessBlock name="SummaryTrenSentiment" key={v?.id + '5'}>
+                  <SummaryTrenSentiment id={v?.id} key={v?.id + '9'} />
+                </ViewGlobalAccessBlock>
+              </Grid.Col>
+            </Grid>
+            <ViewGlobalAccessBlock name={"Top10ProvinceByConversation"} key={v?.id + '6'}>
+              <Top10ProvinceByConversation id={v?.id} key={v?.id + '10'} />
             </ViewGlobalAccessBlock>
-          </Grid.Col>
-        </Grid>
-        <ViewGlobalAccessBlock name={"Top10ProvinceByConversation"}>
-          <Top10ProvinceByConversation />
-        </ViewGlobalAccessBlock>
-        <ViewGlobalAccessBlock name="Top10DistrictbyConversation">
-          <Top10DistrictbyConversation />
-        </ViewGlobalAccessBlock>
+            <ViewGlobalAccessBlock name="Top10DistrictbyConversation" key={v?.id + '7'}>
+              <Top10DistrictbyConversation key={v?.id + '11'} />
+            </ViewGlobalAccessBlock>
+          </div>
+        ))}
 
         <ViewGlobalAccessBlock name="Top5WinningRate">
           <Top5WinningRate />
