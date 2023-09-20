@@ -401,8 +401,8 @@ export default function EmotionViewProvinceCoupleV2() {
                   }}
                 >
                   <Text ta={"center"} fw={"bold"} fz={60} color="white">
-                    {listEmotion && listEmotion.length>0 && <> 
-                        {listData![0].rate}%
+                    {listEmotion && listEmotion.length > 0 && listData && <>
+                      {listData![0].rate}%
                     </>}
                   </Text>
                 </Box>
