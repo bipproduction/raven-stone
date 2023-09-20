@@ -61,6 +61,8 @@ export function FrontDetailKabupaten() {
       provinceId: provinceId!,
     }).then(setListProvince);
   }
+
+
   return (
     <>
       <Stack>

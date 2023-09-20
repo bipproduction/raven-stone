@@ -108,9 +108,9 @@ export default function App(props: any) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          fontFamily: "Geneva",
+          fontFamily: "Lato",
           fontFamilyMonospace: "Monaco, Courier, monospace",
-          headings: { fontFamily: "Impact" },
+          headings: { fontFamily: "Lato" },
           colorScheme: `${isDarkMode ? "dark" : "light"}`,
         }}
       >
