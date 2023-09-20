@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { Card, Paper, Stack, Title } from "@mantine/core";
+import { Box, Card, Paper, Stack, Text, Title } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
@@ -81,17 +81,17 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
   return (
     <>
       {/* <pre>{JSON.stringify(listContextDirection, null, 2)}</pre> */}
-      <Card p={"xs"}>
-        <Title c={"blue"}>{t('common:context_direction')}</Title>
-        <Stack>
+      <Box p={"xs"}>
+        <Box>
+        <Title c={"white"} fz={20} pl={140}>PUBLIC CONCERNS TRENDS</Title>
           <EChartsReact
             style={{
               width: "100%",
             }}
             option={option}
           />
-        </Stack>
-      </Card>
+        </Box>
+      </Box>
     </>
   );
 }
