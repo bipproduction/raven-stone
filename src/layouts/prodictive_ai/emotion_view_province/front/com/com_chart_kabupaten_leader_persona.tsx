@@ -1,7 +1,7 @@
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { val_list_color } from "../val/val_list_color";
-import { Stack } from "@mantine/core";
+import { Box, Center, Stack, Title } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import useTranslate from 'next-translate/useTranslation'
 
@@ -10,6 +10,8 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
   const { t, lang } = useTranslate();
 
   const option: EChartsOption = {
+    radiusAxis: {},
+    polar: {},
     tooltip: {
       trigger: "axis",
       axisPointer: {
@@ -19,42 +21,29 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
         return _.upperCase(params[0].name) + " : " + params[0].value + " %";
       },
     },
-    grid: {
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
-      containLabel: true,
+    angleAxis: {
+      type: "category",
+      data: _.sortBy(data, "value").map((v) =>
+        t("common:" + _.lowerCase(v.title))
+      ),
+      axisTick: {
+        alignWithLabel: true,
+      },
+      axisLabel: {
+        color: "white",
+        fontSize:"10",
+        formatter: function (params: any) {
+          return _.upperCase(params);
+        },
+      },
+      startAngle: 60,
     },
-    yAxis: [
-      {
-        type: "category",
-        data: _.sortBy(data, "value").map((v) => t('common:' + _.lowerCase(v.title))),
-        axisTick: {
-          alignWithLabel: true,
-        },
-        axisLabel: {
-          formatter: function (params: any) {
-            return _.upperCase(params);
-          }
-        }
-      },
-    ],
-    xAxis: [
-      {
-        type: "value",
-        axisLabel: {
-          formatter: function (params: any) {
-            return params + "%";
-          },
-          rotate: 45,
-        },
-      },
-    ],
     series: [
       {
         name: "Direct",
         type: "bar",
-        barWidth: "60%",
+        coordinateSystem: "polar",
+        barWidth: 80,
         data: _.sortBy(data, "value").map((v, i) => ({
           value: v.value,
           itemStyle: {
@@ -66,15 +55,19 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
   };
   return (
     <>
-      <Stack>
-        {/* <pre>{JSON.stringify(data)}</pre> */}
-        <EChartsReact
-          style={{
-            width: "100%",
-          }}
-          option={option}
-        />
-      </Stack>
+      <Box p={"xs"} pt={20} pb={20}>
+          <Title ta={"center"} c={"white"} fz={20} >
+            {"LEADER TRAIT ASSESSMENT"}
+          </Title>
+        <Center pt={20}>
+          <EChartsReact
+            style={{
+              width: "100%",
+            }}
+            option={option}
+          />
+        </Center>
+      </Box>
     </>
   );
 }

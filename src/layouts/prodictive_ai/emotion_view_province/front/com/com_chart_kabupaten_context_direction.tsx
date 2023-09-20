@@ -2,7 +2,8 @@ import { EChartsOption } from "echarts";
 import _ from "lodash";
 import { val_list_color } from "../val/val_list_color";
 import EChartsReact from "echarts-for-react";
-import useTranslate from 'next-translate/useTranslation'
+import useTranslate from "next-translate/useTranslation";
+import { Box, Title } from "@mantine/core";
 
 export function ComChartKabupatenContextDirection({ data }: { data: any }) {
   const { t, lang } = useTranslate();
@@ -13,8 +14,12 @@ export function ComChartKabupatenContextDirection({ data }: { data: any }) {
         type: "shadow",
       },
       formatter: function (params: any) {
-        return _.upperCase(params[0].name) + " : " + Intl.NumberFormat("id-ID").format(params[0].value);
-      }
+        return (
+          _.upperCase(params[0].name) +
+          " : " +
+          Intl.NumberFormat("id-ID").format(params[0].value)
+        );
+      },
     },
     grid: {
       left: "3%",
@@ -25,24 +30,26 @@ export function ComChartKabupatenContextDirection({ data }: { data: any }) {
     yAxis: [
       {
         type: "category",
-        data: _.sortBy(data, "value").map((v) => t('common:' + v.name)),
+        data: _.sortBy(data, "value").map((v) => t("common:" + v.name)),
         axisTick: {
           alignWithLabel: true,
         },
         axisLabel: {
+          color: "white",
+          fontSize: "10",
           formatter: function (params: any) {
             return _.upperCase(params);
-          }
-        }
+          },
+        },
       },
-
     ],
     xAxis: [
       {
         type: "value",
         axisLabel: {
-          rotate: 45
-        }
+          color: "white",
+          rotate: 45,
+        },
       },
     ],
     series: [
@@ -61,12 +68,18 @@ export function ComChartKabupatenContextDirection({ data }: { data: any }) {
   };
   return (
     <>
-      <EChartsReact
-        style={{
-          width: "100%",
-        }}
-        option={option}
-      />
+      <Box p={"xs"} pt={50}>
+        <Box>
+        <Title c={"white"} fz={20} >PUBLIC CONCERNS TRENDS</Title>
+          <EChartsReact
+            style={{
+              width: "100%",
+            }}
+            option={option}
+          />
+        </Box>
+      </Box>
+
     </>
   );
 }
