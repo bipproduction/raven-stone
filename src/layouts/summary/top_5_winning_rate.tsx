@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   Center,
   Divider,
@@ -19,9 +20,14 @@ import useTranslate from "next-translate/useTranslation";
 import Trs from "@/fun_load/trs";
 import _ from "lodash";
 import PageSubTitle from "@/global/components/PageSubTitle";
+import EChartsReact, { EChartsOption } from "echarts-for-react";
 
 const _val_list_top_5_winning_rate = atom<any[] | undefined>(undefined);
 
+/**
+ *
+ * @returns Top 5 Rate > SUCCESS PROBABILITY PROJECTION (TOP 5)
+ */
 export function Top5WinningRate() {
   const { t, lang } = useTranslate();
   const [listTop5, setTop5] = useAtom(_val_list_top_5_winning_rate);
@@ -39,6 +45,125 @@ export function Top5WinningRate() {
   //   });
   // }, []);
 
+  // EChart option
+
+  const test = false;
+
+  const option: (dataNya: any[]) => EChartsOption = (dataNya: any[]) => {
+    return {
+      xAxis: {
+        type: "value",
+        show: true,
+      },
+      yAxis: {
+        type: "category",
+        data: dataNya.map((v) => ({
+          value: v.candidate1.name + "\n" + v.candidate2.name,
+        })),
+        splitLine: {
+          show: true,
+        },
+      },
+      series: [
+        {
+          data: dataNya.map((v) => ({
+            value: v.persen,
+            label: {
+              align: "right",
+              offset: [-50, 0],
+              backgroundColor: {
+                image: !test
+                  ? v.candidate1.img
+                  : "https://avenuesrecruiting.com/wp-content/uploads/2016/12/candidate-icon-300x300.png",
+              },
+              height: 50,
+              width: 50,
+              show: true,
+              position: "right",
+              formatter: function (a: any) {
+                return "{b|}";
+              },
+              rich: {
+                b: {
+                  // backgroundColor: 'https://cdn-icons-png.flaticon.com/512/5363/5363451.png',
+                  verticalAlign: "bottom",
+                  baseline: "bottom",
+                  color: "#fff",
+                  fontSize: 42,
+                  fontWeight: "bold",
+                  align: "right",
+                },
+              },
+            },
+          })),
+          type: "bar",
+          stack: "a",
+          itemStyle: {
+            color: {
+              image:
+                "https://static.vecteezy.com/system/resources/thumbnails/008/854/270/original/abstract-colorful-gradient-animation-background-free-video.jpg",
+            },
+          },
+        },
+        {
+          name: "apa",
+          type: "bar",
+          data: dataNya.map((v) => ({
+            name: "2",
+            value: 2,
+            label: {
+              offset: [-75, 0],
+              height: 50,
+              width: 50,
+              show: true,
+              position: "right",
+              backgroundColor: {
+                image: !test
+                  ? v.candidate2.img
+                  : "https://avenuesrecruiting.com/wp-content/uploads/2016/12/candidate-icon-300x300.png",
+              },
+              formatter: function (a: any) {
+                return "";
+              },
+            },
+          })),
+          stack: "a",
+          color: "white",
+          itemStyle: {},
+          emphasis: {
+            disabled: true,
+          },
+        },
+        {
+          name: "apa",
+          type: "bar",
+          data: dataNya.map((v) => ({
+            name: v.persen,
+            value: 15,
+            label: {
+              fontWeight: "bold",
+              show: true,
+              fontSize: 24,
+              color: "green",
+              formatter: function (a: any) {
+                return a.name + " %";
+              },
+            },
+          })),
+          stack: "a",
+          color: "white",
+
+          itemStyle: {
+            // opacity: 0
+          },
+          emphasis: {
+            disabled: true,
+          },
+        },
+      ],
+    };
+  };
+
   if (!listTop5)
     return (
       <>
@@ -50,17 +175,20 @@ export function Top5WinningRate() {
 
   return (
     <>
-      {/* <pre>
-   {JSON.stringify(listTop5, null,2)}
-   </pre> */}
+      {/* <pre>{JSON.stringify(listTop5, null, 2)}</pre> */}
       <PageSubTitle text1="SUCCESS" text2="PROBABILITY PROJECTION (TOP 5)" />
 
-      <Paper p={"md"} >
+      <Box>
+        <EChartsReact
+          style={{
+            height: 500,
+          }}
+          option={option(sampleData() as any)}
+        />
+      </Box>
+
+      {/* <Paper p={"md"}>
         <Stack px={"lg"}>
-          {/* <Trs text="TOP 5 NATIONAL WINNING RATES PREDICTION" lang={lang}>
-            {(val: any) => <PageTitle title={val} />}
-          </Trs> */}
-          {/* <PageTitle title={_.upperCase(t('common:top_5_national_winning_rates_prediction'))} /> */}
           <SimpleGrid cols={3}>
             {listTop5.map((v, i) => (
               <Card key={i} shadow="md">
@@ -106,7 +234,107 @@ export function Top5WinningRate() {
             ))}
           </SimpleGrid>
         </Stack>
-      </Paper>
+      </Paper> */}
     </>
   );
+}
+
+function sampleData() {
+  return [
+    {
+      id: 14641,
+      date: "2023-09-19T00:00:00.000Z",
+      time: null,
+      createdAt: "2023-09-19T02:34:14.160Z",
+      updatedAt: "2023-09-19T02:34:14.160Z",
+      cityId: null,
+      persen: 49.89,
+      candidate1: {
+        id: 2,
+        name: "Ganjar Pranowo",
+        img: "/candidate/ganjar.png",
+      },
+      candidate2: {
+        id: 1,
+        name: "Prabowo Subianto",
+        img: "/candidate/prabowo.png",
+      },
+    },
+    {
+      id: 14631,
+      date: "2023-09-19T00:00:00.000Z",
+      time: null,
+      createdAt: "2023-09-19T02:34:14.160Z",
+      updatedAt: "2023-09-19T02:34:14.160Z",
+      cityId: null,
+      persen: 49.86,
+      candidate1: {
+        id: 1,
+        name: "Prabowo Subianto",
+        img: "/candidate/prabowo.png",
+      },
+      candidate2: {
+        id: 2,
+        name: "Ganjar Pranowo",
+        img: "/candidate/ganjar.png",
+      },
+    },
+    {
+      id: 14637,
+      date: "2023-09-19T00:00:00.000Z",
+      time: null,
+      createdAt: "2023-09-19T02:34:14.160Z",
+      updatedAt: "2023-09-19T02:34:14.160Z",
+      cityId: null,
+      persen: 46.28,
+      candidate1: {
+        id: 1,
+        name: "Prabowo Subianto",
+        img: "/candidate/prabowo.png",
+      },
+      candidate2: {
+        id: 8,
+        name: "Mahfud MD",
+        img: "/candidate/mahfud.png",
+      },
+    },
+    {
+      id: 14647,
+      date: "2023-09-19T00:00:00.000Z",
+      time: null,
+      createdAt: "2023-09-19T02:34:14.160Z",
+      updatedAt: "2023-09-19T02:34:14.160Z",
+      cityId: null,
+      persen: 43.65,
+      candidate1: {
+        id: 2,
+        name: "Ganjar Pranowo",
+        img: "/candidate/ganjar.png",
+      },
+      candidate2: {
+        id: 8,
+        name: "Mahfud MD",
+        img: "/candidate/mahfud.png",
+      },
+    },
+    {
+      id: 14646,
+      date: "2023-09-19T00:00:00.000Z",
+      time: null,
+      createdAt: "2023-09-19T02:34:14.160Z",
+      updatedAt: "2023-09-19T02:34:14.160Z",
+      cityId: null,
+      persen: 42.45,
+      candidate1: {
+        id: 2,
+        name: "Ganjar Pranowo",
+        img: "/candidate/ganjar.png",
+      },
+      candidate2: {
+        id: 7,
+        name: "Erick Thohir",
+        img: "/candidate/eric.png",
+      },
+    },
+  ];
 }
