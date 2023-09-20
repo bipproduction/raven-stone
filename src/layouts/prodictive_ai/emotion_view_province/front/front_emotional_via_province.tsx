@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Center,
+  Container,
   Flex,
   Grid,
   Group,
@@ -32,7 +33,8 @@ import { useState } from "react";
 import { val_selected_menu_id } from "./val/val_selected_menu_id";
 import { val_selected_province_id } from "./val/val_selected_province_id";
 import { val_kunci } from "./val/val_kunci";
-import useTranslate from 'next-translate/useTranslation'
+import useTranslate from "next-translate/useTranslation";
+import { COLOR } from "@/global/fun/color_global";
 
 export const FrontEmotionalViewViaProvince = () => {
   const [candidateId, setCandidateId] = useAtom(val_selected_candidate);
@@ -41,8 +43,8 @@ export const FrontEmotionalViewViaProvince = () => {
   const [search, setSearch] = useDebouncedState("", 300);
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
   const [provinceId, setProvinceId] = useAtom(val_selected_province_id);
-  const [kunci, setKunci] = useAtom(val_kunci)
-  const {t,lang} = useTranslate();
+  const [kunci, setKunci] = useAtom(val_kunci);
+  const { t, lang } = useTranslate();
 
   useShallowEffect(() => {
     loadData();
@@ -56,51 +58,66 @@ export const FrontEmotionalViewViaProvince = () => {
   }
   return (
     <>
-      <Stack spacing={"lg"}>
+      <Stack spacing={"lg"} pl={30} pr={30}>
         <ComSelectCandidate onSearch={setSearch} />
         {/* <pre>{JSON.stringify(listEmotion, null, 2)}</pre> */}
         {listEmotion
           .filter((v) => _.lowerCase(v.name).includes(_.lowerCase(search)))
           .map((v: ModelEmotionProvince, i) => (
-            <Box key={i}>
+            <Box key={i} pb={30}>
               <SimpleGrid cols={2}>
-                <Stack>
-                  <Card h={760} sx={{ overflow: "scroll" }}>
+                <Stack >
+                  {/* <Card h={760} sx={{ overflow: "scroll" }}> */}
                     <Stack spacing={"lg"}>
-                      <Title c={"teal"}>{v.name}</Title>
+                      <Title pl={30} c="white">{v.name}</Title>
+                      <Box>
+                      <Group position="right" pr={40}>
+                        <Title c={"white"} fz={20}>SENT IMENT ANALYSIS</Title>
+                      </Group>
                       <Center>
                         <ComChartBar lsData={v.emotion} />
                       </Center>
-                      <Group position="center" spacing={"lg"}>
-                        <Stack align="center">
-                          <Title c={"orange"}>
-                            {Intl.NumberFormat("id-ID").format(v.total)}
-                          </Title>
-                          <Text>{_.upperCase(t('common:locked_audience'))}</Text>
-                        </Stack>
-                        <Stack align="center">
-                          <Title c={"green"}>
-                            {Intl.NumberFormat("id-ID").format(
-                              _.sum(_.values(v.emotion))
-                            )}
-                          </Title>
-                          <Text>{_.upperCase(t('common:filtered_audience'))}</Text>
-                        </Stack>
-                      </Group>
-                      <Center>
-                        <Button
-                          onClick={() => {
-                            setProvinceId(v.id);
-                            setSelectedMenu("2");
-                          }}
-                        >
-                          DETAIL
-                        </Button>
-                      </Center>
+                      </Box>
+                      <Box pl={35} pr={35}>
+                        <Group position="apart" spacing={"lg"}>
+                          <Group spacing={30}>
+                            <Stack align="center">
+                              <Text color={COLOR.merah}>
+                              LOCKED AUDIENCE
+                              </Text>
+                              <Title c={COLOR.hijauTua} fz={25} fw={700}>
+                                {Intl.NumberFormat("id-ID").format(v.total)}
+                              </Title>
+                            </Stack>
+                            <Stack align="center">
+                              <Text color={COLOR.merah}>
+                              FILTERED AUDIENCE
+                              </Text>
+                              <Title c={COLOR.hijauTua} fz={25} fw={700}>
+                                {Intl.NumberFormat("id-ID").format(
+                                  _.sum(_.values(v.emotion))
+                                )}
+                              </Title>
+                            </Stack>
+                          </Group>
+                          <Center>
+                            <Button
+                              onClick={() => {
+                                setProvinceId(v.id);
+                                setSelectedMenu("2");
+                              }}
+                              color="gray.0"
+                              radius={"md"}
+                            >
+                              <Text color="gray.9"> DETAIL</Text>
+                            </Button>
+                          </Center>
+                        </Group>
+                      </Box>
                     </Stack>
-                  </Card>
+                  {/* </Card> */}
                 </Stack>
-                <Stack key={`${kunci}${search}`} >
+                <Stack key={`${kunci}${search}`} pl={30} pt={50}>
                   <ComContextDirection provinceId={v.id} />
                   <ComLeaderPersona provinceId={v.id} />
                 </Stack>
