@@ -66,55 +66,55 @@ export const FrontEmotionalViewViaProvince = () => {
           .map((v: ModelEmotionProvince, i) => (
             <Box key={i} pb={30}>
               <SimpleGrid cols={2}>
-                <Stack >
+                <Stack>
                   {/* <Card h={760} sx={{ overflow: "scroll" }}> */}
-                    <Stack spacing={"lg"}>
-                      <Title pl={30} order={1} c="white">{_.upperCase(v.name)}</Title>
-                      <Box>
+                  <Stack spacing={"lg"}>
+                    <Title pl={30} order={1} c="white">
+                      {_.upperCase(v.name)}
+                    </Title>
+                    <Box>
                       <Group position="right" pr={40}>
-                        <Title c={"white"} fz={20}>SENTIMENT ANALYSIS</Title>
+                        <Title c={"white"} fz={20}>
+                          SENTIMENT ANALYSIS
+                        </Title>
                       </Group>
                       <Center>
                         <ComChartBar lsData={v.emotion} />
                       </Center>
-                      </Box>
-                      <Box pl={35} pr={35}>
-                        <Group position="apart" spacing={"lg"}>
-                          <Group spacing={30}>
-                            <Stack align="center">
-                              <Text color={COLOR.merah}>
-                              LOCKED AUDIENCE
-                              </Text>
-                              <Title c={COLOR.hijauTua} fz={25} fw={700}>
-                                {Intl.NumberFormat("id-ID").format(v.total)}
-                              </Title>
-                            </Stack>
-                            <Stack align="center">
-                              <Text color={COLOR.merah}>
-                              FILTERED AUDIENCE
-                              </Text>
-                              <Title c={COLOR.hijauTua} fz={25} fw={700}>
-                                {Intl.NumberFormat("id-ID").format(
-                                  _.sum(_.values(v.emotion))
-                                )}
-                              </Title>
-                            </Stack>
-                          </Group>
-                          <Center>
-                            <Button
-                              onClick={() => {
-                                setProvinceId(v.id);
-                                setSelectedMenu("2");
-                              }}
-                              color="gray.0"
-                              radius={"md"}
-                            >
-                              <Text color="gray.9"> DETAIL</Text>
-                            </Button>
-                          </Center>
+                    </Box>
+                    <Box pl={35} pr={35}>
+                      <Group position="apart" spacing={"lg"}>
+                        <Group spacing={30}>
+                          <Stack align="center">
+                            <Text color={COLOR.merah}>LOCKED AUDIENCE</Text>
+                            <Title c={COLOR.hijauTua} fz={25} fw={700}>
+                              {Intl.NumberFormat("id-ID").format(v.total)}
+                            </Title>
+                          </Stack>
+                          <Stack align="center">
+                            <Text color={COLOR.merah}>FILTERED AUDIENCE</Text>
+                            <Title c={COLOR.hijauTua} fz={25} fw={700}>
+                              {Intl.NumberFormat("id-ID").format(
+                                _.sum(_.values(v.emotion))
+                              )}
+                            </Title>
+                          </Stack>
                         </Group>
-                      </Box>
-                    </Stack>
+                        <Center>
+                          <Button
+                            onClick={() => {
+                              setProvinceId(v.id);
+                              setSelectedMenu("2");
+                            }}
+                            color="gray.0"
+                            radius={"md"}
+                          >
+                            <Text color="gray.9"> DETAIL</Text>
+                          </Button>
+                        </Center>
+                      </Group>
+                    </Box>
+                  </Stack>
                   {/* </Card> */}
                 </Stack>
                 <Stack key={`${kunci}${search}`} pl={30} pt={50}>

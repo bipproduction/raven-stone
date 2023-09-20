@@ -27,7 +27,8 @@ import { ComChartKabupatenContextDirection } from "./com/com_chart_kabupaten_con
 import { ComChartKabupatenLeaderPersona } from "./com/com_chart_kabupaten_leader_persona";
 import { ComKabupatenWordCloud } from "./com/com_kabupaten_word_cloud";
 import { MdSearch } from "react-icons/md";
-import useTranslate from 'next-translate/useTranslation'
+import useTranslate from "next-translate/useTranslation";
+import { COLOR } from "@/global/fun/color_global";
 
 export function FrontDetailKabupaten() {
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
@@ -62,125 +63,151 @@ export function FrontDetailKabupaten() {
     }).then(setListProvince);
   }
 
-
   return (
     <>
-      <Stack>
-        <Paper
-          shadow="md"
+      <Stack pl={30} pr={30}>
+        <Box
           p={"sm"}
           pos={"sticky"}
           top={50}
-          sx={{ zIndex: 100 }}
+          sx={{
+            zIndex: 100,
+          }}
         >
           <Group position="apart">
-            <Title>
-              {listProvince.find((val) => val.id === provinceId)?.name}
-            </Title>
-            <TextInput
-              onChange={(val) => {
-                if (val) {
-                  setSearch(val.target.value);
-                }
+            <Box 
+            sx={{
+              backgroundColor: "#230D38",
+              padding: 5,
+                borderRadius: 5,
+            }}
+            >
+              <Text c={"white"} fz={40} fw={700}>
+                {_.upperCase(
+                  listProvince.find((val) => val.id === provinceId)?.name
+                )}
+              </Text>
+            </Box>
+            <Group
+              sx={{
+                backgroundColor: "#230D38",
+                padding: 5,
+                borderRadius: 5,
               }}
-              placeholder={t('common:search')}
-              icon={<MdSearch />}
-            />
-            <CloseButton
-              loading={isLoading}
-              size={"lg"}
-              onClick={async () => {
-                setisLoading(true);
-                new Promise(() =>
-                  setTimeout(() => {
-                    setisLoading(false);
-                    setSelectedMenu("1");
-                  }, 1000)
-                );
-              }}
-            />
+            >
+              <TextInput
+                onChange={(val) => {
+                  if (val) {
+                    setSearch(val.target.value);
+                  }
+                }}
+                placeholder={t("common:search")}
+                icon={<MdSearch />}
+              />
+              <CloseButton
+                loading={isLoading}
+                size={"lg"}
+                onClick={async () => {
+                  setisLoading(true);
+                  new Promise(() =>
+                    setTimeout(() => {
+                      setisLoading(false);
+                      setSelectedMenu("1");
+                    }, 1000)
+                  );
+                }}
+              />
+            </Group>
           </Group>
-        </Paper>
-        <Stack spacing={"lg"}>
+        </Box>
+        {/* <Box pb={20}>
+          <Text c={"white"} fz={40} fw={700}>
+            {_.upperCase(
+              listProvince.find((val) => val.id === provinceId)?.name
+            )}
+          </Text>
+        </Box> */}
+        <Stack spacing={"lg"} >
           {listEmotionKabupaten
             .filter((v: any) => _.lowerCase(v.City.name).includes(search))
             .map((v, i) => (
               <Stack key={i}>
                 {/* <pre>{JSON.stringify(v, null,2)}</pre> */}
-                <SimpleGrid cols={2}>
-                  <Card>
-                    <Stack align="center">
-                      <Title c={"teal"}>{v.City.name}</Title>
-                      <ComChartDetailKabupaten
-                        data={{
-                          trust: v.trust,
-                          joy: v.joy,
-                          surprise: v.surprise,
-                          anticipation: v.anticipation,
-                          sadness: v.sadness,
-                          fear: v.fear,
-                          anger: v.anger,
-                          disgust: v.disgust,
-                        }}
+                <SimpleGrid cols={2} spacing="xl" pb={50}>
+                  <Box>
+                    <Box key={search} w={"100%"}>
+                      <ComKabupatenWordCloud cityId={v.City.id} />
+                    </Box>
+                    <Box>
+                      <ComChartKabupatenContextDirection
+                        data={
+                          v.City.CityContextDirection[0]
+                            ? v.City.CityContextDirection[0].content
+                            : []
+                        }
                       />
-                      <Group position="center" spacing={"lg"}>
-                        <Stack align="center">
-                          <Title c={"yellow"}>
-                            {Intl.NumberFormat("id-ID").format(
-                              v.City.CityValue[0].value
-                            )}
-                          </Title>
-                          <Text>{_.upperCase(t('common:locked_audience'))}</Text>
-                        </Stack>
-                        <Stack align="center">
-                          <Title c={"green"}>
-                            {Intl.NumberFormat("id-ID").format(
-                              _.sum([
-                                v.trust,
-                                v.joy,
-                                v.surprise,
-                                v.anticipation,
-                                v.sadness,
-                                v.fear,
-                                v.anger,
-                                v.disgust,
-                              ])
-                            )}
-                          </Title>
-                          <Text>{_.upperCase(t('common:filtered_audience'))}</Text>
-                        </Stack>
-                      </Group>
-                      <Box key={search} w={"100%"}>
-                        <ComKabupatenWordCloud cityId={v.City.id} />
-                      </Box>
-                    </Stack>
-                  </Card>
+                    </Box>
+                  </Box>
                   <Stack key={search}>
-                    <Card>
-                      <Stack>
-                        <Title c={"blue"}>{t('common:context_direction')}</Title>
-                        <ComChartKabupatenContextDirection
-                          data={
-                            v.City.CityContextDirection[0]
-                              ? v.City.CityContextDirection[0].content
-                              : []
-                          }
-                        />
+                    <Title c={"white"} pl={30} order={1}>
+                      {_.upperCase(v.City.name)}
+                    </Title>
+                    <Group position="right" pr={40}>
+                      <Title c={"white"} fz={20}>
+                        SENTIMENT ANALYSIS
+                      </Title>
+                    </Group>
+                    <ComChartDetailKabupaten
+                      data={{
+                        trust: v.trust,
+                        joy: v.joy,
+                        surprise: v.surprise,
+                        anticipation: v.anticipation,
+                        sadness: v.sadness,
+                        fear: v.fear,
+                        anger: v.anger,
+                        disgust: v.disgust,
+                      }}
+                    />
+                    <Group spacing={"lg"}>
+                      <Stack align="center">
+                        <Text color={COLOR.merah}>LOCKED AUDIENCE</Text>
+                        <Title c={COLOR.hijauTua} fz={25} fw={700}>
+                          {Intl.NumberFormat("id-ID").format(
+                            v.City.CityValue[0].value
+                          )}
+                        </Title>
                       </Stack>
-                    </Card>
-                    <Card>
+                      <Stack align="center">
+                        <Text color={COLOR.merah}>FILTERED AUDIENCE</Text>
+                        <Title c={COLOR.hijauTua} fz={25} fw={700}>
+                          {Intl.NumberFormat("id-ID").format(
+                            _.sum([
+                              v.trust,
+                              v.joy,
+                              v.surprise,
+                              v.anticipation,
+                              v.sadness,
+                              v.fear,
+                              v.anger,
+                              v.disgust,
+                            ])
+                          )}
+                        </Title>
+                      </Stack>
+                    </Group>
+                    <Box pt={20}>
                       <Stack>
-                        <Title c={"cyan"}>{t('common:leader_persona_prediction')}</Title>
                         <ComChartKabupatenLeaderPersona
                           data={
                             v.City.CityLeaderPersonaPrediction[0]
                               ? v.City.CityLeaderPersonaPrediction[0].data
-                                .content
+                                  .content
                               : []
                           }
                         />
                       </Stack>
-                    </Card>
+                    </Box>
                   </Stack>
                 </SimpleGrid>
               </Stack>
