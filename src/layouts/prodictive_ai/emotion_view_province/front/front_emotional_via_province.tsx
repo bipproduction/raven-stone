@@ -69,10 +69,10 @@ export const FrontEmotionalViewViaProvince = () => {
                 <Stack >
                   {/* <Card h={760} sx={{ overflow: "scroll" }}> */}
                     <Stack spacing={"lg"}>
-                      <Title pl={30} c="white">{v.name}</Title>
+                      <Title pl={30} order={1} c="white">{_.upperCase(v.name)}</Title>
                       <Box>
                       <Group position="right" pr={40}>
-                        <Title c={"white"} fz={20}>SENT IMENT ANALYSIS</Title>
+                        <Title c={"white"} fz={20}>SENTIMENT ANALYSIS</Title>
                       </Group>
                       <Center>
                         <ComChartBar lsData={v.emotion} />
