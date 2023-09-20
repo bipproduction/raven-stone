@@ -342,16 +342,23 @@ const Dashboard = (props: any) => {
       >
         <BackgroundImage src="https://str.wibudev.com/api/file/get/cllkkd90p000h9uhkqir9ptq3.png">
           {/* //todo: 2023-05-19 */}
-          {listView.map((v, i) =>
-            v.child.map((vv, ii) => (
-              <Box key={ii}>
-                {vv.name == sSelectedView.value && (
-                  <ViewGlobalAccessBlock name={vv.name}>
-                    {vv.view()}
-                  </ViewGlobalAccessBlock>
-                )}
-              </Box>
-            ))
+          {listView2.map((v, i) =>
+            <Box key={i}>
+              {v.name == sSelectedView.value && (
+                <>{v.view()}</>
+              )}
+            </Box>
+
+
+            // v.child.map((vv, ii) => (
+            //   <Box key={ii}>
+            //     {vv.name == sSelectedView.value && (
+            //       <ViewGlobalAccessBlock name={vv.name}>
+            //         {vv.view()}
+            //       </ViewGlobalAccessBlock>
+            //     )}
+            //   </Box>
+            // ))
           )}
         </BackgroundImage>
       </AppShell>
@@ -458,7 +465,7 @@ const NotificationDisplay = () => {
                     <MdTimer color="gray" />
                     <Text
                       size={12}
-                      // c={"blue"}
+                    // c={"blue"}
                     >
                       {moment(v.createdAt).fromNow()}
                     </Text>
@@ -539,8 +546,8 @@ const MyNavbar = () => {
             </Navbar.Section>
 
             <Navbar.Section
-            // bg={"dark"}
-            pl={15}
+              // bg={"dark"}
+              pl={15}
             >
               <ActionIcon
                 onClick={() => (sNavbarIsSmall.value = false)}
@@ -629,7 +636,7 @@ const MyNavbar = () => {
             <NavLink
               // bg={"gray"}
               // c={"dark"}
-              icon={<MdSettings />}
+              // icon={<MdSettings />}
               label={_.upperCase(t("common:setting"))}
             >
               {/* <NavLink
