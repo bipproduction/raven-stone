@@ -388,7 +388,6 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
     if (listData == null)
       return (
         <>
-        aa
           <Loader />
         </>
       );

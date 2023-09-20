@@ -7,6 +7,7 @@ import {
   Group,
   Paper,
   Select,
+  Text,
   TextInput,
 } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
@@ -17,6 +18,7 @@ import moment from "moment";
 import { val_list_emotion } from "../val/val_list_emotion";
 import { val_kunci } from "../val/val_kunci";
 import useTranslate from "next-translate/useTranslation";
+import { COLOR } from "@/global/fun/color_global";
 
 export function ComSelectCandidate({
   onSearch,
@@ -58,14 +60,14 @@ export function ComSelectCandidate({
         <Group position="right" spacing={"lg"} align="end">
           <TextInput
             onChange={(val) => onSearch?.(val.target.value)}
-            label={t("common:search")}
+            label={ <Text fz={17} color="white">{t("common:search")}</Text>}
             placeholder={t("common:search")}
           />
           <Select
             placeholder={
               listCandidate.find((v: any) => v.id === selectedCandidate)?.name
             }
-            label={t("common:candidate")}
+            label={ <Text fz={17} color="white">{t("common:candidate")}</Text>}
             data={listCandidate.map((v: any) => ({
               label: v.name,
               value: v.id,

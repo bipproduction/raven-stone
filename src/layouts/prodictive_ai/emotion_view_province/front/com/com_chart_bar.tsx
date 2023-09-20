@@ -92,6 +92,7 @@ export const ComChartBar = ({ lsData }: { lsData: any }) => {
         
         axisLabel: {
           verticalAlign: "middle",
+          color: "white",
           rotate: 45,
         }
       },
@@ -99,6 +100,9 @@ export const ComChartBar = ({ lsData }: { lsData: any }) => {
     yAxis: [
       {
         type: "value",
+        axisLabel: {
+          color: "white"
+        }
       },
 
     ],

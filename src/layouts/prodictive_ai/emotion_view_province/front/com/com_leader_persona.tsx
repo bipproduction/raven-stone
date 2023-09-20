@@ -48,6 +48,8 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         alignWithLabel: true,
       },
       axisLabel: {
+        color: "white",
+        fontSize:"10",
         formatter: function (params: any) {
           return _.upperCase(params);
         },

@@ -44,6 +44,8 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
           alignWithLabel: true,
         },
         axisLabel: {
+          color: "white",
+          fontSize: "10",
           formatter: function (params: any) {
             return _.upperCase(params);
           },
@@ -53,7 +55,9 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
     xAxis: [
       {
         type: "value",
+        
         axisLabel: {
+          color:"white",
           rotate: 45,
         },
       },

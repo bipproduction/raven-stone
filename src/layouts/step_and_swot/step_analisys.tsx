@@ -60,11 +60,11 @@ export default function StepAnalisys() {
         <Grid gutter="lg">
           <Grid.Col md={2} lg={2} pt={30}>
             <Box
-              sx={{
-                backgroundColor: "white",
-                padding: 1,
-                borderRadius: 10,
-              }}
+              // sx={{
+              //   backgroundColor: "white",
+              //   padding: 1,
+              //   borderRadius: 10,
+              // }}
             >
               <Image
                 alt="image"
