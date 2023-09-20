@@ -1,6 +1,6 @@
 import { gloobal_fun_load_list_candidate } from "@/global/fun/global_fun_load_list_candidate";
 import { global_list_candidate } from "@/global/val/global_list_candidate";
-import { Button, Card, Group, Paper, Select, TextInput } from "@mantine/core";
+import { Box, Button, Card, Group, Paper, Select, TextInput } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import { useAtom } from "jotai";
 import { val_selected_candidate } from "../val/val_seleced_candidate";
@@ -40,7 +40,7 @@ export function ComSelectCandidate({
   }
   return (
     <>
-      <Paper p={"xs"} shadow="md" pos={"sticky"} top={50} sx={{
+      <Box p={"xs"}  pos={"sticky"} top={50} sx={{
         zIndex: 100
       }}>
         <Group position="right" spacing={"lg"} align="end">
@@ -64,7 +64,7 @@ export function ComSelectCandidate({
           />
           <Button onClick={onProccess}>{t('common:process')}</Button>
         </Group>
-      </Paper>
+      </Box>
     </>
   );
 }

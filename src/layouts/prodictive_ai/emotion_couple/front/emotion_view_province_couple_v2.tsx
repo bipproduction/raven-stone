@@ -238,26 +238,26 @@ export default function EmotionViewProvinceCoupleV2() {
         </Box>
         {/* akhir raven */}
 
-        <Grid gutter="lg" pt={20}>
+        <Grid gutter="lg" pt={50}>
           <Grid.Col md={5} lg={5}>
-            <Flex
-              justify={"center"}
+            <Grid
               pos={"sticky"}
-              top={165}
+              top={190}
               sx={{
                 zIndex: 100,
               }}
             >
-              <Box mr={20}>
-                <Stack w={200} align="center">
-                  <Box
-                    sx={{
-                      backgroundColor: "white",
-                      padding: 1,
-                      borderRadius: 10,
-                    }}
-                  >
-                    {/* <Image
+              <Grid.Col md={6} lg={6}>
+                <Box mr={20}>
+                  <Stack align="center">
+                    <Box
+                      sx={{
+                        backgroundColor: "white",
+                        padding: 1,
+                        borderRadius: 10,
+                      }}
+                    >
+                      {/* <Image
                       radius={10}
                       width={200}
                       height={200}
@@ -268,51 +268,55 @@ export default function EmotionViewProvinceCoupleV2() {
                       alt=""
                       
                     /> */}
-                    <BackgroundImage
-                      radius={10}
-                      style={{ width: 200, height: 200 }}
-                      src={
+                      <BackgroundImage
+                        radius={10}
+                        w={200}
+                        h={200}
+                        src={
+                          listCandidate?.find(
+                            (v) => v.id === selectedCandidate1
+                          )?.img
+                        }
+                      >
+                        <Box pt={160}>
+                          <Grid>
+                            <Grid.Col md={7} lg={7}>
+                              <Box
+                                sx={{
+                                  backgroundColor: "#343A40",
+                                  borderRadius: " 0px  15px  15px  0px ",
+                                  padding: 2,
+                                }}
+                              >
+                                <Text ml={30} fz={12} fw={700} color="white">
+                                  PRESIDENT
+                                </Text>
+                              </Box>
+                            </Grid.Col>
+                          </Grid>
+                        </Box>
+                      </BackgroundImage>
+                    </Box>
+                    <Title align="center" lineClamp={1} color="white" order={3}>
+                      {
                         listCandidate?.find((v) => v.id === selectedCandidate1)
-                          ?.img
+                          ?.name
                       }
+                    </Title>
+                  </Stack>
+                </Box>
+              </Grid.Col>
+              <Grid.Col md={6} lg={6}>
+                <Box>
+                  <Stack align="center">
+                    <Box
+                      sx={{
+                        backgroundColor: "white",
+                        padding: 1,
+                        borderRadius: 10,
+                      }}
                     >
-                      <Box pt={160}>
-                        <Grid>
-                          <Grid.Col md={7} lg={7}>
-                            <Box
-                              sx={{
-                                backgroundColor: "#343A40",
-                                borderRadius: " 0px  15px  15px  0px ",
-                                padding: 2,
-                              }}
-                            >
-                              <Text ml={30} fz={12} fw={700} color="white">
-                                PRESIDENT
-                              </Text>
-                            </Box>
-                          </Grid.Col>
-                        </Grid>
-                      </Box>
-                    </BackgroundImage>
-                  </Box>
-                  <Title align="center" lineClamp={1} color="white" order={3}>
-                    {
-                      listCandidate?.find((v) => v.id === selectedCandidate1)
-                        ?.name
-                    }
-                  </Title>
-                </Stack>
-              </Box>
-              <Box>
-                <Stack w={200} align="center">
-                  <Box
-                    sx={{
-                      backgroundColor: "white",
-                      padding: 1,
-                      borderRadius: 10,
-                    }}
-                  >
-                    {/* <Image
+                      {/* <Image
                       radius={10}
                       width={200}
                       height={200}
@@ -322,47 +326,50 @@ export default function EmotionViewProvinceCoupleV2() {
                       }
                       alt=""
                     /> */}
-                    <BackgroundImage
-                      radius={10}
-                      style={{ width: 200, height: 200 }}
-                      src={
+                      <BackgroundImage
+                        radius={10}
+                        style={{ width: 200, height: 200 }}
+                        src={
+                          listCandidate?.find(
+                            (v) => v.id === selectedCandidate2
+                          )?.img
+                        }
+                      >
+                        <Box pt={160}>
+                          <Grid>
+                            <Grid.Col md={4} lg={4}></Grid.Col>
+                            <Grid.Col md={8} lg={8}>
+                              <Box
+                                sx={{
+                                  backgroundColor: "#343A40",
+                                  borderRadius: " 15px 0px 0px 15px ",
+                                  padding: 2,
+                                }}
+                              >
+                                <Text ml={10} fz={12} fw={700} color="white">
+                                  VICE PRESIDENT
+                                </Text>
+                              </Box>
+                            </Grid.Col>
+                          </Grid>
+                        </Box>
+                      </BackgroundImage>
+                    </Box>
+                    <Title align="center" lineClamp={1} color="white" order={3}>
+                      {
                         listCandidate?.find((v) => v.id === selectedCandidate2)
-                          ?.img
+                          ?.name
                       }
-                    >
-                      <Box pt={160}>
-                        <Grid>
-                          <Grid.Col md={4} lg={4}></Grid.Col>
-                          <Grid.Col md={8} lg={8}>
-                            <Box
-                              sx={{
-                                backgroundColor: "#343A40",
-                                borderRadius: " 15px 0px 0px 15px ",
-                                padding: 2,
-                              }}
-                            >
-                              <Text ml={10} fz={12} fw={700} color="white">
-                                VICE PRESIDENT
-                              </Text>
-                            </Box>
-                          </Grid.Col>
-                        </Grid>
-                      </Box>
-                    </BackgroundImage>
-                  </Box>
-                  <Title align="center" lineClamp={1} color="white" order={3}>
-                    {
-                      listCandidate?.find((v) => v.id === selectedCandidate2)
-                        ?.name
-                    }
-                  </Title>
-                </Stack>
-              </Box>
-            </Flex>
+                    </Title>
+                  </Stack>
+                </Box>
+              </Grid.Col>
+            </Grid>
+
             <Box
               pt={30}
               pos={"sticky"}
-              top={417}
+              top={447}
               sx={{
                 zIndex: 100,
               }}
@@ -571,62 +578,12 @@ const EmotionItemChart = ({
               name: v,
               value: lsData[v],
               itemStyle: {
-                color: listColorChart.find((v2) => _.lowerCase(v2.name) == v)?.color ?? "gray",
+                color:
+                  listColorChart.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
               },
             } as any)
         ),
-        //  data: [
-
-        //   {
-        //     value: 56,
-        //     itemStyle: {
-        //       color: '#6ABD45'
-        //     }
-        //   },
-        //   {
-        //     value: 86,
-        //     itemStyle: {
-        //       color: '#98CC6F'
-        //     }
-        //   },
-        //   {
-        //     value: 90,
-        //     itemStyle: {
-        //       color: '#C6E2B7'
-        //     }
-        //   },
-        //   {
-        //     value: 16,
-        //     itemStyle: {
-        //       color: '#FFFFFF'
-        //     }
-        //   },
-        //   {
-        //     value: 36,
-        //     itemStyle: {
-        //       color: '#F9BEBF'
-        //     }
-        //   },
-        //   {
-        //     value: 56,
-        //     itemStyle: {
-        //       color: '#F37D80'
-        //     }
-        //   },
-        //   {
-        //     value: 86,
-        //     itemStyle: {
-        //       color: '#ED2024'
-        //     }
-        //   },
-        //   {
-        //     value: 36,
-        //     itemStyle: {
-        //       color: '#8A171A'
-        //     }
-        //   },
-
-        // ],
       },
     ],
   };
@@ -638,8 +595,10 @@ const EmotionItemChart = ({
         <Flex gap="md">
         </Flex>
       </Stack> */}
-      <Box  mb={25}>
-        <Title pl={15}>{provinceName}</Title>
+      <Box mb={25}>
+        <Title pl={15} color="white">
+          {provinceName}
+        </Title>
 
         <EChartsReact style={{ width: 600 }} option={option} />
       </Box>
