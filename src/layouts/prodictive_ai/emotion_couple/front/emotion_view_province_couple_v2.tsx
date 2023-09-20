@@ -46,6 +46,7 @@ import useTranslate from "next-translate/useTranslation";
 import PageSubTitle from "@/global/components/PageSubTitle";
 import { listColorChart } from "@/global/fun/color_chart";
 import { COLOR } from "@/global/fun/color_global";
+import moment from "moment";
 
 export default function EmotionViewProvinceCoupleV2() {
   //   const [listEmotion, setListEmotion] = useAtom(
@@ -68,10 +69,10 @@ export default function EmotionViewProvinceCoupleV2() {
   const [count, setCount] = useState(0);
   const [hasMore, setHasmore] = useState(true);
   const { t, lang } = useTranslate();
+  const [listData, setListData] = useState<any[] | null>(null)
   const styling = {
-    backgroundImage: `url('${
-      listCandidate?.find((v) => v.id === selectedCandidate1)?.img
-    }')`,
+    backgroundImage: `url('${listCandidate?.find((v) => v.id === selectedCandidate1)?.img
+      }')`,
     width: "200",
     height: "200",
   };
@@ -83,7 +84,7 @@ export default function EmotionViewProvinceCoupleV2() {
   async function loadData() {
     fetch(
       api.apiPredictiveAiEmotionViewProvinceCoupleV2Get +
-        `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
+      `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
     )
       .then((val) => val.json())
       .then((v) => {
@@ -96,6 +97,12 @@ export default function EmotionViewProvinceCoupleV2() {
           // setPage((p) => (p + 10 > v.count ? v.count : p + 10));
         }
       });
+
+    fetch(
+      api.apiPredictiveAiV3NationWideRatingListDataGet + `?candidate1Id=${selectedCandidate1}&candidate2Id=${selectedCandidate2}&date=${moment().format("YYYY-MM-DD")}`
+    )
+      .then((v) => v.json())
+      .then((v) => setListData(v))
 
     // setHasmore(page * 10 < count);
   }
@@ -127,7 +134,7 @@ export default function EmotionViewProvinceCoupleV2() {
     );
   return (
     <>
-      <PageSubTitle text1="REGIONAL" text2="DATA PAIRING" />
+      <PageSubTitle text1={t('common:p_regional')} text2={t('common:p_data_pairing')} />
       <Stack spacing="xl" pl={30} pr={30}>
         {/* <PageTitle
           title={_.upperCase(t('common:emotional_view_via_province_couple'))}
@@ -156,7 +163,7 @@ export default function EmotionViewProvinceCoupleV2() {
               placeholder={t("common:search")}
               label={
                 <Text fz={17} color="white">
-                  Select Regions
+                  {t('common:select_regions')}
                 </Text>
               }
               radius={8}
@@ -166,7 +173,7 @@ export default function EmotionViewProvinceCoupleV2() {
             <Select
               label={
                 <Text fz={17} color="white" fw={"bold"}>
-                  Candidate 1
+                  {t('common:candidate')} 1
                 </Text>
               }
               radius={8}
@@ -193,7 +200,7 @@ export default function EmotionViewProvinceCoupleV2() {
               radius={8}
               label={
                 <Text fz={17} color="white" fw={"bold"}>
-                  Candidate 2
+                  {t('common:candidate')} 2
                 </Text>
               }
               value={
@@ -244,7 +251,7 @@ export default function EmotionViewProvinceCoupleV2() {
               pos={"sticky"}
               top={190}
               sx={{
-                zIndex: 100,
+                zIndex: 80,
               }}
             >
               <Grid.Col md={6} lg={6}>
@@ -289,7 +296,7 @@ export default function EmotionViewProvinceCoupleV2() {
                                 }}
                               >
                                 <Text ml={30} fz={12} fw={700} color="white">
-                                  PRESIDENT
+                                  {_.upperCase(t('common:president'))}
                                 </Text>
                               </Box>
                             </Grid.Col>
@@ -298,9 +305,10 @@ export default function EmotionViewProvinceCoupleV2() {
                       </BackgroundImage>
                     </Box>
                     <Title align="center" lineClamp={1} color="white" order={3}>
-                      {
+                      {_.upperCase(
                         listCandidate?.find((v) => v.id === selectedCandidate1)
                           ?.name
+                      )
                       }
                     </Title>
                   </Stack>
@@ -347,7 +355,7 @@ export default function EmotionViewProvinceCoupleV2() {
                                 }}
                               >
                                 <Text ml={10} fz={12} fw={700} color="white">
-                                  VICE PRESIDENT
+                                  {_.upperCase(t('common:vice_president'))}
                                 </Text>
                               </Box>
                             </Grid.Col>
@@ -356,9 +364,10 @@ export default function EmotionViewProvinceCoupleV2() {
                       </BackgroundImage>
                     </Box>
                     <Title align="center" lineClamp={1} color="white" order={3}>
-                      {
+                      {_.upperCase(
                         listCandidate?.find((v) => v.id === selectedCandidate2)
                           ?.name
+                      )
                       }
                     </Title>
                   </Stack>
@@ -377,10 +386,10 @@ export default function EmotionViewProvinceCoupleV2() {
               <Box>
                 <Group spacing={8} position="center">
                   <Text fz={23} fw={"bold"} color={COLOR.hijauTua}>
-                    SUCCESS PROBABILITY
+                    {t('common:p_success_probability')}
                   </Text>
-                  <Text fs="italic" fw={"bold"} color={COLOR.hijauTua} fz={23}>
-                    PROJECTION
+                  <Text fs="italic" color={COLOR.hijauTua} fz={23}>
+                    {t('common:p_projection')}
                   </Text>
                 </Group>
               </Box>
@@ -392,7 +401,9 @@ export default function EmotionViewProvinceCoupleV2() {
                   }}
                 >
                   <Text ta={"center"} fw={"bold"} fz={60} color="white">
-                    49.86%
+                    {listEmotion && listEmotion.length>0 && <> 
+                        {listData![0].rate}%
+                    </>}
                   </Text>
                 </Box>
               </Box>
@@ -411,12 +422,12 @@ export default function EmotionViewProvinceCoupleV2() {
               dataLength={listEmotion.length}
               next={loadMore}
               hasMore={hasMore}
-              // endMessage={<Center></Center>}
+            // endMessage={<Center></Center>}
             >
               <Group position="center">
                 {listEmotion &&
                   listEmotion.map((v, i) => (
-                    <Stack key={i}>
+                    <Box key={i}>
                       {/* <Text>{i + 1}</Text> */}
                       <EmotionItemChart
                         lsData={{
@@ -454,7 +465,7 @@ export default function EmotionViewProvinceCoupleV2() {
                       </Title>
                     </Paper>
                   </Flex> */}
-                    </Stack>
+                    </Box>
                   ))}
               </Group>
             </InfiniteScroll>
@@ -548,18 +559,25 @@ const EmotionItemChart = ({
       {
         type: "category",
         data: [
-          "Confidence",
-          "Supportive",
-          "Positive",
-          "Undecided",
-          "Unsupportive",
-          "Uncomfrotable",
-          "Negative",
-          "Disapproval",
+          t('common:trust'),
+          t('common:joy'),
+          t('common:surprise'),
+          t('common:anticipation'),
+          t('common:sadness'),
+          t('common:fear'),
+          t('common:anger'),
+          t('common:disgust'),
         ],
         axisTick: {
           alignWithLabel: true,
         },
+        axisLabel: {
+          verticalAlign: "middle",
+          rotate: 45,
+        },
+        nameTextStyle: {
+          color: '#FFFFFF'
+        }
       },
     ],
     yAxis: [
@@ -572,17 +590,18 @@ const EmotionItemChart = ({
         // name: 'Direct',
         type: "bar",
         barWidth: "60%",
+        color: "white",
         data: Object.keys(lsData ?? []).map(
           (v) =>
-            ({
-              name: v,
-              value: lsData[v],
-              itemStyle: {
-                color:
-                  listColorChart.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
-              },
-            } as any)
+          ({
+            name: v,
+            value: lsData[v],
+            itemStyle: {
+              color:
+                listColorChart.find((v2) => _.lowerCase(v2.name) == v)
+                  ?.color ?? "gray",
+            },
+          } as any)
         ),
       },
     ],
@@ -595,13 +614,13 @@ const EmotionItemChart = ({
         <Flex gap="md">
         </Flex>
       </Stack> */}
-      <Box mb={25}>
+      <Stack mb={25}>
         <Title pl={15} color="white">
           {provinceName}
         </Title>
 
-        <EChartsReact style={{ width: 600 }} option={option} />
-      </Box>
+        <EChartsReact style={{ width: 600, height: 600 }} option={option} />
+      </Stack>
     </>
   );
 };
