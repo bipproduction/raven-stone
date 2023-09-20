@@ -25,16 +25,35 @@ import { useState } from "react";
 import { MdFace } from "react-icons/md";
 import useTranslate from "next-translate/useTranslation";
 import PageSubTitle from "@/global/components/PageSubTitle";
+import { api } from "@/lib/api";
+import moment from "moment";
 
-const SummarySelectCandidate = () => {
+const SummarySelectCandidate = ({ id }: { id: any }) => {
   const update = useForceUpdate();
+  const [listDataAll, setListDataAll] = useState();
   const [prosentase, setProsentase] = useState({
     positive: 0,
     neutral: 0,
     negative: 0,
   });
+  const end = moment(new Date()).format("YYYY-MM-DD");
+  const start = moment(new Date()).subtract(1, "days").format("YYYY-MM-DD");
+
+  function loadDataNew({ candidate }: { candidate: any }) {
+    if (!_.isUndefined(candidate)) {
+      fetch(
+        api.apiSummarySummaryTrenSentiment +
+        `?start=${start}&end=${end}&candidateId=${id}`
+      )
+        .then((v) => v.json())
+        .then((v) => {
+          setListDataAll(v)
+        })
+    }
+  }
 
   useShallowEffect(() => {
+    loadDataNew({ candidate: id })
     const total = _.reduce(
       sTop10Province.value,
       (result, value) => {
@@ -88,12 +107,11 @@ const SummarySelectCandidate = () => {
   const { t, lang } = useTranslate();
   return (
     <>
-      {/* {JSON.stringify(sCandidate.value.find((e) => e.name))} */}
 
       {/* New Design Rave Stone */}
       <Flex gap={"md"}>
         <Flex>
-          {[sCandidate.value.find((e) => e.id == 1)].map((v, i) => (
+          {[sCandidate.value.find((e) => e.id == id)].map((v, i) => (
             <Box key={i}>
               <Box
                 sx={{
@@ -106,7 +124,7 @@ const SummarySelectCandidate = () => {
                 <Avatar size={250} src={v?.img} />
               </Box>
               <Flex justify={"center"} pt={"sm"} align={"center"} gap={"xs"}>
-                <Title  order={2}>{v?.name}</Title>
+                <Title order={2}>{v?.name}</Title>
                 {/* <Text fz={30}>{v?.name.split("Prabowo")}</Text> */}
               </Flex>
             </Box>
@@ -118,17 +136,17 @@ const SummarySelectCandidate = () => {
               <Stack>
                 <Paper h={60} w={150} bg={"green.6"} radius={"md"}>
                   <Center h={60}>
-                    <Title c={"white"}>{prosentase.positive} %</Title>
+                    <Title c={"white"}>{listDataAll?.[0]['positive']} %</Title>
                   </Center>
                 </Paper>
                 <Paper h={60} w={150} bg={"white"} radius={"md"}>
                   <Center h={60}>
-                    <Title c={"green.6"}>{prosentase.neutral} %</Title>
+                    <Title c={"green.6"}>{listDataAll?.[0]['neutral']} %</Title>
                   </Center>
                 </Paper>
                 <Paper h={60} w={150} bg={"red.9"} radius={"md"}>
                   <Center h={60}>
-                    <Title c={"white"}>{prosentase.negative} %</Title>
+                    <Title c={"white"}>{listDataAll?.[0]['negative']} %</Title>
                   </Center>
                 </Paper>
               </Stack>

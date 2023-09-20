@@ -23,20 +23,42 @@ import { useState } from "react";
 import PageTitle from "../page_title";
 import { MdSearch } from "react-icons/md";
 import { sSearchProvince } from "@/s_state/s_search_province";
-import { funcLoadTop10Province } from "@/fun_load/func_load_top_10_province";
 import { useForceUpdate, useShallowEffect } from "@mantine/hooks";
 import { funcLoadTop10District } from "@/fun_load/func_load_top_10_district";
 import { sSelectedEmotion } from "@/s_state/s_selected_emotion";
 import { sSearchDistrict } from "@/s_state/s_search_district";
 import Trs from "@/fun_load/trs";
 import useTranslate from 'next-translate/useTranslation'
+import { ModelTop10Province } from "@/model/top_10_province";
+import { api } from "@/lib/api";
+import moment from "moment";
 
 // text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours"
-const Top10ProvinceByConversation = () => {
+const Top10ProvinceByConversation = ({ id }: { id: any }) => {
   const pageSize = 10;
   const [page, setPage] = useState(1);
   const update = useForceUpdate();
-  const {t, lang} = useTranslate();
+  const { t, lang } = useTranslate();
+  const [listDataAll, setListDataAll] = useState<any[]>([]);
+  const [listData, setListData] = useState<any[]>([]);
+
+  function loadDataNew({ candidate }: { candidate: any }) {
+    const date = moment(new Date()).format("YYYY-MM-DD");
+    if (!_.isUndefined(candidate)) {
+      fetch(api.apiSummaryGetTop10ProvinceByConversation + `?date=${date}&emotion=Trust&candidateId=${candidate}&search=`)
+        .then((v) => v.json())
+        .then((v) => {
+          setListDataAll(v)
+          setListData(_.take(v, 10))
+        })
+    }
+  }
+
+
+
+  useShallowEffect(() => {
+    loadDataNew({ candidate: id })
+  }, []);
 
   // useShallowEffect(() => {
   //   if (!_.isEmpty(sTop10Province.value)) return;
@@ -51,10 +73,11 @@ const Top10ProvinceByConversation = () => {
 
   return (
     <>
+      {/* {JSON.stringify(listDataAll)} */}
       <Stack px={"xl"}>
         {/* <Button onClick={loadData}>Tekan Sini</Button> */}
         <Paper
-        
+
           h={600}
           shadow={"sm"}
           p={"md"}
@@ -83,7 +106,7 @@ const Top10ProvinceByConversation = () => {
           <Stack>
             <Table
               verticalSpacing={"md"}
-              // bg={stylesGradient1}
+            // bg={stylesGradient1}
             >
               <thead>
                 <tr>
@@ -112,7 +135,7 @@ const Top10ProvinceByConversation = () => {
                 </tr>
               </thead>
               <tbody>
-                {sTop10ProvinceTake.value.map((v: any, i) => (
+                {listData.map((v: any, i) => (
                   <tr key={i}>
                     <td style={{ padding: 0 }}>
                       <Paper
@@ -121,7 +144,7 @@ const Top10ProvinceByConversation = () => {
                       >
                         <Text
                           fw={"bold"}
-                          // color={"gray"}
+                        // color={"gray"}
                         >
                           {v.no}
                         </Text>
@@ -136,7 +159,7 @@ const Top10ProvinceByConversation = () => {
                           <Text
                             lineClamp={1}
                             fw={"bold"}
-                            // color={"gray"}
+                          // color={"gray"}
                           >
                             {v.name}
                           </Text>
@@ -235,14 +258,14 @@ const Top10ProvinceByConversation = () => {
             </Table>
             <Group position="right">
               <Pagination
-                total={Math.ceil(sTop10Province.value.length / pageSize)}
+                total={Math.ceil(listDataAll.length / pageSize)}
                 value={page}
                 onChange={(val) => {
                   const start = (val - 1) * pageSize;
                   const end = start + pageSize;
-                  const pageItem = _.slice(sTop10Province.value, start, end);
+                  const pageItem = _.slice(listDataAll, start, end);
                   setPage(val);
-                  sTop10ProvinceTake.value = pageItem;
+                  setListData(pageItem);
                 }}
               />
             </Group>
