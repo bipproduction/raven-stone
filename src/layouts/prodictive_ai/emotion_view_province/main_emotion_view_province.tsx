@@ -5,6 +5,7 @@ import { FrontDetailKabupaten } from "./front/front_detail_kabupaten";
 import { useAtom } from "jotai";
 import { val_selected_menu_id } from "./front/val/val_selected_menu_id";
 import useTranslate from 'next-translate/useTranslation'
+import PageSubTitle from "@/global/components/PageSubTitle";
 
 const listMenu = [
   {
@@ -25,7 +26,8 @@ export function MainEmotionViewProvince() {
   return (
     <>
       <Stack spacing={"lg"}>
-        <PageTitle title={t('common:emotional_view_via_province')} />
+        {/* <PageTitle title={t('common:emotional_view_via_province')} /> */}
+        <PageSubTitle text1="REGIONAL" text2="INSIGHTS"/>
         {(() => {
           const View = listMenu.find((v) => v.id === selectedMenu)!.view;
           return (
