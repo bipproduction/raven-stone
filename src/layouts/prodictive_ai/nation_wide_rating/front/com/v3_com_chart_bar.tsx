@@ -51,6 +51,7 @@ export function V3ComChartBar() {
     },
     series: [
       {
+
         itemStyle: {
           borderRadius: 100,
         },

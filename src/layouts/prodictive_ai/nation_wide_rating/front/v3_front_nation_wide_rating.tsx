@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   Center,
   Flex,
@@ -76,146 +77,163 @@ export function V3FrontNationWideRating() {
         /> */}
         <PageSubTitle text1="NATIONAL" text2="POPULARITY METRICS" />
 
-        {/* Select candidate */}
-        <V3ComNationWideRatingSelectCandidate
-          onProccess={() => {
-            v3_fun_nation_wide_rating_load_list_data({
-              candidate1Id: selectedCandidate.candidate1Id,
-              candidate2Id: selectedCandidate.candidate2Id,
-              setListData,
-            });
+        <Box px={"xl"}>
+          {/* Select candidate */}
+          <V3ComNationWideRatingSelectCandidate
+            onProccess={() => {
+              v3_fun_nation_wide_rating_load_list_data({
+                candidate1Id: selectedCandidate.candidate1Id,
+                candidate2Id: selectedCandidate.candidate2Id,
+                setListData,
+              });
 
-            v3_fun_load_chart_data({
-              start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
-              end: moment().format("YYYY-MM-DD"),
-              selectedCandidate: selectedCandidate,
-              setDataChart: setDataChart,
-            });
-          }}
-        />
+              v3_fun_load_chart_data({
+                start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
+                end: moment().format("YYYY-MM-DD"),
+                selectedCandidate: selectedCandidate,
+                setDataChart: setDataChart,
+              });
+            }}
+          />
 
-        {/* Foto Kandidat */}
-        <SimpleGrid cols={2}>
-          <Paper p={"md"}>
-            <Flex gap={"lg"} align={"end"}>
-              <Image
-                // key={Math.random()}
-                radius={"md"}
-                width={100}
-                height={100}
-                src={
-                  listCandidate?.find(
-                    (v) => v.id == selectedCandidate.candidate1Id
-                  ).img
-                }
-                alt=""
-              />
-              <Title>
-                {
-                  listCandidate?.find(
-                    (v) => v.id == selectedCandidate.candidate1Id
-                  ).name
-                }
-              </Title>
-            </Flex>
-          </Paper>
-          <Paper p={"md"}>
-            <Flex gap={"lg"} align={"end"} justify={"end"}>
-              <Title>
-                {
-                  listCandidate?.find(
-                    (v) => v.id == selectedCandidate.candidate2Id
-                  ).name
-                }
-              </Title>
-              <Image
-                // key={Math.random()}
-                radius={"md"}
-                width={100}
-                height={100}
-                src={
-                  listCandidate?.find(
-                    (v) => v.id == selectedCandidate.candidate2Id
-                  ).img
-                }
-                alt=""
-              />
-            </Flex>
-          </Paper>
-        </SimpleGrid>
-
-        <Grid>
-          <Grid.Col span={8}>
-            <Stack spacing={"lg"} ref={ref}>
-              <V3ComChartBar />
-              <V3ComNationWideRatingLineChart />
-            </Stack>
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <Paper p={"md"} h={height}>
-              <Stack spacing={"lg"}>
-                <SimpleGrid cols={2}>
+          {/* Photo candidate */}
+          <Flex pt={50} gap={60} align={"center"}>
+            <Group spacing={"xl"}>
+              {/* Candidate 1 */}
+              <Box>
+                <Image
+                  // key={Math.random()}
+                  radius={"md"}
+                  width={160}
+                  height={160}
+                  src={
+                    listCandidate?.find(
+                      (v) => v.id == selectedCandidate.candidate1Id
+                    ).img
+                  }
+                  alt=""
+                />
+                <Center pt={"xs"}>
                   <Title order={3}>
-                    {_.upperCase(t("common:winning_rates_prediction"))}
+                    {
+                      listCandidate?.find(
+                        (v) => v.id == selectedCandidate.candidate1Id
+                      ).name
+                    }
                   </Title>
-                  <Card>
-                    <Center h={80}>
-                      {!listData ? (
-                        <Loader />
-                      ) : !listData[0] ? (
-                        <>
-                          <Title>0 %</Title>
-                        </>
-                      ) : (
-                        <Title c={"green"}>{listData![0].rate} %</Title>
-                      )}
-                    </Center>
-                  </Card>
-                </SimpleGrid>
-                {/* DI HIDE SEMENTARA */}
-                {/* <Card>
-                  {!listData ? (
-                    <Loader />
-                  ) : !listData[0] ? (
-                    <>
-                      <Text>Empty Data ...</Text>
-                    </>
-                  ) : (
-                    <ScrollArea>
-                      {listData && listData![0] && (
-                        <Trs text={listData![0].text} lang={lang}>
-                          {(val: any) =>
-                            <>
-                              {val && <TextAnimation
-                                key={listData![0].id}
-                                phrases={[val]}
-                                typingSpeed={10}
-                                backspaceDelay={500}
-                                eraseDelay={0}
-                                errorProbability={0.1}
-                                eraseOnComplete={false}
-                              />}
-                            </>
+                </Center>
+              </Box>
+              {/* Candidate 2 */}
+              <Box>
+                <Image
+                  // key={Math.random()}
+                  radius={"md"}
+                  width={160}
+                  height={160}
+                  src={
+                    listCandidate?.find(
+                      (v) => v.id == selectedCandidate.candidate2Id
+                    ).img
+                  }
+                  alt=""
+                />
+                <Center pt={"xs"}>
+                  <Title order={3}>
+                    {
+                      listCandidate?.find(
+                        (v) => v.id == selectedCandidate.candidate2Id
+                      ).name
+                    }
+                  </Title>
+                </Center>
+              </Box>
+            </Group>
+            <Flex direction={"column"}>
+              <Text fz={40} c={"white"} fw={"bold"}>
+                SUCCESS{" "}
+              </Text>
+              <Text fz={40} c={"white"} fw={"bold"}>
+                PROBABILITY{" "}
+              </Text>
+              <Text fz={40} c={"white"} fs={"italic"} fw={"lighter"}>
+                PROJECTION{" "}
+              </Text>
+            </Flex>
 
-                          }
-                        </Trs>
-                        // <TextAnimation
-                        //   key={listData![0].id}
-                        //   phrases={[listData![0].text]}
-                        //   typingSpeed={10}
-                        //   backspaceDelay={500}
-                        //   eraseDelay={0}
-                        //   errorProbability={0.1}
-                        //   eraseOnComplete={false}
-                        // />
-                      )}
-                    </ScrollArea>
-                  )}
-                </Card> */}
+            <Box>
+              {!listData ? (
+                <Loader />
+              ) : !listData[0] ? (
+                <>
+                  <Title>0 %</Title>
+                </>
+              ) : (
+                <Title fz={120} c={"green"}>
+                  {listData![0].rate} %
+                </Title>
+              )}
+            </Box>
+          </Flex>
+
+          {/* Foto Kandidat */}
+          {/* <SimpleGrid cols={2}>
+          <Flex gap={"lg"} align={"end"}>
+            <Image
+              // key={Math.random()}
+              radius={"md"}
+              width={100}
+              height={100}
+              src={
+                listCandidate?.find(
+                  (v) => v.id == selectedCandidate.candidate1Id
+                ).img
+              }
+              alt=""
+            />
+            <Title>
+              {
+                listCandidate?.find(
+                  (v) => v.id == selectedCandidate.candidate1Id
+                ).name
+              }
+            </Title>
+          </Flex>
+
+          <Flex gap={"lg"} align={"end"} justify={"end"}>
+            <Title>
+              {
+                listCandidate?.find(
+                  (v) => v.id == selectedCandidate.candidate2Id
+                ).name
+              }
+            </Title>
+            <Image
+              // key={Math.random()}
+              radius={"md"}
+              width={100}
+              height={100}
+              src={
+                listCandidate?.find(
+                  (v) => v.id == selectedCandidate.candidate2Id
+                ).img
+              }
+              alt=""
+            />
+          </Flex>
+        </SimpleGrid> */}
+
+          <Grid pt={50}>
+            <Grid.Col span={6}>
+              <Stack spacing={"lg"} ref={ref}>
+                <V3ComChartBar />
               </Stack>
-            </Paper>
-          </Grid.Col>
-        </Grid>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              {" "}
+              <V3ComNationWideRatingLineChart />
+            </Grid.Col>
+          </Grid>
+        </Box>
       </Stack>
 
       {/* {JSON.stringify(listData)}
