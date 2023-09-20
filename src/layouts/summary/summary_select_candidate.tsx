@@ -114,12 +114,6 @@ const SummarySelectCandidate = ({ id }: { id: any }) => {
           {[sCandidate.value.find((e) => e.id == id)].map((v, i) => (
             <Box key={i}>
               <Box
-                sx={{
-                  borderStyle: "solid",
-                  borderColor: "white",
-                  borderRadius: "5px",
-                  borderWidth: "1px",
-                }}
               >
                 <Avatar size={250} src={v?.img} />
               </Box>

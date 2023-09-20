@@ -103,11 +103,11 @@ function Analisys() {
       <Grid gutter="lg">
         <Grid.Col md={2} lg={2}>
           <Box
-            sx={{
-              backgroundColor: "white",
-              padding: 1,
-              borderRadius: 10,
-            }}
+            // sx={{
+            //   backgroundColor: "white",
+            //   padding: 1,
+            //   borderRadius: 10,
+            // }}
           >
             <Image
               alt="image"
