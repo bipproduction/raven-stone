@@ -200,8 +200,8 @@ export function V3ComChartBar() {
       <Box style={{}}>
         <EChartsReact
           style={{
-            height: 400,
-            minWidth: 550,
+            height: 350,
+            minWidth: 500,
 
             // paddingRight: 100,
             // backgroundColor: "gray",
