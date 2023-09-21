@@ -19,6 +19,7 @@ model User {
   UserRole   UserRole? @relation(fields: [userRoleId], references: [id])
   userRoleId Int       @default(1)
   isActive   Boolean   @default(true)
+  isLogin    Boolean   @default(false)
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @default(now())
   UserLog    UserLog[]

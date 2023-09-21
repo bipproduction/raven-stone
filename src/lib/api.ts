@@ -144,5 +144,7 @@ export const api = {
   "apiGlobalComponentAccessUserRoleGet": "/api/global/component-access-user-role-get",
   "apiAuthLogin": "/api/auth/login",
   "apiAuthLoginDev": "/api/auth/login-dev",
-  "apiAuthGetUserById": "/api/auth/get-user-by-id"
+  "apiAuthGetUserById": "/api/auth/get-user-by-id",
+  "apiAuthLoginBaru": "/api/auth/login-baru",
+  "apiUpdIsLogin": "/api/auth/upd-islogin",
 }
