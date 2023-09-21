@@ -69,32 +69,26 @@ export function FrontDetailKabupaten() {
         <Box
           p={"sm"}
           pos={"sticky"}
-          top={50}
+          top={0}
           sx={{
             zIndex: 100,
+            backgroundColor: "#230D38",
+            padding: 5,
+            borderRadius: 5,
           }}
         >
-          <Group position="apart">
-            <Box 
-            sx={{
-              backgroundColor: "#230D38",
-              padding: 5,
-                borderRadius: 5,
-            }}
-            >
+          <Group
+            position="apart"
+
+          >
+            <Box>
               <Text c={"white"} fz={40} fw={700}>
                 {_.upperCase(
                   listProvince.find((val) => val.id === provinceId)?.name
                 )}
               </Text>
             </Box>
-            <Group
-              sx={{
-                backgroundColor: "#230D38",
-                padding: 5,
-                borderRadius: 5,
-              }}
-            >
+            <Group spacing={70}>
               <TextInput
                 onChange={(val) => {
                   if (val) {
@@ -103,6 +97,7 @@ export function FrontDetailKabupaten() {
                 }}
                 placeholder={t("common:search")}
                 icon={<MdSearch />}
+                w={400}
               />
               <CloseButton
                 loading={isLoading}
@@ -127,7 +122,7 @@ export function FrontDetailKabupaten() {
             )}
           </Text>
         </Box> */}
-        <Stack spacing={"lg"} >
+        <Stack spacing={"lg"}>
           {listEmotionKabupaten
             .filter((v: any) => _.lowerCase(v.City.name).includes(search))
             .map((v, i) => (
