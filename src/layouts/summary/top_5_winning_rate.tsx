@@ -20,7 +20,9 @@ import useTranslate from "next-translate/useTranslation";
 import Trs from "@/fun_load/trs";
 import _ from "lodash";
 import PageSubTitle from "@/global/components/PageSubTitle";
-import EChartsReact, { EChartsOption } from "echarts-for-react";
+import EChartsReact from "echarts-for-react";
+import { EChartsOption } from "echarts";
+import { useState } from "react";
 
 const _val_list_top_5_winning_rate = atom<any[] | undefined>(undefined);
 
@@ -47,9 +49,9 @@ export function Top5WinningRate() {
 
   // EChart option
 
-  const test = false;
+  const  [test, setTest] = useState(false);
 
-  const option: (dataNya: any[]) => EChartsOption = (dataNya: any[]) => {
+  const option:  (dataNya: any[]) => EChartsOption = (dataNya: any[]) => {
     return {
       xAxis: {
         type: "value",
@@ -104,6 +106,9 @@ export function Top5WinningRate() {
                 "https://static.vecteezy.com/system/resources/thumbnails/008/854/270/original/abstract-colorful-gradient-animation-background-free-video.jpg",
             },
           },
+          emphasis: {
+             disabled: true
+          }
         },
         {
           name: "apa",
@@ -131,7 +136,8 @@ export function Top5WinningRate() {
           color: "white",
           itemStyle: {},
           emphasis: {
-            disabled: true,
+            disabled: false,
+           
           },
         },
         {
@@ -164,6 +170,13 @@ export function Top5WinningRate() {
     };
   };
 
+  let [dataku, setDataku] = useState<any>()
+
+  if(test) {
+    dataku = sampleData()
+
+  }
+
   if (!listTop5)
     return (
       <>
@@ -183,7 +196,7 @@ export function Top5WinningRate() {
           style={{
             height: 500,
           }}
-          option={option(sampleData() as any)}
+          option={option(sampleData() as any )}
         />
       </Box>
 
