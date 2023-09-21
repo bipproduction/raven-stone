@@ -86,13 +86,13 @@ export const FrontEmotionalViewViaProvince = () => {
                       <Group position="apart" spacing={"lg"}>
                         <Group spacing={30}>
                           <Stack align="center">
-                            <Text color={COLOR.merah}>LOCKED AUDIENCE</Text>
+                            <Text color={COLOR.merah}>Locked Audience</Text>
                             <Title c={COLOR.hijauTua} fz={25} fw={700}>
                               {Intl.NumberFormat("id-ID").format(v.total)}
                             </Title>
                           </Stack>
                           <Stack align="center">
-                            <Text color={COLOR.merah}>FILTERED AUDIENCE</Text>
+                            <Text color={COLOR.merah}>Filtered Audience</Text>
                             <Title c={COLOR.hijauTua} fz={25} fw={700}>
                               {Intl.NumberFormat("id-ID").format(
                                 _.sum(_.values(v.emotion))
@@ -108,8 +108,9 @@ export const FrontEmotionalViewViaProvince = () => {
                             }}
                             color="gray.0"
                             radius={"md"}
+                            w={100}
                           >
-                            <Text color="gray.9"> DETAIL</Text>
+                            <Text color="gray.9" fw={"bold"}>DETAIL</Text>
                           </Button>
                         </Center>
                       </Group>

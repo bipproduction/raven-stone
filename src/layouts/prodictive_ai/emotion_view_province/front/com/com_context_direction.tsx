@@ -45,9 +45,10 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
         },
         axisLabel: {
           color: "white",
-          fontSize: "10",
+          fontSize: "12",
+          fontWeight: "bold",
           formatter: function (params: any) {
-            return _.upperCase(params);
+            return _.startCase(params);
           },
         },
       },

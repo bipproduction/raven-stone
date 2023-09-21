@@ -33,7 +33,7 @@ export function ComChartKabupatenLeaderPersona({ data }: { data: any }) {
         color: "white",
         fontSize:"10",
         formatter: function (params: any) {
-          return _.upperCase(params);
+          return _.startCase(params);
         },
       },
       startAngle: 60,
