@@ -56,8 +56,9 @@ function Analisys() {
     v3_val_nation_wide_rating_list_candidate
   );
 
-  function loadData(candidateId: number) {
-    fetch(api.apiSwotSwotContentGet + `?candidateId=${candidateId}`)
+  async function loadData(cId: number) {
+    setCandidateId(cId);
+    await fetch(api.apiSwotSwotContentGet + `?candidateId=${cId}`)
       .then((v) => v.json())
       .then(async (v) => {
         // setListSwot(v);
@@ -67,7 +68,6 @@ function Analisys() {
 
           setListSingle([]);
           setlistDouble([]);
-          setCandidateId(candidateId);
 
           // wait 1 second
           await new Promise((r) => setTimeout(r, 1));
@@ -128,8 +128,10 @@ function Analisys() {
                     value: v.id,
                   })) as any
                 }
-                onChange={(val) => {
+                onChange={async (val) => {
                   if (val) loadData(Number(val));
+                  await new Promise(r => setTimeout(r, 1));
+                  await loadData(Number(val));
                 }}
                 w={350}
               />
@@ -161,12 +163,12 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
       {listSingle?.map((v, i) => (
         <Stack key={i} spacing={0} pl={20}>
           <Box>
-          <Title c={"green"}>
-            {/* <Trs text={v.name} lang={lang}>
+            <Title c={"green"}>
+              {/* <Trs text={v.name} lang={lang}>
               {(val: any) => <div>{val}</div>}
             </Trs> */}
-            {t("common:strength_analysis_improvement")}
-          </Title>
+              {t("common:strength_analysis_improvement")}
+            </Title>
           </Box>
           {v.SwotAnalisys.length > 0 && (
             <Stack>

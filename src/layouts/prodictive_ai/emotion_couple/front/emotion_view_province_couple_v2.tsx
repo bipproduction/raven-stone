@@ -11,14 +11,14 @@ import { mc_list_candidate } from "@/layouts/map_controll/map_controll_state";
 import { stylesRadial } from "@/styles/styles_radial";
 import EChartsReact from "echarts-for-react";
 import { listEmotionColor } from "@/assets/list_emotion_color";
-import _ from "lodash";
+import _, { filter } from "lodash";
 import { EChartsOption } from "echarts";
 import {
   _val_list_emotion_view_province_couple,
   _val_selected_candidate1,
   _val_selected_candidate2,
 } from "../../../dev/emotion_view_province_couple_v2/_val_emotion_view_province_couple_v2";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { _fun_emotion_view_province_couple } from "../../../dev/emotion_view_province_couple_v2/_fun_emotion_view_province_couple_v2";
 import {
   BackgroundImage,
@@ -48,6 +48,8 @@ import { listColorChart } from "@/global/fun/color_chart";
 import { COLOR } from "@/global/fun/color_global";
 import moment from "moment";
 
+export const dataAudience = atom<any[]>([]);
+
 export default function EmotionViewProvinceCoupleV2() {
   //   const [listEmotion, setListEmotion] = useAtom(
   //     _val_list_emotion_view_province_couple
@@ -70,10 +72,10 @@ export default function EmotionViewProvinceCoupleV2() {
   const [hasMore, setHasmore] = useState(true);
   const { t, lang } = useTranslate();
   const [listData, setListData] = useState<any[] | null>(null);
+  const [listDataAudience, setListDataAudience] = useAtom(dataAudience);
   const styling = {
-    backgroundImage: `url('${
-      listCandidate?.find((v) => v.id === selectedCandidate1)?.img
-    }')`,
+    backgroundImage: `url('${listCandidate?.find((v) => v.id === selectedCandidate1)?.img
+      }')`,
     width: "200",
     height: "200",
   };
@@ -85,7 +87,7 @@ export default function EmotionViewProvinceCoupleV2() {
   async function loadData() {
     fetch(
       api.apiPredictiveAiEmotionViewProvinceCoupleV2Get +
-        `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
+      `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
     )
       .then((val) => val.json())
       .then((v) => {
@@ -101,12 +103,20 @@ export default function EmotionViewProvinceCoupleV2() {
 
     fetch(
       api.apiPredictiveAiV3NationWideRatingListDataGet +
-        `?candidate1Id=${selectedCandidate1}&candidate2Id=${selectedCandidate2}&date=${moment().format(
-          "YYYY-MM-DD"
-        )}`
+      `?candidate1Id=${selectedCandidate1}&candidate2Id=${selectedCandidate2}&date=${moment().format(
+        "YYYY-MM-DD"
+      )}`
     )
       .then((v) => v.json())
       .then((v) => setListData(v));
+
+    fetch(api.apiSummaryGetTop10ProvinceByConversation + `?date=${moment().format(
+      "YYYY-MM-DD"
+    )}&emotion=Trust&candidateId=${selectedCandidate1}&search=`)
+      .then((v) => v.json())
+      .then((v) => {
+        setListDataAudience(v)
+      })
 
     // setHasmore(page * 10 < count);
   }
@@ -439,7 +449,7 @@ export default function EmotionViewProvinceCoupleV2() {
               dataLength={listEmotion.length}
               next={loadMore}
               hasMore={hasMore}
-              // endMessage={<Center></Center>}
+            // endMessage={<Center></Center>}
             >
               <Group position="center">
                 {listEmotion &&
@@ -488,8 +498,6 @@ export default function EmotionViewProvinceCoupleV2() {
             </InfiniteScroll>
           </Grid.Col>
         </Grid>
-
-        {/* {JSON.stringify(listEmotion)} */}
       </Stack>
     </>
   );
@@ -506,7 +514,23 @@ const EmotionItemChart = ({
   provinceName: string;
   no: number;
 }) => {
+  const [nDataAudience, setDataAudience] = useAtom(dataAudience);
   const { t, lang } = useTranslate();
+  const locked = nDataAudience
+    .filter((itm) => itm.id == Number(provinceId))
+    .map((itm) => Number(itm.total))
+  const filtered = nDataAudience
+    .filter((itm) => itm.id == Number(provinceId))
+    .map((itm) => _.sum([
+      itm.trust,
+      itm.joy,
+      itm.surprise,
+      itm.anticipation,
+      itm.sadness,
+      itm.fear,
+      itm.anger,
+      itm.disgust,
+    ]))
   const option: EChartsOption = {
     // radiusAxis: {},
     // polar: {},
@@ -565,6 +589,12 @@ const EmotionItemChart = ({
       axisPointer: {
         type: "shadow",
       },
+      formatter: (a: any) => {
+        return `
+        <i>${_.upperCase(t('common:'+a[0].data.name))}</i>
+        <h1>${a[0].data.value} %</h1>
+        `;
+      },
     },
     grid: {
       left: "3%",
@@ -592,6 +622,7 @@ const EmotionItemChart = ({
           color: "white",
           verticalAlign: "middle",
           rotate: 45,
+          fontWeight:"bold"
         },
         nameTextStyle: {
           color: "#FFFFFF",
@@ -604,6 +635,9 @@ const EmotionItemChart = ({
         axisLabel: {
           color: "white",
           fontWeight: "bold",
+          formatter: (v: any) => {
+            return `${v}%`;
+          },
         },
       },
     ],
@@ -615,15 +649,15 @@ const EmotionItemChart = ({
         color: "white",
         data: Object.keys(lsData ?? []).map(
           (v) =>
-            ({
-              name: v,
-              value: lsData[v],
-              itemStyle: {
-                color:
-                  listColorChart.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
-              },
-            } as any)
+          ({
+            name: v,
+            value: lsData[v],
+            itemStyle: {
+              color:
+                listColorChart.find((v2) => _.lowerCase(v2.name) == v)
+                  ?.color ?? "gray",
+            },
+          } as any)
         ),
       },
     ],
@@ -654,13 +688,19 @@ const EmotionItemChart = ({
               <Stack align="center">
                 <Text color={COLOR.merah}>LOCKED AUDIENCE</Text>
                 <Title c={COLOR.hijauTua} fz={25} fw={700}>
-                  4.342.424
+                  {nDataAudience &&
+                    Intl.NumberFormat("id-ID").format(Number(locked))
+                  }
                 </Title>
               </Stack>
               <Stack align="center">
                 <Text color={COLOR.merah}>FILTERED AUDIENCE</Text>
                 <Title c={COLOR.hijauTua} fz={25} fw={700}>
-                  3.923.232
+                  {nDataAudience &&
+                    Intl.NumberFormat("id-ID").format(
+                      Number(filtered)
+                    )
+                  }
                 </Title>
               </Stack>
             </Group>
