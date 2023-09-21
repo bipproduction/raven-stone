@@ -84,6 +84,7 @@ import translate from "google-translate-api-x";
 import useTranslate from "next-translate/useTranslation";
 import { COLOR } from "@/global/fun/color_global";
 import Mlai from "@/layouts/step_and_swot/ml_ai";
+import { _isMaxTimeOut } from "@/layouts/auth/val_login";
 
 const listView = [
   {
@@ -300,6 +301,7 @@ const listView2 = [
 ];
 
 const Dashboard = (props: any) => {
+  const [valTimeOut, setValTimeOut] = useAtom(_isMaxTimeOut)
   const { t, lang } = useTranslate();
   const theme = useMantineTheme();
   // const [opened, setOpened] = useState(false);
@@ -327,6 +329,26 @@ const Dashboard = (props: any) => {
       sSelectedView.value = page;
     }
   }, []);
+
+  if (new Date().getTime() > valTimeOut) {
+    const body = {
+      id: localStorage.getItem("user_id"),
+      isLogin: false,
+    };
+    fetch(api.apiUpdIsLogin, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then(async (res) => {
+      if (res.status === 200) {
+        localStorage.removeItem("user_id");
+        sUser.value = {};
+        setValTimeOut(0)
+      }
+    });
+  }
 
   return (
     <>
@@ -466,7 +488,7 @@ const NotificationDisplay = () => {
                     <MdTimer color="gray" />
                     <Text
                       size={12}
-                      // c={"blue"}
+                    // c={"blue"}
                     >
                       {moment(v.createdAt).fromNow()}
                     </Text>
@@ -485,6 +507,7 @@ const MyNavbar = () => {
   const router = useRouter();
   const [isDarkMode, setisDarkMode] = useAtom(_is_dark_mode);
   const { t, lang } = useTranslate();
+  const [valTimeOut, setValTimeOut] = useAtom(_isMaxTimeOut)
 
   function onSelectedPage(page: string) {
     localStorage.setItem("dashboard_selected_page", page);
@@ -570,7 +593,7 @@ const MyNavbar = () => {
         hidden={!sNavbarOpen.value}
         width={{ sm: 200, lg: 300 }}
       >
-        <BackgroundImage src="../raven.png" h={"100%"}  sx={{
+        <BackgroundImage src="../raven.png" h={"100%"} sx={{
           backgroundPosition: "30%",
           backgroundRepeat: "no-repeat",
         }}>
@@ -583,102 +606,117 @@ const MyNavbar = () => {
             }}
             pos={"absolute"}
           >
-          <Navbar.Section mb={"lg"}>
-            <AnimateCssReact animation="fadeIn">
-              <Box h={50}>
-                {/* <Center w={{ sm: 200, lg: 300 }} p={"sm"}>
+            <Navbar.Section mb={"lg"}>
+              <AnimateCssReact animation="fadeIn">
+                <Box h={50}>
+                  {/* <Center w={{ sm: 200, lg: 300 }} p={"sm"}>
                 <Image width={100} src={"https://str.wibudev.com/api/file/get/cllki3cuf00059uhkmaugrypc.png"} alt={"logo"} />
               </Center> */}
-                <Group position="right">
-                  {/* <ActionIcon
+                  <Group position="right">
+                    {/* <ActionIcon
                     onClick={() => toast("Project already running ...")}
                   >
                     <MdInfo color="white" />
                   </ActionIcon> */}
 
-                  <ActionIcon
-                    onClick={() => (sNavbarIsSmall.value = true)}
-                    m={"md"}
-                    radius={100}
-                    size={34}
-                  >
-                    <MdClose size={34} />
-                  </ActionIcon>
-                </Group>
-              </Box>
-            </AnimateCssReact>
-          </Navbar.Section>
-          <Navbar.Section grow component={ScrollArea}>
-            {listView2.map((vv, i) => (
-              <Box key={`${vv.id}${i}`} mb={"xs"}>
-                <NavLink
-                  c={sSelectedView.value == vv.name ? "white" : ""}
-                  // icon={<vv.icon color="orange" />}
-                  variant={"filled"}
-                  // fw={sSelectedView.value == vv.name ? "bold" : "light"}
-                  // bg={selectedView.value == vv.name ? "blue.1" : ""}
-                  label={
-                    sSelectedView.value == vv.name ? (
-                      <Box ml={20}>
-                        <Title order={5} color="white">
-                          {_.upperCase(t("common:" + vv.label))}
-                        </Title>
-                        <Grid pt={5}>
-                          <Grid.Col span={3}>
-                            <Divider color="red.9" size="lg" />
-                          </Grid.Col>
-                        </Grid>
-                      </Box>
-                    ) : (
-                      <Box>
-                        <Text color="white" ml={20}>
-                          {_.upperCase(t("common:" + vv.label))}
-                        </Text>
-                        <></>
-                      </Box>
-                    )
-                  }
-                  key={`${vv.id}${i}`}
-                  onClick={() => ketikaCklik(vv, vv)}
-                />
-              </Box>
-            ))}
-          </Navbar.Section>
-          <Navbar.Section pr={40}>
-            <NavLink
-              // bg={"gray"}
-              c={"white"}
-              // icon={<MdSettings />}
-              label={<Text ml={20}>{_.upperCase(t("common:setting"))}</Text>}
-              style={{
-                position: "absolute",
-                bottom: 160,
-                left: 0,
-              }}
-            >
-              {/* <NavLink
+                    <ActionIcon
+                      onClick={() => (sNavbarIsSmall.value = true)}
+                      m={"md"}
+                      radius={100}
+                      size={34}
+                    >
+                      <MdClose size={34} />
+                    </ActionIcon>
+                  </Group>
+                </Box>
+              </AnimateCssReact>
+            </Navbar.Section>
+            <Navbar.Section grow component={ScrollArea}>
+              {listView2.map((vv, i) => (
+                <Box key={`${vv.id}${i}`} mb={"xs"}>
+                  <NavLink
+                    c={sSelectedView.value == vv.name ? "white" : ""}
+                    // icon={<vv.icon color="orange" />}
+                    variant={"filled"}
+                    // fw={sSelectedView.value == vv.name ? "bold" : "light"}
+                    // bg={selectedView.value == vv.name ? "blue.1" : ""}
+                    label={
+                      sSelectedView.value == vv.name ? (
+                        <Box ml={20}>
+                          <Title order={5} color="white">
+                            {_.upperCase(t("common:" + vv.label))}
+                          </Title>
+                          <Grid pt={5}>
+                            <Grid.Col span={3}>
+                              <Divider color="red.9" size="lg" />
+                            </Grid.Col>
+                          </Grid>
+                        </Box>
+                      ) : (
+                        <Box>
+                          <Text color="white" ml={20}>
+                            {_.upperCase(t("common:" + vv.label))}
+                          </Text>
+                          <></>
+                        </Box>
+                      )
+                    }
+                    key={`${vv.id}${i}`}
+                    onClick={() => ketikaCklik(vv, vv)}
+                  />
+                </Box>
+              ))}
+            </Navbar.Section>
+            <Navbar.Section pr={40}>
+              <NavLink
+                // bg={"gray"}
+                c={"white"}
+                // icon={<MdSettings />}
+                label={<Text ml={20}>{_.upperCase(t("common:setting"))}</Text>}
+                style={{
+                  position: "absolute",
+                  bottom: 160,
+                  left: 0,
+                }}
+              >
+                {/* <NavLink
                 icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
                 label={isDarkMode ? "Light" : "Dark"}
                 onClick={() => setisDarkMode(!isDarkMode)}
               /> */}
-              <NavLink
-                icon={<MdLogout />}
-                c={"white"}
-                label={_.upperCase(t("common:logout"))}
-                onClick={() => {
-                  localStorage.removeItem("user_id");
-                  sUser.value = {};
-                }}
-                style={{
-                  position: "absolute",
-                  bottom: 120,
-                  left: 0,
-                }}
-                pl={50}
-              />
-            </NavLink>
+                <NavLink
+                  icon={<MdLogout />}
+                  c={"white"}
+                  label={_.upperCase(t("common:logout"))}
+                  onClick={() => {
+                    const body = {
+                      id: localStorage.getItem("user_id"),
+                      isLogin: false,
+                    };
+                    fetch(api.apiUpdIsLogin, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(body),
+                    }).then(async (res) => {
+                      if (res.status === 200) {
+                        localStorage.removeItem("user_id");
+                        sUser.value = {};
+                        setValTimeOut(0)
+                      }
+                    });
+                  }}
+                  style={{
+                    position: "absolute",
+                    bottom: 120,
+                    left: 0,
+                  }}
+                  pl={50}
+                />
+              </NavLink>
 
-            {/* <Menu>
+              {/* <Menu>
             <Menu.Target>
               <NavLink
                 bg={"gray"}
@@ -696,23 +734,23 @@ const MyNavbar = () => {
               </Menu.Item>
             </Menu.Dropdown>
           </Menu> */}
-            <Flex
-            // bg={"dark"}
-            >
-              <Stack spacing={0} p={"xs"} w={"100%"} align="center">
-                {/* <Text fz={9} c={"gray"}>
+              <Flex
+              // bg={"dark"}
+              >
+                <Stack spacing={0} p={"xs"} w={"100%"} align="center">
+                  {/* <Text fz={9} c={"gray"}>
                 Bip Production @2023
               </Text> */}
-                <Image
-                  p={"lg"}
-                  src={
-                    "https://str.wibudev.com/api/file/get/cllkk1rea000f9uhkcck9f1jh.png"
-                  }
-                  alt=""
-                />
-              </Stack>
-            </Flex>
-          </Navbar.Section>
+                  <Image
+                    p={"lg"}
+                    src={
+                      "https://str.wibudev.com/api/file/get/cllkk1rea000f9uhkcck9f1jh.png"
+                    }
+                    alt=""
+                  />
+                </Stack>
+              </Flex>
+            </Navbar.Section>
           </Box>
         </BackgroundImage>
         <Box
@@ -722,7 +760,7 @@ const MyNavbar = () => {
           }}
         >
           <Center pl={30} pr={20}>
-            <Image src={"../raven1.png"}  maw={200} mx="auto" alt="logo" />
+            <Image src={"../raven1.png"} maw={200} mx="auto" alt="logo" />
           </Center>
         </Box>
       </Navbar>
