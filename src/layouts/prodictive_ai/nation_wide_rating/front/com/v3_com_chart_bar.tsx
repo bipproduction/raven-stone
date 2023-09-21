@@ -110,7 +110,7 @@ export function V3ComChartBar() {
       right: "right",
       orient: "vertical",
       itemGap: 15,
-      itemWidth: 40,
+      itemWidth: 30,
       itemHeight: 10,
       padding: [0, 5, 0, 0],
       // data: [
@@ -128,7 +128,7 @@ export function V3ComChartBar() {
       name: "Pie Chart",
 
       type: "pie",
-      radius: [0, "70%"],
+      radius: "70%",
       data: !listData![0]
         ? []
         : (_.keys(
@@ -165,7 +165,8 @@ export function V3ComChartBar() {
       label: {
         position: "inner",
         formatter: (a) => {
-          return `${a.value}` + "%";
+          // return `${a.value}` + "%";
+          return `${a.value}`
         },
       },
     },
@@ -197,14 +198,21 @@ export function V3ComChartBar() {
           option={option}
         />
       </Paper> */}
-      <Box style={{}}>
+      <Box style={{
+        minHeight: 400,
+        minWidth: 500,
+        // backgroundColor: "gray",
+        // paddingRight: 150,
+        marginLeft: -100
+      }}>
         <EChartsReact
           style={{
-            height: 350,
+            // backgroundColor: "darkblue",
+            height: 400,
             minWidth: 500,
-
+            
+            // maxWidth: 1000,
             // paddingRight: 100,
-            // backgroundColor: "gray",
             // paddingLeft: -10
           }}
           option={optionPie}

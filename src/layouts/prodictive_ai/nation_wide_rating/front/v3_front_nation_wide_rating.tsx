@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   BackgroundImage,
   Box,
   Card,
@@ -99,66 +100,130 @@ export function V3FrontNationWideRating() {
 
           <Grid pt={50} align={"center"}>
             {/* Photo candidate */}
-            <Grid.Col span={"auto"}>
+            <Grid.Col span={4} >
               <Grid grow>
                 {/* Candidate 1 */}
-                <Grid.Col span={4}>
+                <Grid.Col span={6}>
                   <Box>
-                    <BackgroundImage
-                      // key={Math.random()}
-                      radius={"md"}
-                      w={150}
-                      h={150}
-                      src={
-                        listCandidate?.find(
-                          (v) => v.id == selectedCandidate.candidate1Id
-                        ).img
-                      }
-                      // alt="Foto"
-                    >
-                      <Box
-                        bg="gray"
-                        sx={{
-                          borderTopRightRadius: 10,
-                          borderBottomRightRadius: 10,
-                          position: "relative",
-                          bottom: "-80%",
-                          width: 100,
-                          height: 20,
-                          marginLeft: 2,
-                        }}
+                    <AspectRatio ratio={1 / 1}>
+                      <BackgroundImage
+                        // key={Math.random()}
+                        radius={"md"}
+                        w={200}
+                        h={200}
+                        src={
+                          listCandidate?.find(
+                            (v) => v.id == selectedCandidate.candidate1Id
+                          ).img
+                        }
+                        // sx={{
+                        //   zIndex: 1,
+                        // }}
                       >
-                        <Center h={20}>
-                          <Text fw={"bold"} fz={"xs"} color="white">
+                        <AspectRatio
+                          ratio={3 / 2}
+                          sx={{
+                            // position: "relative",
+                            bottom: "-35%",
+                            height: 20,
+                            width: "100%",
+                            backgroundColor: "#343a40",
+                            marginLeft: 2,
+                            borderTopRightRadius: 10,
+                            borderBottomRightRadius: 10,
+                            display: "flex",
+                            flex: 1,
+                            marginRight: 60,
+                          }}
+                        >
+                          <Title
+                            sx={{
+                              display: "flex",
+                              flex: 1,
+                              alignContent: "center",
+                            }}
+                            fw={"bold"}
+                            fz={{ base: 10, lg: 10 }}
+                            color="white"
+                          >
                             PRESIDENT
-                          </Text>
-                        </Center>
-                      </Box>
-                    </BackgroundImage>
-                    <Title order={4}>
+                          </Title>
+
+                          {/* <Box
+                            // bg="gray"
+                            sx={{
+                              borderTopRightRadius: 10,
+                              borderBottomRightRadius: 10,
+                              width: 50,
+                              height: 20,
+                              // marginLeft: 2,
+                              // display: "flex",
+                              // justifyContent: "flex-end",
+                              // justifyItems: "flex-end",
+                              // alignItems: "flex-end",
+                              // alignContent: "flex-end",
+                              backgroundColor: "gray",
+                            }}
+                          >
+                          </Box> */}
+                        </AspectRatio>
+                      </BackgroundImage>
+                    </AspectRatio>
+
+                    <Center>
+                      <Title order={4}>
                         {
                           listCandidate?.find(
                             (v) => v.id == selectedCandidate.candidate1Id
                           ).name
                         }
                       </Title>
+                    </Center>
                   </Box>
                 </Grid.Col>
+
                 {/* Candidate 2 */}
-                <Grid.Col span={4}>
+                <Grid.Col span={6}>
                   <Box>
-                    <BackgroundImage
-                      // key={Math.random()}
-                      radius={"md"}
-                      w={150}
-                      h={150}
-                      src={
-                        listCandidate?.find(
-                          (v) => v.id == selectedCandidate.candidate2Id
-                        ).img
-                      }
-                    >
-                      <Group
+                    <AspectRatio ratio={1 / 1}>
+                      <BackgroundImage
+                        // key={Math.random()}
+                        radius={"md"}
+                        w={200}
+                        h={200}
+                        src={
+                          listCandidate?.find(
+                            (v) => v.id == selectedCandidate.candidate2Id
+                          ).img
+                        }
+                      >
+                        <AspectRatio
+                          ratio={3 / 2}
+                          sx={{
+                            bottom: "-35%",
+                            height: 20,
+                            width: "100%",
+                            backgroundColor: "#343a40",
+                            borderTopLeftRadius: 10,
+                            borderBottomLeftRadius: 10,
+                            marginRight: 2,
+                            marginLeft: 40,
+                          }}
+                        >
+                          <Text
+                            sx={{
+                              display: "flex",
+                              flex: 1,
+                              alignContent: "center",
+                            }}
+                            fw={"bold"}
+                            fz={{ base: 10, lg: 10 }}
+                            color="white"
+                          >
+                            VICE PRESIDENT
+                          </Text>
+                        </AspectRatio>
+                        {/* <Group
                         position="right"
                         sx={{
                           position: "relative",
@@ -177,28 +242,32 @@ export function V3FrontNationWideRating() {
                           }}
                         >
                           <Center h={20}>
-                            <Text fw={"bolder"} fz={10} color="white">
-                              VICE PRESIDENT
-                            </Text>
+                           
                           </Center>
                         </Box>
-                      </Group>
-                    </BackgroundImage>
-                    <Title order={4}>
+                      </Group> */}
+                      </BackgroundImage>
+                    </AspectRatio>
+                    <Center>
+                      <Title order={4}>
                         {
                           listCandidate?.find(
                             (v) => v.id == selectedCandidate.candidate2Id
                           ).name
                         }
                       </Title>
+                    </Center>
                   </Box>
                 </Grid.Col>
               </Grid>
             </Grid.Col>
+
             {/* Text Succes */}
-            <Grid.Col span={"auto"}>
-              <Flex direction={"column"} align={"flex-start"} wrap="wrap">
-                <Text fz={40} c={"white"} fw={"bold"}>
+            <Grid.Col span={"auto"} >
+
+              <Flex align={"center"} direction={"column"} >
+               <Box>
+               <Text fz={40} c={"white"} fw={"bold"}>
                   SUCCESS{" "}
                 </Text>
                 <Text fz={40} c={"white"} fw={"bold"}>
@@ -207,27 +276,30 @@ export function V3FrontNationWideRating() {
                 <Text fz={40} c={"white"} fs={"italic"} fw={"lighter"}>
                   PROJECTION{" "}
                 </Text>
+               </Box>
               </Flex>
+
             </Grid.Col>
 
             {/* Persen */}
-            <Grid.Col span={"auto"}>
-              <Center>
-                {" "}
-                <Box>
-                  {!listData ? (
-                    <Loader />
-                  ) : !listData[0] ? (
-                    <>
+            <Grid.Col span={4} >
+              <Box>
+                {!listData ? (
+                  <Loader />
+                ) : !listData[0] ? (
+                  <>
+                    <Box>
                       <Title>0 %</Title>
-                    </>
-                  ) : (
-                    <Title fz={{ base: 100, md: 80 }} c={"green"}>
-                      {listData![0].rate} %
+                    </Box>
+                  </>
+                ) : (
+                  <Box>
+                    <Title fz={{ base: 80, lg: 90, md: 100 }} c={"green"}>
+                      {`${listData![0].rate}%`}
                     </Title>
-                  )}
-                </Box>
-              </Center>
+                  </Box>
+                )}
+              </Box>
             </Grid.Col>
           </Grid>
 
@@ -296,13 +368,9 @@ export function V3FrontNationWideRating() {
               <V3ComNationWideRatingLineChart />
             </Box>
           </Flex> */}
-          <Group position="apart">
-            <Box style={{ minWidth: 400 }}>
-              <V3ComChartBar />
-            </Box>
-            <Box style={{ minWidth: 500 }}>
-              <V3ComNationWideRatingLineChart />
-            </Box>
+          <Group grow >
+          <V3ComChartBar />
+          <V3ComNationWideRatingLineChart />
           </Group>
         </Box>
       </Stack>
