@@ -110,7 +110,7 @@ export function V3ComNationWideRatingLineChart() {
     yAxis: {
       show: true,
       type: "value",
-      max: 50,
+      max: 80,
       // data: ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"],
       axisLabel: {
         color: "white",
@@ -127,11 +127,15 @@ export function V3ComNationWideRatingLineChart() {
         })),
         name: "trust",
         type: "line",
+        symbol: "circle",
+        symbolSize: 10,
+        // symbolOffset: [0, -2],
         itemStyle: {
-          color: "yellow",
+          color: "green",
         },
         areaStyle: {
-          color: "green",
+          color: "#2f9e44",
+          opacity: 0.2,
         },
         emphasis: {
           focus: "series",
@@ -279,102 +283,96 @@ export function V3ComNationWideRatingLineChart() {
 
   return (
     <>
-    {/* {JSON.stringify(dataChart)} */}
-      <Box >
+      {/* {JSON.stringify(dataChart)} */}
+      <Box>
         <Stack spacing={0}>
           {/* {JSON.stringify(dataChart)} */}
           {/* <Title order={3}>Nation Wide Rating Line Chart</Title> */}
 
-          
-            <Flex justify="flex-end" w={"100%"}>
-              <Button
-                className={classes.text_calender}
-                variant="subtle"
-                onClick={() => {
-                  const dates = {
-                    start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
-                    end: moment().format("YYYY-MM-DD"),
-                  };
-                  setSelectedDate(dates);
-                  v3_fun_load_chart_data({
-                    start: dates.start,
-                    end: dates.end,
-                    selectedCandidate: selectedCandidate,
-                    setDataChart: setDataChart,
-                  });
-                }}
-              >
-                {t("common:week")}
-              </Button>
-              <Divider orientation="vertical" color={"white"}/>
-              <Button
-                className={classes.text_calender}
-                variant="outline"
-                onClick={() => {
-                  const dates = {
-                    start: moment().subtract(1, "months").format("YYYY-MM-DD"),
-                    end: moment().format("YYYY-MM-DD"),
-                  };
-                  setSelectedDate(dates);
-                  v3_fun_load_chart_data({
-                    start: dates.start,
-                    end: dates.end,
-                    selectedCandidate: selectedCandidate,
-                    setDataChart: setDataChart,
-                  });
-                }}
-              >
-                {t("common:month")}
-              </Button>
-              <Divider orientation="vertical" color={"white"}/>
-              <HoverCard>
-                <HoverCard.Target>
-                  <Button className={classes.text_calender} variant="outline">
-                    {t("common:custom")}
-                  </Button>
-                </HoverCard.Target>
-                <HoverCard.Dropdown>
-                  <Stack>
-                    <DatePicker
-                      type="range"
-                      numberOfColumns={2}
-                      onChange={(val) => {
-                        if (val[0] && val[1]) {
-                          const dates = {
-                            start: moment(val[0]).format("YYYY-MM-DD"),
-                            end: moment(val[1]).format("YYYY-MM-DD"),
-                          };
+          <Flex justify="flex-end" w={"100%"}>
+            <Button
+              className={classes.text_calender}
+              variant="subtle"
+              onClick={() => {
+                const dates = {
+                  start: moment().subtract(1, "weeks").format("YYYY-MM-DD"),
+                  end: moment().format("YYYY-MM-DD"),
+                };
+                setSelectedDate(dates);
+                v3_fun_load_chart_data({
+                  start: dates.start,
+                  end: dates.end,
+                  selectedCandidate: selectedCandidate,
+                  setDataChart: setDataChart,
+                });
+              }}
+            >
+              {t("common:week")}
+            </Button>
 
-                          setSelectedDate(dates);
-                          v3_fun_load_chart_data({
-                            start: dates.start,
-                            end: dates.end,
-                            selectedCandidate: selectedCandidate,
-                            setDataChart: setDataChart,
-                          });
-                        }
-                      }}
-                    />
-                  </Stack>
-                </HoverCard.Dropdown>
-              </HoverCard>
-            </Flex>
-          
+            <Button
+              className={classes.text_calender}
+              variant="outline"
+              onClick={() => {
+                const dates = {
+                  start: moment().subtract(1, "months").format("YYYY-MM-DD"),
+                  end: moment().format("YYYY-MM-DD"),
+                };
+                setSelectedDate(dates);
+                v3_fun_load_chart_data({
+                  start: dates.start,
+                  end: dates.end,
+                  selectedCandidate: selectedCandidate,
+                  setDataChart: setDataChart,
+                });
+              }}
+            >
+              {t("common:month")}
+            </Button>
+
+            <HoverCard>
+              <HoverCard.Target>
+                <Button className={classes.text_calender} variant="outline">
+                  {t("common:custom")}
+                </Button>
+              </HoverCard.Target>
+              <HoverCard.Dropdown>
+                <Stack>
+                  <DatePicker
+                    type="range"
+                    numberOfColumns={2}
+                    onChange={(val) => {
+                      if (val[0] && val[1]) {
+                        const dates = {
+                          start: moment(val[0]).format("YYYY-MM-DD"),
+                          end: moment(val[1]).format("YYYY-MM-DD"),
+                        };
+
+                        setSelectedDate(dates);
+                        v3_fun_load_chart_data({
+                          start: dates.start,
+                          end: dates.end,
+                          selectedCandidate: selectedCandidate,
+                          setDataChart: setDataChart,
+                        });
+                      }
+                    }}
+                  />
+                </Stack>
+              </HoverCard.Dropdown>
+            </HoverCard>
+          </Flex>
+
           {/* {JSON.stringify(dataChart.map((a) => a.trust))} */}
-         <Box
-         style={{
-          minHeight: 300,
-          minWidth: 500,
-         }}
-         >
-         <EChartsReact
+          <Box
             style={{
-             
-              
+              minHeight: 300,
+              minWidth: 500,
+              marginLeft: -30,
             }}
-            option={option}
-          />
-         </Box>
+          >
+            <EChartsReact style={{}} option={option} />
+          </Box>
         </Stack>
       </Box>
     </>
