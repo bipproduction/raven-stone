@@ -91,5 +91,6 @@
     "p_data_pairing":"DATA PAIRING",
     "select_regions":"Select Regions",
     "p_success_probability": "SUCCESS PROBABILITY",
-    "p_projection": "PROJECTION"
+    "p_projection": "PROJECTION",
+    "verification_code": "Verification Code"
 }
