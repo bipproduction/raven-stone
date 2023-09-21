@@ -19,6 +19,7 @@ import { val_list_emotion } from "../val/val_list_emotion";
 import { val_kunci } from "../val/val_kunci";
 import useTranslate from "next-translate/useTranslation";
 import { COLOR } from "@/global/fun/color_global";
+import _ from "lodash";
 
 export function ComSelectCandidate({
   onSearch,
@@ -52,9 +53,12 @@ export function ComSelectCandidate({
     <>
       <Box
         pos={"sticky"}
-        top={50}
+        top={0}
         sx={{
           zIndex: 100,
+          backgroundColor: "#230D38",
+          padding: 5,
+          borderRadius: 5,
         }}
       >
         <Group position="right" spacing={"lg"} align="end">
@@ -76,7 +80,7 @@ export function ComSelectCandidate({
               setSelectedCandidate(Number(val));
             }}
           />
-          <Button onClick={onProccess}>{t("common:process")}</Button>
+          <Button onClick={onProccess} color="gray.0" radius={"lg"}><Text color="dark">GENERATE</Text></Button>
         </Group>
       </Box>
     </>

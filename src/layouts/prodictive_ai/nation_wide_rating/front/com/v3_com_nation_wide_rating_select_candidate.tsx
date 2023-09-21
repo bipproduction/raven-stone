@@ -77,8 +77,8 @@ export function V3ComNationWideRatingSelectCandidate({
             ).name
           }
         />
-        <Button variant="white" compact radius={"xl"} onClick={onProccess}>
-          {t("common:generate")}
+        <Button variant="white" radius={"xl"} onClick={onProccess}>
+          <Text color="dark">{_.upperCase(t("common:generate"))}</Text>
         </Button>
       </Flex>
     </>
