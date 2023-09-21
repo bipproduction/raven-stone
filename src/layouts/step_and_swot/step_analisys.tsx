@@ -28,7 +28,6 @@ import useTranslate from "next-translate/useTranslation";
 import PageSubTitle from "@/global/components/PageSubTitle";
 import { useAtom } from "jotai";
 
-
 export default function StepAnalisys() {
   const [stepDataList, setStepDataList] = useState<{ [key: string]: any }>();
   const { t, lang } = useTranslate();
@@ -50,7 +49,10 @@ export default function StepAnalisys() {
 
   return (
     <>
-      <PageSubTitle text1={t('common:p_step')} text2={t('common:p_assessment')} />
+      <PageSubTitle
+        text1={t("common:p_step")}
+        text2={t("common:p_assessment")}
+      />
       <Stack spacing={"md"} pl={30} pr={30}>
         {/* <PageTitle
         text={_.upperCase(t('common:social_technology_economic_politic_analysis'))}
@@ -60,50 +62,60 @@ export default function StepAnalisys() {
         <Grid gutter="lg">
           <Grid.Col md={2} lg={2} pt={30}>
             <Box
+              pos={"sticky"}
+              top={40}
+              sx={{
+                zIndex: 100,
+                backgroundColor: "#230D38",
+                padding: 5,
+              }}
+            >
+              <Box
               // sx={{
               //   backgroundColor: "white",
               //   padding: 1,
               //   borderRadius: 10,
               // }}
-            >
-              <Image
-                alt="image"
-                src={
-                  sCandidate.value.find(
-                    (v) => Number(v.id) == Number(sSelectedCandidate.value)
-                  )?.img
-                }
-                radius={10}
-              />
-            </Box>
-            <Group pt={20}>
-              <Select
-                label={
-                  <Text fz={17} color="white">
-                    {t("common:select_candidate")}
-                  </Text>
-                }
-                placeholder={
-                  sCandidate.value.find(
-                    (v) => Number(v.id) == Number(sSelectedCandidate.value)
-                  )?.name
-                }
-                size="xs"
-                data={sCandidate.value.map(
-                  (v) =>
-                    ({
-                      label: v.name,
-                      value: v.id,
-                    } as any)
-                )}
-                onChange={(val) => {
-                  if (val) {
-                    sSelectedCandidate.value = val;
+              >
+                <Image
+                  alt="image"
+                  src={
+                    sCandidate.value.find(
+                      (v) => Number(v.id) == Number(sSelectedCandidate.value)
+                    )?.img
                   }
-                }}
-                w={350}
-              />
-            </Group>
+                  radius={10}
+                />
+              </Box>
+              <Group pt={20}>
+                <Select
+                  label={
+                    <Text fz={17} color="white">
+                      {t("common:select_candidate")}
+                    </Text>
+                  }
+                  placeholder={
+                    sCandidate.value.find(
+                      (v) => Number(v.id) == Number(sSelectedCandidate.value)
+                    )?.name
+                  }
+                  size="xs"
+                  data={sCandidate.value.map(
+                    (v) =>
+                      ({
+                        label: v.name,
+                        value: v.id,
+                      } as any)
+                  )}
+                  onChange={(val) => {
+                    if (val) {
+                      sSelectedCandidate.value = val;
+                    }
+                  }}
+                  w={350}
+                />
+              </Group>
+            </Box>
           </Grid.Col>
           <Grid.Col md={10} lg={10}>
             <Box pl={20}>

@@ -67,14 +67,14 @@ export function FrontDetailKabupaten() {
     <>
       <Stack pl={30} pr={30}>
         <Box
-          p={"sm"}
+          pt={"sm"}
+          pb={"sm"}
           pos={"sticky"}
           top={0}
           sx={{
             zIndex: 100,
             backgroundColor: "#230D38",
             padding: 5,
-            borderRadius: 5,
           }}
         >
           <Group
@@ -164,9 +164,9 @@ export function FrontDetailKabupaten() {
                         disgust: v.disgust,
                       }}
                     />
-                    <Group spacing={"lg"}>
+                    <Group spacing={"lg"} pl={50}>
                       <Stack align="center">
-                        <Text color={COLOR.merah}>LOCKED AUDIENCE</Text>
+                      <Text color={COLOR.merah}>Locked Audience</Text>
                         <Title c={COLOR.hijauTua} fz={25} fw={700}>
                           {Intl.NumberFormat("id-ID").format(
                             v.City.CityValue[0].value
@@ -174,7 +174,7 @@ export function FrontDetailKabupaten() {
                         </Title>
                       </Stack>
                       <Stack align="center">
-                        <Text color={COLOR.merah}>FILTERED AUDIENCE</Text>
+                      <Text color={COLOR.merah}>Filtered Audience</Text>
                         <Title c={COLOR.hijauTua} fz={25} fw={700}>
                           {Intl.NumberFormat("id-ID").format(
                             _.sum([
