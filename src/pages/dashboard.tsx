@@ -342,13 +342,12 @@ const Dashboard = (props: any) => {
       >
         <BackgroundImage src="https://str.wibudev.com/api/file/get/cllkkd90p000h9uhkqir9ptq3.png">
           {/* //todo: 2023-05-19 */}
-          {listView2.map((v, i) =>
-            <Box key={i}>
-              {v.name == sSelectedView.value && (
-                <>{v.view()}</>
-              )}
-            </Box>
-
+          {listView2.map(
+            (v, i) => (
+              <Box key={i}>
+                {v.name == sSelectedView.value && <>{v.view()}</>}
+              </Box>
+            )
 
             // v.child.map((vv, ii) => (
             //   <Box key={ii}>
@@ -465,7 +464,7 @@ const NotificationDisplay = () => {
                     <MdTimer color="gray" />
                     <Text
                       size={12}
-                    // c={"blue"}
+                      // c={"blue"}
                     >
                       {moment(v.createdAt).fromNow()}
                     </Text>
@@ -568,7 +567,7 @@ const MyNavbar = () => {
         hiddenBreakpoint="sm"
         hidden={!sNavbarOpen.value}
         width={{ sm: 200, lg: 300 }}
-        pl={20}
+        // pl={20}
       >
         <BackgroundImage src="https://str.wibudev.com/api/file/get/cllkjs9rs000b9uhk6r9t4oo5.png">
           <Navbar.Section mb={"lg"}>
@@ -607,7 +606,7 @@ const MyNavbar = () => {
                   // bg={selectedView.value == vv.name ? "blue.1" : ""}
                   label={
                     sSelectedView.value == vv.name ? (
-                      <Box>
+                      <Box ml={20}>
                         <Title order={5} color="white">
                           {_.upperCase(t("common:" + vv.label))}
                         </Title>
@@ -619,7 +618,7 @@ const MyNavbar = () => {
                       </Box>
                     ) : (
                       <Box>
-                        <Text color="white">
+                        <Text color="white" ml={20}>
                           {_.upperCase(t("common:" + vv.label))}
                         </Text>
                         <></>
@@ -632,12 +631,17 @@ const MyNavbar = () => {
               </Box>
             ))}
           </Navbar.Section>
-          <Navbar.Section>
+          <Navbar.Section pr={40} >
             <NavLink
               // bg={"gray"}
-              // c={"dark"}
+              c={"white"}
               // icon={<MdSettings />}
-              label={_.upperCase(t("common:setting"))}
+              label={<Text ml={20}>{_.upperCase(t("common:setting"))}</Text>}
+              style={{
+                position: "absolute",
+                bottom: 160,
+                left: 0,
+              }}
             >
               {/* <NavLink
                 icon={isDarkMode ? <MdLightMode /> : <MdDarkMode />}
@@ -651,18 +655,14 @@ const MyNavbar = () => {
                   localStorage.removeItem("user_id");
                   sUser.value = {};
                 }}
+                style={{
+                  position: "absolute",
+                  bottom: 120,
+                  left: 0
+                }}
+                pl={30}
               />
             </NavLink>
-            <Box
-              style={{
-                position: "absolute",
-                bottom: 40,
-              }}
-            >
-              <Center pl={10}>
-                <Image src={"../raven1.png"} width={200} alt="logo" />
-              </Center>
-            </Box>
 
             {/* <Menu>
             <Menu.Target>
@@ -700,6 +700,16 @@ const MyNavbar = () => {
             </Flex>
           </Navbar.Section>
         </BackgroundImage>
+        <Box
+          style={{
+            position: "absolute",
+            bottom: 40,
+          }}
+        >
+          <Center pl={20}>
+            <Image src={"../raven1.png"} width={200} alt="logo" />
+          </Center>
+        </Box>
       </Navbar>
     </>
   );
