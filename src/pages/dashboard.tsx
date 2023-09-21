@@ -65,12 +65,14 @@ import {
   MdFreeCancellation,
   MdGrading,
   MdGridView,
+  MdHub,
   MdJoinLeft,
   MdLightMode,
   MdLogout,
   MdMessage,
   MdNotifications,
   MdNotificationsActive,
+  MdOutlineHub,
   MdOutlineStarBorderPurple500,
   MdOutlineStars,
   MdSettings,
@@ -293,7 +295,7 @@ const listView2 = [
     name: "ML-AI",
     label: "ml_ai",
     view: () => <Mlai />,
-    icon: MdOutlineStarBorderPurple500,
+    icon: MdHub,
   },
 ];
 
@@ -567,9 +569,20 @@ const MyNavbar = () => {
         hiddenBreakpoint="sm"
         hidden={!sNavbarOpen.value}
         width={{ sm: 200, lg: 300 }}
-        // pl={20}
       >
-        <BackgroundImage src="https://str.wibudev.com/api/file/get/cllkjs9rs000b9uhk6r9t4oo5.png">
+        <BackgroundImage src="../raven.png" h={"100%"}  sx={{
+          backgroundPosition: "30%",
+          backgroundRepeat: "no-repeat",
+        }}>
+          <Box
+            w={"100%"}
+            h={"100vh"}
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, rgba(139, 212, 160, 0) 15%, #231F24 70%)",
+            }}
+            pos={"absolute"}
+          >
           <Navbar.Section mb={"lg"}>
             <AnimateCssReact animation="fadeIn">
               <Box h={50}>
@@ -631,7 +644,7 @@ const MyNavbar = () => {
               </Box>
             ))}
           </Navbar.Section>
-          <Navbar.Section pr={40} >
+          <Navbar.Section pr={40}>
             <NavLink
               // bg={"gray"}
               c={"white"}
@@ -650,6 +663,7 @@ const MyNavbar = () => {
               /> */}
               <NavLink
                 icon={<MdLogout />}
+                c={"white"}
                 label={_.upperCase(t("common:logout"))}
                 onClick={() => {
                   localStorage.removeItem("user_id");
@@ -658,9 +672,9 @@ const MyNavbar = () => {
                 style={{
                   position: "absolute",
                   bottom: 120,
-                  left: 0
+                  left: 0,
                 }}
-                pl={30}
+                pl={50}
               />
             </NavLink>
 
@@ -699,6 +713,7 @@ const MyNavbar = () => {
               </Stack>
             </Flex>
           </Navbar.Section>
+          </Box>
         </BackgroundImage>
         <Box
           style={{
@@ -706,8 +721,8 @@ const MyNavbar = () => {
             bottom: 40,
           }}
         >
-          <Center pl={20}>
-            <Image src={"../raven1.png"} width={200} alt="logo" />
+          <Center pl={30} pr={20}>
+            <Image src={"../raven1.png"}  maw={200} mx="auto" alt="logo" />
           </Center>
         </Box>
       </Navbar>

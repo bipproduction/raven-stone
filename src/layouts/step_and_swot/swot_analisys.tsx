@@ -38,7 +38,10 @@ export default function SwotAnalisys() {
           text={_.upperCase(t('common:strength_weakness_opportunity_threat'))}
           title={_.upperCase(t('common:swot_analysis'))}
         /> */}
-        <PageSubTitle text1={t('common:p_swot')} text2={t('common:p_evaluation')} />
+        <PageSubTitle
+          text1={t("common:p_swot")}
+          text2={t("common:p_evaluation")}
+        />
 
         {/* <Onprogress /> */}
         <Analisys />
@@ -103,45 +106,56 @@ function Analisys() {
       <Grid gutter="lg">
         <Grid.Col md={2} lg={2}>
           <Box
+            pos={"sticky"}
+            top={40}
+            sx={{
+              zIndex: 100,
+              backgroundColor: "#230D38",
+              padding: 5,
+            }}
+          >
+            <Box
             // sx={{
             //   backgroundColor: "white",
             //   padding: 1,
             //   borderRadius: 10,
             // }}
-          >
-            <Image
-              alt="image"
-              src={
-                sCandidate.value.find(
-                  (v) => Number(v.id) == Number(candidateId)
-                )?.img
-              }
-              radius={10}
-            />
+            >
+              <Image
+                alt="image"
+                src={
+                  sCandidate.value.find(
+                    (v) => Number(v.id) == Number(candidateId)
+                  )?.img
+                }
+                radius={10}
+              />
+            </Box>
+            <Group pt={20}>
+              <Select
+                label={
+                  <Text fz={17} color="white">
+                    {t("common:select_candidate")}
+                  </Text>
+                }
+                size="xs"
+                placeholder={
+                  sCandidate.value.find((v) => Number(v.id) == candidateId)
+                    ?.name
+                }
+                data={
+                  sCandidate.value.map((v) => ({
+                    label: v.name,
+                    value: v.id,
+                  })) as any
+                }
+                onChange={(val) => {
+                  if (val) loadData(Number(val));
+                }}
+                w={350}
+              />
+            </Group>
           </Box>
-          <Group pt={20}>
-            <Select
-              label={
-                <Text fz={17} color="white">
-                  {t("common:select_candidate")}
-                </Text>
-              }
-              size="xs"
-              placeholder={
-                sCandidate.value.find((v) => Number(v.id) == candidateId)?.name
-              }
-              data={
-                sCandidate.value.map((v) => ({
-                  label: v.name,
-                  value: v.id,
-                })) as any
-              }
-              onChange={(val) => {
-                if (val) loadData(Number(val));
-              }}
-              w={350}
-            />
-          </Group>
         </Grid.Col>
         <Grid.Col md={10} lg={10}>
           {listDouble?.map((v, i) => (
@@ -163,7 +177,7 @@ function Analisys() {
                     p={"md"}
                     // bg={"white"}
                     h={300}
-                  // c={"gray"}
+                    // c={"gray"}
                   >
                     <Trs
                       text={
@@ -182,7 +196,7 @@ function Analisys() {
                               eraseDelay={0}
                               errorProbability={0.1}
                               eraseOnComplete={false}
-                            //   isSecure={true}
+                              //   isSecure={true}
                             />
                           )}
                         </>
@@ -229,7 +243,7 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
             <Stack>
               <Paper
                 p={"md"}
-              // bg={"green.2"}
+                // bg={"green.2"}
               >
                 <Flex>
                   <Box p={"md"}>

@@ -51,7 +51,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
         color: "white",
         fontSize:"10",
         formatter: function (params: any) {
-          return _.upperCase(params);
+          return _.startCase(params);
         },
       },
       startAngle: 60,

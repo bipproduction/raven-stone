@@ -42,6 +42,7 @@ import { mc_list_candidate } from "@/layouts/map_controll/map_controll_state";
 import { val_global_component_access_user_role } from "@/global/val/val_list_user_role";
 import { fun_global_component_access_role_get } from "@/global/fun/fun_component_access_role_get";
 
+
 export default function App(props: any) {
   const { Component, pageProps } = props;
   const [isDarkMode, setIsDarkMode] = useAtom(_is_dark_mode);

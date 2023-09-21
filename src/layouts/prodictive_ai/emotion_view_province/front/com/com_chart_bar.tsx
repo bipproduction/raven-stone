@@ -115,6 +115,7 @@ export const ComChartBar = ({ lsData }: { lsData: any }) => {
           (v) =>
             ({
               name: _.lowerCase(t("common:" + v)),
+              
               value: lsData[v],
               itemStyle: {
                 color:
