@@ -33,7 +33,10 @@ export default function Mlai() {
   return (
     <>
       <Stack spacing={"md"}>
-        <PageSubTitle text1="ML-AI" text2={_.upperCase(t('common:prompt_recomendations'))} />
+        <PageSubTitle
+          text1="ML-AI"
+          text2={_.upperCase(t("common:prompt_recomendations"))}
+        />
         <Analisys />
       </Stack>
     </>
@@ -64,7 +67,7 @@ function Analisys() {
 
           setListSingle([]);
           setlistDouble([]);
-          setCandidateId(candidateId)
+          setCandidateId(candidateId);
 
           // wait 1 second
           await new Promise((r) => setTimeout(r, 1));
@@ -84,42 +87,54 @@ function Analisys() {
       <Grid gutter="lg">
         <Grid.Col md={2} lg={2}>
           <Box
+            pos={"sticky"}
+            top={40}
+            sx={{
+              zIndex: 100,
+              backgroundColor: "#230D38",
+              padding: 5,
+            }}
+          >
+            <Box
             // sx={{
             //   backgroundColor: "white",
             //   padding: 3,
             //   borderRadius: 10,
             // }}
-          >
-            <Image
-              alt="image"
-              src={
-                sCandidate.value.find((v) => Number(v.id) == candidateId)?.img
-              }
-              radius={10}
-            />
+            >
+              <Image
+                alt="image"
+                src={
+                  sCandidate.value.find((v) => Number(v.id) == candidateId)?.img
+                }
+                radius={10}
+              />
+            </Box>
+            <Group pt={20}>
+              <Select
+                label={
+                  <Text fz={17} color="white">
+                    {t("common:select_candidate")}
+                  </Text>
+                }
+                size="xs"
+                placeholder={
+                  sCandidate.value.find((v) => Number(v.id) == candidateId)
+                    ?.name
+                }
+                data={
+                  sCandidate.value.map((v) => ({
+                    label: v.name,
+                    value: v.id,
+                  })) as any
+                }
+                onChange={(val) => {
+                  if (val) loadData(Number(val));
+                }}
+                w={350}
+              />
+            </Group>
           </Box>
-          <Group pt={20}>
-            <Select
-              label={
-                <Text fz={17} color="white">
-                  {t("common:select_candidate")}
-                </Text>
-              }
-              size="xs"
-              placeholder={
-                sCandidate.value.find((v) => Number(v.id) == candidateId)?.name
-              }
-              data={
-                sCandidate.value.map((v) => ({
-                  label: v.name,
-                  value: v.id,
-                })) as any
-              }
-              onChange={(val) => {
-                if (val) loadData(Number(val));
-              }}
-            />
-          </Group>
         </Grid.Col>
         <Grid.Col md={10} lg={10}>
           <SingleView listSingle={listSingle} />
@@ -145,21 +160,24 @@ function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
     <>
       {listSingle?.map((v, i) => (
         <Stack key={i} spacing={0} pl={20}>
+          <Box>
           <Title c={"green"}>
             {/* <Trs text={v.name} lang={lang}>
               {(val: any) => <div>{val}</div>}
             </Trs> */}
-            {t('common:strength_analysis_improvement')}
+            {t("common:strength_analysis_improvement")}
           </Title>
+          </Box>
           {v.SwotAnalisys.length > 0 && (
             <Stack>
               <Box>
                 <ScrollArea
-                  h={500}
-                  p={"xs"}
+                  h={"100%"}
+                  pl={5}
+                  pt={20}
                   // bg={"white"}
                   // c={"gray"}
-                  w={"100%"}
+                  w={"80%"}
                 >
                   {text == undefined ? (
                     <Stack>
