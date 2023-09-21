@@ -113,16 +113,28 @@ export function V3ComChartBar() {
       itemWidth: 30,
       itemHeight: 10,
       padding: [0, 5, 0, 0],
-      // data: [
-      //   "Confidence",
-      //   "Supportive",
-      //   "Positive",
-      //   "Undecided",
-      //   "Unsupportive",
-      //   "Uncomfrotable",
-      //   "Negative",
-      //   "Disapproval",
-      // ],
+      // data: (_.keys(_.omit(listData![0],[
+      //   "id",
+      //   "candidate1Id",
+      //   "candidate2Id",
+      //   "updatedAt",
+      //   "createdAt",
+      //   "time",
+      //   "cityId",
+      //   "text",
+      //   "rate",
+      //   "date",
+      // ]))).map((e) => t(`common: ${e}`))
+
+      // data:
+      // t(`common: trust,
+      // joy,
+      // surprise,
+      // anticipation,
+      // sadness,
+      // fear,
+      // anger,
+      // disgust`),
     },
     series: {
       name: "Pie Chart",
@@ -166,7 +178,7 @@ export function V3ComChartBar() {
         position: "inner",
         formatter: (a) => {
           // return `${a.value}` + "%";
-          return `${a.value}`
+          return `${a.value + "%"}`;
         },
       },
     },
@@ -175,8 +187,25 @@ export function V3ComChartBar() {
   return (
     <>
       {/* <pre>
-    {JSON.stringify(listData, null, 2)}
-    </pre> */}
+        {JSON.stringify(
+          _.keys(
+            _.omit(listData![0], [
+              "id",
+              "candidate1Id",
+              "candidate2Id",
+              "updatedAt",
+              "createdAt",
+              "time",
+              "cityId",
+              "text",
+              "rate",
+              "date",
+            ])
+          ),
+          null,
+          2
+        )}
+      </pre> */}
       {/* <Paper p={"xs"}>
         {JSON.stringify(_.omit(listData![0], [
                 "id",
@@ -198,19 +227,23 @@ export function V3ComChartBar() {
           option={option}
         />
       </Paper> */}
-      <Box style={{
-        minHeight: 400,
-        minWidth: 500,
-        // backgroundColor: "gray",
-        // paddingRight: 150,
-        marginLeft: -100
-      }}>
+      <Box
+        style={{
+          minHeight: 400,
+          minWidth: 500,
+          // backgroundColor: "gray",
+
+          // paddingRight: 150,
+          marginLeft: -100,
+          marginRight: 50,
+        }}
+      >
         <EChartsReact
           style={{
             // backgroundColor: "darkblue",
             height: 400,
             minWidth: 500,
-            
+
             // maxWidth: 1000,
             // paddingRight: 100,
             // paddingLeft: -10

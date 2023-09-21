@@ -49,13 +49,28 @@ export function Top5WinningRate() {
 
   // EChart option
 
-  const  [test, setTest] = useState(false);
+  const [test, setTest] = useState(false);
 
-  const option:  (dataNya: any[]) => EChartsOption = (dataNya: any[]) => {
+  const option: (dataNya: any[]) => EChartsOption = (dataNya: any[]) => {
     return {
       xAxis: {
         type: "value",
         show: true,
+        splitLine: {
+          lineStyle: {
+            color: "#31247c",
+            opacity: 0.5,
+          },
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: "#31247c",
+          },
+        },
+        axisLabel: {
+          color: "white",
+        },
       },
       yAxis: {
         type: "category",
@@ -63,7 +78,15 @@ export function Top5WinningRate() {
           value: v.candidate1.name + "\n" + v.candidate2.name,
         })),
         splitLine: {
-          show: true,
+          show: false,
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#31247c",
+          },
+        },
+        axisLabel: {
+          color: "white",
         },
       },
       series: [
@@ -107,8 +130,8 @@ export function Top5WinningRate() {
             },
           },
           emphasis: {
-             disabled: true
-          }
+            disabled: true,
+          },
         },
         {
           name: "apa",
@@ -133,11 +156,10 @@ export function Top5WinningRate() {
             },
           })),
           stack: "a",
-          color: "white",
+          color: "none",
           itemStyle: {},
           emphasis: {
             disabled: false,
-           
           },
         },
         {
@@ -157,7 +179,7 @@ export function Top5WinningRate() {
             },
           })),
           stack: "a",
-          color: "white",
+          color: "none",
 
           itemStyle: {
             // opacity: 0
@@ -170,11 +192,10 @@ export function Top5WinningRate() {
     };
   };
 
-  let [dataku, setDataku] = useState<any>()
+  let [dataku, setDataku] = useState<any>();
 
-  if(test) {
-    dataku = sampleData()
-
+  if (test) {
+    dataku = sampleData();
   }
 
   if (!listTop5)
@@ -188,7 +209,13 @@ export function Top5WinningRate() {
 
   return (
     <>
-      {/* <pre>{JSON.stringify(listTop5, null, 2)}</pre> */}
+      <pre>
+        {JSON.stringify(
+          listTop5.map((e) => e.persen),
+          null,
+          2
+        )}
+      </pre>
       <PageSubTitle text1="SUCCESS" text2="PROBABILITY PROJECTION (TOP 5)" />
 
       <Box>
@@ -196,7 +223,7 @@ export function Top5WinningRate() {
           style={{
             height: 500,
           }}
-          option={option(sampleData() as any )}
+          option={option(sampleData() as any)}
         />
       </Box>
 
