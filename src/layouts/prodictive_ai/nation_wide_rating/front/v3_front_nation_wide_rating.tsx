@@ -98,7 +98,8 @@ export function V3FrontNationWideRating() {
             }}
           />
 
-          <Grid pt={50} align={"center"}>
+         
+         <Grid pt={50} align={"center"}>
             {/* Photo candidate */}
             <Grid.Col span={4} >
               <Grid grow>
@@ -143,7 +144,7 @@ export function V3FrontNationWideRating() {
                               alignContent: "center",
                             }}
                             fw={"bold"}
-                            fz={{ base: 10, lg: 10 }}
+                            fz={{  lg: 10 , md: 6, sm: 4 }}
                             color="white"
                           >
                             PRESIDENT
@@ -217,7 +218,7 @@ export function V3FrontNationWideRating() {
                               alignContent: "center",
                             }}
                             fw={"bold"}
-                            fz={{ base: 10, lg: 10 }}
+                            fz={{  lg: 10 , md: 6, sm: 4 }}
                             color="white"
                           >
                             VICE PRESIDENT
@@ -282,7 +283,7 @@ export function V3FrontNationWideRating() {
             </Grid.Col>
 
             {/* Persen */}
-            <Grid.Col span={4} >
+            <Grid.Col span={"auto"} >
               <Box>
                 {!listData ? (
                   <Loader />
@@ -294,62 +295,19 @@ export function V3FrontNationWideRating() {
                   </>
                 ) : (
                   <Box>
-                    <Title fz={{ base: 80, lg: 90, md: 100 }} c={"green"}>
+                   <Center>
+                   <Title fz={{  lg: 100, md: 80, sm: 60 }} c={"green"}>
                       {`${listData![0].rate}%`}
                     </Title>
+                   </Center>
                   </Box>
                 )}
               </Box>
             </Grid.Col>
           </Grid>
+       
 
-          {/* Foto Kandidat */}
-          {/* <SimpleGrid cols={2}>
-          <Flex gap={"lg"} align={"end"}>
-            <Image
-              // key={Math.random()}
-              radius={"md"}
-              width={100}
-              height={100}
-              src={
-                listCandidate?.find(
-                  (v) => v.id == selectedCandidate.candidate1Id
-                ).img
-              }
-              alt=""
-            />
-            <Title>
-              {
-                listCandidate?.find(
-                  (v) => v.id == selectedCandidate.candidate1Id
-                ).name
-              }
-            </Title>
-          </Flex>
-
-          <Flex gap={"lg"} align={"end"} justify={"end"}>
-            <Title>
-              {
-                listCandidate?.find(
-                  (v) => v.id == selectedCandidate.candidate2Id
-                ).name
-              }
-            </Title>
-            <Image
-              // key={Math.random()}
-              radius={"md"}
-              width={100}
-              height={100}
-              src={
-                listCandidate?.find(
-                  (v) => v.id == selectedCandidate.candidate2Id
-                ).img
-              }
-              alt=""
-            />
-          </Flex>
-        </SimpleGrid> */}
-
+          
           {/* <Grid pt={100} gutter={"xl"}  justify="space-between" >
             <Grid.Col span={6} >
               <V3ComChartBar />
@@ -368,7 +326,7 @@ export function V3FrontNationWideRating() {
               <V3ComNationWideRatingLineChart />
             </Box>
           </Flex> */}
-          <Group grow >
+          <Group grow position="center" >
           <V3ComChartBar />
           <V3ComNationWideRatingLineChart />
           </Group>
