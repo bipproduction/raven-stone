@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Card,
+  Divider,
+  Flex,
   Group,
   HoverCard,
   Menu,
@@ -283,8 +285,8 @@ export function V3ComNationWideRatingLineChart() {
           {/* {JSON.stringify(dataChart)} */}
           {/* <Title order={3}>Nation Wide Rating Line Chart</Title> */}
 
-          <Box>
-            <Group position="right" >
+          
+            <Flex justify="flex-end" w={"100%"}>
               <Button
                 className={classes.text_calender}
                 variant="subtle"
@@ -304,6 +306,7 @@ export function V3ComNationWideRatingLineChart() {
               >
                 {t("common:week")}
               </Button>
+              <Divider orientation="vertical" color={"white"}/>
               <Button
                 className={classes.text_calender}
                 variant="outline"
@@ -323,6 +326,7 @@ export function V3ComNationWideRatingLineChart() {
               >
                 {t("common:month")}
               </Button>
+              <Divider orientation="vertical" color={"white"}/>
               <HoverCard>
                 <HoverCard.Target>
                   <Button className={classes.text_calender} variant="outline">
@@ -354,13 +358,18 @@ export function V3ComNationWideRatingLineChart() {
                   </Stack>
                 </HoverCard.Dropdown>
               </HoverCard>
-            </Group>
-          </Box>
+            </Flex>
+          
           {/* {JSON.stringify(dataChart.map((a) => a.trust))} */}
-         <Box >
+         <Box
+         style={{
+          minHeight: 300,
+          minWidth: 500,
+         }}
+         >
          <EChartsReact
             style={{
-              height: 310,
+             
               
             }}
             option={option}
