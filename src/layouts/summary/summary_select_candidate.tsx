@@ -27,6 +27,7 @@ import useTranslate from "next-translate/useTranslation";
 import PageSubTitle from "@/global/components/PageSubTitle";
 import { api } from "@/lib/api";
 import moment from "moment";
+import { white } from "colors";
 
 const SummarySelectCandidate = ({ id }: { id: any }) => {
   const update = useForceUpdate();
@@ -118,7 +119,7 @@ const SummarySelectCandidate = ({ id }: { id: any }) => {
                 <Avatar size={250} src={v?.img} />
               </Box>
               <Flex justify={"center"} pt={"sm"} align={"center"} gap={"xs"}>
-                <Title order={2}>{v?.name}</Title>
+                <Title order={2} c={"white"}>{_.upperCase(v?.name)}</Title>
                 {/* <Text fz={30}>{v?.name.split("Prabowo")}</Text> */}
               </Flex>
             </Box>

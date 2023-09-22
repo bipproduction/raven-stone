@@ -39,6 +39,9 @@ export const vListData = atom<any[] | null>(null)
 export function SummaryTrenSentiment({ id }: { id: any }) {
   const [listData, setListData] = useState<any[] | null>(null)
   const [dateType, setDateType] = useState("2");
+  const [showPopDate, setPopDate] = useState(false);
+  const [newDateStart, setNewDateStart] = useState(moment(new Date("2023-03-16")).format("YYYY-MM-DD"))
+  const [newDateEnd, setNewDateEnd] = useState(moment(new Date()).format("YYYY-MM-DD"))
 
   useShallowEffect(() => {
     setDateType("2")
@@ -60,7 +63,7 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
     if (!_.isUndefined(id) && !_.isNaN(id)) {
       fetch(
         api.apiSummarySummaryTrenSentiment +
-        `?start=${sDateStart.value}&end=${sDateEnd.value}&candidateId=${id}`
+        `?start=${newDateStart}&end=${newDateEnd}&candidateId=${id}`
       ).then(async (v) => {
         if (v.status == 200) {
           const data = await v.json();
@@ -69,7 +72,8 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
           // slistDataTrenSentiment.value = data;
           if (!data) return (setListData([]));
           setListData(data);
-          sShowPopDate.value = false;
+          // sShowPopDate.value = false;
+          setPopDate(false)
         }
       });
     }
@@ -135,7 +139,7 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
               variant="outline"
               c={dateType == "1" ? "black" : "white"}
             >
-              {t("common:week")}
+              {_.upperCase(t("common:week"))}
             </Button>
             <Divider orientation="vertical" color="white" />
             <Button
@@ -147,10 +151,10 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
               variant="outline"
               c={dateType == "2" ? "black" : "white"}
             >
-              {t("common:month")}
+              {_.upperCase(t("common:month"))}
             </Button>
             <Divider orientation="vertical" color="white" />
-            <Menu opened={sShowPopDate.value}>
+            <Menu opened={showPopDate}>
               <Menu.Target>
                 <Button
                   bg={dateType == "3" ? "indigo.1" : ""}
@@ -158,14 +162,15 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
                   sx={{ border: "none" }}
                   w={150}
                   variant="outline"
-                  onClick={() => (sShowPopDate.value = true)}
+                  // onClick={() => (sShowPopDate.value = true)}
+                  onClick={() => setPopDate(true)}
                   c={dateType == "3" ? "black" : "white"}
                 >
-                  {t("common:custom")}
+                  {_.upperCase(t("common:custom"))}
                 </Button>
               </Menu.Target>
               <Menu.Dropdown>
-                <Stack w={300} bg={stylesRadial.out_gray} p={"md"}>
+                <Stack w={300}  p={"md"}>
                   <Title order={3}>{t("common:custom")}</Title>
                   <DatePicker
                     minDate={new Date("2023-03-16")}
@@ -181,8 +186,10 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
                         console.log(diferent);
                         if (diferent < 8)
                           return toast(t("common:select_7_days"));
-                        sDateStart.value = moment(v[0]).format("YYYY-MM-DD");
-                        sDateEnd.value = moment(v[1]).format("YYYY-MM-DD");
+                        // sDateStart.value = moment(v[0]).format("YYYY-MM-DD");
+                        setNewDateStart(moment(v[0]).format("YYYY-MM-DD"))
+                        // sDateEnd.value = moment(v[1]).format("YYYY-MM-DD");
+                        setNewDateEnd(moment(v[1]).format("YYYY-MM-DD"))
                         sShowDateOkButton.value = true;
                       } else {
                         sShowDateOkButton.value = false;
@@ -191,7 +198,7 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
                   />
                   <Group position="apart">
                     <Button
-                      onClick={() => (sShowPopDate.value = false)}
+                      onClick={() => setPopDate(false)}
                       compact
                       w={100}
                       variant="outline"
@@ -203,9 +210,9 @@ export function SummaryTrenSentiment({ id }: { id: any }) {
                         onClick={customSelected}
                         compact
                         w={100}
-                        variant="light"
+                        variant="filled"
                       >
-                        ok
+                        OK
                       </Button>
                     )}
                   </Group>
