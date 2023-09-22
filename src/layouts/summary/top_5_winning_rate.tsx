@@ -55,6 +55,7 @@ export function Top5WinningRate() {
     return {
       xAxis: {
         type: "value",
+        max: 60,
         show: true,
         splitLine: {
           lineStyle: {
@@ -70,6 +71,9 @@ export function Top5WinningRate() {
         },
         axisLabel: {
           color: "white",
+          formatter: (v: any) => {
+            return `${v} %`;
+          },
         },
       },
       yAxis: {
@@ -95,7 +99,7 @@ export function Top5WinningRate() {
             value: v.persen,
             label: {
               align: "right",
-              offset: [-50, 0],
+              offset: [-30, 0],
               borderRadius: [10,3,11,22],
               backgroundColor: {
                 image: !test
@@ -165,7 +169,7 @@ export function Top5WinningRate() {
             name: "2",
             value: 2,
             label: {
-              offset: [-75, 0],
+              offset: [-80, 0],
               height: 50,
               width: 50,
               show: true,
@@ -234,6 +238,7 @@ export function Top5WinningRate() {
 
   return (
     <>
+    
       {/* <pre>
         {JSON.stringify(
           listTop5.map((e) => e.persen),
@@ -241,7 +246,8 @@ export function Top5WinningRate() {
           2
         )}
       </pre> */}
-      <PageSubTitle text1="SUCCESS" text2="PROBABILITY PROJECTION (TOP 5)" />
+      
+      <PageSubTitle text1={t('common:p_success_probability')} text2={t('common:p_projection')} />
 
       <Box>
         <EChartsReact
@@ -317,12 +323,12 @@ function sampleData() {
       candidate1: {
         id: 2,
         name: "Ganjar Pranowo",
-        img: "/candidate/ganjar.png",
+        img: "/candidate/ganjar_circle.png",
       },
       candidate2: {
         id: 1,
         name: "Prabowo Subianto",
-        img: "/candidate/prabowo.png",
+        img: "/candidate/prabowo_circle.png",
       },
     },
     {
@@ -336,12 +342,12 @@ function sampleData() {
       candidate1: {
         id: 1,
         name: "Prabowo Subianto",
-        img: "/candidate/prabowo.png",
+        img: "/candidate/prabowo_circle.png",
       },
       candidate2: {
         id: 2,
         name: "Ganjar Pranowo",
-        img: "/candidate/ganjar.png",
+        img: "/candidate/ganjar_circle.png",
       },
     },
     {
@@ -355,12 +361,12 @@ function sampleData() {
       candidate1: {
         id: 1,
         name: "Prabowo Subianto",
-        img: "/candidate/prabowo.png",
+        img: "/candidate/prabowo_circle.png",
       },
       candidate2: {
         id: 8,
         name: "Mahfud MD",
-        img: "/candidate/mahfud.png",
+        img: "/candidate/mahfud_circle.png",
       },
     },
     {
@@ -374,12 +380,12 @@ function sampleData() {
       candidate1: {
         id: 2,
         name: "Ganjar Pranowo",
-        img: "/candidate/ganjar.png",
+        img: "/candidate/ganjar_circle.png",
       },
       candidate2: {
         id: 8,
         name: "Mahfud MD",
-        img: "/candidate/mahfud.png",
+        img: "/candidate/mahfud_circle.png",
       },
     },
     {
@@ -393,12 +399,12 @@ function sampleData() {
       candidate1: {
         id: 2,
         name: "Ganjar Pranowo",
-        img: "/candidate/ganjar.png",
+        img: "/candidate/ganjar_circle.png",
       },
       candidate2: {
         id: 7,
         name: "Erick Thohir",
-        img: "/candidate/eric.png",
+        img: "/candidate/eric_circle.png",
       },
     },
   ];
