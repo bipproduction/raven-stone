@@ -40,6 +40,7 @@ import useTranslate from "next-translate/useTranslation";
 import _ from "lodash";
 import Trs from "@/fun_load/trs";
 import PageSubTitle from "@/global/components/PageSubTitle";
+import G from "glob";
 
 export function V3FrontNationWideRating() {
   const { t, lang } = useTranslate();
@@ -98,10 +99,9 @@ export function V3FrontNationWideRating() {
             }}
           />
 
-         
-         <Grid pt={50} align={"center"}>
+          <Grid pt={50} align={"center"}>
             {/* Photo candidate */}
-            <Grid.Col span={4} >
+            <Grid.Col span={4}>
               <Grid grow>
                 {/* Candidate 1 */}
                 <Grid.Col span={6}>
@@ -144,7 +144,7 @@ export function V3FrontNationWideRating() {
                               alignContent: "center",
                             }}
                             fw={"bold"}
-                            fz={{  lg: 10 , md: 6, sm: 4 }}
+                            fz={{ lg: 10, md: 6, sm: 4 }}
                             color="white"
                           >
                             PRESIDENT
@@ -218,7 +218,7 @@ export function V3FrontNationWideRating() {
                               alignContent: "center",
                             }}
                             fw={"bold"}
-                            fz={{  lg: 10 , md: 6, sm: 4 }}
+                            fz={{ lg: 10, md: 6, sm: 4 }}
                             color="white"
                           >
                             VICE PRESIDENT
@@ -264,26 +264,29 @@ export function V3FrontNationWideRating() {
             </Grid.Col>
 
             {/* Text Succes */}
-            <Grid.Col span={"auto"} >
-
-              <Flex align={"center"} direction={"column"} >
-               <Box>
-               <Text fz={40} c={"white"} fw={"bold"}>
-                  SUCCESS{" "}
-                </Text>
-                <Text fz={40} c={"white"} fw={"bold"}>
-                  PROBABILITY{" "}
-                </Text>
-                <Text fz={40} c={"white"} fs={"italic"} fw={"lighter"}>
-                  PROJECTION{" "}
-                </Text>
-               </Box>
-              </Flex>
-
+            <Grid.Col span={4}>
+              <Group pl={40}>
+                <Box>
+                  <Text style={{ fontSize: "2.5vw" }} c={"white"} fw={"bold"}>
+                    SUCCESS{" "}
+                  </Text>
+                  <Text style={{ fontSize: "2.5vw" }} c={"white"} fw={"bold"}>
+                    PROBABILITY{" "}
+                  </Text>
+                  <Text
+                    style={{ fontSize: "2.5vw" }}
+                    c={"white"}
+                    fs={"italic"}
+                    fw={"lighter"}
+                  >
+                    PROJECTION{" "}
+                  </Text>
+                </Box>
+              </Group>
             </Grid.Col>
 
             {/* Persen */}
-            <Grid.Col span={"auto"} >
+            <Grid.Col span={4}>
               <Box>
                 {!listData ? (
                   <Loader />
@@ -295,19 +298,15 @@ export function V3FrontNationWideRating() {
                   </>
                 ) : (
                   <Box>
-                   <Center>
-                   <Title fz={{  lg: 100, md: 80, sm: 60 }} c={"green"}>
+                    <Text fw={"bold"} style={{ fontSize: "7vw" }} c={"green"}>
                       {`${listData![0].rate}%`}
-                    </Title>
-                   </Center>
+                    </Text>
                   </Box>
                 )}
               </Box>
             </Grid.Col>
           </Grid>
-       
 
-          
           {/* <Grid pt={100} gutter={"xl"}  justify="space-between" >
             <Grid.Col span={6} >
               <V3ComChartBar />
@@ -326,10 +325,19 @@ export function V3FrontNationWideRating() {
               <V3ComNationWideRatingLineChart />
             </Box>
           </Flex> */}
-          <Group grow position="center" >
-          <V3ComChartBar />
-          <V3ComNationWideRatingLineChart />
-          </Group>
+          <Grid gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50}>
+            <Grid.Col span={6}>
+              <Group position="left">
+                <V3ComChartBar />
+              </Group>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <V3ComNationWideRatingLineChart />
+            </Grid.Col>
+          </Grid>
+
+          {/* <Group grow position="apart" spacing={100}>
+          </Group> */}
         </Box>
       </Stack>
 
