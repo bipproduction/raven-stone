@@ -34,7 +34,7 @@ import {
   Tooltip,
   useMantineTheme,
 } from "@mantine/core";
-import { useShallowEffect } from "@mantine/hooks";
+import { useInterval, usePageLeave, useShallowEffect, useTimeout } from "@mantine/hooks";
 import { signal } from "@preact/signals-react";
 import { AiOutlineLine } from "react-icons/ai";
 import { _is_dark_mode } from "@/g_state/atom_util_state";
@@ -302,11 +302,106 @@ const listView2 = [
 
 const Dashboard = (props: any) => {
   const [valTimeOut, setValTimeOut] = useAtom(_isMaxTimeOut)
+  const [timeNow, setTimeNow] = useState(0)
   const { t, lang } = useTranslate();
   const theme = useMantineTheme();
   // const [opened, setOpened] = useState(false);
   // const selectedView = useHookstate(gSelectedView);
   const [userName, setUserName] = useState<{ [key: string]: any }>({});
+  const interval = useInterval(() => {
+    const jam = localStorage.getItem("_jam")
+    console.log(jam)
+  }, 5000)
+
+  usePageLeave(() => {
+    console.log("ditinggalkan")
+    start();
+  })
+
+
+  const { start, clear } = useTimeout(() => {
+    console.log("habisa waktunya")
+    const body = {
+      id: localStorage.getItem("user_id"),
+      isLogin: false,
+    };
+    fetch(api.apiUpdIsLogin, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then(async (res) => {
+      if (res.status === 200) {
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("_jam");
+        sUser.value = {};
+        // setValTimeOut(undefined)
+      }
+    });
+  }, 600000)
+
+
+  function nowTime() {
+    // setTimeNow(new Date().getTime() + (1 * 60 * 60 * 1000))
+    // console.log(timeNow)
+    // let ini = new Date().getTime() + (1 * 60 * 60 * 1000);
+    // setValTimeOut(ini)
+    // console.log(valTimeOut)
+  }
+
+  useShallowEffect(() => {
+    start();
+    const gj = localStorage.getItem("_jam")
+    if (gj) {
+      const _jam = moment(new Date(+gj!))
+      const _skr = moment(new Date())
+      const diff = _jam.diff(_skr, "seconds")
+      // console.log(diff, "ini diffnya")
+      if (diff <= 0) {
+        console.log("habis")
+        const body = {
+          id: localStorage.getItem("user_id"),
+          isLogin: false,
+        };
+        fetch(api.apiUpdIsLogin, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }).then(async (res) => {
+          if (res.status === 200) {
+            localStorage.removeItem("user_id");
+            localStorage.removeItem("_jam");
+            sUser.value = {};
+            // setValTimeOut(undefined)
+          }
+        });
+      }
+
+
+    }
+    // interval.start();
+
+    window.addEventListener("mousemove", () => {
+      clear();
+      interval.stop()
+      // nowTime();
+      const now = new Date().getTime() + (1 * 60 * 60 * 1000);
+      localStorage.setItem('_jam', now.toString())
+      // setValTimeOut(now)
+    })
+
+    return () => {
+      clear();
+      // interval.stop();
+
+      // const now = new Date().getTime() + (1 * 60 * 60 * 1000);
+      // localStorage.setItem('_jam', now.toString())
+      // setValTimeOut(now)
+    }
+  }, [])
 
   useShallowEffect(() => {
     sSelectedDate.value = moment(new Date()).format("YYYY-MM-DD");
@@ -330,25 +425,6 @@ const Dashboard = (props: any) => {
     }
   }, []);
 
-  if (new Date().getTime() > valTimeOut) {
-    const body = {
-      id: localStorage.getItem("user_id"),
-      isLogin: false,
-    };
-    fetch(api.apiUpdIsLogin, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }).then(async (res) => {
-      if (res.status === 200) {
-        localStorage.removeItem("user_id");
-        sUser.value = {};
-        setValTimeOut(0)
-      }
-    });
-  }
 
   return (
     <>
@@ -702,8 +778,9 @@ const MyNavbar = () => {
                     }).then(async (res) => {
                       if (res.status === 200) {
                         localStorage.removeItem("user_id");
+                        localStorage.removeItem("_jam");
                         sUser.value = {};
-                        setValTimeOut(0)
+                        // setValTimeOut(undefined)
                       }
                     });
                   }}
