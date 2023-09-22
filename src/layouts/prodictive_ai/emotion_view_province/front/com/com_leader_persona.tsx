@@ -81,7 +81,7 @@ export function ComLeaderPersona({ provinceId }: { provinceId: any }) {
       {/* <pre>{JSON.stringify(listData, null, 2)}</pre> */}
       <Box p={"xs"} pt={20} pb={20}>
           <Title ta={"center"} c={"white"} fz={20} >
-            {"LEADER TRAIT ASSESSMENT"}
+            {_.upperCase(t('common:leader_trait_assessment'))}
           </Title>
         <Center pt={20}>
           <EChartsReact
