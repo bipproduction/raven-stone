@@ -10,6 +10,7 @@ import {
   Menu,
   Paper,
   Stack,
+  Text,
   Title,
   createStyles,
 } from "@mantine/core";
@@ -64,7 +65,7 @@ export function V3ComNationWideRatingLineChart() {
   const option: EChartsOption = {
     title: {
       top: 0,
-      text: "100 %",
+      left: "60",
       textStyle: {
         color: "white",
       },

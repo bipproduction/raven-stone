@@ -96,6 +96,7 @@ export function Top5WinningRate() {
             label: {
               align: "right",
               offset: [-50, 0],
+              borderRadius: [10,3,11,22],
               backgroundColor: {
                 image: !test
                   ? v.candidate1.img
@@ -123,11 +124,35 @@ export function Top5WinningRate() {
           })),
           type: "bar",
           stack: "a",
+
           itemStyle: {
+            borderRadius: 10,
             color: {
-              image:
-                "https://static.vecteezy.com/system/resources/thumbnails/008/854/270/original/abstract-colorful-gradient-animation-background-free-video.jpg",
+              type: "pattern",
+              x: 0,
+              y: 0.9,
+              r: 3,
+              colorStops: [
+                {
+                  offset: 0,
+                  color: "#6BBB45", // color at 0% position
+                },
+                {
+                  offset: 0.3,
+                  color: "#77613B", // color at 100% position
+                },
+                {
+                  offset: 0.8,
+                  color: "#4B182F", // color at 100% position
+                },
+              ],
+              global: false,
+
+              // image:
+              // "https://static.vecteezy.com/system/resources/thumbnails/008/854/270/original/abstract-colorful-gradient-animation-background-free-video.jpg",
+              // "../bar-chart.png",
             },
+          
           },
           emphasis: {
             disabled: true,
@@ -171,7 +196,7 @@ export function Top5WinningRate() {
             label: {
               fontWeight: "bold",
               show: true,
-              fontSize: 24,
+              fontSize: 40,
               color: "green",
               formatter: function (a: any) {
                 return a.name + " %";
@@ -209,13 +234,13 @@ export function Top5WinningRate() {
 
   return (
     <>
-      <pre>
+      {/* <pre>
         {JSON.stringify(
           listTop5.map((e) => e.persen),
           null,
           2
         )}
-      </pre>
+      </pre> */}
       <PageSubTitle text1="SUCCESS" text2="PROBABILITY PROJECTION (TOP 5)" />
 
       <Box>
