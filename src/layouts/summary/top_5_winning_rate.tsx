@@ -24,6 +24,29 @@ import EChartsReact from "echarts-for-react";
 import { EChartsOption } from "echarts";
 import { useState } from "react";
 
+
+
+type DATA = {
+  "id": 14641,
+  "date": "2023-09-19T00:00:00.000Z",
+  "time": null,
+  "createdAt": "2023-09-19T02:34:14.160Z",
+  "updatedAt": "2023-09-19T02:34:14.160Z",
+  "cityId": null,
+  "persen": 49.89,
+  "candidate1": {
+    "id": 2,
+    "name": "Ganjar Pranowo",
+    "img": "/candidate/ganjar_circle.png"
+  },
+  "candidate2": {
+    "id": 1,
+    "name": "Prabowo Subianto",
+    "img": "/candidate/prabowo_circle.png"
+  }
+}
+
+
 const _val_list_top_5_winning_rate = atom<any[] | undefined>(undefined);
 
 /**
@@ -51,7 +74,9 @@ export function Top5WinningRate() {
 
   const [test, setTest] = useState(false);
 
-  const option: (dataNya: any[]) => EChartsOption = (dataNya: any[]) => {
+  const option: (dataNya: DATA[]) => EChartsOption = (dataNya: DATA[]) => {
+    dataNya = _.sortBy(dataNya, (v) => v.persen)
+
     return {
       xAxis: {
         type: "value",
@@ -100,7 +125,7 @@ export function Top5WinningRate() {
             label: {
               align: "right",
               offset: [-30, 0],
-              borderRadius: [10,3,11,22],
+              borderRadius: [10, 3, 11, 22],
               backgroundColor: {
                 image: !test
                   ? v.candidate1.img
@@ -156,7 +181,7 @@ export function Top5WinningRate() {
               // "https://static.vecteezy.com/system/resources/thumbnails/008/854/270/original/abstract-colorful-gradient-animation-background-free-video.jpg",
               // "../bar-chart.png",
             },
-          
+
           },
           emphasis: {
             disabled: true,
@@ -238,7 +263,7 @@ export function Top5WinningRate() {
 
   return (
     <>
-    
+
       {/* <pre>
         {JSON.stringify(
           listTop5.map((e) => e.persen),
@@ -246,8 +271,8 @@ export function Top5WinningRate() {
           2
         )}
       </pre> */}
-      
-      <PageSubTitle text1={t('common:p_success_probability')} text2={t('common:p_projection')} />
+
+      <PageSubTitle text1={t('common:p_success_probability')} text2={t('common:p_projection') + ' (TOP 5)'} />
 
       <Box>
         <EChartsReact
