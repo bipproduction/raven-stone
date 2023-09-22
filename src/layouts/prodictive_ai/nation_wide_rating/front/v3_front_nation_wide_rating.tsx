@@ -78,7 +78,7 @@ export function V3FrontNationWideRating() {
           title={_.upperCase(t('common:nation_wide_rating'))}
           text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))}
         /> */}
-        <PageSubTitle text1="NATIONAL" text2="POPULARITY METRICS" />
+        <PageSubTitle text1={t('common:p_national')} text2={t('common:p_popularity_metrics')} />
 
         <Box px={"xl"}>
           {/* Select candidate */}
@@ -172,12 +172,12 @@ export function V3FrontNationWideRating() {
                     </AspectRatio>
 
                     <Center>
-                      <Title order={4}>
-                        {
+                      <Title order={4} c={"white"} pt={20}>
+                        {_.upperCase(
                           listCandidate?.find(
                             (v) => v.id == selectedCandidate.candidate1Id
                           ).name
-                        }
+                        )}
                       </Title>
                     </Center>
                   </Box>
@@ -250,12 +250,13 @@ export function V3FrontNationWideRating() {
                       </BackgroundImage>
                     </AspectRatio>
                     <Center>
-                      <Title order={4}>
-                        {
+                      <Title order={4} c={"white"} pt={20}>
+                        {" "}
+                        {_.upperCase(
                           listCandidate?.find(
                             (v) => v.id == selectedCandidate.candidate2Id
                           ).name
-                        }
+                        )}
                       </Title>
                     </Center>
                   </Box>
@@ -325,21 +326,23 @@ export function V3FrontNationWideRating() {
               <V3ComNationWideRatingLineChart />
             </Box>
           </Flex> */}
-          <Grid gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50}>
-            <Grid.Col span={6}>
-              <Group position="left">
-                <V3ComChartBar />
-              </Group>
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <V3ComNationWideRatingLineChart />
-            </Grid.Col>
-          </Grid>
 
           {/* <Group grow position="apart" spacing={100}>
           </Group> */}
         </Box>
       </Stack>
+      <Grid gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50} pt={30}>
+        <Grid.Col span={6}>
+          <Box>
+            <V3ComChartBar />
+          </Box>
+        </Grid.Col>
+        <Grid.Col span={6}>
+          <Box>
+            <V3ComNationWideRatingLineChart />
+          </Box>
+        </Grid.Col>
+      </Grid>
 
       {/* {JSON.stringify(listData)}
       {JSON.stringify(selectedCandidate)} */}

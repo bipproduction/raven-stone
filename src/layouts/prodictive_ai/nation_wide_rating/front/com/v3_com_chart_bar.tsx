@@ -106,16 +106,16 @@ export function V3ComChartBar() {
         color: "white",
       },
       show: true,
-      bottom: "0%",
-    right: "0%",
-    width: "24%",
-    top: "25%",
-    orient: "vertical",
-    height: "61%",
-    align: "auto",
-    padding: [0, -0, 0, 0],
-    itemWidth: 25.5,
-    itemGap: 13.5
+      // bottom: "0%",
+      right: "0%",
+      // width: "24%",
+      top: "25%",
+      orient: "vertical",
+      // height: "61%",
+      // align: "auto",
+      // padding: [0, -0, 0, 0],
+      // itemWidth: 25.5,
+      // itemGap: 13.5
       // itemGap: 15,
       // itemWidth: 30,
       // itemHeight: 10,
@@ -145,9 +145,8 @@ export function V3ComChartBar() {
     },
     series: {
       name: "Pie Chart",
-
       type: "pie",
-      radius: "60%",
+      radius: "90%",
       data: !listData![0]
         ? []
         : (_.keys(
@@ -172,12 +171,15 @@ export function V3ComChartBar() {
               value: v.value,
               name: t("common:" + v.name),
               itemStyle: {
-
                 color: listColorChart.find(
                   (c) => _.lowerCase(c.name) == _.lowerCase(v.name)
                 )?.color,
               },
             })) as any),
+            width: "68%",
+            right: "80%",
+            left: "0%",
+            height: "100%",
 
       labelLine: {
         show: false,
@@ -235,7 +237,7 @@ export function V3ComChartBar() {
           option={option}
         />
       </Paper> */}
-      <Box
+      {/* <Box
         // style={{
         //   minHeight: 400,
         //   minWidth: 500,
@@ -245,15 +247,15 @@ export function V3ComChartBar() {
         //   marginLeft: -100,
         //   marginRight: 50,
         // }}
-      >
-        <Container size="xs" px="xs">
-          <Center>
-
+      > */}
+      {/* </Container> */}
+      {/* </Box> */}
+      <Group position="center">
         <EChartsReact
           style={{
             // backgroundColor: "darkblue",
             height: 400,
-            minWidth: 500,
+            width: 500,
 
             // maxWidth: 1000,
             // paddingRight: 100,
@@ -261,9 +263,7 @@ export function V3ComChartBar() {
           }}
           option={optionPie}
         />
-          </Center>
-        </Container>
-      </Box>
+      </Group>
     </>
   );
 }

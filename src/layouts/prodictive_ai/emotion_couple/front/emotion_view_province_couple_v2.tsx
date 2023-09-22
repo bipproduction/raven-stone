@@ -21,6 +21,7 @@ import {
 import { atom, useAtom } from "jotai";
 import { _fun_emotion_view_province_couple } from "../../../dev/emotion_view_province_couple_v2/_fun_emotion_view_province_couple_v2";
 import {
+  AspectRatio,
   BackgroundImage,
   Box,
   Button,
@@ -74,8 +75,9 @@ export default function EmotionViewProvinceCoupleV2() {
   const [listData, setListData] = useState<any[] | null>(null);
   const [listDataAudience, setListDataAudience] = useAtom(dataAudience);
   const styling = {
-    backgroundImage: `url('${listCandidate?.find((v) => v.id === selectedCandidate1)?.img
-      }')`,
+    backgroundImage: `url('${
+      listCandidate?.find((v) => v.id === selectedCandidate1)?.img
+    }')`,
     width: "200",
     height: "200",
   };
@@ -87,7 +89,7 @@ export default function EmotionViewProvinceCoupleV2() {
   async function loadData() {
     fetch(
       api.apiPredictiveAiEmotionViewProvinceCoupleV2Get +
-      `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
+        `?candidate1=${selectedCandidate1}&candidate2=${selectedCandidate2}&search=${search}&page=${page}`
     )
       .then((val) => val.json())
       .then((v) => {
@@ -103,20 +105,23 @@ export default function EmotionViewProvinceCoupleV2() {
 
     fetch(
       api.apiPredictiveAiV3NationWideRatingListDataGet +
-      `?candidate1Id=${selectedCandidate1}&candidate2Id=${selectedCandidate2}&date=${moment().format(
-        "YYYY-MM-DD"
-      )}`
+        `?candidate1Id=${selectedCandidate1}&candidate2Id=${selectedCandidate2}&date=${moment().format(
+          "YYYY-MM-DD"
+        )}`
     )
       .then((v) => v.json())
       .then((v) => setListData(v));
 
-    fetch(api.apiSummaryGetTop10ProvinceByConversation + `?date=${moment().format(
-      "YYYY-MM-DD"
-    )}&emotion=Trust&candidateId=${selectedCandidate1}&search=`)
+    fetch(
+      api.apiSummaryGetTop10ProvinceByConversation +
+        `?date=${moment().format(
+          "YYYY-MM-DD"
+        )}&emotion=Trust&candidateId=${selectedCandidate1}&search=`
+    )
       .then((v) => v.json())
       .then((v) => {
-        setListDataAudience(v)
-      })
+        setListDataAudience(v);
+      });
 
     // setHasmore(page * 10 < count);
   }
@@ -262,36 +267,19 @@ export default function EmotionViewProvinceCoupleV2() {
         </Box>
         {/* akhir raven */}
 
-        <Grid gutter="lg" pt={50}>
+        <Grid gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50} pt={50}>
           <Grid.Col md={5} lg={5}>
-            <Grid
+            <Box
               pos={"sticky"}
               top={190}
               sx={{
                 zIndex: 80,
               }}
             >
-              <Grid.Col md={6} lg={6}>
-                <Box mr={20}>
-                  <Stack align="center">
-                    <Box
-                    // sx={{
-                    //   backgroundColor: "white",
-                    //   padding: 1,
-                    //   borderRadius: 10,
-                    // }}
-                    >
-                      {/* <Image
-                      radius={10}
-                      width={200}
-                      height={200}
-                      src={
-                        listCandidate?.find((v) => v.id === selectedCandidate1)
-                          ?.img
-                      }
-                      alt=""
-                      
-                    /> */}
+              <Grid>
+                <Grid.Col md={6} lg={6}>
+                  <Box>
+                    <AspectRatio ratio={1 / 1}>
                       <BackgroundImage
                         radius={10}
                         w={200}
@@ -302,136 +290,133 @@ export default function EmotionViewProvinceCoupleV2() {
                           )?.img
                         }
                       >
-                        <Box pt={160}>
-                          <Grid>
-                            <Grid.Col md={7} lg={7}>
-                              <Box
-                                sx={{
-                                  backgroundColor: "#343A40",
-                                  borderRadius: " 0px  15px  15px  0px ",
-                                  padding: 2,
-                                }}
-                              >
-                                <Text ml={30} fz={12} fw={700} color="white">
-                                  {_.upperCase(t("common:president"))}
-                                </Text>
-                              </Box>
-                            </Grid.Col>
-                          </Grid>
-                        </Box>
+                        <AspectRatio
+                          ratio={3 / 2}
+                          sx={{
+                            // position: "relative",
+                            bottom: "-35%",
+                            height: 20,
+                            width: "100%",
+                            backgroundColor: "#343a40",
+                            marginLeft: 2,
+                            borderTopRightRadius: 10,
+                            borderBottomRightRadius: 10,
+                            display: "flex",
+                            flex: 1,
+                            marginRight: 60,
+                          }}
+                        >
+                          <Title
+                            sx={{
+                              display: "flex",
+                              flex: 1,
+                              alignContent: "center",
+                            }}
+                            fw={"bold"}
+                            fz={{ lg: 10, md: 6, sm: 4 }}
+                            color="white"
+                          >
+                            PRESIDENT
+                          </Title>
+                        </AspectRatio>
                       </BackgroundImage>
-                    </Box>
-                    <Text
-                      align="center"
-                      lineClamp={1}
-                      color="white"
-                      fz={18}
-                      fw={700}
-                    >
-                      {_.upperCase(
-                        listCandidate?.find((v) => v.id === selectedCandidate1)
-                          ?.name
-                      )}
-                    </Text>
-                  </Stack>
-                </Box>
-              </Grid.Col>
-              <Grid.Col md={6} lg={6}>
-                <Box>
-                  <Stack align="center">
-                    <Box
-                    // sx={{
-                    //   backgroundColor: "white",
-                    //   padding: 1,
-                    //   borderRadius: 10,
-                    // }}
-                    >
-                      {/* <Image
-                      radius={10}
-                      width={200}
-                      height={200}
-                      src={
-                        listCandidate?.find((v) => v.id === selectedCandidate2)
-                          ?.img
-                      }
-                      alt=""
-                    /> */}
+                    </AspectRatio>
+                    <Center>
+                      <Title order={4} c={"white"} pt={20}>
+                        {_.upperCase(
+                          listCandidate?.find(
+                            (v) => v.id === selectedCandidate1
+                          )?.name
+                        )}
+                      </Title>
+                    </Center>
+                  </Box>
+                </Grid.Col>
+                <Grid.Col md={6} lg={6}>
+                  <Box>
+                    <AspectRatio ratio={1 / 1}>
                       <BackgroundImage
-                        radius={10}
-                        style={{ width: 200, height: 200 }}
+                        radius={"md"}
+                        w={200}
+                        h={200}
                         src={
                           listCandidate?.find(
                             (v) => v.id === selectedCandidate2
                           )?.img
                         }
                       >
-                        <Box pt={160}>
-                          <Grid>
-                            <Grid.Col md={4} lg={4}></Grid.Col>
-                            <Grid.Col md={8} lg={8}>
-                              <Box
-                                sx={{
-                                  backgroundColor: "#343A40",
-                                  borderRadius: " 15px 0px 0px 15px ",
-                                  padding: 2,
-                                }}
-                              >
-                                <Text ml={10} fz={12} fw={700} color="white">
-                                  {_.upperCase(t("common:vice_president"))}
-                                </Text>
-                              </Box>
-                            </Grid.Col>
-                          </Grid>
-                        </Box>
+                        <AspectRatio
+                          ratio={3 / 2}
+                          sx={{
+                            bottom: "-35%",
+                            height: 20,
+                            width: "100%",
+                            backgroundColor: "#343a40",
+                            borderTopLeftRadius: 10,
+                            borderBottomLeftRadius: 10,
+                            marginRight: 2,
+                            marginLeft: 40,
+                          }}
+                        >
+                          <Text
+                            sx={{
+                              display: "flex",
+                              flex: 1,
+                              alignContent: "center",
+                            }}
+                            fw={"bold"}
+                            fz={{ lg: 10, md: 6, sm: 4 }}
+                            color="white"
+                          >
+                            VICE PRESIDENT
+                          </Text>
+                        </AspectRatio>
                       </BackgroundImage>
-                    </Box>
-                    <Text
-                      align="center"
-                      lineClamp={1}
-                      color="white"
-                      fz={18}
-                      fw={700}
-                    >
-                      {_.upperCase(
-                        listCandidate?.find((v) => v.id === selectedCandidate2)
-                          ?.name
+                    </AspectRatio>
+                    <Center pt={20}>
+                      <Title order={4} c={"white"}>
+                        {_.upperCase(
+                          listCandidate?.find(
+                            (v) => v.id === selectedCandidate2
+                          )?.name
+                        )}
+                      </Title>
+                    </Center>
+                  </Box>
+                </Grid.Col>
+              </Grid>
+
+              <Box
+                pt={30}
+                // pos={"sticky"}
+                // top={447}
+                // sx={{
+                //   zIndex: 100,
+                // }}
+              >
+                <Box>
+                  <Group spacing={8} position="center">
+                    <Text fz={23} fw={"bold"} color={COLOR.hijauTua}>
+                      {t("common:p_success_probability")}
+                    </Text>
+                    <Text fs="italic" color={COLOR.hijauTua} fz={23}>
+                      {t("common:p_projection")}
+                    </Text>
+                  </Group>
+                </Box>
+                <Box pt={10}>
+                  <Box
+                    sx={{
+                      backgroundColor: COLOR.hijauTua,
+                      borderRadius: 10,
+                    }}
+                  >
+                    <Text ta={"center"} fw={"bold"} fz={60} color="white">
+                      {listEmotion && listEmotion.length > 0 && listData && (
+                        <>{listData![0].rate}%</>
                       )}
                     </Text>
-                  </Stack>
-                </Box>
-              </Grid.Col>
-            </Grid>
-
-            <Box
-              pt={30}
-              pos={"sticky"}
-              top={447}
-              sx={{
-                zIndex: 100,
-              }}
-            >
-              <Box>
-                <Group spacing={8} position="center">
-                  <Text fz={23} fw={"bold"} color={COLOR.hijauTua}>
-                    {t("common:p_success_probability")}
-                  </Text>
-                  <Text fs="italic" color={COLOR.hijauTua} fz={23}>
-                    {t("common:p_projection")}
-                  </Text>
-                </Group>
-              </Box>
-              <Box pt={10}>
-                <Box
-                  sx={{
-                    backgroundColor: COLOR.hijauTua,
-                    borderRadius: 10,
-                  }}
-                >
-                  <Text ta={"center"} fw={"bold"} fz={60} color="white">
-                    {listEmotion && listEmotion.length > 0 && listData && (
-                      <>{listData![0].rate}%</>
-                    )}
-                  </Text>
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -449,9 +434,9 @@ export default function EmotionViewProvinceCoupleV2() {
               dataLength={listEmotion.length}
               next={loadMore}
               hasMore={hasMore}
-            // endMessage={<Center></Center>}
+              // endMessage={<Center></Center>}
             >
-              <Group position="center">
+              <Box>
                 {listEmotion &&
                   listEmotion.map((v, i) => (
                     <Box key={i}>
@@ -494,7 +479,7 @@ export default function EmotionViewProvinceCoupleV2() {
                   </Flex> */}
                     </Box>
                   ))}
-              </Group>
+              </Box>
             </InfiniteScroll>
           </Grid.Col>
         </Grid>
@@ -518,19 +503,21 @@ const EmotionItemChart = ({
   const { t, lang } = useTranslate();
   const locked = nDataAudience
     .filter((itm) => itm.id == Number(provinceId))
-    .map((itm) => Number(itm.total))
+    .map((itm) => Number(itm.total));
   const filtered = nDataAudience
     .filter((itm) => itm.id == Number(provinceId))
-    .map((itm) => _.sum([
-      itm.trust,
-      itm.joy,
-      itm.surprise,
-      itm.anticipation,
-      itm.sadness,
-      itm.fear,
-      itm.anger,
-      itm.disgust,
-    ]))
+    .map((itm) =>
+      _.sum([
+        itm.trust,
+        itm.joy,
+        itm.surprise,
+        itm.anticipation,
+        itm.sadness,
+        itm.fear,
+        itm.anger,
+        itm.disgust,
+      ])
+    );
   const option: EChartsOption = {
     // radiusAxis: {},
     // polar: {},
@@ -591,7 +578,7 @@ const EmotionItemChart = ({
       },
       formatter: (a: any) => {
         return `
-        <i>${_.upperCase(t('common:'+a[0].data.name))}</i>
+        <i>${_.upperCase(t("common:" + a[0].data.name))}</i>
         <h1>${a[0].data.value} %</h1>
         `;
       },
@@ -622,7 +609,7 @@ const EmotionItemChart = ({
           color: "white",
           verticalAlign: "middle",
           rotate: 45,
-          fontWeight:"bold"
+          fontWeight: "bold",
         },
         nameTextStyle: {
           color: "#FFFFFF",
@@ -649,15 +636,15 @@ const EmotionItemChart = ({
         color: "white",
         data: Object.keys(lsData ?? []).map(
           (v) =>
-          ({
-            name: v,
-            value: lsData[v],
-            itemStyle: {
-              color:
-                listColorChart.find((v2) => _.lowerCase(v2.name) == v)
-                  ?.color ?? "gray",
-            },
-          } as any)
+            ({
+              name: v,
+              value: lsData[v],
+              itemStyle: {
+                color:
+                  listColorChart.find((v2) => _.lowerCase(v2.name) == v)
+                    ?.color ?? "gray",
+              },
+            } as any)
         ),
       },
     ],
@@ -670,7 +657,7 @@ const EmotionItemChart = ({
         <Flex gap="md">
         </Flex>
       </Stack> */}
-      <Stack mb={60}>
+      <Stack mb={70}>
         <Title pl={15} color="white">
           {_.upperCase(provinceName)}
         </Title>
@@ -680,27 +667,23 @@ const EmotionItemChart = ({
               SENTIMENT ANALYSIS
             </Title>
           </Group>
-          <EChartsReact style={{ width: 600, height: 600 }} option={option} />
+          <EChartsReact style={{ width: "100%", height: 600 }} option={option} />
         </Box>
-        <Box>
+        <Box pl={30}>
           <Group position="apart" spacing={"lg"}>
             <Group spacing={30}>
               <Stack align="center">
                 <Text color={COLOR.merah}>LOCKED AUDIENCE</Text>
                 <Title c={COLOR.hijauTua} fz={25} fw={700}>
                   {nDataAudience &&
-                    Intl.NumberFormat("id-ID").format(Number(locked))
-                  }
+                    Intl.NumberFormat("id-ID").format(Number(locked))}
                 </Title>
               </Stack>
               <Stack align="center">
                 <Text color={COLOR.merah}>FILTERED AUDIENCE</Text>
                 <Title c={COLOR.hijauTua} fz={25} fw={700}>
                   {nDataAudience &&
-                    Intl.NumberFormat("id-ID").format(
-                      Number(filtered)
-                    )
-                  }
+                    Intl.NumberFormat("id-ID").format(Number(filtered))}
                 </Title>
               </Stack>
             </Group>
