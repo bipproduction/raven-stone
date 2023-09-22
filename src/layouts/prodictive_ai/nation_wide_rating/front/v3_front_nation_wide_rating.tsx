@@ -78,7 +78,8 @@ export function V3FrontNationWideRating() {
           title={_.upperCase(t('common:nation_wide_rating'))}
           text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))}
         /> */}
-        <PageSubTitle text1="NATIONAL" text2="POPULARITY METRICS" />
+        {/* <PageSubTitle text1="NATIONAL" text2="POPULARITY METRICS" /> */}
+        <PageSubTitle text1={t('common:p_national')} text2={t('common:p_popularity_metrics')} />
 
         <Box px={"xl"}>
           {/* Select candidate */}
