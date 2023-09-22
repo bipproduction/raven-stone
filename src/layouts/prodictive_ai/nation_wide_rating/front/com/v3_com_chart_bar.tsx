@@ -1,5 +1,5 @@
 import { listEmotionColor } from "@/assets/list_emotion_color";
-import { Box, Group, Paper } from "@mantine/core";
+import { Box, Center, Container, Group, Paper } from "@mantine/core";
 import { EChartsOption } from "echarts";
 import EChartsReact from "echarts-for-react";
 import { useAtom } from "jotai";
@@ -106,13 +106,20 @@ export function V3ComChartBar() {
         color: "white",
       },
       show: true,
-      top: "20%",
-      right: "right",
-      orient: "vertical",
-      itemGap: 15,
-      itemWidth: 30,
-      itemHeight: 10,
-      padding: [0, 5, 0, 0],
+      bottom: "0%",
+    right: "0%",
+    width: "24%",
+    top: "25%",
+    orient: "vertical",
+    height: "61%",
+    align: "auto",
+    padding: [0, -0, 0, 0],
+    itemWidth: 25.5,
+    itemGap: 13.5
+      // itemGap: 15,
+      // itemWidth: 30,
+      // itemHeight: 10,
+      // padding: [0, 5, 0, 0],
       // data: (_.keys(_.omit(listData![0],[
       //   "id",
       //   "candidate1Id",
@@ -140,7 +147,7 @@ export function V3ComChartBar() {
       name: "Pie Chart",
 
       type: "pie",
-      radius: "70%",
+      radius: "60%",
       data: !listData![0]
         ? []
         : (_.keys(
@@ -163,8 +170,9 @@ export function V3ComChartBar() {
             }))
             .map((v) => ({
               value: v.value,
-              name: v.name,
+              name: t("common:" + v.name),
               itemStyle: {
+
                 color: listColorChart.find(
                   (c) => _.lowerCase(c.name) == _.lowerCase(v.name)
                 )?.color,
@@ -228,16 +236,19 @@ export function V3ComChartBar() {
         />
       </Paper> */}
       <Box
-        style={{
-          minHeight: 400,
-          minWidth: 500,
-          // backgroundColor: "gray",
+        // style={{
+        //   minHeight: 400,
+        //   minWidth: 500,
+        //   // backgroundColor: "gray",
 
-          // paddingRight: 150,
-          marginLeft: -100,
-          marginRight: 50,
-        }}
+        //   // paddingRight: 150,
+        //   marginLeft: -100,
+        //   marginRight: 50,
+        // }}
       >
+        <Container size="xs" px="xs">
+          <Center>
+
         <EChartsReact
           style={{
             // backgroundColor: "darkblue",
@@ -250,6 +261,8 @@ export function V3ComChartBar() {
           }}
           option={optionPie}
         />
+          </Center>
+        </Container>
       </Box>
     </>
   );
