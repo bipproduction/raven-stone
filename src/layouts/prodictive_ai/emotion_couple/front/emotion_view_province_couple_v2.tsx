@@ -166,11 +166,15 @@ export default function EmotionViewProvinceCoupleV2() {
 
         {/* raven */}
         <Box
-          pos={"sticky"}
-          top={60}
-          sx={{
-            zIndex: 100,
-          }}
+        pos={"sticky"}
+        top={0}
+        sx={{
+          zIndex: 100,
+          backgroundColor: "#230D38",
+          padding: 5,
+        }}
+        pt={"sm"}
+        pb={"sm"}
         >
           <Group spacing="xl">
             {/* <Text>{page}</Text>
@@ -271,7 +275,7 @@ export default function EmotionViewProvinceCoupleV2() {
           <Grid.Col md={5} lg={5}>
             <Box
               pos={"sticky"}
-              top={190}
+              top={153}
               sx={{
                 zIndex: 80,
               }}
