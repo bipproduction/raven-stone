@@ -78,7 +78,10 @@ export function V3FrontNationWideRating() {
           title={_.upperCase(t('common:nation_wide_rating'))}
           text={_.upperCase(t('common:emotional_meters_brand_merger_simulation'))}
         /> */}
-        <PageSubTitle text1={t('common:p_national')} text2={t('common:p_popularity_metrics')} />
+        <PageSubTitle
+          text1={t("common:p_national")}
+          text2={t("common:p_popularity_metrics")}
+        />
 
         <Box px={"xl"}>
           {/* Select candidate */}
@@ -99,7 +102,7 @@ export function V3FrontNationWideRating() {
             }}
           />
 
-          <Grid pt={50} align={"center"}>
+          <Grid pt={50} gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50}>
             {/* Photo candidate */}
             <Grid.Col span={4}>
               <Grid grow>
@@ -172,13 +175,13 @@ export function V3FrontNationWideRating() {
                     </AspectRatio>
 
                     <Center>
-                      <Title order={4} c={"white"} pt={20}>
+                      <Text fw={"bold"} style={{fontSize: "0.8vw"}} c={"white"} pt={20}>
                         {_.upperCase(
                           listCandidate?.find(
                             (v) => v.id == selectedCandidate.candidate1Id
                           ).name
                         )}
-                      </Title>
+                      </Text>
                     </Center>
                   </Box>
                 </Grid.Col>
@@ -249,15 +252,14 @@ export function V3FrontNationWideRating() {
                       </Group> */}
                       </BackgroundImage>
                     </AspectRatio>
-                    <Center>
-                      <Title order={4} c={"white"} pt={20}>
-                        {" "}
+                    <Center pt={20}>
+                      <Text fw={"bold"} style={{fontSize: "0.8vw"}} c={"white"}>
                         {_.upperCase(
                           listCandidate?.find(
                             (v) => v.id == selectedCandidate.candidate2Id
                           ).name
                         )}
-                      </Title>
+                      </Text>
                     </Center>
                   </Box>
                 </Grid.Col>
@@ -265,7 +267,7 @@ export function V3FrontNationWideRating() {
             </Grid.Col>
 
             {/* Text Succes */}
-            <Grid.Col span={4}>
+            <Grid.Col span={"auto"}>
               <Group pl={40}>
                 <Box>
                   <Text style={{ fontSize: "2.5vw" }} c={"white"} fw={"bold"}>
@@ -287,7 +289,7 @@ export function V3FrontNationWideRating() {
             </Grid.Col>
 
             {/* Persen */}
-            <Grid.Col span={4}>
+            <Grid.Col span={"auto"}>
               <Box>
                 {!listData ? (
                   <Loader />
