@@ -59,7 +59,8 @@ export const VerificationCode = () => {
                                                     // 1 jam = 1 * 60 * 60 * 1000
                                                     // 1 menit = 1 * 60  * 1000
                                                     const expTime = now.getTime() + (1 * 60 * 60 * 1000);
-                                                    setValTimeOut(expTime)
+                                                    localStorage.setItem('_jam', expTime.toString())
+                                                    // setValTimeOut(expTime)
                                                     // console.log(now.getTime()+'----'+ new Date(expTime));
                                                     setIsVerif(false)
                                                 }
