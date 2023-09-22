@@ -91,6 +91,8 @@
     "p_data_pairing":"DATA DAERAH",
     "select_regions":"Pilih Daerah",
     "p_success_probability": "PROYEKSI",
-    "p_projection": "PROBABILITAS SUKSES",
-    "verification_code": "Kode Verifikasi"
+    "p_projection": "PROBABILITAS SUKSES (TOP 5)",
+    "verification_code": "Kode Verifikasi",
+    "p_national": "METRIK",
+    "p_popularity_metrics": "POPULARITAS NASIONAL"
 }
