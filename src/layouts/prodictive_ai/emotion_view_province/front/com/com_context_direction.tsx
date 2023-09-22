@@ -88,7 +88,7 @@ export function ComContextDirection({ provinceId }: { provinceId: any }) {
       {/* <pre>{JSON.stringify(listContextDirection, null, 2)}</pre> */}
       <Box p={"xs"}>
         <Box>
-        <Title c={"white"} fz={20} pl={140}>PUBLIC CONCERNS TRENDS</Title>
+        <Title c={"white"} fz={20} pl={140}>{_.upperCase(t('common:public_concerns_trends'))}</Title>
           <EChartsReact
             style={{
               width: "100%",

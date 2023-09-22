@@ -14,6 +14,7 @@ import colors from "randomcolor";
 import useTranslate from "next-translate/useTranslation";
 import Trs from "@/fun_load/trs";
 import { COLOR } from "@/global/fun/color_global";
+import _ from "lodash";
 
 export function ComKabupatenWordCloud({ cityId }: { cityId: any }) {
   // console.log(data.cityId)
@@ -42,7 +43,7 @@ export function ComKabupatenWordCloud({ cityId }: { cityId: any }) {
         // bg={stylesGradient1}
       >
         <Title order={3} c={"white"} pl={10}>
-          REGIONS HOT ISSUE
+          {_.upperCase(t('common:region_hot_issue'))}
         </Title>
         {/* {JSON.stringify(listData)} */}
         <Box sx={{ overflow: "scroll" }} w={"100%"} pt={15}>

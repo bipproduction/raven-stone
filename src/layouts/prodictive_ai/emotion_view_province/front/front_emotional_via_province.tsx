@@ -75,7 +75,7 @@ export const FrontEmotionalViewViaProvince = () => {
                     <Box>
                       <Group position="right" pr={40}>
                         <Title c={"white"} fz={20}>
-                          SENTIMENT ANALYSIS
+                          {_.upperCase(t('common:sentiment_analysis'))}
                         </Title>
                       </Group>
                       <Center>
@@ -86,13 +86,13 @@ export const FrontEmotionalViewViaProvince = () => {
                       <Group position="apart" spacing={"lg"}>
                         <Group spacing={30}>
                           <Stack align="center">
-                            <Text color={COLOR.merah}>Locked Audience</Text>
+                            <Text color={COLOR.merah}>{t('common:locked_audience')}</Text>
                             <Title c={COLOR.hijauTua} fz={25} fw={700}>
                               {Intl.NumberFormat("id-ID").format(v.total)}
                             </Title>
                           </Stack>
                           <Stack align="center">
-                            <Text color={COLOR.merah}>Filtered Audience</Text>
+                            <Text color={COLOR.merah}>{t('common:filtered_audience')}</Text>
                             <Title c={COLOR.hijauTua} fz={25} fw={700}>
                               {Intl.NumberFormat("id-ID").format(
                                 _.sum(_.values(v.emotion))

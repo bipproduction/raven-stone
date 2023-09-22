@@ -22,12 +22,12 @@ const listMenu = [
 
 export function MainEmotionViewProvince() {
   const [selectedMenu, setSelectedMenu] = useAtom(val_selected_menu_id);
-  const {t,lang} = useTranslate();
+  const { t, lang } = useTranslate();
   return (
     <>
       <Stack spacing={"lg"}>
         {/* <PageTitle title={t('common:emotional_view_via_province')} /> */}
-        <PageSubTitle text1="REGIONAL" text2="INSIGHTS"/>
+        <PageSubTitle text1={t('common:p_regional_p')} text2={t('common:p_insight')} />
         {(() => {
           const View = listMenu.find((v) => v.id === selectedMenu)!.view;
           return (

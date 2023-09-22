@@ -71,7 +71,7 @@ export function ComChartKabupatenContextDirection({ data }: { data: any }) {
     <>
       <Box p={"xs"} pt={50}>
         <Box>
-        <Title c={"white"} fz={20} >PUBLIC CONCERNS TRENDS</Title>
+          <Title c={"white"} fz={20}>{_.upperCase(t('common:public_concerns_trends'))}</Title>
           <EChartsReact
             style={{
               width: "100%",
