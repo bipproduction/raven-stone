@@ -6,7 +6,8 @@ const loginBaru = async (req: NextApiRequest, res: NextApiResponse) => {
         const data = await client.user.findFirst({
             where: {
                 email: body.email,
-                isLogin: false
+                isLogin: false,
+                isActive: true
             },
             select: {
                 id: true,
