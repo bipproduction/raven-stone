@@ -6,7 +6,7 @@ export const val_list_color = [
     "#C6E2B7",
     "#98CC6F",
     "#145c8c",
-    "#7f94e9",
+    "#613f98",
     "#20b0d8",
     "#f6bbab",
     "#f17867",
