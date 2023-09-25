@@ -150,7 +150,7 @@ export function V3FrontNationWideRating() {
                             fz={{ lg: 10, md: 6, sm: 4 }}
                             color="white"
                           >
-                            PRESIDENT
+                            {_.upperCase(t('common:president'))}
                           </Title>
 
                           {/* <Box
@@ -224,7 +224,7 @@ export function V3FrontNationWideRating() {
                             fz={{ lg: 10, md: 6, sm: 4 }}
                             color="white"
                           >
-                            VICE PRESIDENT
+                            {_.upperCase(t('common:vice_president'))}
                           </Text>
                         </AspectRatio>
                         {/* <Group
@@ -271,18 +271,18 @@ export function V3FrontNationWideRating() {
               <Group pl={40}>
                 <Box>
                   <Text style={{ fontSize: "2.5vw" }} c={"white"} fw={"bold"}>
-                    SUCCESS{" "}
+                    {t('common:p_success_probability')}{" "}
                   </Text>
-                  <Text style={{ fontSize: "2.5vw" }} c={"white"} fw={"bold"}>
+                  {/* <Text style={{ fontSize: "2.5vw" }} c={"white"} fw={"bold"}>
                     PROBABILITY{" "}
-                  </Text>
+                  </Text> */}
                   <Text
                     style={{ fontSize: "2.5vw" }}
                     c={"white"}
                     fs={"italic"}
                     fw={"lighter"}
                   >
-                    PROJECTION{" "}
+                    {t('common:p_projection')}{" "}
                   </Text>
                 </Box>
               </Group>
