@@ -58,9 +58,12 @@ export function ComSelectCandidate({
           zIndex: 100,
           backgroundColor: "#230D38",
           padding: 5,
+          borderBottomLeftRadius: 15,
+          borderBottomRightRadius: 15
         }}
         pt={"sm"}
         pb={"sm"}
+        pr={20}
       >
         <Group position="right" spacing={"lg"} align="end">
           <TextInput
