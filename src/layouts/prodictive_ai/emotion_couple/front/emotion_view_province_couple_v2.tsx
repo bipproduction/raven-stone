@@ -324,7 +324,7 @@ export default function EmotionViewProvinceCoupleV2() {
                             fz={{ lg: 10, md: 6, sm: 4 }}
                             color="white"
                           >
-                            PRESIDENT
+                            {_.upperCase(t('common:president'))}
                           </Title>
                         </AspectRatio>
                       </BackgroundImage>
@@ -376,7 +376,7 @@ export default function EmotionViewProvinceCoupleV2() {
                             fz={{ lg: 10, md: 6, sm: 4 }}
                             color="white"
                           >
-                            VICE PRESIDENT
+                            {_.upperCase(t('common:vice_president'))}
                           </Text>
                         </AspectRatio>
                       </BackgroundImage>

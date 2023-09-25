@@ -77,19 +77,19 @@ export const ComChartBar = ({ lsData }: { lsData: any }) => {
       {
         type: "category",
         data: [
-          "Confidence",
-          "Supportive",
-          "Positive",
-          "Undecided",
-          "Unsupportive",
-          "Uncomfrotable",
-          "Negative",
-          "Disapproval",
+          t("common:trust"),
+          t("common:joy"),
+          t("common:surprise"),
+          t("common:anticipation"),
+          t("common:sadness"),
+          t("common:fear"),
+          t("common:anger"),
+          t("common:disgust"),
         ],
         axisTick: {
           alignWithLabel: true,
         },
-        
+
         axisLabel: {
           verticalAlign: "middle",
           color: "white",
@@ -113,16 +113,16 @@ export const ComChartBar = ({ lsData }: { lsData: any }) => {
         barWidth: "60%",
         data: Object.keys(lsData ?? []).map(
           (v) =>
-            ({
-              name: _.lowerCase(t("common:" + v)),
-              
-              value: lsData[v],
-              itemStyle: {
-                color:
-                  listColorChart.find((v2) => _.lowerCase(v2.name) == v)
-                    ?.color ?? "gray",
-              },
-            } as any)
+          ({
+            name: _.lowerCase(t("common:" + v)),
+
+            value: lsData[v],
+            itemStyle: {
+              color:
+                listColorChart.find((v2) => _.lowerCase(v2.name) == v)
+                  ?.color ?? "gray",
+            },
+          } as any)
         ),
       },
     ],
