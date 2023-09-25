@@ -32,6 +32,7 @@ import useTranslate from 'next-translate/useTranslation'
 import { ModelTop10Province } from "@/model/top_10_province";
 import { api } from "@/lib/api";
 import moment from "moment";
+import { COLOR } from "@/global/fun/color_global";
 
 // text="TOP 10 aktivitas berdasarkan kalkulasi kompleks yang menghasilkan prediksi dari penggabungan proses data mining dan olah data Machine Learning & Artificial Intelligence. var = NLP + FR + Socmed + Internet Behaviours"
 const Top10ProvinceByConversation = ({ id }: { id: any }) => {
@@ -197,57 +198,57 @@ const Top10ProvinceByConversation = ({ id }: { id: any }) => {
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"green.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.hijauTua} align="right">
                           {Intl.NumberFormat("id-ID").format(v.trust)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"green.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.hijau} align="right">
                           {Intl.NumberFormat("id-ID").format(v.joy)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"green.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.hijauMuda} align="right">
                           {Intl.NumberFormat("id-ID").format(v.surprise)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"gray.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.putih} align="right">
                           {Intl.NumberFormat("id-ID").format(v.anticipation)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.merahMuda} align="right">
                           {Intl.NumberFormat("id-ID").format(v.sadness)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.merahMudaTua} align="right">
                           {Intl.NumberFormat("id-ID").format(v.fear)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.merah} align="right">
                           {Intl.NumberFormat("id-ID").format(v.anger)}
                         </Text>
                       </Paper>
                     </td>
                     <td style={{ padding: 0 }}>
-                      <Paper bg={"pink.1"} p={"xs"} radius={0}>
-                        <Text fw={"bold"} color={"gray"} align="right">
+                      <Paper p={"xs"} radius={0}>
+                        <Text fw={"bold"} color={COLOR.merahTua} align="right">
                           {Intl.NumberFormat("id-ID").format(v.disgust)}
                         </Text>
                       </Paper>
