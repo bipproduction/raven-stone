@@ -75,7 +75,11 @@ export function FrontDetailKabupaten() {
             zIndex: 100,
             backgroundColor: "#230D38",
             padding: 5,
+            borderBottomLeftRadius: 15,
+            borderBottomRightRadius: 15
           }}
+          pr={20}
+          pl={20}
         >
           <Group
             position="apart"

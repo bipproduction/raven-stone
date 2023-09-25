@@ -172,9 +172,13 @@ export default function EmotionViewProvinceCoupleV2() {
           zIndex: 100,
           backgroundColor: "#230D38",
           padding: 5,
+          borderBottomLeftRadius: 15,
+          borderBottomRightRadius: 15
         }}
         pt={"sm"}
         pb={"sm"}
+        pr={20}
+        pl={20}
         >
           <Group spacing="xl">
             {/* <Text>{page}</Text>
