@@ -818,13 +818,13 @@ const MyNavbar = () => {
                   {/* <Text fz={9} c={"gray"}>
                 Bip Production @2023
               </Text> */}
-                  <Image
+                  {/* <Image
                     p={"lg"}
                     src={
                       "https://str.wibudev.com/api/file/get/cllkk1rea000f9uhkcck9f1jh.png"
                     }
                     alt=""
-                  />
+                  /> */}
                 </Stack>
               </Flex>
             </Navbar.Section>
