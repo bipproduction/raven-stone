@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Box,
+  Center,
   Flex,
   Grid,
   Group,
@@ -20,13 +21,16 @@ import PageSubTitle from "@/global/components/PageSubTitle";
 import { useState } from "react";
 import { useShallowEffect } from "@mantine/hooks";
 import Trs from "@/fun_load/trs";
-import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import { MdArrowBackIos, MdArrowForwardIos, MdOutbox } from "react-icons/md";
 import TextAnimation from "react-typing-dynamics";
 import { api } from "@/lib/api";
 import { sCandidate } from "@/s_state/s_candidate";
 import { useAtom } from "jotai";
 import { v3_val_nation_wide_rating_selected_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_selected_candidate";
 import { v3_val_nation_wide_rating_list_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_list_candidate";
+import { IconArrowBack, IconArrowLeft } from "@tabler/icons-react";
+import { Button } from "antd";
+import { Pagination } from '@mantine/core';
 
 export default function Mlai() {
   const { t, lang } = useTranslate();
@@ -139,11 +143,92 @@ function Analisys() {
           </Box>
         </Grid.Col>
         <Grid.Col md={10} lg={10}>
-          <SingleView listSingle={listSingle} />
+          <DoubleView list_double={listDouble} />
+          {/* {JSON.stringify(listDouble)} */}
+          {/* <SingleView listSingle={listSingle} /> */}
         </Grid.Col>
       </Grid>
     </Stack>
   );
+}
+
+function DoubleView({ list_double }: { list_double?: any[] }) {
+  const [pointer, setPointer] = useState<number | null>(1)
+  const [innerPointer, setInnerPointer] = useState(0)
+
+  if (!list_double || _.isEmpty(list_double)) return <></>
+  return <>
+    <Stack>
+      <Box>
+        <Stack spacing={"md"}>
+          {/* <Text>{list_double.length}</Text>
+          <Text>{list_double![pointer]['SwotAnalisys'].length}</Text> */}
+
+          {/* <Group>
+            <Flex gap={"sm"} >
+              {list_double.map((v, k) => <Button key={k}>
+                <Text>{k + 1}</Text>
+              </Button>)}
+            </Flex>
+          </Group> */}
+
+          {!_.isEmpty(list_double) && !_.isEmpty(list_double![0]['SwotAnalisys']) && <Pagination total={list_double.length} onChange={(v) => {
+            setPointer(null)
+            setTimeout(() => {
+              setPointer(v)
+            }, 100)
+          }} />}
+          <ScrollArea h={500} p={"md"} style={{
+            backgroundColor: "rgba(0, 0, 0, .25)"
+          }}>
+            <Stack>
+              {/* <pre>
+                {JSON.stringify(list_double, null, 2)}
+              </pre> */}
+              {pointer && !_.isEmpty(list_double![pointer - 1]['SwotAnalisys']) ? <Trs text={list_double![pointer - 1]['SwotAnalisys'][innerPointer]['content']} lang={"eng"}>
+                {(val: any) => (
+                  <>
+                    {val && (
+                      <TextAnimation
+                        phrases={[val]}
+                        typingSpeed={0}
+                        backspaceDelay={0}
+                        eraseDelay={0}
+                        errorProbability={0.1}
+                        eraseOnComplete={false}
+                      />
+                    )}
+                  </>
+                )}
+              </Trs> : <Center>
+                <Title>- Empty Data -</Title>
+              </Center>}
+            </Stack>
+          </ScrollArea>
+          {/* <Group position="right">
+            <Flex gap={"lg"} bg={"gray"} px={"lg"} w={150} justify={"center"}>
+              <ActionIcon onClick={() => {
+                if (list_double![pointer]['SwotAnalisys'].length > 0 && innerPointer > 0) {
+                  let p = innerPointer
+                  p--;
+                  setInnerPointer(p)
+                } else {
+                  let p = innerPointer
+                  p++;
+                  setInnerPointer(p)
+                }
+              }}>
+                <MdArrowBackIos />
+              </ActionIcon>
+              <ActionIcon>
+                <MdArrowForwardIos />
+              </ActionIcon>
+            </Flex>
+          </Group> */}
+        </Stack>
+      </Box>
+    </Stack>
+  </>
 }
 
 function SingleView({ listSingle }: { listSingle: any[] | undefined }) {
