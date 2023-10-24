@@ -1,36 +1,28 @@
+import Trs from "@/fun_load/trs";
+import PageSubTitle from "@/global/components/PageSubTitle";
+import { api } from "@/lib/api";
+import { sCandidate } from "@/s_state/s_candidate";
 import {
-  ActionIcon,
   Box,
   Center,
-  Flex,
   Grid,
   Group,
   Image,
-  Paper,
+  Pagination,
   ScrollArea,
   Select,
-  SimpleGrid,
   Stack,
   Text,
-  Title,
+  Title
 } from "@mantine/core";
-import PageTitle from "../page_title";
+import { useShallowEffect } from "@mantine/hooks";
+import { useAtom } from "jotai";
 import _ from "lodash";
 import useTranslate from "next-translate/useTranslation";
-import PageSubTitle from "@/global/components/PageSubTitle";
 import { useState } from "react";
-import { useShallowEffect } from "@mantine/hooks";
-import Trs from "@/fun_load/trs";
-import { MdArrowBackIos, MdArrowForwardIos, MdOutbox } from "react-icons/md";
 import TextAnimation from "react-typing-dynamics";
-import { api } from "@/lib/api";
-import { sCandidate } from "@/s_state/s_candidate";
-import { useAtom } from "jotai";
-import { v3_val_nation_wide_rating_selected_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_selected_candidate";
 import { v3_val_nation_wide_rating_list_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_list_candidate";
-import { IconArrowBack, IconArrowLeft } from "@tabler/icons-react";
-import { Button } from "antd";
-import { Pagination } from '@mantine/core';
+import { v3_val_nation_wide_rating_selected_candidate } from "../prodictive_ai/nation_wide_rating/val/v3_nation_wide_rating_selected_candidate";
 
 export default function Mlai() {
   const { t, lang } = useTranslate();
@@ -82,6 +74,8 @@ function Analisys() {
       });
   }
 
+  const [reset_ml, set_reset_ml] = useState<boolean | null>(true)
+
   useShallowEffect(() => {
     loadData(candidateId);
   }, []);
@@ -100,11 +94,6 @@ function Analisys() {
             }}
           >
             <Box
-            // sx={{
-            //   backgroundColor: "white",
-            //   padding: 3,
-            //   borderRadius: 10,
-            // }}
             >
               <Image
                 alt="image"
@@ -136,6 +125,10 @@ function Analisys() {
                   if (val) loadData(Number(val));
                   await new Promise(r => setTimeout(r, 1));
                   await loadData(Number(val));
+                  set_reset_ml(null)
+                  setTimeout(() => {
+                    set_reset_ml(true)
+                  }, 100)
                 }}
                 w={350}
               />
@@ -143,7 +136,7 @@ function Analisys() {
           </Box>
         </Grid.Col>
         <Grid.Col md={10} lg={10}>
-          <SingleV2 list_single={listSingle as any} />
+          {reset_ml && <SingleV2 list_single={listSingle as any} />}
           {/* <DoubleView list_double={listDouble} /> */}
           {/* {JSON.stringify(listDouble)} */}
           {/* <SingleView listSingle={listSingle} /> */}
