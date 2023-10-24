@@ -313,10 +313,10 @@ const Dashboard = (props: any) => {
     console.log(jam)
   }, 5000)
 
-  usePageLeave(() => {
-    console.log("ditinggalkan")
-    start();
-  })
+  // usePageLeave(() => {
+  //   console.log("ditinggalkan")
+  //   start();
+  // })
 
 
   const { start, clear } = useTimeout(() => {
@@ -351,56 +351,56 @@ const Dashboard = (props: any) => {
   }
 
   useShallowEffect(() => {
-    start();
-    const gj = localStorage.getItem("_jam")
-    if (gj) {
-      const _jam = moment(new Date(+gj!))
-      const _skr = moment(new Date())
-      const diff = _jam.diff(_skr, "seconds")
-      // console.log(diff, "ini diffnya")
-      if (diff <= 0) {
-        console.log("habis")
-        const body = {
-          id: localStorage.getItem("user_id"),
-          isLogin: false,
-        };
-        fetch(api.apiUpdIsLogin, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }).then(async (res) => {
-          if (res.status === 200) {
-            localStorage.removeItem("user_id");
-            localStorage.removeItem("_jam");
-            sUser.value = {};
-            // setValTimeOut(undefined)
-          }
-        });
-      }
+    // start();
+    // const gj = localStorage.getItem("_jam")
+    // if (gj) {
+    //   const _jam = moment(new Date(+gj!))
+    //   const _skr = moment(new Date())
+    //   const diff = _jam.diff(_skr, "seconds")
+    //   // console.log(diff, "ini diffnya")
+    //   if (diff <= 0) {
+    //     console.log("habis")
+    //     const body = {
+    //       id: localStorage.getItem("user_id"),
+    //       isLogin: false,
+    //     };
+    //     fetch(api.apiUpdIsLogin, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(body),
+    //     }).then(async (res) => {
+    //       if (res.status === 200) {
+    //         localStorage.removeItem("user_id");
+    //         localStorage.removeItem("_jam");
+    //         sUser.value = {};
+    //         // setValTimeOut(undefined)
+    //       }
+    //     });
+    //   }
 
 
-    }
-    // interval.start();
+    // }
+    // // interval.start();
 
-    window.addEventListener("mousemove", () => {
-      clear();
-      interval.stop()
-      // nowTime();
-      const now = new Date().getTime() + (1 * 60 * 60 * 1000);
-      localStorage.setItem('_jam', now.toString())
-      // setValTimeOut(now)
-    })
+    // window.addEventListener("mousemove", () => {
+    //   clear();
+    //   interval.stop()
+    //   // nowTime();
+    //   const now = new Date().getTime() + (1 * 60 * 60 * 1000);
+    //   localStorage.setItem('_jam', now.toString())
+    //   // setValTimeOut(now)
+    // })
 
-    return () => {
-      clear();
-      // interval.stop();
+    // return () => {
+    //   clear();
+    //   // interval.stop();
 
-      // const now = new Date().getTime() + (1 * 60 * 60 * 1000);
-      // localStorage.setItem('_jam', now.toString())
-      // setValTimeOut(now)
-    }
+    //   // const now = new Date().getTime() + (1 * 60 * 60 * 1000);
+    //   // localStorage.setItem('_jam', now.toString())
+    //   // setValTimeOut(now)
+    // }
   }, [])
 
   useShallowEffect(() => {
