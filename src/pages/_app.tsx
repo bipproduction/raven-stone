@@ -116,10 +116,10 @@ export default function App(props: any) {
         }}
       >
         <FirebaseProvider>
-          {/* <AuthProvider>
+          <AuthProvider>
             <Component {...pageProps} />
-          </AuthProvider> */}
-          <Component {...pageProps} />
+          </AuthProvider>
+          {/* <Component {...pageProps} /> */}
         </FirebaseProvider>
       </MantineProvider>
     </>
