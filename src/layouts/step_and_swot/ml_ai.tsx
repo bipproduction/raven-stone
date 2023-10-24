@@ -156,6 +156,7 @@ function Analisys() {
 
 function SingleV2({ list_single }: { list_single: any[] }) {
   const [pointer, setPointer] = useState<number | null>(1)
+
   if (_.isEmpty(list_single)) return <></>
   return <>
     <Stack>
@@ -169,7 +170,7 @@ function SingleV2({ list_single }: { list_single: any[] }) {
       <ScrollArea h={500} p={"md"} style={{
         backgroundColor: "rgba(0, 0, 0, .25)"
       }}>
-        {pointer && !_.isEmpty(list_single) && !_.isEmpty(list_single[0]['SwotAnalisys']) && <Trs text={list_single[0]['SwotAnalisys'][pointer! - 1]['content']} lang={"eng"}>
+        {pointer && !_.isEmpty(list_single) && !_.isEmpty(list_single[0]['SwotAnalisys']) && list_single[0]['SwotAnalisys'][pointer! - 1] && <Trs text={list_single[0]['SwotAnalisys'][pointer! - 1]['content']} lang={"eng"}>
           {(val: any) => (
             <>
               {val && (
