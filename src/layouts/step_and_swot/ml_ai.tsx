@@ -143,13 +143,53 @@ function Analisys() {
           </Box>
         </Grid.Col>
         <Grid.Col md={10} lg={10}>
-          <DoubleView list_double={listDouble} />
+          <SingleV2 list_single={listSingle as any} />
+          {/* <DoubleView list_double={listDouble} /> */}
           {/* {JSON.stringify(listDouble)} */}
           {/* <SingleView listSingle={listSingle} /> */}
         </Grid.Col>
       </Grid>
     </Stack>
   );
+}
+
+
+function SingleV2({ list_single }: { list_single: any[] }) {
+  const [pointer, setPointer] = useState<number | null>(1)
+  if (_.isEmpty(list_single)) return <></>
+  return <>
+    <Stack>
+      {/* {JSON.stringify(list_single[0]['SwotAnalisys'].length)} */}
+      <Pagination total={list_single[0]['SwotAnalisys'].length} onChange={(v) => {
+        setPointer(null)
+        setTimeout(() => {
+          setPointer(v)
+        }, 100)
+      }} />
+      <ScrollArea h={500} p={"md"} style={{
+        backgroundColor: "rgba(0, 0, 0, .25)"
+      }}>
+        {pointer && !_.isEmpty(list_single) && !_.isEmpty(list_single[0]['SwotAnalisys']) && <Trs text={list_single[0]['SwotAnalisys'][pointer! - 1]['content']} lang={"eng"}>
+          {(val: any) => (
+            <>
+              {val && (
+                <TextAnimation
+                  phrases={[val]}
+                  typingSpeed={0}
+                  backspaceDelay={0}
+                  eraseDelay={0}
+                  errorProbability={0.1}
+                  eraseOnComplete={false}
+                />
+              )}
+            </>
+          )}
+        </Trs>}
+      </ScrollArea>
+
+    </Stack>
+
+  </>
 }
 
 function DoubleView({ list_double }: { list_double?: any[] }) {
